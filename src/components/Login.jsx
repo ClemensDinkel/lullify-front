@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Card, Form, Button } from "react-bootstrap";
 
 const Login = () => {
     const [userInput, setUserInput] = useState("")
@@ -8,6 +8,8 @@ const Login = () => {
 
     return (
         <>
+        <Card style={{ width: "30rem" }}>
+        <Card.Body>
             <Form method="POST" action="https://tranquil-reaches-12289.herokuapp.com/login">
                 <Form.Group controlId="formBasicEmail">
                     <Form.Label>User</Form.Label>
@@ -25,6 +27,8 @@ const Login = () => {
                     Login
                 </Button>
             </Form>
+            </Card.Body>
+            </Card>
         </>
     )
 }
