@@ -1,13 +1,32 @@
 import { Navbar, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap'
+/* import { Link } from 'react-router-dom'; */
 import logo_image from '../images/logo5.png'
+import { useState, useEffect } from 'react';
+import { useHistory } from "react-router-dom";
 
 const Navigation = () => {
+
+    const [userToken , setUserToken] = useState(null)
+
+    useEffect(() => {
+        setUserToken(sessionStorage.getItem('auth-token'))
+    }, [])
+
+    const history = useHistory()
+
+    const logOut = (e) => {
+            e.preventDefault();
+            sessionStorage.clear();
+            history.push('/')
+    }
+    
+
     return (
         <>
             <Navbar bg="dark" variant="dark" expand="lg">
-                <Navbar.Brand href="/"><img src={logo_image} alt="lullify-logo"/></Navbar.Brand>
+                <Navbar.Brand href="/"><img src={logo_image} alt="lullify-logo" /></Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll" />
-                <Navbar.Collapse id="navbarScroll" justify-content-space-between>
+                <Navbar.Collapse id="navbarScroll" justify-content-space-between="true">
 
                     <Form className="d-flex">
                         <Form.Control
@@ -37,11 +56,24 @@ const Navigation = () => {
                     >
                         <Nav.Link href="/">Home</Nav.Link>
                         <Nav.Link href="/about">About Us</Nav.Link>
-                        <Nav.Link href="/login">Login</Nav.Link>
-                        <NavDropdown title="Register" id="navbarScrollingDropdown">
-                            <NavDropdown.Item href="/register/userRegister">User</NavDropdown.Item>
-                            <NavDropdown.Item href="/register/creatorRegister">Content Creator</NavDropdown.Item>
-                        </NavDropdown>
+                        {
+                            userToken !== null ?
+                                <>
+                                    <NavDropdown title="UserInfo" id="navbarScrollingDropdown">
+                                        <NavDropdown.Item href="/profile" >Profile</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={logOut}>LogOut</NavDropdown.Item>
+                                    </NavDropdown>
+                                </>
+                                :
+                                <>
+                                    <Nav.Link href="/login">Login</Nav.Link>
+                                    <NavDropdown title="Register" id="navbarScrollingDropdown">
+                                        <NavDropdown.Item href="/register/userRegister">User</NavDropdown.Item>
+                                        <NavDropdown.Item href="/register/creatorRegister">Content Creator</NavDropdown.Item>
+                                    </NavDropdown>
+                                </>
+                        }
+                        
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>

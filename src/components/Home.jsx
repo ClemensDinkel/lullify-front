@@ -8,7 +8,7 @@ const root = "https://tranquil-reaches-12289.herokuapp.com"
 const Home = () => {
     const [data, setData] = useState([])
 
-    useEffect(() => {
+    /* useEffect(() => {
         getUser()
     }, [data])
 
@@ -18,7 +18,7 @@ const Home = () => {
           .then((response) => {
             console.log(response.data);
           });
-      };
+      }; */
 
     return (
         <>

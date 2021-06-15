@@ -15,7 +15,7 @@ const App = () => {
 
   const fetchVideos = async() => {
     await Axios.get(`https://tranquil-reaches-12289.herokuapp.com/videos`)
-    .then(res => console.log(res.data))
+    .then(res => setVideos(res.data))
     .catch(err => console.log(err))
   }
 
