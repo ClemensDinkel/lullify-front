@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import queryString from "query-string";
 
+
 const CreatorRegister = () => {
   const [ccRegister, setCcRegister] = useState({
     first_name: "",
