@@ -58,6 +58,7 @@ const UserRegister = () => {
                   name="first_name"
                   value={newRegister.first_name}
                   onChange={onChange}
+                  required
                 />
               </Form.Group>
 
@@ -69,6 +70,7 @@ const UserRegister = () => {
                   name="last_name"
                   value={newRegister.last_name}
                   onChange={onChange}
+                  required
                 />
               </Form.Group>
 
@@ -80,6 +82,7 @@ const UserRegister = () => {
                   name="user_name"
                   value={newRegister.user_name}
                   onChange={onChange}
+                  required
                 />
               </Form.Group>
             </Form.Row>
@@ -93,6 +96,7 @@ const UserRegister = () => {
                   name="email"
                   value={newRegister.email}
                   onChange={onChange}
+                  required
                 />
               </Form.Group>
 
@@ -104,6 +108,7 @@ const UserRegister = () => {
                   name="password"
                   value={newRegister.password}
                   onChange={onChange}
+                  required
                 />
               </Form.Group>
             </Form.Row>

@@ -38,8 +38,8 @@ const CreatorRegister = () => {
     e.preventDefault();
 
     const newUser = {
-      firs_tname: ccRegister.firstname,
-      last_name: ccRegister.lastname,
+      first_name: ccRegister.first_name,
+      last_name: ccRegister.last_name,
       user_name: ccRegister.user_name,
       email: ccRegister.email,
       password: ccRegister.password,
@@ -52,13 +52,14 @@ const CreatorRegister = () => {
     };
 
     register(queryString.stringify(newUser)).then((res) => {
+      console.log(newUser)
       history.push(`/login`);
     });
   };
 
   return (
     <>
-      <p>CreratorRegister</p>
+      <p>CreatorRegister</p>
       <Card style={{ width: "30rem" }}>
         <Card.Body>
           <Form onSubmit={onSubmit}>
@@ -71,6 +72,7 @@ const CreatorRegister = () => {
                   name="first_name"
                   value={ccRegister.first_name}
                   onChange={onChange}
+                  required
                 />
               </Form.Group>
 
@@ -82,6 +84,7 @@ const CreatorRegister = () => {
                   name="last_name"
                   value={ccRegister.last_name}
                   onChange={onChange}
+                  required
                 />
               </Form.Group>
 
@@ -93,6 +96,7 @@ const CreatorRegister = () => {
                   name="user_name"
                   value={ccRegister.user_name}
                   onChange={onChange}
+                  required
                 />
               </Form.Group>
             </Form.Row>
@@ -106,6 +110,7 @@ const CreatorRegister = () => {
                   name="email"
                   value={ccRegister.email}
                   onChange={onChange}
+                  required
                 />
               </Form.Group>
 
@@ -117,6 +122,7 @@ const CreatorRegister = () => {
                   name="password"
                   value={ccRegister.password}
                   onChange={onChange}
+                  required
                 />
               </Form.Group>
             </Form.Row>
@@ -130,6 +136,7 @@ const CreatorRegister = () => {
                   name="phone"
                   value={ccRegister.phone}
                   onChange={onChange}
+                  required
                 />
               </Form.Group>
             </Form.Row>
@@ -143,6 +150,7 @@ const CreatorRegister = () => {
                   name="city_code"
                   value={ccRegister.city_code}
                   onChange={onChange}
+                  required
                 />
               </Form.Group>
             </Form.Row>
@@ -156,6 +164,7 @@ const CreatorRegister = () => {
                   name="city_name"
                   value={ccRegister.city_name}
                   onChange={onChange}
+                  required
                 />
               </Form.Group>
             </Form.Row>
@@ -169,6 +178,7 @@ const CreatorRegister = () => {
                   name="country"
                   value={ccRegister.country}
                   onChange={onChange}
+                  required
                 />
               </Form.Group>
             </Form.Row>
@@ -182,6 +192,7 @@ const CreatorRegister = () => {
                   name="company"
                   value={ccRegister.company}
                   onChange={onChange}
+                  required
                 />
               </Form.Group>
             </Form.Row>

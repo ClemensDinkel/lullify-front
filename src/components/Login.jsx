@@ -1,33 +1,78 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useHistory } from "react-router-dom";
+import { login } from "./AuthFunctions";
 import { Card, Form, Button } from "react-bootstrap";
+import queryString from "query-string";
 
 const Login = () => {
-    const [userInput, setUserInput] = useState("")
-    const [password, setPassword] = useState("")
-    const root = "https://tranquil-reaches-12289.herokuapp.com/"
+    const [newLogin, setNewLogin] = useState({
+        email: "",
+        password: "",
+        errors: {}
+    });
+
+    let history = useHistory();
+
+    const onChange = (e) => {
+        let keyName = e.target.name;
+        let value = e.target.value;
+        setNewLogin((previous) => {
+          return {
+            ...previous,
+            [keyName]: value,
+          };
+        });
+      }
+    
+      const onSubmit = (e) => {
+        e.preventDefault();
+    
+        const loginUser = {
+          email: newLogin.email,
+          password: newLogin.password,
+        };
+    
+        login(queryString.stringify(loginUser)).then((res) => {
+          history.push(`/`);
+        });
+      };
 
     return (
         <>
-        <Card style={{ width: "30rem" }}>
-        <Card.Body>
-            <Form method="POST" action="https://tranquil-reaches-12289.herokuapp.com/login">
-                <Form.Group controlId="formBasicEmail">
-                    <Form.Label>User</Form.Label>
-                    <Form.Control type="email" placeholder="Enter email"/>
-                    <Form.Text className="text-muted">
-                        We'll never share your email with anyone else.
-                    </Form.Text>
-                </Form.Group>
+            <Card style={{ width: "30rem" }}>
+                <Card.Body>
+                    <Form onSubmit={onSubmit}>
+                        <Form.Group controlId="formBasicEmail">
+                            <Form.Label>User</Form.Label>
+                            <Form.Control 
+                            type="email" 
+                            placeholder="Enter email"
+                            name="email" 
+                            value={newLogin.email}
+                            onChange={onChange}
+                            required
+                            />
+                            <Form.Text className="text-muted">
+                                We'll never share your email with anyone else.
+                            </Form.Text>
+                        </Form.Group>
 
-                <Form.Group controlId="formBasicPassword">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password" />
-                </Form.Group>
-                <Button variant="primary" type="submit">
-                    Login
-                </Button>
-            </Form>
-            </Card.Body>
+                        <Form.Group controlId="formBasicPassword">
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control 
+                            type="password" 
+                            placeholder="Password"
+                            name="password"
+                            value={newLogin.password}
+                            onChange={onChange}
+                            required 
+                            />
+                        </Form.Group>
+                        <Button variant="primary" type="submit">
+                            Login
+                        </Button>
+                    </Form>
+                </Card.Body>
             </Card>
         </>
     )
