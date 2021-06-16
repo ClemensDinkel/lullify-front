@@ -14,7 +14,7 @@ const LullifyRouter = ({setToken}) => {
         <>
             <Switch>
                 <Route exact path='/'><Home/></Route>
-                <Route path='/player'><Player/></Route>
+                <Route path='/player/:id?'><Player/></Route>
                 <Route path='/login'><Login setToken={setToken}/></Route>
                 <Route path='/register'><Register/></Route>
                 <Route path='/profile'><Profile/></Route>

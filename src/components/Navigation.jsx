@@ -1,4 +1,4 @@
-import { Navbar, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap'
+import { Navbar, Nav, NavDropdown, Form, FormControl, Button} from 'react-bootstrap'
 /* import { Link } from 'react-router-dom'; */
 import logo_image from '../images/logo5.png'
 import { useState, useEffect } from 'react';
@@ -20,8 +20,11 @@ const Navigation = ({ user, setToken, setUser }) => {
 
     return (
         <>
+    
             <Navbar bg="dark" variant="dark" expand="lg">
-                <Navbar.Brand href="/"><img src={logo_image} alt="lullify-logo" /></Navbar.Brand>
+                
+                <Navbar.Brand href="/">Lullify</Navbar.Brand>
+                
 
 
 
@@ -46,7 +49,7 @@ const Navigation = ({ user, setToken, setUser }) => {
                 </Form>
 
                 <Navbar.Toggle aria-controls="navbarScroll" />
-                <Navbar.Collapse id="navbarScroll" justify-content-space-between="true">
+                <Navbar.Collapse id="navbarScroll" className="justify-content-end">
 
                     <Nav
                         className="mr-auto my-2 my-lg-0"

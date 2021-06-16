@@ -41,11 +41,11 @@ const Login = ({setToken}) => {
 
     return (
         <>
-            <Card style={{ width: "30rem" }}>
+            <Card style={{ width: "40rem" }}>
                 <Card.Body>
                     <Form onSubmit={onSubmit}>
-                        <Form.Group controlId="formBasicEmail">
-                            <Form.Label>User</Form.Label>
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Label>Email</Form.Label>
                             <Form.Control 
                             type="email" 
                             placeholder="Enter email"
@@ -59,7 +59,7 @@ const Login = ({setToken}) => {
                             </Form.Text>
                         </Form.Group>
 
-                        <Form.Group controlId="formBasicPassword">
+                        <Form.Group className="mb-3" controlId="formBasicPassword">
                             <Form.Label>Password</Form.Label>
                             <Form.Control 
                             type="password" 

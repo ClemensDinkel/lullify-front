@@ -12,7 +12,6 @@ const App = () => {
 
   const root = "https://tranquil-reaches-12289.herokuapp.com"
 
-  const [videos, setVideos] = useState([])
   const [user, setUser] = useState(null)
   const [token, setToken] = useState(localStorage.getItem('auth-token'))
 
@@ -41,18 +40,7 @@ const App = () => {
     //setVideos(fetchVideos) 
   }, []) */
 
-  useEffect(() => {
-    fetchVideos()
-  },[])
-
-  const fetchVideos = async () => {
-    await axios.get(`${root}/videos`)
-        .then(res => {
-          console.log(res.data)
-          setVideos(res.data)
-        })
-        .catch(err => console.log(err))
-} 
+  
 
   return (
     <div className="App">
