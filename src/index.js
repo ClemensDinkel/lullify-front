@@ -14,7 +14,7 @@ axios.interceptors.request.use(request => {
   return request
 })
 
-axios.interceptors.response.use(
+/* axios.interceptors.response.use(
   (response) => {
     console.log(response)
     return response;
@@ -23,12 +23,15 @@ axios.interceptors.response.use(
     console.log(error)
     const originalRequest = error.config;
     let refreshToken = localStorage.getItem("refresh-token");
+    // let retry = false
     if (
       refreshToken &&
-      error.response.status === 401 &&
+      (error.response.status === 401) &&
+      //!retry
       !originalRequest._retry
     ) {
       originalRequest._retry = true;
+      // retry = true
       return axios.post(`${root}/refresh`, {
         headers: {
           'Content-Type': 'application/json;charset=UTF-8',
@@ -46,7 +49,7 @@ axios.interceptors.response.use(
     }
     return Promise.reject(error);
   }
-);
+); */
 
 ReactDOM.render(
   <React.StrictMode>

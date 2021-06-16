@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 //import { fetchVideos } from './api'; 
 import api from './api';
+import jwt_decode from 'jwt-decode'
 
 
 const App = () => {
@@ -12,7 +13,20 @@ const App = () => {
   const root = "https://tranquil-reaches-12289.herokuapp.com"
 
   const [videos, setVideos] = useState([])
+  const [user, setUser] = useState(null)
+  const [token, setToken] = useState(localStorage.getItem('auth-token'))
 
+  useEffect(() => {
+    if (token) {
+      console.log(token)
+      const decToken = jwt_decode(token);
+      setUser(decToken);
+    }
+  }, [token])
+
+  useEffect(() =>{
+    if (user) console.log(user)
+  },[user])
   
   //console.log(videos)
 
@@ -42,8 +56,8 @@ const App = () => {
 
   return (
     <div className="App">
-      <Navigation />
-      <LullifyRouter />
+      <Navigation user={user} setToken={setToken} setUser={setUser}/>
+      <LullifyRouter setToken={setToken}/>
     </div>
   );
 }

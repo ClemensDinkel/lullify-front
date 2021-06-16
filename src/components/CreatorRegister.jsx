@@ -53,6 +53,7 @@ const CreatorRegister = () => {
 
     register(queryString.stringify(newUser)).then((res) => {
       console.log(newUser)
+      alert('You are registered')
       history.push(`/login`);
     });
   };

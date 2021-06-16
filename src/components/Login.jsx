@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { login } from "./test";
+import { login } from "./AuthFunctions";
 import { Card, Form, Button } from "react-bootstrap";
 import queryString from "query-string";
 
-const Login = () => {
+const Login = ({setToken}) => {
     const [newLogin, setNewLogin] = useState({
         email: "",
         password: "",
@@ -33,6 +33,8 @@ const Login = () => {
         };
     
         login(queryString.stringify(loginUser)).then((res) => {
+          console.log(res)
+          setToken(res.accessToken)
           history.push(`/`);
         });
       };

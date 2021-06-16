@@ -1,6 +1,15 @@
 import axios from "axios";
-const root = "http://localhost:3001"
-// const root = "https://tranquil-reaches-12289.herokuapp.com"
+//const root = "http://localhost:3001"
+const root = "https://tranquil-reaches-12289.herokuapp.com"
+const auth_token = localStorage.getItem('auth-token')
+const headers = auth_token ? {
+  'Content-Type': 'application/json;charset=UTF-8',
+  'Access-Control-Allow-Origin': "*",
+  'auth-token': localStorage.getItem('auth-token')
+} : {
+  'Content-Type': 'application/json;charset=UTF-8',
+  'Access-Control-Allow-Origin': "*"
+}
 
 export const register = (newUser) => {
   return axios
@@ -11,11 +20,7 @@ export const register = (newUser) => {
 };
 
 export const axiosConfig = {
-  headers: {
-    'Content-Type': 'application/json;charset=UTF-8',
-    'Access-Control-Allow-Origin': "*",
-    'auth-token': localStorage.getItem('auth-token')
-  }
+  headers: headers
 };
 
 console.log(axiosConfig)

@@ -39,6 +39,7 @@ const UserRegister = () => {
     };
 
     register(queryString.stringify(newUser)).then((res) => {
+      alert('Yor are Registerd')
       history.push(`/login`);
     });
   };
