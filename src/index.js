@@ -6,29 +6,47 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
+const root = "http://localhost:3001"
+// const root = "https://tranquil-reaches-12289.herokuapp.com"
 
 axios.interceptors.request.use(request => {
   console.log(request)
   return request
 })
 
-/* axios.interceptors.request.use(config => {
-  config => {
-    const accessToken = localStorage.getItem("accessToken");
-    if (accessToken) {
-      config.headers.authorization = `Bearer ${accessToken}`
-      return config;
-    }
+axios.interceptors.response.use(
+  (response) => {
+    console.log(response)
+    return response;
   },
-  error => {
+  (error) => {
+    console.log(error)
+    const originalRequest = error.config;
+    let refreshToken = localStorage.getItem("refresh-token");
+    if (
+      refreshToken &&
+      error.response.status === 401 &&
+      !originalRequest._retry
+    ) {
+      originalRequest._retry = true;
+      return axios.post(`${root}/refresh`, {
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
+          'Access-Control-Allow-Origin': "*",
+          'auth-token': refreshToken
+        }
+      })
+        .then((res) => {
+          if (res.status === 200) {
+            localStorage.setItem("accessToken", res.data.accessToken);
+            console.log("Access token refreshed!");
+            return axios(originalRequest);
+          }
+        });
+    }
     return Promise.reject(error);
   }
-}) */
-
-axios.interceptors.response.use(response => {
-  console.log(response)
-  return response
-})
+);
 
 ReactDOM.render(
   <React.StrictMode>

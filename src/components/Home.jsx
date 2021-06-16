@@ -11,7 +11,7 @@ const Home = () => {
 
     const [data, setData] = useState([])
 
-    /* useEffect(() => {
+    useEffect(() => {
         getUser()
     }, [data])
 
@@ -21,7 +21,7 @@ const Home = () => {
           .then((response) => {
             console.log(response.data);
           });
-      }; */
+      };
 
     return (
         <>
