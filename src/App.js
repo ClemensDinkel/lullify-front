@@ -57,7 +57,7 @@ const App = () => {
   return (
     <div className="App">
       <Navigation user={user} setToken={setToken} setUser={setUser}/>
-      <LullifyRouter setToken={setToken}/>
+      <LullifyRouter user={user} setToken={setToken}/>
     </div>
   );
 }

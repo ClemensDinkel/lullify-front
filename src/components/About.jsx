@@ -1,7 +1,7 @@
 const About = () => {
     return (
         <>
-            About
+            We be coders, you be food!
         </>
     )
 }
