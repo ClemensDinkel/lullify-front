@@ -14,7 +14,7 @@ export const axiosConfig = {
   headers: {
     'Content-Type': 'application/json;charset=UTF-8',
     'Access-Control-Allow-Origin': "*",
-    'auth-token': sessionStorage.getItem('auth-token')
+    'auth-token': localStorage.getItem('auth-token')
   }
 };
 
@@ -24,8 +24,8 @@ export const login = (loginUser) => {
   return axios
     .post(`${root}/login`, loginUser)
     .then(response => {
-      console.log(response.data)
-      sessionStorage.setItem('auth-token', response.data)
+      console.log(response.data.accessToken)
+      localStorage.setItem('auth-token', response.data.accessToken)
       return response.data
     })
     .catch(err => {

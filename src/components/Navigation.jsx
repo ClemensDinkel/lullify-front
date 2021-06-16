@@ -9,14 +9,14 @@ const Navigation = () => {
     const [userToken , setUserToken] = useState(null)
 
     useEffect(() => {
-        setUserToken(sessionStorage.getItem('auth-token'))
+        setUserToken(localStorage.getItem('auth-token'))
     }, [])
 
     const history = useHistory()
 
     const logOut = (e) => {
             e.preventDefault();
-            sessionStorage.clear();
+            localStorage.clear();
             history.push('/')
     }
     

@@ -3,9 +3,12 @@ import Playlists from './Playlists'
 import { axiosConfig } from './AuthFunctions';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-const root = "https://tranquil-reaches-12289.herokuapp.com"
+
 
 const Home = () => {
+
+    const root = "https://tranquil-reaches-12289.herokuapp.com"
+
     const [data, setData] = useState([])
 
     /* useEffect(() => {

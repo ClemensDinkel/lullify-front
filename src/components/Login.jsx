@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { login } from "./AuthFunctions";
+import { login } from "./test";
 import { Card, Form, Button } from "react-bootstrap";
 import queryString from "query-string";
 
