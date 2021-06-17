@@ -1,6 +1,6 @@
-import { Navbar, Nav, NavDropdown, Form, FormControl, Button} from 'react-bootstrap'
+import { Navbar, Nav, NavDropdown, Form, FormControl, Button, Image} from 'react-bootstrap'
 /* import { Link } from 'react-router-dom'; */
-import logo_image from '../images/logo5.png'
+import logo_image from '../images/logo8.png'
 import { useState, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
 import AdminPanel from './AdminPanel';
@@ -16,19 +16,24 @@ const Navigation = ({ user, setToken, setUser }) => {
         alert(`${user.user_name} logged out`)
         history.push('/')
     }
-
+    
 
     return (
         <>
     
-            <Navbar bg="dark" variant="dark" expand="lg">
+            <Navbar bg="dark" variant="dark" expand="lg" fixed>
                 
-                <Navbar.Brand href="/">Lullify</Navbar.Brand>
+                <Navbar.Brand href="/">
+                    <Image src={logo_image} style={{ display:'inline-block', maxHeight: '70px', width:'100px' }}/>
+                    {/* <span style={{ fontSize: '40px', fontFamily: 'cursive', color:'#0C7C43' }} >
+                        Lullify
+                    </span> */}
+                </Navbar.Brand>
                 
 
 
 
-                <Form className="d-flex">
+                <Form className="d-flex justify-content-space-between">
                     <Form.Control
                         as="select"
                         className="my-1 mr-sm-2"
@@ -53,19 +58,19 @@ const Navigation = ({ user, setToken, setUser }) => {
 
                     <Nav
                         className="mr-auto my-2 my-lg-0"
-                        style={{ maxHeight: '100px' }}
+                        style={{ maxHeight: '100px', marginRight: '15px' }}
                         navbarScroll
                     >
-                        <Nav.Link href="/">Home</Nav.Link>
-                        <Nav.Link href="/about">About Us</Nav.Link>
+                        <Nav.Link href="/"><b>Home</b></Nav.Link>
+                        <Nav.Link href="/about"><b>About Us</b></Nav.Link>
                         {
                             !user ?
                                 <>
-                                    <Nav.Link href="/login">Login</Nav.Link>
                                     <NavDropdown title="Register" id="navbarScrollingDropdown">
                                         <NavDropdown.Item href="/register/userRegister">User</NavDropdown.Item>
                                         <NavDropdown.Item href="/register/creatorRegister">Content Creator</NavDropdown.Item>
                                     </NavDropdown>
+                                    <Nav.Link href="/login"><b>Login</b></Nav.Link>
                                 </>
                                 :
                                 <>
@@ -79,6 +84,9 @@ const Navigation = ({ user, setToken, setUser }) => {
                                             <Nav.Link href="/adminpanel">AdminPanel</Nav.Link>
                                         </>
                                     }
+                                    <Navbar.Brand>
+                                    <Image src={user.user_image} roundedCircle />
+                                    </Navbar.Brand>
                                     <NavDropdown title={user.user_name} id="navbarScrollingDropdown">
                                         <NavDropdown.Item href="/profile" >Profile</NavDropdown.Item>
                                         <NavDropdown.Item onClick={logOut}>LogOut</NavDropdown.Item>

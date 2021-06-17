@@ -45,8 +45,8 @@ const Home = () => {
             
             <Container>
   <Row>
-    <Col> <Previews videos= {videos} /> </Col>
-    <Col><Playlists/></Col>
+    <Col sm={9}> <Previews videos= {videos} /> </Col>
+    <Col sm={3}><Playlists/></Col>
   </Row>
 </Container>
         </>

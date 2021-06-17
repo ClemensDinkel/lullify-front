@@ -1,32 +1,30 @@
-import './App.css';
-import Navigation from './components/Navigation'
-import LullifyRouter from './components/LullifyRouter'
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-//import { fetchVideos } from './api'; 
-import api from './api';
-import jwt_decode from 'jwt-decode'
-
+import "./App.css";
+import Navigation from "./components/Navigation";
+import LullifyRouter from "./components/LullifyRouter";
+import { useState, useEffect } from "react";
+import axios from "axios";
+//import { fetchVideos } from './api';
+import api from "./api";
+import jwt_decode from "jwt-decode";
 
 const App = () => {
+  const root = "https://tranquil-reaches-12289.herokuapp.com";
 
-  const root = "https://tranquil-reaches-12289.herokuapp.com"
-
-  const [user, setUser] = useState(null)
-  const [token, setToken] = useState(localStorage.getItem('auth-token'))
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(localStorage.getItem("auth-token"));
 
   useEffect(() => {
     if (token) {
-      console.log(token)
+      console.log(token);
       const decToken = jwt_decode(token);
       setUser(decToken);
     }
-  }, [token])
+  }, [token]);
 
-  useEffect(() =>{
-    if (user) console.log(user)
-  },[user])
-  
+  useEffect(() => {
+    if (user) console.log(user);
+  }, [user]);
+
   //console.log(videos)
 
   /* useEffect(() => {
@@ -40,14 +38,14 @@ const App = () => {
     //setVideos(fetchVideos) 
   }, []) */
 
-  
-
   return (
     <div className="App">
-      <Navigation user={user} setToken={setToken} setUser={setUser}/>
-      <LullifyRouter setToken={setToken}/>
+      <Navigation user={user} setToken={setToken} setUser={setUser} />
+      <div className="main-container">
+        <LullifyRouter setToken={setToken} />
+      </div>
     </div>
   );
-}
+};
 
 export default App;
