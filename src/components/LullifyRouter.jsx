@@ -9,15 +9,15 @@ import CreatorPanel from './CreatorPanel'
 import About from './About'
 
 
-const LullifyRouter = ({setToken}) => {
+const LullifyRouter = ({setToken, user}) => {
     return (
         <>
             <Switch>
                 <Route exact path='/'><Home/></Route>
-                <Route path='/player'><Player/></Route>
+                <Route path='/player/:id?'><Player/></Route>
                 <Route path='/login'><Login setToken={setToken}/></Route>
                 <Route path='/register'><Register/></Route>
-                <Route path='/profile'><Profile/></Route>
+                <Route path='/profile'><Profile user={user}/></Route>
                 <Route path='/adminpanel'><AdminPanel/></Route>
                 <Route path='/creatorpanel'><CreatorPanel/></Route>
                 <Route path='/about'><About/></Route>

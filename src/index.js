@@ -6,15 +6,15 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-const root = "http://localhost:3001"
+
 // const root = "https://tranquil-reaches-12289.herokuapp.com"
 
-axios.interceptors.request.use(request => {
+/* axios.interceptors.request.use(request => {
   console.log(request)
   return request
-})
+}) */
 
-/* axios.interceptors.response.use(
+axios.interceptors.response.use(
   (response) => {
     console.log(response)
     return response;
@@ -32,7 +32,7 @@ axios.interceptors.request.use(request => {
     ) {
       originalRequest._retry = true;
       // retry = true
-      return axios.post(`${root}/refresh`, {
+      return axios.post(`${root}/refresh`,{}, {
         headers: {
           'Content-Type': 'application/json;charset=UTF-8',
           'Access-Control-Allow-Origin': "*",
@@ -49,7 +49,7 @@ axios.interceptors.request.use(request => {
     }
     return Promise.reject(error);
   }
-); */
+);
 
 ReactDOM.render(
   <React.StrictMode>

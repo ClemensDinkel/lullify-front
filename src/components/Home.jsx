@@ -3,15 +3,32 @@ import Playlists from './Playlists'
 import { axiosConfig } from './AuthFunctions';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import {Container, Col, Row} from 'react-bootstrap'
 
 
 const Home = () => {
 
-    const root = "https://tranquil-reaches-12289.herokuapp.com"
+    
+  const [loading, setLoading] = useState(true)
 
     const [data, setData] = useState([])
+    const [videos, setVideos] = useState([])
 
-    /* useEffect(() => {
+
+    useEffect(() => {
+        fetchVideos()
+      },[])
+    
+      const fetchVideos = async () => {
+        await axios.get(`https://tranquil-reaches-12289.herokuapp.com/videos`)
+            .then(res => {
+              setVideos(res.data)
+            })
+            .catch(err => console.log(err))
+            setLoading(false)
+    }
+
+    useEffect(() => {
         getUser()
     }, [data])
 
@@ -21,12 +38,17 @@ const Home = () => {
           .then((response) => {
             console.log(response.data);
           });
-      }; */
+      };
 
     return (
         <>
-            <Previews/>
-            <Playlists/>
+            
+            <Container>
+  <Row>
+    <Col sm={9}> <Previews videos= {videos} /> </Col>
+    <Col sm={3}><Playlists/></Col>
+  </Row>
+</Container>
         </>
     )
 }
