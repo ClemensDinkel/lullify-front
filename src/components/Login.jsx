@@ -40,8 +40,8 @@ const Login = ({ setToken }) => {
   };
 
   return (
-    <>
-      <Card style={{ width: "30rem" }}>
+    <div style={{ display: "flex", justifyContent: "center" }}>
+      <Card style={{ flexGrow: "1", maxWidth: "30rem" }}>
         <Card.Body>
           <Form onSubmit={onSubmit}>
             <Form.Group controlId="formBasicEmail">
@@ -76,7 +76,7 @@ const Login = ({ setToken }) => {
           </Form>
         </Card.Body>
       </Card>
-    </>
+    </div>
   )
 }
 

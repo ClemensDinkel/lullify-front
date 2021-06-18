@@ -14,7 +14,7 @@ axios.interceptors.request.use(request => {
   return request
 })
 
-/* axios.interceptors.response.use(
+axios.interceptors.response.use(
   (response) => {
     console.log(response)
     return response;
@@ -32,7 +32,7 @@ axios.interceptors.request.use(request => {
     ) {
       originalRequest._retry = true;
       // retry = true
-      return axios.post(`${root}/refresh`, {
+      return axios.post(`${root}/refresh`,{}, {
         headers: {
           'Content-Type': 'application/json;charset=UTF-8',
           'Access-Control-Allow-Origin': "*",
@@ -49,7 +49,7 @@ axios.interceptors.request.use(request => {
     }
     return Promise.reject(error);
   }
-); */
+);
 
 ReactDOM.render(
   <React.StrictMode>

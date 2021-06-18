@@ -31,6 +31,7 @@ export const login = (loginUser) => {
     .then(response => {
       console.log(response.data.accessToken)
       localStorage.setItem('auth-token', response.data.accessToken)
+      localStorage.setItem('refresh-token', response.data.refreshToken)
       return response.data
     })
     .catch(err => {
