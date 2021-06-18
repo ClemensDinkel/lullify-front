@@ -40,7 +40,7 @@ const Profile = ({ user }) => {
             email: data.email,
             role: data.role,
             password: "",
-            phone: data.phone ,
+            phone: data.phone,
             city_code: data.city_code || "",
             city_name: data.city_name || "",
             country: data.country || "",
@@ -50,7 +50,6 @@ const Profile = ({ user }) => {
         })
         .catch(err => console.error(err))
     }
-    /* setProfile(user) */
     console.log(user)
   }, [user])
 
@@ -65,12 +64,12 @@ const Profile = ({ user }) => {
     });
   }
 
-/* 
-  const updateProfile = async (user_id, userData) => {
-    await axios.put(`https://tranquil-reaches-12289.herokuapp.com/users/${user_id}`, userData, axiosConfig)
-      .then(res => console.log(userData))
-      .catch(err => console.log(err))
-  } */
+  /* 
+    const updateProfile = async (user_id, userData) => {
+      await axios.put(`https://tranquil-reaches-12289.herokuapp.com/users/${user_id}`, userData, axiosConfig)
+        .then(res => console.log(userData))
+        .catch(err => console.log(err))
+    } */
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -83,14 +82,29 @@ const Profile = ({ user }) => {
       })
   };
 
-   const updateDataUser =  (e) => {
+  /* const updateDataUser = (e) => {
     e.preventDefault()
     console.log(profile)
     axios.put(`https://tranquil-reaches-12289.herokuapp.com/users/${user.id}`, queryString.stringify(profile), axiosConfig)
-    .catch(err => console.log(console.error()))
-    .then(x => {
-      console.log(profile)
+      .catch(err => console.log(console.error()))
+      .then(x => {
+        console.log(profile)
+      })
+  } */
+
+  const updateDataUser = (e) => {
+    e.preventDefault()
+    console.log(profile)
+    axios.put(`https://tranquil-reaches-12289.herokuapp.com/users/${user.id}`, queryString.stringify(profile), {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'auth-token': localStorage.getItem('auth-token')
+      }
     })
+      .catch(err => console.log(console.error()))
+      .then(x => {
+        console.log(profile)
+      })
   }
 
 
@@ -109,12 +123,12 @@ const Profile = ({ user }) => {
         console.error(error)
       }) */
 
-    /* login(queryString.stringify(loginUser)).then((res) => {
-      console.log(res)
-      setToken(res.accessToken)
-      history.push(`/`);
-    }); 
-  }; */
+  /* login(queryString.stringify(loginUser)).then((res) => {
+    console.log(res)
+    setToken(res.accessToken)
+    history.push(`/`);
+  }); 
+}; */
 
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>

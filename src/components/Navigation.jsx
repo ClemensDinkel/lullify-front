@@ -5,8 +5,10 @@ import { useState, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
 import AdminPanel from './AdminPanel';
 
-const Navigation = ({ user, setToken, setUser }) => {
+const Navigation = ({ user, setToken, setUser, singleUserInfo }) => {
   const history = useHistory()
+
+  console.log(singleUserInfo)
 
   const logOut = (e) => {
     e.preventDefault();
@@ -84,9 +86,9 @@ const Navigation = ({ user, setToken, setUser }) => {
                       <Nav.Link href="/adminpanel">AdminPanel</Nav.Link>
                     </>
                   }
-                  <Navbar.Brand>
-                    <Image src={user.user_image} roundedCircle />
-                  </Navbar.Brand>
+
+                  <Image src={singleUserInfo.user_img_url} roundedCircle />
+
                   <NavDropdown title={user.user_name} id="navbarScrollingDropdown">
                     <NavDropdown.Item href="/profile" >Profile</NavDropdown.Item>
                     <NavDropdown.Item onClick={logOut}>LogOut</NavDropdown.Item>

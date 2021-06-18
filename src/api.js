@@ -20,7 +20,13 @@ const api = {
   },
   updateUser: async (user_id, userData) => {
     return await axios.put(`${root}/users/${user_id}`, {...userData}, axiosConfig)
-  }
+  },
+  createPlaylist: async(newPlaylist) => {
+    return await axios.post(`${root}/playlists`, {...newPlaylist}, axiosConfig)
+  },
+  getPlaylist: async(user_id) => {
+    return await axios.get(`${root}/users/${user_id}/playlists`, axiosConfig)
+  },
 }
 
 export default api;
