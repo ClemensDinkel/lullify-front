@@ -6,13 +6,13 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-const root = "http://localhost:3001"
+
 // const root = "https://tranquil-reaches-12289.herokuapp.com"
 
-axios.interceptors.request.use(request => {
+/* axios.interceptors.request.use(request => {
   console.log(request)
   return request
-})
+}) */
 
 axios.interceptors.response.use(
   (response) => {
