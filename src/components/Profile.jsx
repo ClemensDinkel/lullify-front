@@ -6,25 +6,10 @@ import queryString from 'query-string';
 import axios from 'axios'
 import { axiosConfig } from './AuthFunctions';
 
-
-
 const Profile = ({ user }) => {
   let history = useHistory();
   const [editMode, setEditMode] = useState(false)
-  const [profile, setProfile] = useState({
-    first_name: "",
-    last_name: "",
-    user_name: "",
-    role: "user",
-    email: "",
-    password: "",
-    phone: "",
-    city_code: "",
-    city_name: "",
-    country: "",
-    company: "",
-    errors: {},
-  })
+  const [profile, setProfile] = useState({})
 
   useEffect(() => {
     console.log(profile)
@@ -64,13 +49,6 @@ const Profile = ({ user }) => {
     });
   }
 
-  /* 
-    const updateProfile = async (user_id, userData) => {
-      await axios.put(`https://tranquil-reaches-12289.herokuapp.com/users/${user_id}`, userData, axiosConfig)
-        .then(res => console.log(userData))
-        .catch(err => console.log(err))
-    } */
-
   const onSubmit = (e) => {
     e.preventDefault();
     api.updateUser(user.id, queryString.stringify(profile))
@@ -81,16 +59,6 @@ const Profile = ({ user }) => {
         history.push(`/`);
       })
   };
-
-  /* const updateDataUser = (e) => {
-    e.preventDefault()
-    console.log(profile)
-    axios.put(`https://tranquil-reaches-12289.herokuapp.com/users/${user.id}`, queryString.stringify(profile), axiosConfig)
-      .catch(err => console.log(console.error()))
-      .then(x => {
-        console.log(profile)
-      })
-  } */
 
   const updateDataUser = (e) => {
     e.preventDefault()
@@ -106,29 +74,6 @@ const Profile = ({ user }) => {
         console.log(profile)
       })
   }
-
-
-
-  /* /* const onSubmit = (e) => {
-    e.preventDefault();
-    updateProfile(user.id, queryString.stringify(profile))
-      .then(res => {
-        console.log(user.id)
-        console.log(profile)
-        console.log(res)
-        alert('updated succcessfully')
-        history.push(`/home`);
-      })
-      .catch(error => {
-        console.error(error)
-      }) */
-
-  /* login(queryString.stringify(loginUser)).then((res) => {
-    console.log(res)
-    setToken(res.accessToken)
-    history.push(`/`);
-  }); 
-}; */
 
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
