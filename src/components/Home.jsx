@@ -4,15 +4,12 @@ import { axiosConfig } from './AuthFunctions';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container, Col, Row } from 'react-bootstrap'
-import '../App.css'
 const root = "https://tranquil-reaches-12289.herokuapp.com"
 
-
-const Home = ({ user }) => {
+const Home = () => {
 
 
   const [loading, setLoading] = useState(true)
-
   const [data, setData] = useState([])
   const [videos, setVideos] = useState([])
 
@@ -45,7 +42,7 @@ const Home = ({ user }) => {
   return (
     <div className="main">
       <Previews videos={videos} />
-      <Playlists user={user} />
+      <Playlists />
     </div>
   )
 }

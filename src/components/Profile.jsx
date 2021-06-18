@@ -6,8 +6,6 @@ import queryString from 'query-string';
 import axios from 'axios'
 import { axiosConfig } from './AuthFunctions';
 
-
-
 const Profile = ({ user }) => {
   let history = useHistory();
   const [editMode, setEditMode] = useState(false)
@@ -50,8 +48,10 @@ const Profile = ({ user }) => {
         })
         .catch(err => console.error(err))
     }
+    /* setProfile(user) */
     console.log(user)
   }, [user])
+
 
   const onChange = (e) => {
     let keyName = e.target.name;
@@ -85,7 +85,11 @@ const Profile = ({ user }) => {
   /* const updateDataUser = (e) => {
     e.preventDefault()
     console.log(profile)
-    axios.put(`https://tranquil-reaches-12289.herokuapp.com/users/${user.id}`, queryString.stringify(profile), axiosConfig)
+    axios.put(`https://tranquil-reaches-12289.herokuapp.com/users/${user.id}`, queryString.stringify(profile), {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      }
+    })
       .catch(err => console.log(console.error()))
       .then(x => {
         console.log(profile)
@@ -106,8 +110,6 @@ const Profile = ({ user }) => {
         console.log(profile)
       })
   }
-
-
 
   /* /* const onSubmit = (e) => {
     e.preventDefault();
@@ -161,11 +163,24 @@ const Profile = ({ user }) => {
               />
             </Form.Group>
 
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
+            <Form.Group controlId="formBasicCurrentPassword">
+              <Form.Label>Current Password</Form.Label>
               <Form.Control
                 type="password"
-                placeholder="Password"
+                placeholder="Current Password"
+                name="currentPassword"
+                value={profile ? profile.currentPassword : ""}
+                onChange={onChange}
+                required
+                disabled={editMode ? false : true}
+              />
+            </Form.Group>
+
+            <Form.Group controlId="formBasicPassword">
+              <Form.Label>New Password</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="New Password"
                 name="password"
                 value={profile ? profile.password : ""}
                 onChange={onChange}
@@ -173,6 +188,8 @@ const Profile = ({ user }) => {
                 disabled={editMode ? false : true}
               />
             </Form.Group>
+
+
 
             <Form.Group controlId="formBasicFirstName">
               <Form.Label>First Name</Form.Label>
