@@ -2,9 +2,6 @@ import { useState, useEffect } from "react"
 import { Card, Form, Button } from "react-bootstrap"
 import api from "../api";
 import { useHistory } from "react-router-dom";
-import queryString from 'query-string';
-import axios from 'axios'
-import { axiosConfig } from './AuthFunctions';
 
 const Profile = ({ user }) => {
   let history = useHistory();
@@ -48,8 +45,6 @@ const Profile = ({ user }) => {
         })
         .catch(err => console.error(err))
     }
-    /* setProfile(user) */
-    console.log(user)
   }, [user])
 
 
@@ -64,38 +59,21 @@ const Profile = ({ user }) => {
     });
   }
 
-  /* 
-    const updateProfile = async (user_id, userData) => {
-      await axios.put(`https://tranquil-reaches-12289.herokuapp.com/users/${user_id}`, userData, axiosConfig)
-        .then(res => console.log(userData))
-        .catch(err => console.log(err))
-    } */
-
   const onSubmit = (e) => {
     e.preventDefault();
-    api.updateUser(user.id, queryString.stringify(profile))
-      .then(res => {
-        console.log(user.id)
-        console.log(profile)
-        console.log(res)
-        history.push(`/`);
-      })
+    api.updateUser(user.id, profile)
+      .then(() => history.push(`/`))
+      .catch(err => console.log(err))
   };
 
   /* const updateDataUser = (e) => {
     e.preventDefault()
-    console.log(profile)
-    axios.put(`https://tranquil-reaches-12289.herokuapp.com/users/${user.id}`, queryString.stringify(profile), {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      }
-    })
+    axios.put(`http://localhost:3001/users/${user.id}`, queryString.stringify(profile))
+      .then(() => history.push(`/`))
       .catch(err => console.log(console.error()))
-      .then(x => {
-        console.log(profile)
-      })
   } */
 
+<<<<<<< HEAD
   const updateDataUser = (e) => {
     e.preventDefault()
     console.log(profile)
@@ -133,11 +111,13 @@ const Profile = ({ user }) => {
   }); 
 }; */
 
+=======
+>>>>>>> 1f7b7b504ece00c8c81cd7c11f26a8ac4ecd2fb8
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       <Card style={{ flexGrow: "1", maxWidth: "30rem" }}>
         <Card.Body>
-          <Form onSubmit={updateDataUser}>
+          <Form onSubmit={onSubmit}>
             <Form.Group controlId="formBasicUserName">
               <Form.Label>User Name</Form.Label>
               <Form.Control
@@ -185,12 +165,9 @@ const Profile = ({ user }) => {
                 name="password"
                 value={profile ? profile.password : ""}
                 onChange={onChange}
-                required
                 disabled={editMode ? false : true}
               />
             </Form.Group>
-
-
 
             <Form.Group controlId="formBasicFirstName">
               <Form.Label>First Name</Form.Label>
