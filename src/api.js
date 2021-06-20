@@ -1,15 +1,6 @@
 import axios from 'axios'
-import { axiosConfig } from './components/AuthFunctions';
-
-// const root = "http://localhost:3001"
-const root = 'https://tranquil-reaches-12289.herokuapp.com';
-
-
-export const fetchVideos = async () => {
-  await axios.get(`${root}/videos`)
-    .then(res => res.data)
-    .catch(err => console.log(err))
-}
+const root = "http://localhost:3001"
+// const root = 'https://tranquil-reaches-12289.herokuapp.com';
 
 const api = {
   fetchVideos: async () => {
@@ -25,8 +16,14 @@ const api = {
     return await axios.post(`${root}/playlists`, {...newPlaylist})
   },
   getPlaylist: async(user_id) => {
-    return await axios.get(`${root}/users/${user_id}/playlists`, axiosConfig)
+    return await axios.get(`${root}/users/${user_id}/playlists`)
   },
+  registerUser: async(newUser) => {
+    return await axios.post(`${root}/register`, {...newUser})
+  },
+  loginUser: async(user) => {
+    return await axios.post(`${root}/login`, user)
+  }
 }
 
 export default api;

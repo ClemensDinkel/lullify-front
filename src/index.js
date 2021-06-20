@@ -9,7 +9,7 @@ import axios from 'axios';
 //const root = "https://tranquil-reaches-12289.herokuapp.com"
 
 // Obtain the fresh token each time the function is called
-getAccessToken = () => {
+const getAccessToken = () => {
   return localStorage.getItem('auth-token');
 }
 

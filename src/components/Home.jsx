@@ -3,9 +3,8 @@ import Playlists from './Playlists'
 import { axiosConfig } from './AuthFunctions';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Container, Col, Row } from 'react-bootstrap'
-const root = "https://tranquil-reaches-12289.herokuapp.com"
-
+// const root = "https://tranquil-reaches-12289.herokuapp.com"
+const root = "http://localhost:3001"
 const Home = () => {
 
 
@@ -33,7 +32,7 @@ const Home = () => {
 
   const getUser = () => {
     return axios
-      .get(`${root}/users`, axiosConfig)
+      .get(`${root}/users`)
       .then((response) => {
         console.log(response.data);
       });
