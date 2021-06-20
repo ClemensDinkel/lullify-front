@@ -16,13 +16,13 @@ const api = {
     await axios.get(`${root}/videos`).then(res => { console.log(res.data) })
   },
   fetchSingleUser: async (user_id) => {
-    return await axios.get(`${root}/users/${user_id}`, axiosConfig)
+    return await axios.get(`${root}/users/${user_id}`)
   },
   updateUser: async (user_id, userData) => {
-    return await axios.put(`${root}/users/${user_id}`, {...userData}, axiosConfig)
+    return await axios.put(`${root}/users/${user_id}`, {...userData})
   },
   createPlaylist: async(newPlaylist) => {
-    return await axios.post(`${root}/playlists`, {...newPlaylist}, axiosConfig)
+    return await axios.post(`${root}/playlists`, {...newPlaylist})
   },
   getPlaylist: async(user_id) => {
     return await axios.get(`${root}/users/${user_id}/playlists`, axiosConfig)

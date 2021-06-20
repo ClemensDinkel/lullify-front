@@ -8,10 +8,17 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 //const root = "https://tranquil-reaches-12289.herokuapp.com"
 
-/* axios.interceptors.request.use(request => {
+// Obtain the fresh token each time the function is called
+getAccessToken = () => {
+  return localStorage.getItem('auth-token');
+}
+
+// Use interceptor to inject the access token to requests
+axios.interceptors.request.use(request => {
+  request.headers['Authorization'] = `Bearer ${getAccessToken()}`;
   console.log(request)
-  return request
-}) */
+  return request;
+});
 
 /* axios.interceptors.response.use(
   (response) => {
