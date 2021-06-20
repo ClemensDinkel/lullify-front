@@ -6,7 +6,6 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-//const root = "https://tranquil-reaches-12289.herokuapp.com"
 
 // Obtain the fresh token each time the function is called
 const getAccessToken = () => {
@@ -16,8 +15,16 @@ const getAccessToken = () => {
 // Use interceptor to inject the access token to requests
 axios.interceptors.request.use(request => {
   request.headers['Authorization'] = `Bearer ${getAccessToken()}`;
+  request.headers['Content-Type'] = 'application/x-www-form-urlencoded';
   console.log(request)
   return request;
+});
+
+axios.interceptors.request.use(config => {
+  if (config.data instanceof FormData) {
+    Object.assign(config.headers, config.data.getHeaders());
+  }
+  return config;
 });
 
 /* axios.interceptors.response.use(
