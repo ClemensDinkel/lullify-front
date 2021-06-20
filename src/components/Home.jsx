@@ -6,12 +6,11 @@ import axios from 'axios';
 import { Container, Col, Row } from 'react-bootstrap'
 const root = "https://tranquil-reaches-12289.herokuapp.com"
 
-const Home = () => {
+const Home = ({user}) => {
 
-
-  const [loading, setLoading] = useState(true)
   const [data, setData] = useState([])
   const [videos, setVideos] = useState([])
+  const [loading, setLoading] = useState(true)
 
 
   useEffect(() => {
@@ -41,8 +40,8 @@ const Home = () => {
 
   return (
     <div className="main">
-      <Previews videos={videos} />
-      <Playlists />
+      <Previews videos={videos} loading={loading} setLoading={setLoading} />
+      <Playlists user={user} />
     </div>
   )
 }

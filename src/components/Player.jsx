@@ -31,12 +31,12 @@ const Player = ({ user }) => {
   }
   return (
     <>
-      <Container>
+      {/* <Container>
         <Row>
           <Col sm={9}>
             {
               !loading ?
-                <Video video={video} /> :
+                <Video video={video} user={user} /> :
                 <p>Loading..</p>
             }
           </Col>
@@ -45,7 +45,16 @@ const Player = ({ user }) => {
             <Playlists user={user} />
           </Col>
         </Row>
-      </Container>
+      </Container> */}
+
+      <div className="player-container">
+      {
+              !loading ?
+                <Video video={video} user={user} /> :
+                <p>Loading..</p>
+            }
+            <Playlists user={user} />
+      </div>
 
     </>
   )

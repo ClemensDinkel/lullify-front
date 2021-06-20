@@ -1,32 +1,33 @@
-import axios from 'axios'
-import { axiosConfig } from './components/AuthFunctions';
-
-// const root = "http://localhost:3001"
-const root = 'https://tranquil-reaches-12289.herokuapp.com';
-
-
-export const fetchVideos = async () => {
-  await axios.get(`${root}/videos`)
-    .then(res => res.data)
-    .catch(err => console.log(err))
-}
+import axios from "axios";
+import queryString from "query-string";
+const root = "http://localhost:3001";
+//const root = "https://tranquil-reaches-12289.herokuapp.com";
 
 const api = {
-  fetchVideos: async () => {
-    await axios.get(`${root}/videos`).then(res => { console.log(res.data) })
+  createPlaylist: async (newPlaylist) => {
+    return await axios.post(`${root}/playlists`, newPlaylist);
   },
   fetchSingleUser: async (user_id) => {
-    return await axios.get(`${root}/users/${user_id}`, axiosConfig)
+    return await axios.get(`${root}/users/${user_id}`);
+  },
+  fetchVideos: async () => {
+    return await axios.get(`${root}/videos`);
+  },
+  getPlaylist: async (user_id) => {
+    return await axios.get(`${root}/users/${user_id}/playlists`);
+  },
+  loginUser: async (user) => {
+    return await axios.post(`${root}/login`, user);
+  },
+  registerUser: async (newUser) => {
+    return await axios.post(`${root}/register`, newUser);
   },
   updateUser: async (user_id, userData) => {
-    return await axios.put(`${root}/users/${user_id}`, {...userData}, axiosConfig)
+    return await axios.put(
+      `${root}/users/${user_id}`,
+      queryString.stringify(userData)
+    );
   },
-  createPlaylist: async(newPlaylist) => {
-    return await axios.post(`${root}/playlists`, {...newPlaylist}, axiosConfig)
-  },
-  getPlaylist: async(user_id) => {
-    return await axios.get(`${root}/users/${user_id}/playlists`, axiosConfig)
-  },
-}
+};
 
 export default api;

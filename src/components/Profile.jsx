@@ -109,6 +109,7 @@ const Profile = ({ user }) => {
       .then(x => {
         console.log(profile)
       })
+      history.push('/profile')
   }
 
   /* /* const onSubmit = (e) => {

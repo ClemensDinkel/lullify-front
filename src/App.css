@@ -17,13 +17,13 @@
   padding: 10px;
   justify-content: center;
   width: 80%;
-  margin: 0
+  margin: 0;
 }
 
 .playlists {
   display: block;
   width: 20%;
-  margin: 0
+  margin: 0;
 }
 
 .video-description {
@@ -34,8 +34,8 @@
   background-image: url("./images/5.png");
   background-repeat: no-repeat;
   background-size: cover;
+  width: 60%;
 }
-
 
 .card {
   padding: 5px;
@@ -44,5 +44,10 @@
 }
 
 .card-img-top {
-  width: fit-content
+  width: fit-content;
+}
+
+.player-container {
+  display: flex;
+  justify-content: space-around;
 }

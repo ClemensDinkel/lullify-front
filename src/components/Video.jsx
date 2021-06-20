@@ -6,7 +6,7 @@ import { HiOutlineDocumentReport } from "react-icons/hi";
 import { HiDocumentReport } from "react-icons/hi";
 
 
-const Video = ({ video }) => {
+const Video = ({ video, user }) => {
 
   const [readMore, setReadMore] = useState(false)
 
@@ -54,7 +54,7 @@ const Video = ({ video }) => {
                     <div
                       style={{ backgroundColor: 'rgba(0,0,0,0.2)' }}>
                       <h6>Duration: {secToMinConerter(video[0].duration)} mins</h6>
-                      <p>{video[0].short_description}</p>
+                      <p>Description: {video[0].short_description}</p>
                     </div> :
                     null
                 }
