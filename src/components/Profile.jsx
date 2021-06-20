@@ -2,9 +2,6 @@ import { useState, useEffect } from "react"
 import { Card, Form, Button } from "react-bootstrap"
 import api from "../api";
 import { useHistory } from "react-router-dom";
-import queryString from 'query-string';
-import axios from 'axios'
-import { axiosConfig } from './AuthFunctions';
 
 const Profile = ({ user }) => {
   let history = useHistory();
@@ -131,8 +128,6 @@ const Profile = ({ user }) => {
                 disabled={editMode ? false : true}
               />
             </Form.Group>
-
-
 
             <Form.Group controlId="formBasicFirstName">
               <Form.Label>First Name</Form.Label>
