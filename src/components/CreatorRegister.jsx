@@ -61,12 +61,15 @@ const CreatorRegister = () => {
   return (
     <>
       <p>CreatorRegister</p>
-      <Card style={{ width: "30rem" }}>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+      
+      <Card style={{ flexGrow: "1", maxWidth: "30rem", textAlign: "left" }}>
         <Card.Body>
           <Form onSubmit={onSubmit}>
+          <Form.Label><span style={{color: "red"}}>*</span> Fields are required</Form.Label>
             <Form.Row>
               <Form.Group as={Col} controlId="formGridEmail">
-                <Form.Label>First name</Form.Label>
+                <Form.Label><b>First name:</b><span style={{color: "red"}}>*</span></Form.Label>
                 <Form.Control
                   type="text"
                   placeholder="Enter First name"
@@ -78,7 +81,7 @@ const CreatorRegister = () => {
               </Form.Group>
 
               <Form.Group as={Col} controlId="formGridPassword">
-                <Form.Label>Last name</Form.Label>
+                <Form.Label><b>Last name:</b><span style={{color: "red"}}>*</span></Form.Label>
                 <Form.Control
                   type="text"
                   placeholder="Enter Last name"
@@ -90,7 +93,7 @@ const CreatorRegister = () => {
               </Form.Group>
 
               <Form.Group as={Col} controlId="formGridEmail">
-                <Form.Label>User name</Form.Label>
+                <Form.Label><b>User name:</b><span style={{color: "red"}}>*</span></Form.Label>
                 <Form.Control
                   type="text"
                   placeholder="Enter User name"
@@ -104,7 +107,7 @@ const CreatorRegister = () => {
 
             <Form.Row>
               <Form.Group as={Col} controlId="formGridEmail">
-                <Form.Label>Email</Form.Label>
+                <Form.Label><b>Email Address:</b><span style={{color: "red"}}>*</span></Form.Label>
                 <Form.Control
                   type="email"
                   placeholder="Enter email"
@@ -116,7 +119,7 @@ const CreatorRegister = () => {
               </Form.Group>
 
               <Form.Group as={Col} controlId="formGridPassword">
-                <Form.Label>Password</Form.Label>
+                <Form.Label><b>Password:</b><span style={{color: "red"}}>*</span></Form.Label>
                 <Form.Control
                   type="password"
                   placeholder="Password"
@@ -130,7 +133,7 @@ const CreatorRegister = () => {
 
             <Form.Row>
               <Form.Group as={Col} controlId="formGridPassword">
-                <Form.Label>Phone</Form.Label>
+                <Form.Label><b>Phone:</b><span style={{color: "red"}}>*</span></Form.Label>
                 <Form.Control
                   type="text"
                   placeholder="Enter Phone no."
@@ -144,7 +147,7 @@ const CreatorRegister = () => {
 
             <Form.Row>
               <Form.Group as={Col} controlId="formGridPassword">
-                <Form.Label>Postal Code</Form.Label>
+                <Form.Label><b>Postal Code:</b><span style={{color: "red"}}>*</span></Form.Label>
                 <Form.Control
                   type="text"
                   placeholder="Enter Postal Code"
@@ -158,7 +161,7 @@ const CreatorRegister = () => {
 
             <Form.Row>
               <Form.Group as={Col} controlId="formGridPassword">
-                <Form.Label>City</Form.Label>
+                <Form.Label><b>City:</b><span style={{color: "red"}}>*</span></Form.Label>
                 <Form.Control
                   type="text"
                   placeholder="Enter City"
@@ -172,7 +175,7 @@ const CreatorRegister = () => {
 
             <Form.Row>
               <Form.Group as={Col} controlId="formGridPassword">
-                <Form.Label>Country</Form.Label>
+                <Form.Label><b>Country:</b><span style={{color: "red"}}>*</span></Form.Label>
                 <Form.Control
                   type="text"
                   placeholder="Enter Country"
@@ -186,7 +189,7 @@ const CreatorRegister = () => {
 
             <Form.Row>
               <Form.Group as={Col} controlId="formGridPassword">
-                <Form.Label>Company</Form.Label>
+                <Form.Label><b>Company:</b><span style={{color: "red"}}>*</span></Form.Label>
                 <Form.Control
                   type="text"
                   placeholder="Enter Company name"
@@ -198,14 +201,18 @@ const CreatorRegister = () => {
               </Form.Group>
             </Form.Row>
 
-            <Form.Row>
+            <Form.Row style={{ display: "flex", justifyContent: "space-around", marginTop: "10px" }}>
               <Button variant="primary" type="submit">
                 Submit
+              </Button>
+              <Button variant="primary" type="button" onClick={() => { history.push('/') }}>
+                Cancel
               </Button>
             </Form.Row>
           </Form>
         </Card.Body>
       </Card>
+      </div>
     </>
   );
 };

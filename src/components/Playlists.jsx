@@ -4,12 +4,13 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
 import { useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
-import queryString from "query-string";
 import "../App.css";
 import axios from "axios";
 
 const Playlists = ({ user }) => {
   //  To create a playlist
+
+  console.log(user);
 
   const [playlists, setPlaylists] = useState({
     name: "",
@@ -44,40 +45,15 @@ const Playlists = ({ user }) => {
     });
   };
 
-  const createPlaylist = (e) => {
+  const addPlaylist = (e) => {
     e.preventDefault();
 
-    axios
-      .post(
-        `https://tranquil-reaches-12289.herokuapp.com/playlists`,
-        queryString.stringify(playlists),
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-            "auth-token": localStorage.getItem("auth-token"),
-          },
-        }
-      )
-      .catch((err) => console.log(console.error()))
-      .then((x) => {
-        console.log(playlists);
-      });
-    alert(`Do you want to add ${playlists.name} to your playlist?`);
-    setPlaylists({ name: "" });
-  };
-
-  /* const onSubmit = (e) => {
-    e.preventDefault();
-
-    const newPlaylist = {
-      name: playlists.name
-    };
-
-    api.createPlaylist(user.id, queryString.stringify(newPlaylist)).then((res) => {
-      alert('playlist created')
+    api.createPlaylist(playlists).then((res) => {
+      alert(`Do you want to add ${playlists.name} to your playlist?`);
+      setPlaylists({ name: "" });
       history.push(`/`);
     });
-  }; */
+  };
 
   // To display Playlists
 
@@ -85,46 +61,21 @@ const Playlists = ({ user }) => {
 
   console.log(displayPlaylists);
 
-  useEffect(async () => {
-    if (user && user.id) {
-      await axios
-        .get(
-          `https://tranquil-reaches-12289.herokuapp.com/users/${user.id}/playlists`,
-          {
-            headers: {
-              "Content-Type": "application/x-www-form-urlencoded",
-              "auth-token": localStorage.getItem("auth-token"),
-            },
-          }
-        )
-        .then((res) => setDisplayPlaylists(res.data))
-        .catch((err) => console.log(err));
+  useEffect(() => {
+    if(user && user.id) {
+      api.getPlaylist(user.id)
+    .then(res=> {
+      setDisplayPlaylists(res.data)
+    })
+    .catch(err => console.log(err))
     }
-  }, []);
+  },[])
 
-  
-    const deletePlaylist = async (playlistId) => {
-      if (user && user.id) {
-        await axios
-          .delete(
-            `https://tranquil-reaches-12289.herokuapp.com/users/${user.id}/playlists/${playlistId}`,
-            {
-              headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-                "auth-token": localStorage.getItem("auth-token"),
-              },
-            }
-          )
-          .then((res) => alert("deleted"))
-          .catch((err) => console.log(err));
-      }
-    };
-  
 
   return (
     <div className="playlists">
       <h1>Playlists</h1>
-      <Form className="d-flex" onSubmit={createPlaylist}>
+      <Form className="d-flex" onSubmit={addPlaylist}>
         <FormControl
           type="text"
           placeholder="Create Playlist"
@@ -147,18 +98,26 @@ const Playlists = ({ user }) => {
                   <div style={{ display: "flex" }}>
                     <li key={index}>{playlist.name}</li>
                     <Button
+                    type="submit"
                       variant="outline-success"
-                      onClick={() => deletePlaylist(playlist._id)}
+                      onClick= {(e) => {
+                        e.preventDefault();
+                          api.deletePlaylist(user.id, playlist._id)
+                            .then(res => {
+                              alert(`Do you want to delete ${playlist.name}?`);
+                              history.push(`/`);
+                          })
+                        
+                      }}
                     >
                       <MdDelete />
                     </Button>
                   </div>
-                  
                 </>
               );
             })}
         </ul>
-      </div>
+      </div> 
     </div>
   );
 };

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import api from "../api";
 
 
-const Home = () => {
+const Home = ({user}) => {
 
   const [loading, setLoading] = useState(true)
   const [videos, setVideos] = useState([])
@@ -22,7 +22,7 @@ const Home = () => {
 return (
   <div className="main">
     <Previews videos={videos} />
-    <Playlists />
+    <Playlists user={user}/>
   </div>
 )
 }

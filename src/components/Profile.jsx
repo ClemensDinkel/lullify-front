@@ -73,53 +73,14 @@ const Profile = ({ user }) => {
       .catch(err => console.log(console.error()))
   } */
 
-<<<<<<< HEAD
-  const updateDataUser = (e) => {
-    e.preventDefault()
-    console.log(profile)
-    axios.put(`https://tranquil-reaches-12289.herokuapp.com/users/${user.id}`, queryString.stringify(profile), {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'auth-token': localStorage.getItem('auth-token')
-      }
-    })
-      .catch(err => console.log(console.error()))
-      .then(x => {
-        console.log(profile)
-      })
-      history.push('/profile')
-  }
-
-  /* /* const onSubmit = (e) => {
-    e.preventDefault();
-    updateProfile(user.id, queryString.stringify(profile))
-      .then(res => {
-        console.log(user.id)
-        console.log(profile)
-        console.log(res)
-        alert('updated succcessfully')
-        history.push(`/home`);
-      })
-      .catch(error => {
-        console.error(error)
-      }) */
-
-  /* login(queryString.stringify(loginUser)).then((res) => {
-    console.log(res)
-    setToken(res.accessToken)
-    history.push(`/`);
-  }); 
-}; */
-
-=======
->>>>>>> 1f7b7b504ece00c8c81cd7c11f26a8ac4ecd2fb8
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
-      <Card style={{ flexGrow: "1", maxWidth: "30rem" }}>
+      <Card style={{ flexGrow: "1", maxWidth: "30rem", textAlign: "left" }}>
         <Card.Body>
           <Form onSubmit={onSubmit}>
+            <Form.Row>
             <Form.Group controlId="formBasicUserName">
-              <Form.Label>User Name</Form.Label>
+              <Form.Label><b>User Name:</b></Form.Label>
               <Form.Control
                 type="text"
                 placeholder="User Name"
@@ -130,9 +91,11 @@ const Profile = ({ user }) => {
                 disabled={editMode ? false : true}
               />
             </Form.Group>
+            </Form.Row>
 
+            <Form.Row>
             <Form.Group controlId="formBasicEmail">
-              <Form.Label>Email Address</Form.Label>
+              <Form.Label><b>Email Address:</b></Form.Label>
               <Form.Control
                 type="email"
                 placeholder="Enter email"
@@ -143,9 +106,11 @@ const Profile = ({ user }) => {
                 disabled={editMode ? false : true}
               />
             </Form.Group>
+            </Form.Row>
 
+            <Form.Row>
             <Form.Group controlId="formBasicCurrentPassword">
-              <Form.Label>Current Password</Form.Label>
+              <Form.Label><b>Current Password:</b></Form.Label>
               <Form.Control
                 type="password"
                 placeholder="Current Password"
@@ -156,9 +121,11 @@ const Profile = ({ user }) => {
                 disabled={editMode ? false : true}
               />
             </Form.Group>
+            </Form.Row>
 
+            <Form.Row>
             <Form.Group controlId="formBasicPassword">
-              <Form.Label>New Password</Form.Label>
+              <Form.Label><b>New Password:</b></Form.Label>
               <Form.Control
                 type="password"
                 placeholder="New Password"
@@ -168,9 +135,11 @@ const Profile = ({ user }) => {
                 disabled={editMode ? false : true}
               />
             </Form.Group>
+            </Form.Row>
 
+            <Form.Row>
             <Form.Group controlId="formBasicFirstName">
-              <Form.Label>First Name</Form.Label>
+              <Form.Label><b>First Name:</b></Form.Label>
               <Form.Control
                 type="text"
                 placeholder="First Name"
@@ -181,9 +150,11 @@ const Profile = ({ user }) => {
                 disabled={editMode ? false : true}
               />
             </Form.Group>
+            </Form.Row>
 
+            <Form.Row>
             <Form.Group controlId="formBasicLastName">
-              <Form.Label>Last Name</Form.Label>
+              <Form.Label><b>Last Name</b></Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Last Name"
@@ -194,9 +165,11 @@ const Profile = ({ user }) => {
                 disabled={editMode ? false : true}
               />
             </Form.Group>
+            </Form.Row>
 
+            <Form.Row>
             <Form.Group controlId="formBasicPhoneNumber">
-              <Form.Label>Phone Number</Form.Label>
+              <Form.Label><b>Phone Number:</b></Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Phone Number"
@@ -207,9 +180,11 @@ const Profile = ({ user }) => {
                 disabled={editMode ? false : true}
               />
             </Form.Group>
+            </Form.Row>
 
+            <Form.Row>
             <Form.Group controlId="formBasicCityCode">
-              <Form.Label>City Code</Form.Label>
+              <Form.Label><b>Postal Code:</b></Form.Label>
               <Form.Control
                 type="text"
                 placeholder="City Code"
@@ -220,9 +195,11 @@ const Profile = ({ user }) => {
                 disabled={editMode ? false : true}
               />
             </Form.Group>
+            </Form.Row>
 
+            <Form.Row>
             <Form.Group controlId="formBasicCity">
-              <Form.Label>City</Form.Label>
+              <Form.Label><b>City:</b></Form.Label>
               <Form.Control
                 type="text"
                 placeholder="City"
@@ -233,9 +210,11 @@ const Profile = ({ user }) => {
                 disabled={editMode ? false : true}
               />
             </Form.Group>
+            </Form.Row>
 
+            <Form.Row>
             <Form.Group controlId="formBasicCountry">
-              <Form.Label>Country</Form.Label>
+              <Form.Label><b>Country</b></Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Country"
@@ -246,9 +225,11 @@ const Profile = ({ user }) => {
                 disabled={editMode ? false : true}
               />
             </Form.Group>
+            </Form.Row>
             {profile && profile.role === "content_creator" &&
-              <Form.Group controlId="formBasicCountry">
-                <Form.Label>Company</Form.Label>
+              <Form.Row>
+                <Form.Group controlId="formBasicCountry">
+                <Form.Label><b>Company</b></Form.Label>
                 <Form.Control
                   type="text"
                   placeholder="Company"
@@ -259,7 +240,9 @@ const Profile = ({ user }) => {
                   disabled={editMode ? false : true}
                 />
               </Form.Group>
+              </Form.Row>
             }
+            <Form.Row style={{ display: "flex", justifyContent: "space-around", marginTop: "10px" }}>
             {!editMode ?
               <Button variant="primary" type="button" onClick={() => { setEditMode(!editMode) }}>
                 Edit
@@ -268,6 +251,10 @@ const Profile = ({ user }) => {
               <Button variant="primary" type="submit">
                 Submit Changes
               </Button>}
+              <Button variant="primary" type="button" onClick={() => { history.push('/') }}>
+                Cancel
+              </Button>
+              </Form.Row>
           </Form>
         </Card.Body>
       </Card>

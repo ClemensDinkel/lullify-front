@@ -47,12 +47,13 @@ const UserRegister = () => {
   return (
     <>
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <Card style={{ flexGrow: "1", maxWidth: "30rem" }}>
+        <Card style={{ flexGrow: "1", maxWidth: "30rem", textAlign: "left" }}>
           <Card.Body>
             <Form onSubmit={onSubmit}>
+            <Form.Label><span style={{color: "red"}}>*</span> Fields are required</Form.Label>
               <Form.Row>
                 <Form.Group as={Col} controlId="formGridEmail">
-                  <Form.Label>First name</Form.Label>
+                  <Form.Label><b>First name:</b><span style={{color: "red"}}>*</span></Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="Enter First name"
@@ -62,9 +63,11 @@ const UserRegister = () => {
                     required
                   />
                 </Form.Group>
+                </Form.Row>
 
+                <Form.Row>
                 <Form.Group as={Col} controlId="formGridPassword">
-                  <Form.Label>Last name</Form.Label>
+                  <Form.Label><b>Last name:</b><span style={{color: "red"}}>*</span></Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="Enter Last name"
@@ -74,9 +77,10 @@ const UserRegister = () => {
                     required
                   />
                 </Form.Group>
-
+                </Form.Row>
+                <Form.Row>
                 <Form.Group as={Col} controlId="formGridEmail">
-                  <Form.Label>User name</Form.Label>
+                  <Form.Label><b>User name:</b><span style={{color: "red"}}>*</span></Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="Enter User name"
@@ -90,7 +94,7 @@ const UserRegister = () => {
 
               <Form.Row>
                 <Form.Group as={Col} controlId="formGridEmail">
-                  <Form.Label>Email</Form.Label>
+                  <Form.Label><b>Email Address:</b><span style={{color: "red"}}>*</span></Form.Label>
                   <Form.Control
                     type="email"
                     placeholder="Enter email"
@@ -102,7 +106,7 @@ const UserRegister = () => {
                 </Form.Group>
 
                 <Form.Group as={Col} controlId="formGridPassword">
-                  <Form.Label>Password</Form.Label>
+                  <Form.Label><b>Password:</b><span style={{color: "red"}}>*</span></Form.Label>
                   <Form.Control
                     type="password"
                     placeholder="Password"
@@ -114,10 +118,19 @@ const UserRegister = () => {
                 </Form.Group>
               </Form.Row>
 
-              <Form.Row>
+              <Form.Row
+              style={{
+                display: "flex",
+                justifyContent: "space-around",
+                marginTop: "10px",
+              }}
+            >
                 <Button variant="primary" type="submit">
                   Submit
                 </Button>
+                <Button variant="primary" type="button" onClick={() => { history.push('/') }}>
+                Cancel
+              </Button>
               </Form.Row>
             </Form>
           </Card.Body>
