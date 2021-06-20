@@ -32,11 +32,13 @@ const Login = ({ setToken }) => {
       password: newLogin.password,
     };
 
-    login(queryString.stringify(loginUser)).then((res) => {
-      console.log(res)
-      setToken(res.accessToken)
-      history.push(`/`);
-    });
+    login(queryString.stringify(loginUser))
+      .then((res) => {
+        console.log(res)
+        setToken(res.accessToken)
+        history.push(`/`)
+      })
+      .catch(err => console.log(err));
   };
 
   return (

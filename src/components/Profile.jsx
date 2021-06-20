@@ -108,6 +108,7 @@ const Profile = ({ user }) => {
       .catch(err => console.log(console.error()))
       .then(x => {
         console.log(profile)
+        history.push(`/`)
       })
   }
 
@@ -184,7 +185,6 @@ const Profile = ({ user }) => {
                 name="password"
                 value={profile ? profile.password : ""}
                 onChange={onChange}
-                required
                 disabled={editMode ? false : true}
               />
             </Form.Group>
