@@ -8,10 +8,11 @@ import api from "./api";
 import jwt_decode from "jwt-decode";
 
 const App = () => {
-  const root = "https://tranquil-reaches-12289.herokuapp.com";
-
+  
+// to decode a token  token 
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(localStorage.getItem("auth-token"));
+  
 
   useEffect(() => {
     if (token) {
@@ -25,25 +26,48 @@ const App = () => {
     if (user) console.log(user);
   }, [user]);
 
-  //console.log(videos)
 
-  /* useEffect(() => {
-    console.log(api.fetchVideos())
-    try {
-      const res = api.fetchVideos2();
-      console.log(res)
-    } catch (error) {
-      console.error(error)
+  // to get all info of single specific user
+
+  const [singleUserInfo, setSingleUserInfo] = useState({})
+
+  useEffect(() => {
+    console.log(singleUserInfo)
+    if (user && user.id) {
+      api.fetchSingleUser(user.id)
+        .then(res => {
+          console.log(res.data[0])
+          const data = res.data[0];
+          setSingleUserInfo({
+            first_name: data.first_name,
+            last_name: data.last_name,
+            user_name: data.user_name,
+            email: data.email,
+            role: data.role,
+            password: "",
+            phone: data.phone ,
+            city_code: data.city_code || "",
+            city_name: data.city_name || "",
+            country: data.country || "",
+            company: data.company || "",
+            errors: {},
+          })
+        })
+        .catch(err => console.error(err))
     }
-    //setVideos(fetchVideos) 
-  }, []) */
+    console.log(user)
+  }, [user])
+
+  useEffect(() => {
+    if (singleUserInfo) console.log(singleUserInfo);
+  }, [singleUserInfo]);
+
+  
 
   return (
     <div className="App">
-      <Navigation user={user} setToken={setToken} setUser={setUser} />
-      <div className="main-container">
-        <LullifyRouter setToken={setToken} />
-      </div>
+      <Navigation user={user} setToken={setToken} setUser={setUser} singleUserInfo={singleUserInfo} />
+      <LullifyRouter user={user} setToken={setToken} singleUserInfo={singleUserInfo} />
     </div>
   );
 };

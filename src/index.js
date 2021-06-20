@@ -6,8 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-
-// const root = "https://tranquil-reaches-12289.herokuapp.com"
+//const root = "https://tranquil-reaches-12289.herokuapp.com"
 
 /* axios.interceptors.request.use(request => {
   console.log(request)
@@ -32,7 +31,7 @@ import axios from 'axios';
     ) {
       originalRequest._retry = true;
       // retry = true
-      return axios.post(`${root}/refresh`, {
+      return axios.post(`${root}/refresh`,{}, {
         headers: {
           'Content-Type': 'application/json;charset=UTF-8',
           'Access-Control-Allow-Origin': "*",
