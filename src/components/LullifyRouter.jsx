@@ -13,11 +13,10 @@ import api from "../api";
 
 const LullifyRouter = ({ setToken, user }) => {
 
-
   return (
     <>
       <Switch>
-        <Route exact path='/'><Home user={user}  /></Route>
+        <Route exact path='/'><Home user={user}/></Route>
         <Route path='/player/:id?'><Player user={user} /></Route>
         <Route path='/login'><Login setToken={setToken} /></Route>
         <Route path='/register'><Register /></Route>

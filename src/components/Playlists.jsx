@@ -1,4 +1,4 @@
-import { Form, FormControl, Button, Image } from "react-bootstrap";
+import { Form, FormControl, Button, Image, Alert } from "react-bootstrap";
 import api from "../api";
 import { AiOutlinePlus } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
@@ -11,6 +11,8 @@ const Playlists = ({ user }) => {
   //  To create a playlist
 
   console.log(user);
+
+  const [loading, setLoading] = useState(true);
 
   const [playlists, setPlaylists] = useState({
     name: "",
@@ -46,11 +48,11 @@ const Playlists = ({ user }) => {
   };
 
   const addPlaylist = (e) => {
-    e.preventDefault();
+    //e.preventDefault();
 
     api.createPlaylist(playlists).then((res) => {
       alert(`Do you want to add ${playlists.name} to your playlist?`);
-      setPlaylists({ name: "" });
+      setPlaylists({ name: "", video_list:[] });
       history.push(`/`);
     });
   };
@@ -62,19 +64,20 @@ const Playlists = ({ user }) => {
   console.log(displayPlaylists);
 
   useEffect(() => {
-    if(user && user.id) {
-      api.getPlaylist(user.id)
-    .then(res=> {
-      setDisplayPlaylists(res.data)
-    })
-    .catch(err => console.log(err))
+    if (user && user.id) {
+      api
+        .getPlaylist(user.id)
+        .then((res) => {
+          setDisplayPlaylists(res.data);
+        })
+        .catch((err) => console.log(err));
+      setLoading(false);
     }
-  },[])
-
+  },[playlists]);
 
   return (
     <div className="playlists">
-      <h1>Playlists</h1>
+      <h2>Playlists</h2>
       <Form className="d-flex" onSubmit={addPlaylist}>
         <FormControl
           type="text"
@@ -95,29 +98,64 @@ const Playlists = ({ user }) => {
             displayPlaylists.map((playlist, index) => {
               return (
                 <>
-                  <div style={{ display: "flex" }}>
-                    <li key={index}>{playlist.name}</li>
-                    <Button
-                    type="submit"
-                      variant="outline-success"
-                      onClick= {(e) => {
-                        e.preventDefault();
-                          api.deletePlaylist(user.id, playlist._id)
-                            .then(res => {
-                              alert(`Do you want to delete ${playlist.name}?`);
-                              history.push(`/`);
-                          })
-                        
-                      }}
-                    >
-                      <MdDelete />
-                    </Button>
-                  </div>
+                  {!loading ? (
+                    <div>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <li key={index}>{playlist.name}</li>
+                        <Button
+                          type="submit"
+                          variant="outline-success"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            api
+                              .deletePlaylist(user.id, playlist._id)
+                              .then((res) => {
+                                alert(
+                                  `Do you want to delete ${playlist.name}?`
+                                );
+                                window.location.reload()
+                                history.push(`/`);
+                              });
+                          }}
+                        >
+                          <MdDelete />
+                        </Button>
+                      </div>
+                      <div>
+                        <ul>
+                          <Form className="d-flex" onSubmit={addPlaylist}>
+                            <FormControl
+                              type="text"
+                              placeholder="Add Videos"
+                              className="mr-5"
+                              name="video_list"
+                              value={playlists.video_list}
+                              onChange={onChange}
+                              required
+                            />
+                            <Button type="submit" variant="outline-success">
+                              <AiOutlinePlus />
+                            </Button>
+                          </Form>
+                          <li>123</li>
+                          <li>123</li>
+                          <li>123</li>
+                        </ul>
+                      </div>
+                    </div>
+                  ) : (
+                    <p>Loading..</p>
+                  )}
                 </>
               );
             })}
         </ul>
-      </div> 
+      </div>
     </div>
   );
 };

@@ -111,7 +111,7 @@ const Navigation = ({ user, setToken, setUser, singleUserInfo }) => {
                   </>
                 )}
 
-                <Image src={singleUserInfo.user_img_url} roundedCircle />
+                <Image src={singleUserInfo.user_img_url} alt="profile-image" width="5px" height="5px" roundedCircle />
 
                 <NavDropdown
                   title={user.user_name}

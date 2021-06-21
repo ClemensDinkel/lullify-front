@@ -4,6 +4,12 @@ import Playlists from './Playlists'
 import axios from 'axios'
 import Video from './Video'
 import '../App.css'
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 55f35e175b7e93f80ed4c2deebafd5a68e03418a
 
 const Player = ({ user }) => {
   const { id } = useParams()
@@ -28,22 +34,6 @@ const Player = ({ user }) => {
   }
   return (
     <>
-      {/* <Container>
-        <Row>
-          <Col sm={9}>
-            {
-              !loading ?
-                <Video video={video} user={user} /> :
-                <p>Loading..</p>
-            }
-          </Col>
-
-          <Col sm={3}>
-            <Playlists user={user} />
-          </Col>
-        </Row>
-      </Container> */}
-
       <div className="player-container">
       {
               !loading ?

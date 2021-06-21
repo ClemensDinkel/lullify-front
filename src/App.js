@@ -2,7 +2,6 @@ import "./App.css";
 import Navigation from "./components/Navigation";
 import LullifyRouter from "./components/LullifyRouter";
 import { useState, useEffect } from "react";
-import axios from "axios";
 //import { fetchVideos } from './api';
 import api from "./api";
 import jwt_decode from "jwt-decode";
@@ -43,6 +42,7 @@ const App = () => {
             email: data.email,
             role: data.role,
             password: "",
+            user_img_url: data.user_img_url,
             phone: data.phone,
             city_code: data.city_code || "",
             city_name: data.city_name || "",
