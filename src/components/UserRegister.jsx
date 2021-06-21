@@ -1,8 +1,7 @@
 import { Card, Col, Form, Button } from "react-bootstrap";
-import { register } from "./AuthFunctions";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import queryString from "query-string";
+import api from "../api";
 
 const UserRegister = () => {
   const [newRegister, setNewRegister] = useState({
@@ -38,10 +37,13 @@ const UserRegister = () => {
       password: newRegister.password,
     };
 
-    register(queryString.stringify(newUser)).then((res) => {
-      alert('Yor are Registerd')
-      history.push(`/login`);
-    });
+    api.registerUser(newUser)
+      .then(() => {
+        console.log(newUser)
+        alert('You are registered')
+        history.push(`/login`)
+      })
+      .catch(err => console.log(err))
   };
 
   return (

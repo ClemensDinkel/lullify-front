@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { login } from "./AuthFunctions";
 import { Card, Form, Button } from "react-bootstrap";
-import queryString from "query-string";
+import api from "../api";
 
 const Login = ({ setToken }) => {
   const [newLogin, setNewLogin] = useState({
@@ -27,18 +26,19 @@ const Login = ({ setToken }) => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    const loginUser = {
+    const userLogin = {
       email: newLogin.email,
       password: newLogin.password,
     };
 
-    login(queryString.stringify(loginUser))
-      .then((res) => {
-        console.log(res);
-        setToken(res.accessToken);
-        history.push(`/`);
+    api.loginUser(userLogin)
+      .then(res => {
+        console.log(res.data)
+        localStorage.setItem('auth-token', res.data.accessToken)
+        setToken(res.data.accessToken)
+        history.push(`/`)
       })
-      .catch((err) => console.log(err));
+      .catch(err => console.log(err))
   };
 
   return (

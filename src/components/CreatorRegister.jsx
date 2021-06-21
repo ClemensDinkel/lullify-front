@@ -1,9 +1,7 @@
 import { Card, Col, Form, Button } from "react-bootstrap";
-import { register } from "./AuthFunctions";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import queryString from "query-string";
-
+import api from "../api";
 
 const CreatorRegister = () => {
   const [ccRegister, setCcRegister] = useState({
@@ -51,11 +49,13 @@ const CreatorRegister = () => {
       requested_to_be_cc: true,
     };
 
-    register(queryString.stringify(newUser)).then((res) => {
-      console.log(newUser)
-      alert('You are registered')
-      history.push(`/login`);
-    });
+    api.registerUser(newUser)
+      .then(() => {
+        console.log(newUser)
+        alert('You are registered')
+        history.push(`/login`)
+      })
+      .catch(err => console.log(err))
   };
 
   return (

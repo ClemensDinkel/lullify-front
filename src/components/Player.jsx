@@ -4,9 +4,6 @@ import Playlists from './Playlists'
 import axios from 'axios'
 import Video from './Video'
 import '../App.css'
-import { Container, Col, Row } from 'react-bootstrap'
-
-
 
 const Player = ({ user }) => {
   const { id } = useParams()

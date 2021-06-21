@@ -13,6 +13,13 @@ const getAccessToken = () => {
   return localStorage.getItem('auth-token');
 }
 
+/* // Function that will be called to refresh authorization
+const refreshAuthLogic = failedRequest => axios.post('https://www.example.com/auth/token/refresh').then(tokenRefreshResponse => {
+    localStorage.setItem('token', tokenRefreshResponse.data.token);
+    failedRequest.response.config.headers['Authorization'] = 'Bearer ' + tokenRefreshResponse.data.token;
+    return Promise.resolve();
+}); */
+
 // Use interceptor to inject the access token to requests
 axios.interceptors.request.use(request => {
   request.headers['Authorization'] = `Bearer ${getAccessToken()}`;
@@ -27,6 +34,14 @@ axios.interceptors.request.use(config => {
   }
   return config;
 });
+
+axios.interceptors.response.use(response => {
+  console.log(response)
+  return response
+})
+
+// Instantiate the interceptor (you can chain it as it returns the axios instance)
+// createAuthRefreshInterceptor(axios, refreshAuthLogic);
 
 /* axios.interceptors.response.use(
   (response) => {

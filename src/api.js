@@ -9,11 +9,11 @@ const api = {
   },
 
   loginUser: async (user) => {
-    return await axios.post(`${root}/login`, user);
+    return await axios.post(`${root}/login`, queryString.stringify(user)/*, { withCredentials: true } */);
   },
 
   registerUser: async (newUser) => {
-    return await axios.post(`${root}/register`, newUser);
+    return await axios.post(`${root}/register`, queryString.stringify(newUser));
   },
 
   fetchSingleUser: async (user_id) => {
@@ -23,7 +23,7 @@ const api = {
   updateUser: async (user_id, userData) => {
     return await axios.put(
       `${root}/users/${user_id}`,
-      queryString.stringify(userData)
+      queryString.stringify(userData),
     );
   },
 
