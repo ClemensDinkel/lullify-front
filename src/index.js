@@ -6,19 +6,24 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
+import queryString from "query-string";
 import createAuthRefreshInterceptor from 'axios-auth-refresh';
+const root = "http://localhost:3001";
+// const root = 'https://tranquil-reaches-12289.herokuapp.com';
 
 // Obtain the fresh token each time the function is called
 const getAccessToken = () => {
   return localStorage.getItem('auth-token');
 }
 
-/* // Function that will be called to refresh authorization
-const refreshAuthLogic = failedRequest => axios.post('https://www.example.com/auth/token/refresh').then(tokenRefreshResponse => {
-    localStorage.setItem('token', tokenRefreshResponse.data.token);
-    failedRequest.response.config.headers['Authorization'] = 'Bearer ' + tokenRefreshResponse.data.token;
+// Function that will be called to refresh authorization
+const refreshAuthLogic = failedRequest => axios.post(`${root}/refresh`,{}, {withCredentials:true})
+  .then(tokenRefreshResponse => {
+    console.log(tokenRefreshResponse)
+    localStorage.setItem('auth-token', tokenRefreshResponse.data.accessToken);
+    failedRequest.response.config.headers['Authorization'] = `Bearer ${tokenRefreshResponse.data.token}`;
     return Promise.resolve();
-}); */
+  });
 
 // Use interceptor to inject the access token to requests
 axios.interceptors.request.use(request => {
@@ -41,7 +46,9 @@ axios.interceptors.response.use(response => {
 })
 
 // Instantiate the interceptor (you can chain it as it returns the axios instance)
-// createAuthRefreshInterceptor(axios, refreshAuthLogic);
+createAuthRefreshInterceptor(axios, refreshAuthLogic, {
+  statusCodes: [ 401, 403 ]
+});
 
 /* axios.interceptors.response.use(
   (response) => {
