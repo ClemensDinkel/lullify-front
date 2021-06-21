@@ -4,12 +4,7 @@ import Playlists from './Playlists'
 import axios from 'axios'
 import Video from './Video'
 import '../App.css'
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> 55f35e175b7e93f80ed4c2deebafd5a68e03418a
+import api from "../api";
 
 const Player = ({ user }) => {
   const { id } = useParams()

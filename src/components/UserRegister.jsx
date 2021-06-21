@@ -1,11 +1,9 @@
 import { Card, Col, Form, Button,InputGroup } from "react-bootstrap";
-import { register } from "./AuthFunctions";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import queryString from "query-string";
 import { BiShow } from "react-icons/bi";
 import { BiHide } from "react-icons/bi";
-
+import api from "../api";
 
 const UserRegister = () => {
 

@@ -6,7 +6,6 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-import queryString from "query-string";
 import createAuthRefreshInterceptor from 'axios-auth-refresh';
 const root = "http://localhost:3001";
 // const root = 'https://tranquil-reaches-12289.herokuapp.com';
