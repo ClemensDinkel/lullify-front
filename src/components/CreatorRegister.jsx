@@ -1,11 +1,17 @@
-import { Card, Col, Form, Button } from "react-bootstrap";
+import { Card, Col, Form, Button, InputGroup } from "react-bootstrap";
 import { register } from "./AuthFunctions";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import queryString from "query-string";
+import { BiShow } from "react-icons/bi";
+import { BiHide } from "react-icons/bi";
+
 
 
 const CreatorRegister = () => {
+
+  const [passwordShow, setPasswordShow] = useState(false);
+
   const [ccRegister, setCcRegister] = useState({
     first_name: "",
     last_name: "",
@@ -119,15 +125,37 @@ const CreatorRegister = () => {
               </Form.Group>
 
               <Form.Group as={Col} controlId="formGridPassword">
-                <Form.Label><b>Password:</b><span style={{color: "red"}}>*</span></Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder="Password"
-                  name="password"
-                  value={ccRegister.password}
-                  onChange={onChange}
-                  required
-                />
+                <Form.Label><b>Password:</b><span style={{color: "red"}}>*</span>
+                </Form.Label>
+                <InputGroup className="mb-2">
+                  <Form.Control
+                    type={passwordShow ? "text" : "password"}
+                    placeholder="Password"
+                    name="password"
+                    value={ccRegister.password}
+                    onChange={onChange}
+                    required
+                  />
+                  <InputGroup.Prepend>
+                    <InputGroup.Text>
+                      {!passwordShow ? (
+                        <span
+                          className="password-icon"
+                          onClick={() => setPasswordShow(!passwordShow)}
+                        >
+                          <BiShow />
+                        </span>
+                      ) : (
+                        <span
+                          className="password-icon"
+                          onClick={() => setPasswordShow(!passwordShow)}
+                        >
+                          <BiHide />
+                        </span>
+                      )}
+                    </InputGroup.Text>
+                  </InputGroup.Prepend>
+                </InputGroup>
               </Form.Group>
             </Form.Row>
 

@@ -41,6 +41,7 @@
   padding: 5px;
   margin: 2px;
   width: 10rem;
+  height: 17rem;
 }
 
 .card-img-top {
@@ -50,4 +51,10 @@
 .player-container {
   display: flex;
   justify-content: space-around;
+}
+
+.password-icon {
+  position: relative;
+  top: 20;
+  left: 10;
 }

@@ -1,10 +1,16 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { login } from "./AuthFunctions";
-import { Card, Form, Button } from "react-bootstrap";
+import { Card, Form, Button, InputGroup } from "react-bootstrap";
 import queryString from "query-string";
+import { BiShow } from "react-icons/bi";
+import { BiHide } from "react-icons/bi";
+import "../App.css";
 
 const Login = ({ setToken }) => {
+
+  const [passwordShow, setPasswordShow] = useState(false);
+
   const [newLogin, setNewLogin] = useState({
     email: "",
     password: "",
@@ -76,14 +82,36 @@ const Login = ({ setToken }) => {
                   <b>Password:</b>
                   <span style={{ color: "red" }}>*</span>
                 </Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder="Password"
-                  name="password"
-                  value={newLogin.password}
-                  onChange={onChange}
-                  required
-                />
+
+                <InputGroup className="mb-2">
+                  <Form.Control
+                    type={passwordShow ? "text" : "password"}
+                    placeholder="Password"
+                    name="password"
+                    value={newLogin.password}
+                    onChange={onChange}
+                    required
+                  />
+                  <InputGroup.Prepend>
+                    <InputGroup.Text>
+                      {!passwordShow ? (
+                        <span
+                          className="password-icon"
+                          onClick={() => setPasswordShow(!passwordShow)}
+                        >
+                          <BiShow />
+                        </span>
+                      ) : (
+                        <span
+                          className="password-icon"
+                          onClick={() => setPasswordShow(!passwordShow)}
+                        >
+                          <BiHide />
+                        </span>
+                      )}
+                    </InputGroup.Text>
+                  </InputGroup.Prepend>
+                </InputGroup>
               </Form.Group>
             </Form.Row>
 

@@ -1,9 +1,14 @@
 import { useState, useEffect } from "react"
-import { Card, Form, Button } from "react-bootstrap"
+import { Card, Form, Button, InputGroup } from "react-bootstrap"
 import api from "../api";
 import { useHistory } from "react-router-dom";
+import { BiShow } from "react-icons/bi";
+import { BiHide } from "react-icons/bi";
 
 const Profile = ({ user }) => {
+
+  const [passwordShow, setPasswordShow] = useState(false);
+
   let history = useHistory();
   const [editMode, setEditMode] = useState(false)
   const [profile, setProfile] = useState({
@@ -111,29 +116,71 @@ const Profile = ({ user }) => {
             <Form.Row>
             <Form.Group controlId="formBasicCurrentPassword">
               <Form.Label><b>Current Password:</b></Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Current Password"
-                name="currentPassword"
-                value={profile ? profile.currentPassword : ""}
-                onChange={onChange}
-                required
-                disabled={editMode ? false : true}
-              />
+              <InputGroup className="mb-2">
+                  <Form.Control
+                    type={passwordShow ? "text" : "password"}
+                    placeholder="Current Password"
+                    name="currentPassword"
+                    value={profile ? profile.currentPassword : ""}
+                    onChange={onChange}
+                    required
+                    disabled={editMode ? false : true}
+                  />
+                  <InputGroup.Prepend>
+                    <InputGroup.Text>
+                      {!passwordShow ? (
+                        <span
+                          className="password-icon"
+                          onClick={() => setPasswordShow(!passwordShow)}
+                        >
+                          <BiShow />
+                        </span>
+                      ) : (
+                        <span
+                          className="password-icon"
+                          onClick={() => setPasswordShow(!passwordShow)}
+                        >
+                          <BiHide />
+                        </span>
+                      )}
+                    </InputGroup.Text>
+                  </InputGroup.Prepend>
+                </InputGroup>
             </Form.Group>
             </Form.Row>
 
             <Form.Row>
             <Form.Group controlId="formBasicPassword">
               <Form.Label><b>New Password:</b></Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="New Password"
-                name="password"
-                value={profile ? profile.password : ""}
-                onChange={onChange}
-                disabled={editMode ? false : true}
-              />
+              <InputGroup className="mb-2">
+                  <Form.Control
+                    type={passwordShow ? "text" : "password"}
+                    placeholder="New Password"
+                    name="password"
+                    value={profile ? profile.password : ""}
+                    onChange={onChange}
+                    disabled={editMode ? false : true}
+                  />
+                  <InputGroup.Prepend>
+                    <InputGroup.Text>
+                      {!passwordShow ? (
+                        <span
+                          className="password-icon"
+                          onClick={() => setPasswordShow(!passwordShow)}
+                        >
+                          <BiShow />
+                        </span>
+                      ) : (
+                        <span
+                          className="password-icon"
+                          onClick={() => setPasswordShow(!passwordShow)}
+                        >
+                          <BiHide />
+                        </span>
+                      )}
+                    </InputGroup.Text>
+                  </InputGroup.Prepend>
+                </InputGroup>
             </Form.Group>
             </Form.Row>
 

@@ -4,15 +4,32 @@ import "../App.css";
 import { useState, useEffect } from "react";
 import { HiOutlineDocumentReport } from "react-icons/hi";
 import { HiDocumentReport } from "react-icons/hi";
+import api from '../api'
 
 
 const Video = ({ video, user }) => {
 
+  console.log(video)
+
   const [readMore, setReadMore] = useState(false)
+  const [myvideoIndex, setMyvideoIndex] = useState(0);
+  const [editMode, setEditMode] = useState(true)
 
   const secToMinConerter = (n) => {
     return n / 60;
   }
+
+  const reportButton = () => {
+    
+    api.reportVideo(video[0]._id)
+    .then(() => {
+    alert('video reported')
+    setEditMode(false)
+  })
+    .catch(err => console.log(err))
+  }
+
+  
 
   return (
     <>
@@ -21,12 +38,12 @@ const Video = ({ video, user }) => {
           <Row>
             <Col>
               <ReactPlayer
-                controls
+                controls={true}
                 className='react-player'
                 url={video[0].video_url}
                 muted={false}
                 playing={true}
-                loop={true}
+                /* onEnded={playNext} */
                 width='100%'
                 height='600px'
               />
@@ -41,14 +58,14 @@ const Video = ({ video, user }) => {
                   <Button variant="light" onClick={() => setReadMore(!readMore)}>
                     {!readMore ? <b>Show More</b> : <b>Show less</b>}
                   </Button>
-                  <Button variant="light">
-
+                  <Button variant="light"
+                  onClick={()=> reportButton()}>
+                    {editMode ?
                     <HiOutlineDocumentReport />
-                    <HiDocumentReport />
+                  :
+                  <HiDocumentReport />}
                   </Button>
                 </div>
-
-
                 {
                   readMore ?
                     <div

@@ -43,6 +43,7 @@ const App = () => {
             email: data.email,
             role: data.role,
             password: "",
+            user_img_url: data.user_img_url,
             phone: data.phone,
             city_code: data.city_code || "",
             city_name: data.city_name || "",

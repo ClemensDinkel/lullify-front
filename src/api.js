@@ -44,6 +44,10 @@ const api = {
       //queryString.stringify(playlistData)
     );
   },
+
+  reportVideo: async (video_id) => {
+    return await axios.put(`${root}/videos/${video_id}/report`);
+  },
 };
 
 export default api;
