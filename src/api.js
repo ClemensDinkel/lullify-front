@@ -9,7 +9,7 @@ const api = {
   },
 
   loginUser: async (user) => {
-    return await axios.post(`${root}/login`, queryString.stringify(user)/*, { withCredentials: true } */);
+    return await axios.post(`${root}/login`, queryString.stringify(user), { withCredentials: true });
   },
 
   registerUser: async (newUser) => {
