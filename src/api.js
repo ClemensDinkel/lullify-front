@@ -1,15 +1,19 @@
 import axios from "axios";
 import queryString from "query-string";
-const root = "http://localhost:3001";
-// const root = 'https://tranquil-reaches-12289.herokuapp.com';
+// const root = "http://localhost:3001";
+const root = 'https://tranquil-reaches-12289.herokuapp.com';
 
 const api = {
   fetchVideos: async () => {
     return await axios.get(`${root}/videos`);
   },
 
+  reportVideo: async (video_id) => {
+    return await axios.put(`${root}/videos/${video_id}/report`);
+  },
+
   loginUser: async (user) => {
-    return await axios.post(`${root}/login`, queryString.stringify(user), { withCredentials: true });
+    return await axios.post(`${root}/login`, queryString.stringify(user));
   },
 
   registerUser: async (newUser) => {
@@ -18,6 +22,10 @@ const api = {
 
   fetchSingleUser: async (user_id) => {
     return await axios.get(`${root}/users/${user_id}`);
+  },
+
+  getAllUsers: async () => {
+    return await axios.get(`${root}/users`);
   },
 
   updateUser: async (user_id, userData) => {
@@ -43,10 +51,6 @@ const api = {
       `${root}/users/${user_id}/playlists/${playlist_id}`
       //queryString.stringify(playlistData)
     );
-  },
-
-  reportVideo: async (video_id) => {
-    return await axios.put(`${root}/videos/${video_id}/report`);
   },
 };
 
