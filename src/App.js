@@ -5,33 +5,26 @@ import { useState, useEffect } from "react";
 //import { fetchVideos } from './api';
 import api from "./api";
 import jwt_decode from "jwt-decode";
+import { VideoController } from "./context/VideoContext";
+import { UserController } from "./context/UserContext";
 
 const App = () => {
   // to decode a token  token
-  const [user, setUser] = useState(null);
+  const [decToken, setDecToken] = useState(null);
   const [token, setToken] = useState(localStorage.getItem("auth-token"));
-
-  useEffect(() => {
-    if (token) {
-      console.log(token);
-      const decToken = jwt_decode(token);
-      setUser(decToken);
-    }
-  }, [token]);
-
-  useEffect(() => {
-    if (user) console.log(user);
-  }, [user]);
-
-  // to get all info of single specific user
-
   const [singleUserInfo, setSingleUserInfo] = useState({});
 
   useEffect(() => {
+    if (token) {
+      setDecToken(jwt_decode(token));
+    }
+  }, [token]);
+  
+  useEffect(() => {
     console.log(singleUserInfo);
-    if (user && user.id) {
+    if (decToken && decToken.id) {
       api
-        .fetchSingleUser(user.id)
+        .fetchSingleUser(decToken.id)
         .then((res) => {
           console.log(res.data[0]);
           const data = res.data[0];
@@ -53,8 +46,8 @@ const App = () => {
         })
         .catch((err) => console.error(err));
     }
-    console.log(user);
-  }, [user]);
+    console.log(decToken);
+  }, [decToken]);
 
   useEffect(() => {
     if (singleUserInfo) console.log(singleUserInfo);
@@ -62,17 +55,21 @@ const App = () => {
 
   return (
     <div className="App">
+      <VideoController>
+      <UserController>
       <Navigation
-        user={user}
+        user={decToken}
         setToken={setToken}
-        setUser={setUser}
+        setUser={setDecToken}
         singleUserInfo={singleUserInfo}
       />
       <LullifyRouter
-        user={user}
+        user={decToken}
         setToken={setToken}
         singleUserInfo={singleUserInfo}
       />
+      </UserController>
+      </VideoController>
     </div>
   );
 };

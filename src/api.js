@@ -1,7 +1,7 @@
 import axios from "axios";
 import queryString from "query-string";
-// const root = "http://localhost:3001";
-const root = 'https://tranquil-reaches-12289.herokuapp.com';
+const root = "http://localhost:3001";
+// const root = 'https://tranquil-reaches-12289.herokuapp.com';
 
 const api = {
   fetchVideos: async () => {
@@ -13,7 +13,7 @@ const api = {
   },
 
   loginUser: async (user) => {
-    return await axios.post(`${root}/login`, queryString.stringify(user));
+    return await axios.post(`${root}/login`, queryString.stringify(user), {withCredentials:true});
   },
 
   registerUser: async (newUser) => {

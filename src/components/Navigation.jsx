@@ -9,21 +9,26 @@ import {
 } from "react-bootstrap";
 /* import { Link } from 'react-router-dom'; */
 import logo_image from "../images/logo7.png";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import AdminPanel from "./AdminPanel";
+import { UserContext } from '../context/UserContext'
 
-const Navigation = ({ user, setToken, setUser, singleUserInfo }) => {
+
+const Navigation = () => {
+  console.log(useContext(UserContext))
+  const {tk, dTk, sUI} = useContext(UserContext)
+  const [decToken, setDecToken] = dTk
+  const [token, setToken] = tk
+  const [singleUserInfo, setSingleUserInfo] = sUI
   const history = useHistory();
-
-  console.log(singleUserInfo);
 
   const logOut = (e) => {
     e.preventDefault();
     localStorage.clear();
     setToken("");
-    setUser(null);
-    alert(`${user.user_name} logged out`);
+    setDecToken(null);
+    alert(`${decToken.user_name} logged out`);
     history.push("/");
   };
 
@@ -80,7 +85,7 @@ const Navigation = ({ user, setToken, setUser, singleUserInfo }) => {
             <Nav.Link href="/about">
               <b>About Us</b>
             </Nav.Link>
-            {!user ? (
+            {!decToken ? (
               <>
                 <NavDropdown
                   title="Register"
@@ -100,12 +105,12 @@ const Navigation = ({ user, setToken, setUser, singleUserInfo }) => {
               </>
             ) : (
               <>
-                {(user.role === "admin" || user.role === "content_creator") && (
+                {(decToken.role === "admin" || decToken.role === "content_creator") && (
                   <>
                     <Nav.Link href="/creator">CreatorPanel</Nav.Link>
                   </>
                 )}
-                {user.role === "admin" && (
+                {decToken.role === "admin" && (
                   <>
                     <Nav.Link href="/adminpanel">AdminPanel</Nav.Link>
                   </>
@@ -114,7 +119,7 @@ const Navigation = ({ user, setToken, setUser, singleUserInfo }) => {
                 <Image src={singleUserInfo.user_img_url} alt="profile-image" width="5px" height="5px" roundedCircle />
 
                 <NavDropdown
-                  title={user.user_name}
+                  title={decToken.user_name}
                   id="navbarScrollingDropdown"
                 >
                   <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
