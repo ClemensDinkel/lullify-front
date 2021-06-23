@@ -5,13 +5,14 @@ import { MdDelete } from "react-icons/md";
 import { useHistory } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import "../App.css";
-import { UserContext } from '../context/UserContext'
+import { UserContext } from "../context/UserContext";
+import { VideoContext } from "../context/VideoContext";
 
 const Playlists = () => {
-  //  To create a playlist
-  const { dTk, sUI } = useContext(UserContext)
-  const [decToken] = dTk
-  const [singleUserInfo] = sUI
+  const { dTk } = useContext(UserContext);
+  const [decToken] = dTk;
+  const [videos] = useContext(VideoContext);
+
   let history = useHistory();
 
   console.log(decToken);
@@ -27,7 +28,9 @@ const Playlists = () => {
   console.log(playlists);
 
   useEffect(() => {
-    if (decToken && decToken.id) setPlaylists({user_id: singleUserInfo._id})
+    if (decToken && decToken.id) {
+      setPlaylists({ user_id: decToken.id });
+    }
   }, [decToken]);
 
   const onChange = (e) => {
@@ -105,14 +108,13 @@ const Playlists = () => {
                           type="submit"
                           variant="outline-success"
                           onClick={(e) => {
-                            e.preventDefault();
                             api
                               .deletePlaylist(decToken.id, playlist._id)
                               .then((res) => {
                                 alert(
                                   `Do you want to delete ${playlist.name}?`
                                 );
-                                window.location.reload()
+                                window.location.reload();
                                 history.push(`/`);
                               });
                           }}
@@ -121,23 +123,46 @@ const Playlists = () => {
                         </Button>
                       </div>
                       <div>
+                        <Form className="d-flex">
+                          <Form.Control
+                            stylt={{ width: "12px" }}
+                            as="select"
+                            className="my-1 mr-sm-2"
+                            id="inlineFormCustomSelectPref"
+                            name="video_id"
+                            onChange={(e) => e.target.value}
+                            custom
+                          >
+                            <option value="">Add Video</option>
+                            {videos &&
+                              videos.map((video, index) => {
+                                return (
+                                  <option value={video._id} key={index}>
+                                    {video.title}
+                                  </option>
+                                );
+                              })}
+                          </Form.Control>
+                          <Button
+                            type="submit"
+                            variant="outline-success"
+                            onClick={() => {
+                              api
+                                .updatePlaylist(
+                                  decToken.id,
+                                  playlist._id,
+                                  playlist
+                                )
+                                .then((res) => {
+                                  console.log(res);
+                                  history.push("/");
+                                });
+                            }}
+                          >
+                            <AiOutlinePlus />
+                          </Button>
+                        </Form>
                         <ul>
-                          <Form className="d-flex" onSubmit={addPlaylist}>
-                            <FormControl
-                              type="text"
-                              placeholder="Add Videos"
-                              className="mr-5"
-                              name="video_list"
-                              value={playlists.video_list}
-                              onChange={onChange}
-                              required
-                            />
-                            <Button type="submit" variant="outline-success">
-                              <AiOutlinePlus />
-                            </Button>
-                          </Form>
-                          <li>123</li>
-                          <li>123</li>
                           <li>123</li>
                         </ul>
                       </div>

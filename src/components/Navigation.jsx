@@ -21,7 +21,7 @@ const Navigation = () => {
   let history = useHistory();
 
   const logOut = (e) => {
-    e.preventDefault();
+    //e.preventDefault();
     localStorage.clear();
     setToken("");
     setDecToken(null);
@@ -104,12 +104,12 @@ const Navigation = () => {
               <>
                 {(decToken.role === "admin" || decToken.role === "content_creator") && (
                   <>
-                    <Nav.Link href="/creator">CreatorPanel</Nav.Link>
+                    <Nav.Link href="/creator"><b>CreatorPanel</b></Nav.Link>
                   </>
                 )}
                 {decToken.role === "admin" && (
                   <>
-                    <Nav.Link href="/adminpanel">AdminPanel</Nav.Link>
+                    <Nav.Link href="/adminpanel"><b>AdminPanel</b></Nav.Link>
                   </>
                 )}
 

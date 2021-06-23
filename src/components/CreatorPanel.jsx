@@ -1,14 +1,17 @@
-import ContentList from './ContentList'
-import AddContent from './AddContent'
+import "../App.css";
+import ContentList from "./ContentList";
+import AddContent from "./AddContent";
 
 const CreatorPanel = () => {
-    return (
-        <>
-            Creator
-            <ContentList/>
-            <AddContent/>
-        </>
-    )
-}
+  return (
+    <>
+      <div className="creator-panel">
+        <ContentList />
 
-export default CreatorPanel
+        <AddContent />
+      </div>
+    </>
+  );
+};
+
+export default CreatorPanel;

@@ -37,7 +37,7 @@
   width: 60%;
 }
 
-.card {
+.previews-card-container {
   padding: 5px;
   margin: 2px;
   width: 10rem;
@@ -57,4 +57,13 @@
   position: relative;
   top: 20;
   left: 10;
+}
+
+.creator-panel {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 10px;
+  margin: 0;
 }
