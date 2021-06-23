@@ -1,40 +1,44 @@
 import ReactPlayer from "react-player/lazy";
 import { Container, Col, Row, Button } from "react-bootstrap";
 import "../App.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { HiOutlineDocumentReport } from "react-icons/hi";
 import { HiDocumentReport } from "react-icons/hi";
 import api from '../api'
+import { UserContext } from '../context/UserContext'
 
 
-const Video = ({ video, user }) => {
+const Video = ({ video}) => {
 
   console.log(video)
 
   const [readMore, setReadMore] = useState(false)
-  const [myvideoIndex, setMyvideoIndex] = useState(0);
+  //const [myvideoIndex, setMyvideoIndex] = useState(0);
   const [editMode, setEditMode] = useState(true)
+  const {dTk, sUI} = useContext(UserContext)
+  const [decToken] = dTk
+  const [singleUserInfo] = sUI
 
-  const secToMinConerter = (n) => {
+  const secToMinConverter = (n) => {
     return n / 60;
   }
 
   const reportButton = () => {
-    
-    api.reportVideo(video[0]._id)
+    if(decToken && decToken.id) {
+      console.log(decToken.id)
+      api.reportVideo(video[0]._id, {user_id : decToken.id})
     .then(() => {
-    alert('video reported')
+    alert('Video has been reported')
     setEditMode(false)
   })
     .catch(err => console.log(err))
-  }
-
-  
+    }
+  }   
 
   return (
     <>
       <div className='video-container'>
-        <Container>
+      <Container>
           <Row>
             <Col>
               <ReactPlayer
@@ -42,7 +46,7 @@ const Video = ({ video, user }) => {
                 className='react-player'
                 url={video[0].video_url}
                 muted={false}
-                playing={true}
+                playing={false}
                 /* onEnded={playNext} */
                 width='100%'
                 height='600px'
@@ -60,17 +64,17 @@ const Video = ({ video, user }) => {
                   </Button>
                   <Button variant="light"
                   onClick={()=> reportButton()}>
-                    {editMode ?
-                    <HiOutlineDocumentReport />
+                    <b>{editMode ?
+                    "Report"
                   :
-                  <HiDocumentReport />}
+                  "Reported"}</b>
                   </Button>
                 </div>
                 {
                   readMore ?
                     <div
                       style={{ backgroundColor: 'rgba(0,0,0,0.2)' }}>
-                      <h6>Duration: {secToMinConerter(video[0].duration)} mins</h6>
+                      <h6>Duration: {secToMinConverter(video[0].duration)} mins</h6>
                       <p>Description: {video[0].short_description}</p>
                     </div> :
                     null

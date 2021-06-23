@@ -3,14 +3,18 @@ import api from "../api";
 import { AiOutlinePlus } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
 import { useHistory } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import "../App.css";
-import axios from "axios";
+import { UserContext } from '../context/UserContext'
 
-const Playlists = ({ user }) => {
+const Playlists = () => {
   //  To create a playlist
+  const { dTk, sUI } = useContext(UserContext)
+  const [decToken] = dTk
+  const [singleUserInfo] = sUI
+  let history = useHistory();
 
-  console.log(user);
+  console.log(decToken);
 
   const [loading, setLoading] = useState(true);
 
@@ -23,18 +27,8 @@ const Playlists = ({ user }) => {
   console.log(playlists);
 
   useEffect(() => {
-    if (user && user.id) {
-      api.fetchSingleUser(user.id).then((res) => {
-        console.log(res.data[0]);
-        const data = res.data[0];
-        setPlaylists({
-          user_id: data._id,
-        });
-      });
-    }
-  }, [user]);
-
-  let history = useHistory();
+    if (decToken && decToken.id) setPlaylists({user_id: singleUserInfo._id})
+  }, [decToken]);
 
   const onChange = (e) => {
     let keyName = e.target.name;
@@ -52,7 +46,7 @@ const Playlists = ({ user }) => {
 
     api.createPlaylist(playlists).then((res) => {
       alert(`Do you want to add ${playlists.name} to your playlist?`);
-      setPlaylists({ name: "", video_list:[] });
+      setPlaylists({ name: "" });
       history.push(`/`);
     });
   };
@@ -64,16 +58,16 @@ const Playlists = ({ user }) => {
   console.log(displayPlaylists);
 
   useEffect(() => {
-    if (user && user.id) {
+    if (decToken && decToken.id) {
       api
-        .getPlaylist(user.id)
+        .getPlaylist(decToken.id)
         .then((res) => {
           setDisplayPlaylists(res.data);
         })
         .catch((err) => console.log(err));
       setLoading(false);
     }
-  },[playlists]);
+  }, [playlists]);
 
   return (
     <div className="playlists">
@@ -113,7 +107,7 @@ const Playlists = ({ user }) => {
                           onClick={(e) => {
                             e.preventDefault();
                             api
-                              .deletePlaylist(user.id, playlist._id)
+                              .deletePlaylist(decToken.id, playlist._id)
                               .then((res) => {
                                 alert(
                                   `Do you want to delete ${playlist.name}?`

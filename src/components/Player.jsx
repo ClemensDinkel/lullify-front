@@ -4,13 +4,10 @@ import Playlists from './Playlists'
 import axios from 'axios'
 import Video from './Video'
 import '../App.css'
-import api from "../api";
 
-const Player = ({ user }) => {
+const Player = () => {
   const { id } = useParams()
-
   const [loading, setLoading] = useState(true)
-
   const [video, setVideo] = useState()
 
   console.log(video)
@@ -32,10 +29,10 @@ const Player = ({ user }) => {
       <div className="player-container">
       {
               !loading ?
-                <Video video={video} user={user} /> :
+                <Video video={video}/> :
                 <p>Loading..</p>
             }
-            <Playlists user={user} />
+            <Playlists />
       </div>
 
     </>

@@ -7,21 +7,18 @@ import {
   Button,
   Image,
 } from "react-bootstrap";
-/* import { Link } from 'react-router-dom'; */
 import logo_image from "../images/logo7.png";
-import { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 import { useHistory } from "react-router-dom";
-import AdminPanel from "./AdminPanel";
 import { UserContext } from '../context/UserContext'
-
 
 const Navigation = () => {
   console.log(useContext(UserContext))
   const {tk, dTk, sUI} = useContext(UserContext)
   const [decToken, setDecToken] = dTk
   const [token, setToken] = tk
-  const [singleUserInfo, setSingleUserInfo] = sUI
-  const history = useHistory();
+  const [singleUserInfo] = sUI
+  let history = useHistory();
 
   const logOut = (e) => {
     e.preventDefault();

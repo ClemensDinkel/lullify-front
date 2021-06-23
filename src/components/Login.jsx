@@ -1,21 +1,20 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { Card, Form, Button, InputGroup } from "react-bootstrap";
-import { BiShow } from "react-icons/bi";
-import { BiHide } from "react-icons/bi";
+import { BiShow, BiHide } from "react-icons/bi";
 import "../App.css";
 import api from "../api";
+import { UserContext } from '../context/UserContext'
 
-const Login = ({ setToken }) => {
-
+const Login = () => {
   const [passwordShow, setPasswordShow] = useState(false);
-
+  const {tk} = useContext(UserContext)
+  const [token, setToken] = tk
   const [newLogin, setNewLogin] = useState({
     email: "",
     password: "",
     errors: {},
   });
-
   let history = useHistory();
 
   const onChange = (e) => {

@@ -8,8 +8,8 @@ const api = {
     return await axios.get(`${root}/videos`);
   },
 
-  reportVideo: async (video_id) => {
-    return await axios.put(`${root}/videos/${video_id}/report`);
+  reportVideo: async (video_id, reportData) => {
+    return await axios.put(`${root}/videos/${video_id}/report`, queryString.stringify(reportData));
   },
 
   loginUser: async (user) => {

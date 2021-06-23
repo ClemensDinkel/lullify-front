@@ -1,12 +1,12 @@
 import Previews from './Previews'
 import Playlists from './Playlists'
 
-const Home = ({user}) => {
+const Home = () => {
 
 return (
   <div className="main">
     <Previews />
-    <Playlists user={user}/>
+    <Playlists />
   </div>
 )
 }
