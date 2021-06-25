@@ -11,10 +11,9 @@ const Profile = () => {
   const { dTk, sUI } = useContext(UserContext)
   const [decToken] = dTk
   const [singleUserInfo] = sUI
-
-  let history = useHistory();
   const [profile, setProfile] = useState({})
-
+  let history = useHistory();
+  
   useEffect(() => {
     if (decToken && decToken.id) {
       setProfile({
@@ -25,10 +24,12 @@ const Profile = () => {
         role: singleUserInfo.role,
         password: "",
         phone: singleUserInfo.phone,
-        city_code: singleUserInfo.city_code || "",
-        city_name: singleUserInfo.city_name || "",
-        country: singleUserInfo.country || "",
-        company: singleUserInfo.company || "",
+        street: singleUserInfo.street,
+        house_nr: singleUserInfo.house_nr,
+        city_code: singleUserInfo.city_code,
+        city_name: singleUserInfo.city_name,
+        country: singleUserInfo.country,
+        company: singleUserInfo.company,
         errors: {},
       })
     }
@@ -198,6 +199,36 @@ const Profile = () => {
                   placeholder="Phone Number"
                   name="phone"
                   value={profile ? profile.phone : ""}
+                  onChange={onChange}
+                  required={profile && profile.role === "content_creator" ? true : false}
+                  disabled={editMode ? false : true}
+                />
+              </Form.Group>
+            </Form.Row>
+
+            <Form.Row>
+              <Form.Group controlId="formBasicStreet">
+                <Form.Label><b>Street:</b></Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Street"
+                  name="street"
+                  value={profile ? profile.street : ""}
+                  onChange={onChange}
+                  required={profile && profile.role === "content_creator" ? true : false}
+                  disabled={editMode ? false : true}
+                />
+              </Form.Group>
+            </Form.Row>
+
+            <Form.Row>
+              <Form.Group controlId="formBasicHouseNr">
+                <Form.Label><b>House Number:</b></Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="House Nr"
+                  name="house_nr"
+                  value={profile ? profile.house_nr : ""}
                   onChange={onChange}
                   required={profile && profile.role === "content_creator" ? true : false}
                   disabled={editMode ? false : true}

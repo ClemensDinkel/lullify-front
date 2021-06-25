@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 
 const Previews = () => {
   const [videos] = useContext(VideoContext)
-  console.log(videos)
   return (
     <div className="previews">
       {

@@ -13,7 +13,6 @@ import { useHistory } from "react-router-dom";
 import { UserContext } from '../context/UserContext'
 
 const Navigation = () => {
-  console.log(useContext(UserContext))
   const {tk, dTk, sUI} = useContext(UserContext)
   const [decToken, setDecToken] = dTk
   const [token, setToken] = tk

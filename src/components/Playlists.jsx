@@ -15,8 +15,6 @@ const Playlists = () => {
 
   let history = useHistory();
 
-  console.log(decToken);
-
   const [loading, setLoading] = useState(true);
 
   const [playlists, setPlaylists] = useState({
@@ -24,8 +22,6 @@ const Playlists = () => {
     video_list: [],
     user_id: null,
   });
-
-  console.log(playlists);
 
   useEffect(() => {
     if (decToken && decToken.id) {
@@ -57,8 +53,6 @@ const Playlists = () => {
   // To display Playlists
 
   const [displayPlaylists, setDisplayPlaylists] = useState([]);
-
-  console.log(displayPlaylists);
 
   useEffect(() => {
     if (decToken && decToken.id) {
