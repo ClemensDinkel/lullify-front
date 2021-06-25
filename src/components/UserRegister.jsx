@@ -54,7 +54,7 @@ const UserRegister = () => {
   return (
     <>
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <Card style={{ flexGrow: "1", maxWidth: "30rem", textAlign: "left" }}>
+        <Card bg="light" style={{ flexGrow: "1", maxWidth: "30rem", textAlign: "left" }}>
           <Card.Body>
             <Form onSubmit={onSubmit}>
             <Form.Label><span style={{color: "red"}}>*</span> Fields are required</Form.Label>
@@ -154,11 +154,11 @@ const UserRegister = () => {
                 marginTop: "10px",
               }}
             >
-                <Button variant="primary" type="submit">
-                  Submit
+                <Button variant="outline-secondary" type="submit">
+                  <b>Submit</b>
                 </Button>
-                <Button variant="primary" type="button" onClick={() => { history.push('/') }}>
-                Cancel
+                <Button variant="outline-secondary" type="button" onClick={() => { history.push('/') }}>
+                <b>Cancel</b>
               </Button>
               </Form.Row>
             </Form>

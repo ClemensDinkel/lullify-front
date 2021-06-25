@@ -20,11 +20,12 @@ const Navigation = () => {
   let history = useHistory();
 
   const logOut = (e) => {
-    e.preventDefault();
+    //e.preventDefault();
     localStorage.clear();
     setToken("");
     setDecToken(null);
     alert(`${decToken.user_name} logged out`);
+    window.location.reload();
     history.push("/");
   };
 
@@ -103,16 +104,18 @@ const Navigation = () => {
               <>
                 {(decToken.role === "admin" || decToken.role === "content_creator") && (
                   <>
-                    <Nav.Link href="/creator">CreatorPanel</Nav.Link>
+                    <Nav.Link href="/creator"><b>CreatorPanel</b></Nav.Link>
                   </>
                 )}
                 {decToken.role === "admin" && (
                   <>
-                    <Nav.Link href="/adminpanel">AdminPanel</Nav.Link>
+                    <Nav.Link href="/adminpanel"><b>AdminPanel</b></Nav.Link>
                   </>
                 )}
 
-                <Image src={singleUserInfo.user_img_url} alt="profile-image" width="5px" height="5px" roundedCircle />
+                <Navbar.Brand>
+                  <Image src={singleUserInfo.user_img_url}  width="5px" height="5px" roundedCircle />
+                </Navbar.Brand>
 
                 <NavDropdown
                   title={decToken.user_name}

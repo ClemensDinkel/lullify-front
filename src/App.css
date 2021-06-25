@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  background-image: url("./images/2.png");
+  background-image: url("./images/5.png");
   background-repeat: no-repeat;
   background-size: cover;
   margin: 0;
@@ -57,7 +57,7 @@
   width: 100%;
 }
 
-.card {
+.previews-card-container {
   padding: 5px;
   margin: 2px;
   width: 10rem;
@@ -77,4 +77,13 @@
   position: relative;
   top: 20;
   left: 10;
+}
+
+.creator-panel {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 10px;
+  margin: 0;
 }

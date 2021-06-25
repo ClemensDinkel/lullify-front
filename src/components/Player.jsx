@@ -4,6 +4,7 @@ import Playlists from './Playlists'
 import axios from 'axios'
 import Video from './Video'
 import '../App.css'
+import api from '../api'
 
 const Player = () => {
   const { id } = useParams()
@@ -12,7 +13,7 @@ const Player = () => {
 
   console.log(video)
 
-  useEffect(() => {
+ /*  useEffect(() => {
     fetchVideoById()
   }, [])
 
@@ -23,7 +24,16 @@ const Player = () => {
       })
       .catch(err => console.log(err))
     setLoading(false)
-  }
+  } */
+
+  useEffect(() => {
+    api.getVideoById(id)
+    .then(res => setVideo(res.data))
+    .catch(err => console.log(err))
+    setLoading(false)
+  },[])
+
+
   return (
     <>
       <div className="player-container">
