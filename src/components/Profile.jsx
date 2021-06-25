@@ -56,7 +56,7 @@ const Profile = () => {
 
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
-      <Card style={{ flexGrow: "1", maxWidth: "30rem", textAlign: "left" }}>
+      <Card bg="light" style={{ flexGrow: "1", maxWidth: "30rem", textAlign: "left" }}>
         <Card.Body>
           <Form onSubmit={onSubmit}>
             <Form.Row>
@@ -267,15 +267,15 @@ const Profile = () => {
             }
             <Form.Row style={{ display: "flex", justifyContent: "space-around", marginTop: "10px" }}>
               {!editMode ?
-                <Button variant="primary" type="button" onClick={() => { setEditMode(!editMode) }}>
-                  Edit
+                <Button variant="outline-secondary" type="button" onClick={() => { setEditMode(!editMode) }}>
+                  <b>Edit</b>
                 </Button>
                 :
-                <Button variant="primary" type="submit">
-                  Submit Changes
+                <Button variant="outline-secondary" type="submit">
+                  <b>Submit Changes</b>
                 </Button>}
-              <Button variant="primary" type="button" onClick={() => { history.push('/') }}>
-                Cancel
+              <Button variant="outline-secondary" type="button" onClick={() => { history.push('/') }}>
+                <b>Cancel</b>
               </Button>
             </Form.Row>
           </Form>

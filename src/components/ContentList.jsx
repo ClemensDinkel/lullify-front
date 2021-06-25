@@ -6,6 +6,7 @@ import { MdDelete } from "react-icons/md";
 import { AiTwotoneEdit } from "react-icons/ai";
 import { Form, FormControl, Button, Image, Alert } from "react-bootstrap";
 import {Link} from "react-router-dom"
+import { green } from "@material-ui/core/colors";
 
 const ContentList = () => {
 
@@ -29,22 +30,25 @@ const ContentList = () => {
   }, [decToken]);
 
   return (
-    <div>
-      <p>Content List</p>
-      <div>
-        <ul>
+    <div style={{display: "flex", flexDirection: "column", width: "50%" }}>
+      <h3>Content List</h3>
+      <div style={{margin: ".4rem"}} >
+        
           {uploaderVideos &&
             uploaderVideos.map((uploaderVideo, index) => {
               return (
-                <li key={index}>
-                  <div style={{ display: "flex" }}>
+                <Alert key={index} variant="secondary">
+                  <div style={{ display: "flex", textAlign: "left"}}>
+                    <div style={{width: "80%"}}>
                     <p>{uploaderVideo.title}</p>
+                    </div>
+                    <div style={{width: "20%"}}>
                     <Link exact to={`/video/${uploaderVideo._id}`}>
-                    <Button type="submit" variant="outline-success">
+                    <Button type="submit" variant="outline-secondary">
                       <AiTwotoneEdit />
                     </Button>
                     </Link>
-                    <Button type="submit" variant="outline-success"
+                    <Button type="submit" variant="outline-secondary"
                       onClick={(e) => {
                         api.deleteUploaderVideo(decToken.id, uploaderVideo._id)
                         .then((res) => {
@@ -58,11 +62,12 @@ const ContentList = () => {
                     >
                       <MdDelete />
                     </Button>
+                    </div>
                   </div>
-                </li>
+                </Alert>
               );
             })}
-        </ul>
+        
       </div>
     </div>
   );

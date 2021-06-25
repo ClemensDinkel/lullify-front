@@ -55,6 +55,8 @@ const AddContent = () => {
     .then(() => {
       console.log(newVideo)
       alert("Video has been added")
+      setAddVideo("");
+      window.location.reload()
       history.push('/creator')
     })
   }
@@ -62,10 +64,12 @@ const AddContent = () => {
 
 
   return (
-    <div style={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
-      <h3>Add Content</h3>
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <Card style={{ flexGrow: "1", minWidth: "30rem", textAlign: "left" }}>
+    <div style={{ display: "flex", justifyContent: "center", flexDirection: "column", width: "50%"}}>
+      <div>
+        <h3>Add Content</h3>
+      </div>
+      <div style={{ display: "flex", justifyContent: "center", margin: ".4rem" }}>
+        <Card bg="light" style={{ flexGrow: "1", maxWidth: "50rem", textAlign: "left" }}>
           <Card.Body>
             <Form onSubmit={addNewVideo}>
               <Form.Label>
@@ -173,6 +177,8 @@ const AddContent = () => {
                   <Form.Label>
                     <b>Languages</b>
                   </Form.Label>
+                  {/* <Form.Check inline label="English" name="languages" type="checkbox" id={`inline-checkbox-1`} onChange={onChange} value={addVideo.languages} />
+                  <Form.Check inline label="German" name="languages" type="checkbox" id={`inline-checkbox-2`} onChange={onChange} value={addVideo.languages} /> */}
                   <Form.Control
                     type="text"
                     placeholder="English, German, Hindi etc.."
@@ -203,11 +209,16 @@ const AddContent = () => {
                 marginTop: "10px",
               }}
             >
-                <Button variant="primary" type="submit">
-                  Submit
+                <Button variant="outline-secondary" type="submit">
+                  <b>Submit</b>
                 </Button>
-                <Button variant="primary" type="button" onClick={() => { history.push('/creator') }}>
-                Cancel
+                <Button variant="outline-secondary" type="button" 
+                onClick={() => { 
+                  setAddVideo("");
+                  window.location.reload()
+                  history.push('/creator') 
+                  }}>
+                <b>Cancel</b>
               </Button>
               </Form.Row>
             </Form>

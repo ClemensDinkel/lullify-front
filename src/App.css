@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  background-image: url("./images/2.png");
+  background-image: url("./images/5.png");
   background-repeat: no-repeat;
   background-size: cover;
   margin: 0;
@@ -31,9 +31,6 @@
 }
 
 .video-container {
-  background-image: url("./images/5.png");
-  background-repeat: no-repeat;
-  background-size: cover;
   width: 60%;
 }
 

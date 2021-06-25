@@ -48,7 +48,7 @@ const Login = () => {
 
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
-      <Card style={{ flexGrow: "1", maxWidth: "30rem", textAlign: "left" }}>
+      <Card bg="light" style={{ flexGrow: "1", maxWidth: "30rem", textAlign: "left" }}>
         <Card.Body>
           <Form onSubmit={onSubmit}>
             <Form.Label>
@@ -121,17 +121,17 @@ const Login = () => {
                 marginTop: "10px",
               }}
             >
-              <Button variant="primary" type="submit">
-                Login
+              <Button variant="outline-secondary" type="submit">
+                <b>Login</b>
               </Button>
               <Button
-                variant="primary"
+                variant="outline-secondary"
                 type="button"
                 onClick={() => {
                   history.push("/");
                 }}
               >
-                Cancel
+                <b>Cancel</b>
               </Button>
             </Form.Row>
           </Form>

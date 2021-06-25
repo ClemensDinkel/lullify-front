@@ -26,6 +26,7 @@ const Navigation = () => {
     setToken("");
     setDecToken(null);
     alert(`${decToken.user_name} logged out`);
+    window.location.reload();
     history.push("/");
   };
 
@@ -113,7 +114,9 @@ const Navigation = () => {
                   </>
                 )}
 
-                <Image src={singleUserInfo.user_img_url} alt="profile-image" width="5px" height="5px" roundedCircle />
+                <Navbar.Brand>
+                  <Image src={singleUserInfo.user_img_url}  width="5px" height="5px" roundedCircle />
+                </Navbar.Brand>
 
                 <NavDropdown
                   title={decToken.user_name}

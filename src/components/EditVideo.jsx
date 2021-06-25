@@ -9,7 +9,6 @@ const EditVideo = () => {
   const {video_id} = useParams()
   const { dTk } = useContext(UserContext)
   const [decToken] = dTk
-  const [editMode, setEditMode] = useState(false)
 
   let history = useHistory();
   console.log(video_id)
@@ -60,14 +59,12 @@ const EditVideo = () => {
 
 
   return(
-    <div style={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
-      <h3>Edit Content</h3>
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <Card style={{ flexGrow: "1", minWidth: "30rem", textAlign: "left" }}>
+    <div style={{ display: "flex", justifyContent: "center" }}>
+        <Card bg="light" style={{ flexGrow: "1", mixWidth: "30rem", textAlign: "left" }}>
           <Card.Body>
             <Form onSubmit={updateVideo}>
               <Form.Row>
-                <Form.Group as={Col} controlId="formGridEmail">
+                <Form.Group as={Col} controlId="formBasicEmail">
                   <Form.Label>
                     <b>Video Title</b>
                   </Form.Label>
@@ -78,12 +75,11 @@ const EditVideo = () => {
                     value={getVideo ? getVideo.title : ""}
                     onChange={onChange}
                     required
-                    disabled={editMode ? false : true}
                   />
                 </Form.Group>
               </Form.Row>
               <Form.Row>
-                <Form.Group as={Col} controlId="formGridEmail">
+                <Form.Group as={Col} controlId="formBasicEmail">
                   <Form.Label>
                     <b>Artist</b>
                   </Form.Label>
@@ -94,12 +90,11 @@ const EditVideo = () => {
                     value={getVideo ? getVideo.artist : ""}
                     onChange={onChange}
                     required
-                    disabled={editMode ? false : true}
                   />
                 </Form.Group>
               </Form.Row>
               <Form.Row>
-                <Form.Group as={Col} controlId="formGridEmail">
+                <Form.Group as={Col} controlId="formBasicEmail">
                   <Form.Label>
                     <b>Video URL</b>
                   </Form.Label>
@@ -110,12 +105,11 @@ const EditVideo = () => {
                     value={getVideo ? getVideo.video_url : ""}
                     onChange={onChange}
                     required
-                    disabled={editMode ? false : true}
                   />
                 </Form.Group>
               </Form.Row>
               <Form.Row>
-                <Form.Group as={Col} controlId="formGridEmail">
+                <Form.Group as={Col} controlId="formBasicEmail">
                   <Form.Label>
                     <b>Image URL</b>
                   </Form.Label>
@@ -126,7 +120,6 @@ const EditVideo = () => {
                     value={getVideo ? getVideo.video_img_url : ""}
                     onChange={onChange}
                     required
-                    disabled={editMode ? false : true}
                   />
                 </Form.Group>
               </Form.Row>
@@ -143,12 +136,11 @@ const EditVideo = () => {
                     value={getVideo ? getVideo.short_description : ""}
                     onChange={onChange}
                     required
-                    disabled={editMode ? false : true}
                   />
                 </Form.Group>
               </Form.Row>
               <Form.Row>
-                <Form.Group as={Col} controlId="formGridEmail">
+                <Form.Group as={Col} controlId="formBasicEmail">
                   <Form.Label>
                     <b>Video Duration</b>
                   </Form.Label>
@@ -159,12 +151,11 @@ const EditVideo = () => {
                     value={getVideo ? getVideo.duration : ""}
                     onChange={onChange}
                     required
-                    disabled={editMode ? false : true}
                   />
                 </Form.Group>
               </Form.Row>
               <Form.Row>
-                <Form.Group as={Col} controlId="formGridEmail">
+                <Form.Group as={Col} controlId="formBasicEmail">
                   <Form.Label>
                     <b>Languages</b>
                   </Form.Label>
@@ -174,12 +165,11 @@ const EditVideo = () => {
                     name="languages"
                     value={getVideo ? getVideo.languages : ""}
                     onChange={onChange}
-                    disabled={editMode ? false : true}
                   />
                 </Form.Group>
               </Form.Row>
               <Form.Row>
-                <Form.Group as={Col} controlId="formGridEmail">
+                <Form.Group as={Col} controlId="formBasicEmail">
                   <Form.Label>
                     <b>Videos Tags</b>
                   </Form.Label>
@@ -189,27 +179,21 @@ const EditVideo = () => {
                     name="tags"
                     value={getVideo ? getVideo.tags : ""}
                     onChange={onChange}
-                    disabled={editMode ? false : true}
                   />
                 </Form.Group>
               </Form.Row>
               <Form.Row style={{ display: "flex", justifyContent: "space-around", marginTop: "10px" }}>
-              {!editMode ?
-                <Button variant="primary" type="button" onClick={() => { setEditMode(!editMode) }}>
-                  Edit
+              
+                <Button variant="outline-secondary" type="submit">
+                  <b>Submit Changes</b>
                 </Button>
-                :
-                <Button variant="primary" type="submit">
-                  Submit Changes
-                </Button>}
-              <Button variant="primary" type="button" onClick={() => { history.push('/creator') }}>
-                Cancel
+              <Button variant="outline-secondary" type="button" onClick={() => { history.push('/creator') }}>
+                <b>Cancel</b>
               </Button>
             </Form.Row>
             </Form>
           </Card.Body>
         </Card>
-      </div>
       </div>
   )
 }

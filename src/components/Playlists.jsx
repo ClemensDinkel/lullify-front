@@ -85,7 +85,7 @@ const Playlists = () => {
           onChange={onChange}
           required
         />
-        <Button type="submit" variant="outline-success">
+        <Button type="submit" variant="outline-secondary">
           <AiOutlinePlus />
         </Button>
       </Form>
@@ -106,7 +106,7 @@ const Playlists = () => {
                         <li key={index}>{playlist.name}</li>
                         <Button
                           type="submit"
-                          variant="outline-success"
+                          variant="outline-secondary"
                           onClick={(e) => {
                             api
                               .deletePlaylist(decToken.id, playlist._id)
@@ -145,7 +145,7 @@ const Playlists = () => {
                           </Form.Control>
                           <Button
                             type="submit"
-                            variant="outline-success"
+                            variant="outline-secondary"
                             onClick={() => {
                               api
                                 .updatePlaylist(
