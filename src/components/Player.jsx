@@ -38,7 +38,7 @@ const Player = () => {
     <>
       <div className="player-container">
       {
-              !loading ?
+              video ?
                 <Video video={video}/> :
                 <p>Loading..</p>
             }
