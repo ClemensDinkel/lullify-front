@@ -3,7 +3,7 @@ import api from "../api"
 import '../App.css'
 import { Table } from "react-bootstrap"
 
-const Userlist = ({ setInspecting, setInspectData, setInspectType }) => {
+const AdminUserlist = ({ setInspecting, setInspectData, setInspectType }) => {
   const [users, setUsers] = useState([])
   const [creators, setCreators] = useState([])
   const [admins, setAdmins] = useState([])
@@ -102,4 +102,4 @@ const Userlist = ({ setInspecting, setInspectData, setInspectType }) => {
   )
 }
 
-export default Userlist
+export default AdminUserlist
