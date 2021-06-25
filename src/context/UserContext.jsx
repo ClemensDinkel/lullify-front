@@ -22,7 +22,6 @@ export const UserController = ({children}) => {
       api
         .fetchSingleUser(decToken.id)
         .then((res) => {
-          console.log(res.data[0]);
           const data = res.data[0];
           setSingleUserInfo({
             first_name: data.first_name,
@@ -33,6 +32,8 @@ export const UserController = ({children}) => {
             password: "",
             user_img_url: data.user_img_url,
             phone: data.phone,
+            street: data.street,
+            house_nr: data.house_nr,
             city_code: data.city_code || "",
             city_name: data.city_name || "",
             country: data.country || "",

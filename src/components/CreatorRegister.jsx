@@ -47,6 +47,8 @@ const CreatorRegister = () => {
       email: ccRegister.email,
       password: ccRegister.password,
       phone: ccRegister.phone,
+      street: ccRegister.street,
+      house_nr: ccRegister.house_nr,
       city_code: ccRegister.city_code,
       city_name: ccRegister.city_name,
       country: ccRegister.country,
@@ -166,6 +168,34 @@ const CreatorRegister = () => {
                   placeholder="Enter Phone no."
                   name="phone"
                   value={ccRegister.phone}
+                  onChange={onChange}
+                  required
+                />
+              </Form.Group>
+            </Form.Row>
+
+            <Form.Row>
+              <Form.Group as={Col} controlId="formGridPassword">
+                <Form.Label><b>Street:</b><span style={{color: "red"}}>*</span></Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter Street Name"
+                  name="street"
+                  value={ccRegister.street}
+                  onChange={onChange}
+                  required
+                />
+              </Form.Group>
+            </Form.Row>
+
+            <Form.Row>
+              <Form.Group as={Col} controlId="formGridPassword">
+                <Form.Label><b>Houser Number:</b><span style={{color: "red"}}>*</span></Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter House Number"
+                  name="house_nr"
+                  value={ccRegister.house_nr}
                   onChange={onChange}
                   required
                 />

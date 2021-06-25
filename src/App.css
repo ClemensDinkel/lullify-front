@@ -5,9 +5,28 @@
   background-size: cover;
   margin: 0;
 }
-
+ 
 .main {
   display: flex;
+}
+/* ADMIN PANEL */
+.admin-panel {
+  display: flex;
+  justify-content: center;
+}
+
+.user-list {
+  flex-grow: 1;
+  display: block;
+  text-align: left;
+  padding: 5px;
+}
+
+.request-panel {
+  flex-grow: 1;
+  display: block;
+  text-align: left;
+  padding: 5px;
 }
 
 .previews {
@@ -16,13 +35,13 @@
   width: 100%;
   padding: 10px;
   justify-content: center;
-  width: 80%;
+  flex-grow: 4;
   margin: 0;
 }
 
 .playlists {
   display: block;
-  width: 20%;
+  flex-grow: 1;
   margin: 0;
 }
 
@@ -34,7 +53,8 @@
   background-image: url("./images/5.png");
   background-repeat: no-repeat;
   background-size: cover;
-  width: 60%;
+  flex-grow: 4;
+  width: 100%;
 }
 
 .card {

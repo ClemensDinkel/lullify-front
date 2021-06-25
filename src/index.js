@@ -28,6 +28,7 @@ const refreshAuthLogic = failedRequest => axios.post(`${root}/refresh`,{}, {with
 axios.interceptors.request.use(request => {
   request.headers['Authorization'] = `Bearer ${getAccessToken()}`;
   request.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+  /* request.headers['Access-Allow-Control-Origin'] = 'http://localhost:3000'; */
   console.log(request)
   return request;
 });

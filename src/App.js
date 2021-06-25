@@ -19,39 +19,6 @@ const App = () => {
       setDecToken(jwt_decode(token));
     }
   }, [token]);
-  
-  useEffect(() => {
-    console.log(singleUserInfo);
-    if (decToken && decToken.id) {
-      api
-        .fetchSingleUser(decToken.id)
-        .then((res) => {
-          console.log(res.data[0]);
-          const data = res.data[0];
-          setSingleUserInfo({
-            first_name: data.first_name,
-            last_name: data.last_name,
-            user_name: data.user_name,
-            email: data.email,
-            role: data.role,
-            password: "",
-            user_img_url: data.user_img_url,
-            phone: data.phone,
-            city_code: data.city_code || "",
-            city_name: data.city_name || "",
-            country: data.country || "",
-            company: data.company || "",
-            errors: {},
-          });
-        })
-        .catch((err) => console.error(err));
-    }
-    console.log(decToken);
-  }, [decToken]);
-
-  useEffect(() => {
-    if (singleUserInfo) console.log(singleUserInfo);
-  }, [singleUserInfo]);
 
   return (
     <div className="App">

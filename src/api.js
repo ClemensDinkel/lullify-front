@@ -24,15 +24,35 @@ const api = {
     return await axios.get(`${root}/users/${user_id}`);
   },
 
-  getAllUsers: async () => {
-    return await axios.get(`${root}/users`);
-  },
-
   updateUser: async (user_id, userData) => {
     return await axios.put(
       `${root}/users/${user_id}`,
       queryString.stringify(userData),
     );
+  },
+
+  demoteUser: async (user_id) => {
+    return await axios.put(
+      `${root}/users/${user_id}/demote`
+    )
+  },
+
+  promoteUser: async (user_id) => {
+    return await axios.put(
+      `${root}/users/${user_id}/promote`
+    )
+  },
+
+  getAllUsers: async () => {
+    return await axios.get(`${root}/users`);
+  },
+
+  getAllRequests: async () => {
+    return await axios.get(`${root}/requests`)
+  },
+
+  deleteRequest: async (request_id) => {
+    return await axios.delete(`${root}/requests/${request_id}`)
   },
 
   createPlaylist: async (newPlaylist) => {
