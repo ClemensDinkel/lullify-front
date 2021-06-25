@@ -60,8 +60,6 @@ const AddContent = () => {
       history.push('/creator')
     })
   }
-  
-
 
   return (
     <div style={{ display: "flex", justifyContent: "center", flexDirection: "column", width: "50%"}}>

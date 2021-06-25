@@ -3,7 +3,7 @@ import api from "../api"
 import '../App.css'
 import { Table } from "react-bootstrap"
 
-const AdminUserlist = ({ setInspecting, setInspectData, setInspectType }) => {
+const AdminUserList = ({ setInspecting, setInspectData, setInspectType }) => {
   const [users, setUsers] = useState([])
   const [creators, setCreators] = useState([])
   const [admins, setAdmins] = useState([])
@@ -35,7 +35,6 @@ const AdminUserlist = ({ setInspecting, setInspectData, setInspectType }) => {
       <Table striped bordered hover variant="dark" size="sm" responsive>
         <thead>
           <tr>
-            <th>#</th>
             <th>User name</th>
             <th>First name</th>
             <th>Last name</th>
@@ -45,7 +44,6 @@ const AdminUserlist = ({ setInspecting, setInspectData, setInspectType }) => {
           {admins.map((admin, index) =>
             <>
               <tr onClick={() => seeSingleUser(admin)} style={{cursor: "pointer"}}>
-                <td>{index + 1}</td>
                 <td>{admin.user_name}</td>
                 <td>{admin.first_name}</td>
                 <td>{admin.last_name}</td>
@@ -58,7 +56,6 @@ const AdminUserlist = ({ setInspecting, setInspectData, setInspectType }) => {
       <Table striped bordered hover variant="dark" size="sm" responsive>
         <thead>
           <tr>
-            <th>#</th>
             <th>User name</th>
             <th>First name</th>
             <th>Last name</th>
@@ -68,7 +65,6 @@ const AdminUserlist = ({ setInspecting, setInspectData, setInspectType }) => {
         <tbody>
           {creators.map((creator, index) =>
             <tr onClick={() => seeSingleUser(creator)} style={{cursor: "pointer"}}>
-              <td>{index + 1}</td>
               <td>{creator.user_name}</td>
               <td>{creator.first_name}</td>
               <td>{creator.last_name}</td>
@@ -81,7 +77,6 @@ const AdminUserlist = ({ setInspecting, setInspectData, setInspectType }) => {
       <Table striped bordered hover variant="dark" size="sm" responsive>
         <thead>
           <tr>
-            <th>#</th>
             <th>User name</th>
             <th>First name</th>
             <th>Last name</th>
@@ -90,7 +85,6 @@ const AdminUserlist = ({ setInspecting, setInspectData, setInspectType }) => {
         <tbody>
           {users.map((user, index) =>
             <tr onClick={() => seeSingleUser(user)} style={{cursor: "pointer"}}>
-              <td>{index + 1}</td>
               <td>{user.user_name}</td>
               <td>{user.first_name}</td>
               <td>{user.last_name}</td>
@@ -102,4 +96,4 @@ const AdminUserlist = ({ setInspecting, setInspectData, setInspectType }) => {
   )
 }
 
-export default AdminUserlist
+export default AdminUserList

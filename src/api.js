@@ -25,6 +25,12 @@ const api = {
     });
   },
 
+  logoutUser: async () => {
+    return await axios.get(`${root}/logout`,{
+      withCredentials: true
+    })
+  },
+
   registerUser: async (newUser) => {
     return await axios.post(`${root}/register`, queryString.stringify(newUser));
   },
