@@ -24,7 +24,7 @@ const refreshAuthLogic = failedRequest => axios.post(`${root}/refresh`,{}, {with
     return Promise.resolve();
   });
 
-// Use interceptor to inject the access token to requests
+// Interceptor to inject the access token to requests
 axios.interceptors.request.use(request => {
   request.headers['Authorization'] = `Bearer ${getAccessToken()}`;
   request.headers['Content-Type'] = 'application/x-www-form-urlencoded';
