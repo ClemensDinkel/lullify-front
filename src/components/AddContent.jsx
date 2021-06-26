@@ -114,7 +114,8 @@ const AddContent = () => {
                     <span style={{ color: "red" }}>*</span>
                   </Form.Label>
                   <Form.Control
-                    type="text"
+                    type="url"
+                    pattern="https://.*"
                     placeholder="Enter url"
                     name="video_url"
                     value={addVideo.video_url}
@@ -130,7 +131,8 @@ const AddContent = () => {
                     <span style={{ color: "red" }}>*</span>
                   </Form.Label>
                   <Form.Control
-                    type="text"
+                    type="url"
+                    pattern="https://.*"
                     placeholder="Enter url for video image"
                     name="video_img_url"
                     value={addVideo.video_img_url}

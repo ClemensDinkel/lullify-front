@@ -72,8 +72,8 @@ const Navigation = () => {
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll" className="justify-content-end">
           <Nav
-            className="mr-auto my-2 my-lg-0"
-            style={{ maxHeight: "100px", marginRight: "15px" }}
+            className="mr-auto my-2 my-lg-0 flex-row"
+            style={{ maxHeight: "100px", justifyContent: "space-around", marginRight: "15px" }}
             navbarScroll
           >
             <Nav.Link href="/">
