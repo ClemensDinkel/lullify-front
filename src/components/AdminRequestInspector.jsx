@@ -2,11 +2,11 @@ import { Button, Image } from "react-bootstrap"
 import api from "../api"
 import '../App.css'
 
-const RequestInspector = ({ inspectData, inspectType, setInspecting }) => {
+const AdminRequestInspector = ({ inspectData, inspectType, setInspecting }) => {
   console.log(inspectData)
   console.log(inspectType)
   const { _id, req_date, user_id } = inspectData
-  const goBack = () => setInspecting(false)
+  const goWayBack = () => setInspecting(false)
   const promoteUser = () => {
     api.promoteUser(user_id._id)
       .then(() => alert("User has been successfully promoted"))
@@ -51,7 +51,7 @@ const RequestInspector = ({ inspectData, inspectType, setInspecting }) => {
         <Button
           variant="primary"
           type="button"
-          onClick={goBack}
+          onClick={goWayBack}
           style={{ margin: "5px" }}
         >
           Back to admin panel
@@ -61,4 +61,4 @@ const RequestInspector = ({ inspectData, inspectType, setInspecting }) => {
   )
 }
 
-export default RequestInspector
+export default AdminRequestInspector

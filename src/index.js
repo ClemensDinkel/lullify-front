@@ -24,7 +24,7 @@ const refreshAuthLogic = failedRequest => axios.post(`${root}/refresh`,{}, {with
     return Promise.resolve();
   });
 
-// Use interceptor to inject the access token to requests
+// Interceptor to inject the access token to requests
 axios.interceptors.request.use(request => {
   request.headers['Authorization'] = `Bearer ${getAccessToken()}`;
   request.headers['Content-Type'] = 'application/x-www-form-urlencoded';
@@ -49,43 +49,6 @@ axios.interceptors.response.use(response => {
 createAuthRefreshInterceptor(axios, refreshAuthLogic, {
   statusCodes: [ 401, 403 ]
 });
-
-/* axios.interceptors.response.use(
-  (response) => {
-    console.log(response)
-    return response;
-  },
-  (error) => {
-    console.log(error)
-    const originalRequest = error.config;
-    let refreshToken = localStorage.getItem("refresh-token");
-    // let retry = false
-    if (
-      refreshToken &&
-      (error.response.status === 401) &&
-      //!retry
-      !originalRequest._retry
-    ) {
-      originalRequest._retry = true;
-      // retry = true
-      return axios.post(`${root}/refresh`,{}, {
-        headers: {
-          'Content-Type': 'application/json;charset=UTF-8',
-          'Access-Control-Allow-Origin': "*",
-          'auth-token': refreshToken
-        }
-      })
-        .then((res) => {
-          if (res.status === 200) {
-            localStorage.setItem("accessToken", res.data.accessToken);
-            console.log("Access token refreshed!");
-            return axios(originalRequest);
-          }
-        });
-    }
-    return Promise.reject(error);
-  }
-); */
 
 ReactDOM.render(
   <React.StrictMode>

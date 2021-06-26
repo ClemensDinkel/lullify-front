@@ -56,12 +56,10 @@ const AddContent = () => {
       console.log(newVideo)
       alert("Video has been added")
       setAddVideo("");
+      history.push('/creatorpanel')
       window.location.reload()
-      history.push('/creator')
     })
   }
-  
-
 
   return (
     <div style={{ display: "flex", justifyContent: "center", flexDirection: "column", width: "50%"}}>

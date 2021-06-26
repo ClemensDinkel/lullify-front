@@ -2,10 +2,10 @@ import { Button, Image } from "react-bootstrap"
 import api from "../api"
 import '../App.css'
 
-const UserInspector = ({ inspectData, setInspecting, setInspectData }) => {
+const AdminUserInspector = ({ inspectData, setInspecting, setInspectData }) => {
   console.log(inspectData)
   const { user_img_url, user_name, first_name, last_name, _id, role, email, phone, street, house_nr, city_name, city_code, country, company, reg_date } = inspectData
-  const goBack = () => setInspecting(false)
+  const goWayBack = () => setInspecting(false)
   const changeRole = (toRole) => {
     if (toRole === "user") {
       api.demoteUser(_id)
@@ -61,7 +61,7 @@ const UserInspector = ({ inspectData, setInspecting, setInspectData }) => {
             Demote
           </Button>
         }
-        <Button variant="primary" type="button" onClick={goBack} style={{ margin: "5px" }}>
+        <Button variant="primary" type="button" onClick={goWayBack} style={{ margin: "5px" }}>
           Back to admin panel
         </Button>
       </div>
@@ -69,4 +69,4 @@ const UserInspector = ({ inspectData, setInspecting, setInspectData }) => {
   )
 }
 
-export default UserInspector
+export default AdminUserInspector

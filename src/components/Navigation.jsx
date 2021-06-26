@@ -11,22 +11,26 @@ import logo_image from "../images/logo7.png";
 import { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { UserContext } from '../context/UserContext'
+import api from "../api";
 
 const Navigation = () => {
-  const {tk, dTk, sUI} = useContext(UserContext)
+  const { tk, dTk, sUI } = useContext(UserContext)
   const [decToken, setDecToken] = dTk
   const [token, setToken] = tk
   const [singleUserInfo] = sUI
   let history = useHistory();
 
   const logOut = (e) => {
-    //e.preventDefault();
-    localStorage.clear();
-    setToken("");
-    setDecToken(null);
-    alert(`${decToken.user_name} logged out`);
-    history.push("/");
-    window.location.reload();
+    e.preventDefault();
+    api.logoutUser()
+      .then(() => {
+        localStorage.clear();
+        setToken("");
+        setDecToken(null);
+        alert(`${decToken.user_name} logged out`);
+        history.push("/");
+      })
+      .catch(err => console.log(err))
   };
 
   return (
@@ -73,13 +77,13 @@ const Navigation = () => {
         <Navbar.Collapse id="navbarScroll" className="justify-content-end">
           <Nav
             className="mr-auto my-2 my-lg-0 flex-row"
-            style={{ maxHeight: "100px", justifyContent: "space-around", marginRight: "15px" }}
+            style={{ maxHeight: "100px", marginRight: "15px", justifyContent: "space-around", flexWrap: "wrap" }}
             navbarScroll
           >
-            <Nav.Link href="/">
+            <Nav.Link href="/" style ={{padding: "10px"}}>
               <b>Home</b>
             </Nav.Link>
-            <Nav.Link href="/about">
+            <Nav.Link href="/about" style ={{padding: "10px"}}>
               <b>About Us</b>
             </Nav.Link>
             {!decToken ? (
@@ -96,7 +100,7 @@ const Navigation = () => {
                     Content Creator
                   </NavDropdown.Item>
                 </NavDropdown>
-                <Nav.Link href="/login">
+                <Nav.Link href="/login" style ={{padding: "10px"}}>
                   <b>Login</b>
                 </Nav.Link>
               </>
@@ -104,17 +108,17 @@ const Navigation = () => {
               <>
                 {(decToken.role === "admin" || decToken.role === "content_creator") && (
                   <>
-                    <Nav.Link href="/creator"><b>CreatorPanel</b></Nav.Link>
+                    <Nav.Link href="/creatorpanel" style ={{padding: "10px"}}><b>CreatorPanel</b></Nav.Link>
                   </>
                 )}
                 {decToken.role === "admin" && (
                   <>
-                    <Nav.Link href="/adminpanel"><b>AdminPanel</b></Nav.Link>
+                    <Nav.Link href="/adminpanel" style ={{padding: "10px"}}><b>AdminPanel</b></Nav.Link>
                   </>
                 )}
 
                 <Navbar.Brand>
-                  <Image src={singleUserInfo.user_img_url}  width="5px" height="5px" roundedCircle />
+                  <Image src={singleUserInfo.user_img_url} width="10px" height="10px" roundedCircle />
                 </Navbar.Brand>
 
                 <NavDropdown

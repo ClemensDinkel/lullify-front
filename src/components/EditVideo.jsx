@@ -52,7 +52,7 @@ const EditVideo = () => {
     api.updateUploaderVideo(decToken.id, video_id, getVideo)
       .then(() => {
         alert("Your video has been successfully updated")
-        history.push(`/creator`)})
+        history.push(`/creatorpanel`)})
       .catch(err => console.log(err))
   };
   
@@ -187,7 +187,7 @@ const EditVideo = () => {
                 <Button variant="outline-secondary" type="submit">
                   <b>Submit Changes</b>
                 </Button>
-              <Button variant="outline-secondary" type="button" onClick={() => { history.push('/creator') }}>
+              <Button variant="outline-secondary" type="button" onClick={() => { history.push('/creatorpanel') }}>
                 <b>Cancel</b>
               </Button>
             </Form.Row>
