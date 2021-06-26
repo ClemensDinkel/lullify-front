@@ -32,7 +32,7 @@ const Navigation = () => {
   return (
     <>
       <Navbar bg="dark" variant="dark" expand="lg" fixed>
-        <Navbar.Brand href="/">
+        <Navbar.Brand exact href="/">
           <Image
             src={logo_image}
             style={{

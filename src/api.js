@@ -19,6 +19,13 @@ const api = {
     );
   },
 
+  deReportVideo: async (video_id, deReportData) => {
+    return await axios.put(
+      `${root}/videos/${video_id}/unreport`,
+      queryString.stringify(deReportData)
+    );
+  },
+
   loginUser: async (user) => {
     return await axios.post(`${root}/login`, queryString.stringify(user), {
       withCredentials: true,
@@ -41,15 +48,11 @@ const api = {
   },
 
   demoteUser: async (user_id) => {
-    return await axios.put(
-      `${root}/users/${user_id}/demote`
-    )
+    return await axios.put(`${root}/users/${user_id}/demote`);
   },
 
   promoteUser: async (user_id) => {
-    return await axios.put(
-      `${root}/users/${user_id}/promote`
-    )
+    return await axios.put(`${root}/users/${user_id}/promote`);
   },
 
   getAllUsers: async () => {
@@ -57,11 +60,11 @@ const api = {
   },
 
   getAllRequests: async () => {
-    return await axios.get(`${root}/requests`)
+    return await axios.get(`${root}/requests`);
   },
 
   deleteRequest: async (request_id) => {
-    return await axios.delete(`${root}/requests/${request_id}`)
+    return await axios.delete(`${root}/requests/${request_id}`);
   },
 
   createPlaylist: async (newPlaylist) => {
@@ -85,6 +88,20 @@ const api = {
   deletePlaylist: async (user_id, playlist_id) => {
     return await axios.delete(
       `${root}/users/${user_id}/playlists/${playlist_id}`
+    );
+  },
+
+  addVideoToFavorite: async (user_id, videoData) => {
+    return await axios.put(
+      `${root}/users/${user_id}/favorites`,
+      queryString.stringify(videoData)
+    );
+  },
+
+  removeVideoFromFavorite: async (user_id, videoData) => {
+    return await axios.put(
+      `${root}/users/${user_id}/removefavorites`,
+      queryString.stringify(videoData)
     );
   },
 

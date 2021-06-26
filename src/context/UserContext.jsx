@@ -38,6 +38,7 @@ export const UserController = ({children}) => {
             city_name: data.city_name || "",
             country: data.country || "",
             company: data.company || "",
+            favorites: data.favorites || "",
             errors: {},
           });
         })
