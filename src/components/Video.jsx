@@ -1,14 +1,14 @@
 import ReactPlayer from "react-player/lazy";
 import { Container, Col, Row, Button, Accordion } from "react-bootstrap";
 import "../App.css";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { AiOutlineHeart } from "react-icons/ai";
 import { AiTwotoneHeart } from "react-icons/ai";
 import api from "../api";
 import { UserContext } from "../context/UserContext";
 import { AccordionDetails } from "@material-ui/core";
 
-const Video = ({ video }) => {
+const Video = ({ video,setVideo }) => {
   console.log(video);
 
   const [readMore, setReadMore] = useState(false);
@@ -16,7 +16,8 @@ const Video = ({ video }) => {
   const { dTk, sUI } = useContext(UserContext);
   const [decToken] = dTk;
   const [singleUserInfo, setSingleUserInfo] = sUI;
-  
+
+  console.log(singleUserInfo)
 
   const secToMinConverter = (n) => {
     return n / 60;
@@ -27,7 +28,8 @@ const Video = ({ video }) => {
       api
         .reportVideo(video[0]._id, { user_id: decToken.id })
         .then(() => {
-          alert("Video has been reported");
+          alert("Video has been reported")
+          window.location.reload()
         })
         .catch((err) => console.log(err));
     }
@@ -39,7 +41,8 @@ const Video = ({ video }) => {
       api
         .deReportVideo(video[0]._id, { user_id: decToken.id })
         .then(() => {
-          alert("Video has been deReported");
+          alert("Video has been unreported");
+          window.location.reload()
         })
         .catch((err) => console.log(err));
     }
@@ -51,6 +54,7 @@ const Video = ({ video }) => {
         .addVideoToFavorite(decToken.id, { video_id: video[0]._id })
         .then((res) => {
           alert("Video has been added to favourites");
+          window.location.reload()
         })
         .catch((err) => console.log(err));
     }
@@ -61,7 +65,8 @@ const Video = ({ video }) => {
       api
         .removeVideoFromFavorite(decToken.id, { video_id: video[0]._id })
         .then((res) => {
-          alert("Video has been added to favourites");
+          alert("Video has been removed from favourites");
+          window.location.reload()
         })
         .catch((err) => console.log(err));
     }
@@ -92,25 +97,26 @@ const Video = ({ video }) => {
                 >
                   <div>
                     <h3>{video[0].title}</h3>
+                    <p>{video[0].artist}</p>
                   </div>
                   <div>
-                  {/* {!singleUserInfo.favorites.includes(video[0]._id) && (
+                  {singleUserInfo.favorites && !singleUserInfo.favorites.some(favorite => favorite._id === video[0]._id) && (
                       <Button variant="light" onClick={() => addToFavorite()}>
                         <AiOutlineHeart />
                       </Button>
                     )}
 
-                    {singleUserInfo.favorites.includes(video[0]._id) && (
+                    {singleUserInfo.favorites && singleUserInfo.favorites.some(favorite => favorite._id === video[0]._id) && (
                       <Button
                         variant="light"
                         onClick={() => removeFromFavorite()}
                       >
                        <AiTwotoneHeart /> 
                       </Button>
-                    )} */}
+                    )}
                   </div>
                 </div>
-                <div
+                 <div
                   style={{ display: "flex", justifyContent: "space-between" }}
                 >
                   <Button
@@ -120,14 +126,14 @@ const Video = ({ video }) => {
                     {!readMore ? <b>Show More</b> : <b>Show less</b>}
                   </Button>
 
-                  {!video[0].reportedBy.includes(decToken.id) && (
+                  {decToken && !video[0].reportedBy.includes(decToken.id) && (
                     <Button variant="light" onClick={() => reportButton()}>
                       <b>Report</b>
                     </Button>
                   )}
-                  {video[0].reportedBy.includes(decToken.id) && (
+                  {decToken && video[0].reportedBy.includes(decToken.id) && (
                     <Button variant="light" onClick={() => deReportButton()}>
-                      <b>Dereport</b>
+                      <b>Unreport</b>
                     </Button>
                   )}
                 </div>

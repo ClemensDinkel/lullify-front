@@ -6,8 +6,9 @@ import '../App.css'
 import api from '../api'
 
 const Player = () => {
-  const { id } = useParams()
+  const {id} = useParams()
   const [video, setVideo] = useState()
+  console.log(id);
 
   console.log(video)
 
@@ -21,11 +22,11 @@ const Player = () => {
   return (
     <>
       <div className="player-container">
-      {
+       {
               video ?
-                <Video video={video}/> :
+                <Video video={video} setVideo={setVideo}/> :
                 <p>Loading..</p>
-            }
+            } 
             <Playlists />
       </div>
 

@@ -25,8 +25,8 @@ const Navigation = () => {
     setToken("");
     setDecToken(null);
     alert(`${decToken.user_name} logged out`);
-    window.location.reload();
     history.push("/");
+    window.location.reload();
   };
 
   return (
