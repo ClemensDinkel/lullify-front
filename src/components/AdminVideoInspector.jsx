@@ -8,9 +8,8 @@ const AdminVideoInspector = ({ inspectData, inspectType, setInspecting }) => {
   const { _id, adding_date, artist, duration, languages, reportedBy, reports, tags, title, uploader_id, video_img_url, video_url } = inspectData
   const goWayBack = () => setInspecting(false)
   const deleteVideo = () => {
-    console.log(uploader_id._id)
-    console.log(_id)
-    api.deleteUploaderVideo(uploader_id._id, _id)
+    const uploader = uploader_id ? uploader_id._id : null
+    api.deleteUploaderVideo(uploader, _id)
       .then(() => window.location.reload())
       .catch(err => console.log(err))
   }
