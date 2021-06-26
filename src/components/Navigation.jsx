@@ -77,14 +77,14 @@ const Navigation = () => {
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll" className="justify-content-end">
           <Nav
-            className="mr-auto my-2 my-lg-0"
-            style={{ maxHeight: "100px", marginRight: "15px" }}
+            className="mr-auto my-2 my-lg-0 flex-row"
+            style={{ maxHeight: "100px", marginRight: "15px", justifyContent: "space-around", flexWrap: "wrap" }}
             navbarScroll
           >
-            <Nav.Link href="/">
+            <Nav.Link href="/" style ={{padding: "10px"}}>
               <b>Home</b>
             </Nav.Link>
-            <Nav.Link href="/about">
+            <Nav.Link href="/about" style ={{padding: "10px"}}>
               <b>About Us</b>
             </Nav.Link>
             {!decToken ? (
@@ -101,7 +101,7 @@ const Navigation = () => {
                     Content Creator
                   </NavDropdown.Item>
                 </NavDropdown>
-                <Nav.Link href="/login">
+                <Nav.Link href="/login" style ={{padding: "10px"}}>
                   <b>Login</b>
                 </Nav.Link>
               </>
@@ -109,12 +109,12 @@ const Navigation = () => {
               <>
                 {(decToken.role === "admin" || decToken.role === "content_creator") && (
                   <>
-                    <Nav.Link href="/creatorpanel"><b>CreatorPanel</b></Nav.Link>
+                    <Nav.Link href="/creatorpanel" style ={{padding: "10px"}}><b>CreatorPanel</b></Nav.Link>
                   </>
                 )}
                 {decToken.role === "admin" && (
                   <>
-                    <Nav.Link href="/adminpanel"><b>AdminPanel</b></Nav.Link>
+                    <Nav.Link href="/adminpanel" style ={{padding: "10px"}}><b>AdminPanel</b></Nav.Link>
                   </>
                 )}
 
