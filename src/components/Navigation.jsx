@@ -11,22 +11,27 @@ import logo_image from "../images/logo7.png";
 import { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { UserContext } from '../context/UserContext'
+import api from "../api";
 
 const Navigation = () => {
-  const {tk, dTk, sUI} = useContext(UserContext)
+  const { tk, dTk, sUI } = useContext(UserContext)
   const [decToken, setDecToken] = dTk
   const [token, setToken] = tk
   const [singleUserInfo] = sUI
   let history = useHistory();
 
   const logOut = (e) => {
-    //e.preventDefault();
-    localStorage.clear();
-    setToken("");
-    setDecToken(null);
-    alert(`${decToken.user_name} logged out`);
-    history.push("/");
-    window.location.reload();
+    e.preventDefault();
+    api.logoutUser()
+      .then(() => {
+        localStorage.clear();
+        setToken("");
+        setDecToken(null);
+        alert(`${decToken.user_name} logged out`);
+        console.log(history)
+        history.push("/");
+      })
+      .catch(err => console.log(err))
   };
 
   return (
@@ -104,7 +109,7 @@ const Navigation = () => {
               <>
                 {(decToken.role === "admin" || decToken.role === "content_creator") && (
                   <>
-                    <Nav.Link href="/creator"><b>CreatorPanel</b></Nav.Link>
+                    <Nav.Link href="/creatorpanel"><b>CreatorPanel</b></Nav.Link>
                   </>
                 )}
                 {decToken.role === "admin" && (
@@ -114,7 +119,7 @@ const Navigation = () => {
                 )}
 
                 <Navbar.Brand>
-                  <Image src={singleUserInfo.user_img_url}  width="5px" height="5px" roundedCircle />
+                  <Image src={singleUserInfo.user_img_url} width="5px" height="5px" roundedCircle />
                 </Navbar.Brand>
 
                 <NavDropdown

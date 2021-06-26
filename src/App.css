@@ -12,6 +12,7 @@
 /* ADMIN PANEL */
 .admin-panel {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
 }
 

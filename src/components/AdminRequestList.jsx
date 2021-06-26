@@ -6,6 +6,8 @@ import Table from 'react-bootstrap/Table'
 const AdminRequestList = ({ setInspecting, setInspectData, setInspectType }) => {
   const [requests, setRequests] = useState([])
 
+  const sortByDate = (a,b) => b.req_date < a.req_date? -1 : b.req_date > a.req_date ? 1 : 0;
+
   const seeSingleRequest = (requestData) => {
     setInspecting(true);
     setInspectData(requestData);
@@ -25,16 +27,14 @@ const AdminRequestList = ({ setInspecting, setInspectData, setInspectType }) => 
       <Table striped bordered hover variant="dark" size="sm" responsive>
         <thead>
           <tr>
-            <th>#</th>
             <th>Issued at</th>
             <th>User name</th>
             <th>Company</th>
           </tr>
         </thead>
         <tbody>
-          {requests.map((request, index) =>
+          {requests.sort(sortByDate).map((request, index) =>
             <tr onClick={() => seeSingleRequest(request)} style={{cursor: "pointer"}}>
-              <td>{index + 1}</td>
               <td>{request.req_date}</td>
               <td>{request.user_id ? request.user_id.user_name : ""}</td>
               <td>{request.user_id ? request.user_id.company : ""}</td>
