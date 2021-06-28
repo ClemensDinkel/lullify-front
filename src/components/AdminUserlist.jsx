@@ -32,66 +32,73 @@ const AdminUserList = ({ setInspecting, setInspectData, setInspectType }) => {
     <div className="user-list">
       <h2 style={{ textAlign: "center" }}>User List</h2>
       <h3>Admins</h3>
-      <Table striped bordered hover variant="dark" size="sm" responsive>
-        <thead>
-          <tr>
-            <th>User name</th>
-            <th>First name</th>
-            <th>Last name</th>
-          </tr>
-        </thead>
-        <tbody>
-          {admins.map((admin, index) =>
-            <>
-              <tr onClick={() => seeSingleUser(admin)} style={{cursor: "pointer"}}>
-                <td>{admin.user_name}</td>
-                <td>{admin.first_name}</td>
-                <td>{admin.last_name}</td>
-              </tr>
-            </>
-          )}
-        </tbody>
-      </Table>
+      <div style={{ overflowY: "scroll", maxHeight: "26vh" }}>
+        <Table striped bordered hover variant="dark" size="sm" responsive>
+          <thead>
+            <tr>
+              <th>User name</th>
+              <th>First name</th>
+              <th>Last name</th>
+            </tr>
+          </thead>
+          <tbody>
+            {admins.map((admin, index) =>
+              <>
+                <tr onClick={() => seeSingleUser(admin)} style={{ cursor: "pointer" }}>
+                  <td>{admin.user_name}</td>
+                  <td>{admin.first_name}</td>
+                  <td>{admin.last_name}</td>
+                </tr>
+              </>
+            )}
+          </tbody>
+        </Table>
+      </div>
+
       <h3>Content Creators</h3>
-      <Table striped bordered hover variant="dark" size="sm" responsive>
-        <thead>
-          <tr>
-            <th>User name</th>
-            <th>First name</th>
-            <th>Last name</th>
-            <th>Company</th>
-          </tr>
-        </thead>
-        <tbody>
-          {creators.map((creator, index) =>
-            <tr onClick={() => seeSingleUser(creator)} style={{cursor: "pointer"}}>
-              <td>{creator.user_name}</td>
-              <td>{creator.first_name}</td>
-              <td>{creator.last_name}</td>
-              <td>{creator.company}</td>
+      <div style={{ overflowY: "scroll", maxHeight: "26vh" }}>
+        <Table striped bordered hover variant="dark" size="sm" responsive>
+          <thead>
+            <tr>
+              <th>User name</th>
+              <th>First name</th>
+              <th>Last name</th>
+              <th>Company</th>
             </tr>
-          )}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody>
+            {creators.map((creator, index) =>
+              <tr onClick={() => seeSingleUser(creator)} style={{ cursor: "pointer" }}>
+                <td>{creator.user_name}</td>
+                <td>{creator.first_name}</td>
+                <td>{creator.last_name}</td>
+                <td>{creator.company}</td>
+              </tr>
+            )}
+          </tbody>
+        </Table>
+      </div>
       <h3>Users</h3>
-      <Table striped bordered hover variant="dark" size="sm" responsive>
-        <thead>
-          <tr>
-            <th>User name</th>
-            <th>First name</th>
-            <th>Last name</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user, index) =>
-            <tr onClick={() => seeSingleUser(user)} style={{cursor: "pointer"}}>
-              <td>{user.user_name}</td>
-              <td>{user.first_name}</td>
-              <td>{user.last_name}</td>
+      <div style={{ overflowY: "scroll", maxHeight: "26vh" }}>
+        <Table striped bordered hover variant="dark" size="sm" responsive>
+          <thead>
+            <tr>
+              <th>User name</th>
+              <th>First name</th>
+              <th>Last name</th>
             </tr>
-          )}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody>
+            {users.map((user, index) =>
+              <tr onClick={() => seeSingleUser(user)} style={{ cursor: "pointer" }}>
+                <td>{user.user_name}</td>
+                <td>{user.first_name}</td>
+                <td>{user.last_name}</td>
+              </tr>
+            )}
+          </tbody>
+        </Table>
+      </div>
     </div>
   )
 }
