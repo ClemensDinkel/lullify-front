@@ -116,18 +116,21 @@ const Navigation = () => {
                     <Nav.Link href="/adminpanel" style ={{padding: "10px"}}><b>AdminPanel</b></Nav.Link>
                   </>
                 )}
-
+                {(decToken.role === "admin" || decToken.role === "content_creator" || decToken.role === "user") && (
+                <>
                 <Navbar.Brand>
-                  <Image src={singleUserInfo.user_img_url} width="10px" height="10px" roundedCircle />
+                  <Image src={singleUserInfo.user_img_url} width="30px" height="30px" roundedCircle />
                 </Navbar.Brand>
 
                 <NavDropdown
-                  title={decToken.user_name}
+                  title= {decToken.user_name}
                   id="navbarScrollingDropdown"
                 >
                   <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
                   <NavDropdown.Item onClick={logOut}>LogOut</NavDropdown.Item>
                 </NavDropdown>
+                </>
+                )}
               </>
             )}
           </Nav>

@@ -7,6 +7,7 @@ import { useState, useEffect, useContext } from "react";
 import "../App.css";
 import { UserContext } from "../context/UserContext";
 import { VideoContext } from "../context/VideoContext";
+import { Link } from "react-router-dom";
 
 const Playlists = () => {
   const { dTk } = useContext(UserContext);
@@ -19,13 +20,35 @@ const Playlists = () => {
 
   const [playlists, setPlaylists] = useState({
     name: "",
-    video_list: [],
     user_id: null,
   });
 
+  console.log(playlists)
+
+  const [videoList, setVideoList] = useState({video_id: null})
+
+  console.log(videoList)
+
+  const onChangeVideoList = (e) => {
+    let id = e.target.id;
+    let keyName = e.target.name;
+    let value = e.target.value;
+    console.log(id)
+    setVideoList((previous) => {
+      return {
+        ...previous,
+        [keyName]: value,
+      };
+    });
+  }
+
+  
+
   useEffect(() => {
     if (decToken && decToken.id) {
-      setPlaylists({ user_id: decToken.id });
+      setPlaylists((prev)=> {
+        return{...prev,  user_id: decToken.id }
+      });
     }
   }, [decToken]);
 
@@ -42,7 +65,6 @@ const Playlists = () => {
 
   const addPlaylist = (e) => {
     //e.preventDefault();
-
     api.createPlaylist(playlists).then((res) => {
       alert(`Do you want to add ${playlists.name} to your playlist?`);
       setPlaylists({ name: "" });
@@ -53,6 +75,7 @@ const Playlists = () => {
   // To display Playlists
 
   const [displayPlaylists, setDisplayPlaylists] = useState([]);
+  console.log(displayPlaylists)
 
   useEffect(() => {
     if (decToken && decToken.id) {
@@ -64,7 +87,7 @@ const Playlists = () => {
         .catch((err) => console.log(err));
       setLoading(false);
     }
-  }, [playlists]);
+  }, [playlists, decToken]);
 
   return (
     <div className="playlists">
@@ -84,9 +107,10 @@ const Playlists = () => {
         </Button>
       </Form>
       <div>
-        <ul>
+        
+        <ol>
           {displayPlaylists &&
-            displayPlaylists.map((playlist, index) => {
+            displayPlaylists.map((playlist, playlistIndex) => {
               return (
                 <>
                   {!loading ? (
@@ -97,45 +121,61 @@ const Playlists = () => {
                           justifyContent: "space-between",
                         }}
                       >
-                        <li key={index}>{playlist.name}</li>
+                        <li key={playlistIndex}>{playlist.name}</li>
                         <Button
                           type="submit"
                           variant="outline-secondary"
-                          onClick={(e) => {
+                          onClick={() => {
                             api
-                              .deletePlaylist(decToken.id, playlist._id)
-                              .then((res) => {
-                                alert(
-                                  `Do you want to delete ${playlist.name}?`
-                                );
-                                window.location.reload();
-                                history.push(`/`);
-                              });
+                            .deletePlaylist(decToken.id, playlist._id)
+                            .then((res) => {
+                              alert(
+                                `Do you want to delete ${playlist.name}?`
+                              );
+                              window.location.reload();
+                              history.push(`/`);
+                            });
                           }}
                         >
                           <MdDelete />
                         </Button>
                       </div>
                       <div>
+                        <ul>
+                          {
+                            playlist.video_list && playlist.video_list.map((listVideo, listVideoIndex)=> {
+                              return(
+                                <li key={listVideoIndex}>
+                                  <Link to={`/player/${listVideo._id}`}>
+                                  {listVideo.title}
+                                  </Link>
+                                  </li>
+                              )
+                            })
+                          }
+                        </ul>
+                        </div>
+                      <div>
                         <Form className="d-flex">
                           <Form.Control
-                            stylt={{ width: "12px" }}
+                            /* style={{ width: "10px" }} */
                             as="select"
                             className="my-1 mr-sm-2"
-                            id="inlineFormCustomSelectPref"
+                            id={playlistIndex}
                             name="video_id"
-                            onChange={(e) => e.target.value}
+                            value={videoList.video_id}
+                            onChange={onChangeVideoList}
                             custom
-                          >
-                            <option value="">Add Video</option>
-                            {videos &&
-                              videos.map((video, index) => {
-                                return (
-                                  <option value={video._id} key={index}>
-                                    {video.title}
-                                  </option>
-                                );
-                              })}
+                          > 
+                          <option value="">-----Add Video-----</option>
+                          {videos &&
+                            videos.map((video, videoIndex) => {
+                              return (
+                                <option value={video._id} key={videoIndex}>
+                                  {video.title}
+                                </option>
+                              );
+                            })}
                           </Form.Control>
                           <Button
                             type="submit"
@@ -145,10 +185,10 @@ const Playlists = () => {
                                 .updatePlaylist(
                                   decToken.id,
                                   playlist._id,
-                                  playlist
+                                  videoList
                                 )
                                 .then((res) => {
-                                  console.log(res);
+                                  alert('Video has been added')
                                   history.push("/");
                                 });
                             }}
@@ -156,9 +196,6 @@ const Playlists = () => {
                             <AiOutlinePlus />
                           </Button>
                         </Form>
-                        <ul>
-                          <li>123</li>
-                        </ul>
                       </div>
                     </div>
                   ) : (
@@ -167,10 +204,14 @@ const Playlists = () => {
                 </>
               );
             })}
-        </ul>
+        </ol>
       </div>
     </div>
   );
 };
 
 export default Playlists;
+
+
+
+/* "inlineFormCustomSelectPref" */

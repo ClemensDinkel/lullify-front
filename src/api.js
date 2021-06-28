@@ -33,9 +33,9 @@ const api = {
   },
 
   logoutUser: async () => {
-    return await axios.get(`${root}/logout`,{
-      withCredentials: true
-    })
+    return await axios.get(`${root}/logout`, {
+      withCredentials: true,
+    });
   },
 
   registerUser: async (newUser) => {
@@ -85,7 +85,7 @@ const api = {
   },
 
   updatePlaylist: async (user_id, playlist_id, playlistData) => {
-    return await axios.get(
+    return await axios.put(
       `${root}/users/${user_id}/playlists/${playlist_id}/video`,
       queryString.stringify(playlistData)
     );
