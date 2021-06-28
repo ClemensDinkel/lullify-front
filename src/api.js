@@ -84,10 +84,17 @@ const api = {
     return await axios.get(`${root}/users/${user_id}/playlists`);
   },
 
-  updatePlaylist: async (user_id, playlist_id, playlistData) => {
+  addVideoToPlaylist: async (user_id, playlist_id, video_id) => {
     return await axios.put(
-      `${root}/users/${user_id}/playlists/${playlist_id}/video`,
-      queryString.stringify(playlistData)
+      `${root}/users/${user_id}/playlists/${playlist_id}/addvideo`,
+      queryString.stringify(video_id)
+    );
+  },
+
+  removeVideoFromPlaylist: async (user_id, playlist_id, video_id) => {
+    return await axios.put(
+      `${root}/users/${user_id}/playlists/${playlist_id}/removevideo`,
+      queryString.stringify(video_id)
     );
   },
 
