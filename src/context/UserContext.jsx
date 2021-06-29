@@ -17,7 +17,6 @@ export const UserController = ({children}) => {
   }, [token]);
   
   useEffect(() => {
-    console.log(singleUserInfo);
     if (decToken && decToken.id) {
       api
         .fetchSingleUser(decToken.id)
@@ -44,7 +43,6 @@ export const UserController = ({children}) => {
         })
         .catch((err) => console.error(err));
     }
-    console.log(decToken);
   }, []);
 
   return( 

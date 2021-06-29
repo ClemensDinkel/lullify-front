@@ -8,7 +8,7 @@ export const PlaylistController = ({ children }) => {
 
   useEffect(() => {
     console.log(playlist)
-  },[])
+  },[playlist])
 
   return (
     <PlaylistContext.Provider value={[playlist, setPlaylist]}>

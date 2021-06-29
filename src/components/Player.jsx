@@ -15,8 +15,6 @@ const Player = () => {
   const [decToken] = dTk;
   const [playlist] = useContext(PlaylistContext)
 
-  console.log(video);
-
   useEffect(() => {
     console.log("getting new video fired")
     api

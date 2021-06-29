@@ -12,44 +12,36 @@ const TemporaryPlaylist = () => {
   const [selected, setSelected] = useState(null)
   const [playlist, setPlaylist] = useContext(PlaylistContext)
 
-  /* useEffect(()=> {
-    const tempPlaylist = localStorage.getItem('lullifyPlaylist').split(', ')
-    if (tempPlaylist.length > 1) tempPlaylist.pop() // removes last element with ""
-    console.log(tempPlaylist)
-    setTemporaryPlaylist(tempPlaylist)
-  },[]) */
-
+  // load from local storage on first render
+  useEffect(() => {
+    if (localStorage.getItem('lullifyPlaylist') !== null) {
+      
+    }
+  }, [])
+  // add video to temporary playlist
   const addVideo = (e) => {
     e.preventDefault()
     if (selected !== null && !temporaryPlaylist.includes(selected)) {
       setTemporaryPlaylist(prev => [...prev, selected])
-      let concatStr = ""
-      for (let i = 0; i < temporaryPlaylist.length; i++) {
-        concatStr += `${temporaryPlaylist[i]._id}, `
-      }
-      localStorage.setItem('lullifyPlaylist', `${concatStr}`)
     }
   }
+  // update local storage as well
+  useEffect(() => {
+    console.log(temporaryPlaylist)
+    localStorage.setItem("lullifyPlaylist", JSON.stringify(temporaryPlaylist))
+  }, [temporaryPlaylist])
 
   const selectVideo = (e) => {
     e.preventDefault()
-    setSelected(videos.find(video => video._id === e.target.value))
+    const video = videos.find(video => video._id === e.target.value)
+    const onlyIdAndName = {_id: video._id, title: video.title }
+    setSelected(onlyIdAndName)
   };
 
   const playPlaylist = () => {
-    const tempPlaylist = localStorage.getItem('lullifyPlaylist').split(', ')
-    if (tempPlaylist.length > 1) tempPlaylist.pop() // removes last element with "" 
+    const tempPlaylist = ["1", "2"]
     setPlaylist(tempPlaylist)
   }
-
-  /* useEffect(() => {
-    localStorage.clear();
-    let concatStr = ""
-    for (let i = 0; i < temporaryPlaylist.length; i++) {
-      concatStr += `${temporaryPlaylist[i]._id}, `
-    }
-    localStorage.setItem('lullifyPlaylist', `${concatStr}`)
-  }, [temporaryPlaylist]) */
 
   return (
     <div>
