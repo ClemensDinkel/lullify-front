@@ -28,7 +28,7 @@ const api = {
 
   loginUser: async (user) => {
     return await axios.post(`/login`, user, {
-      /* withCredentials: true, */
+      withCredentials: true,
       baseURL: root
     });
   },
