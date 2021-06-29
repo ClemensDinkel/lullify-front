@@ -70,6 +70,10 @@ const Playlists = () => {
     });
   };
 
+  const playPlaylist = () => {
+    // setPlaylist(array of ids of the videos)  ---> which data to use?
+  }
+   
   // To display Playlists
 
   const [displayPlaylists, setDisplayPlaylists] = useState([]);
@@ -138,7 +142,11 @@ const Playlists = () => {
                           justifyContent: "space-between",
                         }}
                       >
-                        <li key={playlistIndex}>{playlist.name}</li>
+                        <li key={playlistIndex} style={{ cursor: "pointer" }} onClick={playPlaylist}>
+                          <Link to={`/player/${playlist.length > 0 ? playlist[0]._id : ""}`}>
+                            {playlist.name}
+                          </Link>
+                        </li>
                         <Button
                           type="submit"
                           variant="outline-secondary"

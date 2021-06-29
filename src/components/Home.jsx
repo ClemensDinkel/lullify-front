@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import Previews from './Previews'
 import Playlists from './Playlists'
-import LocalPlaylists from './LocalPlaylists'
+import TemporaryPlaylist from './TemporaryPlaylist'
 import { UserContext } from "../context/UserContext";
 
 const Home = () => {
@@ -13,7 +13,7 @@ return (
     <Previews />
     {decToken && decToken.id ? 
     <Playlists /> :
-    <LocalPlaylists/>
+    <TemporaryPlaylist/>
     }
     
   </div>

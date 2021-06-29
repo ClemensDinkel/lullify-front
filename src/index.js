@@ -2,13 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import api from "./api";
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import createAuthRefreshInterceptor from 'axios-auth-refresh';
-const root = "http://localhost:3001";
-// const root = 'https://tranquil-reaches-12289.herokuapp.com';
 
 // Obtain the fresh token each time the function is called
 const getAccessToken = () => {
@@ -16,7 +15,7 @@ const getAccessToken = () => {
 }
 
 // Function that will be called to refresh authorization
-const refreshAuthLogic = failedRequest => axios.post(`${root}/refresh`,{}, {withCredentials:true})
+const refreshAuthLogic = failedRequest => api.refreshUserToken()
   .then(tokenRefreshResponse => {
     console.log(tokenRefreshResponse)
     localStorage.setItem('auth-token', tokenRefreshResponse.data.accessToken);

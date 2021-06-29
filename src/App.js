@@ -2,11 +2,10 @@ import "./App.css";
 import Navigation from "./components/Navigation";
 import LullifyRouter from "./components/LullifyRouter";
 import { useState, useEffect } from "react";
-//import { fetchVideos } from './api';
-import api from "./api";
 import jwt_decode from "jwt-decode";
 import { VideoController } from "./context/VideoContext";
 import { UserController } from "./context/UserContext";
+import { PlaylistController } from "./context/PlaylistContext"
 
 const App = () => {
   // to decode a token  token
@@ -24,6 +23,7 @@ const App = () => {
     <div className="App">
       <VideoController>
       <UserController>
+      <PlaylistController>
       <Navigation
         user={decToken}
         setToken={setToken}
@@ -35,6 +35,7 @@ const App = () => {
         setToken={setToken}
         singleUserInfo={singleUserInfo}
       />
+      </PlaylistController>
       </UserController>
       </VideoController>
     </div>

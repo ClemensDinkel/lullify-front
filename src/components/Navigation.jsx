@@ -118,14 +118,15 @@ const Navigation = () => {
                 )}
                 {(decToken.role === "admin" || decToken.role === "content_creator" || decToken.role === "user") && (
                   <>
-                    <div style={{ padding: "10px", margin: "auto" }}>
-                      <Navbar.Brand>
+                    <div style={{ padding: "10px", margin: "auto", display: "flex" }}>
+                      <Navbar.Brand style={{paddingRight: 0, marginRight: 0}}>
                         <Image src={singleUserInfo.user_img_url} width="30px" height="30px" roundedCircle />
                       </Navbar.Brand>
 
                       <NavDropdown
                         title={decToken.user_name}
                         id="navbarScrollingDropdown"
+                        style={{paddingLeft: 0, marginLeft: "5px"}}
                       >
                         <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
                         <NavDropdown.Item onClick={logOut}>LogOut</NavDropdown.Item>
