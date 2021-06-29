@@ -26,8 +26,9 @@ const refreshAuthLogic = failedRequest => api.refreshUserToken()
 // Interceptor to inject the access token to requests
 axios.interceptors.request.use(request => {
   request.headers['Authorization'] = `Bearer ${getAccessToken()}`;
-  request.headers['Content-Type'] = 'application/x-www-form-urlencoded';
-  /* request.headers['Access-Allow-Control-Origin'] = 'http://localhost:3000'; */
+  // request.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+  request.headers['Content-Type'] = 'application/json';
+  /* request.headers['Access-Control-Allow-Origin'] = '*'; */
   console.log(request)
   return request;
 });
@@ -46,7 +47,7 @@ axios.interceptors.response.use(response => {
 
 // Instantiate the interceptor (you can chain it as it returns the axios instance)
 createAuthRefreshInterceptor(axios, refreshAuthLogic, {
-  statusCodes: [ 401, 403 ]
+  statusCodes: [401, 403]
 });
 
 ReactDOM.render(
