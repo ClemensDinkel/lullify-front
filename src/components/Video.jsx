@@ -6,21 +6,24 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { AiTwotoneHeart } from "react-icons/ai";
 import api from "../api";
 import { UserContext } from "../context/UserContext";
-
+import { PlaylistContext } from "../context/PlaylistContext";
+import { AccordionDetails } from "@material-ui/core";
+import { useHistory } from "react-router";
 
 const Video = ({ video,setVideo }) => {
   console.log(video);
-
   const [readMore, setReadMore] = useState(false);
-
   const { dTk, sUI } = useContext(UserContext);
+  const [playlist, setPlaylist] = useContext(PlaylistContext)
   const [decToken] = dTk;
-  const [singleUserInfo, setSingleUserInfo] = sUI;
+  const [singleUserInfo] = sUI;
+  let history = useHistory();
 
   console.log(singleUserInfo)
 
   const secToMinConverter = (n) => {
-    return n / 60;
+    /* return n / 60; */ // old formula
+    return `${Math.floor(n/60)}${n%60<10 ? ":0" : ":"}${Math.floor(n%60)}`
   };
 
   const reportButton = () => {
@@ -70,6 +73,14 @@ const Video = ({ video,setVideo }) => {
         .catch((err) => console.log(err));
     }
   };
+  const playNext = () => {
+    setPlaylist(prev=> {
+      prev.shift()
+      console.log(prev)
+    })
+    console.log(playlist[0])
+    if (playlist.length > 0) history.push(`/player/${playlist[0]}`)
+  }
 
   return (
     <>
@@ -82,9 +93,11 @@ const Video = ({ video,setVideo }) => {
                 className="react-player"
                 url={video[0].video_url}
                 muted={false}
-                playing={false}
+                playing={true}
                 width="100%"
                 height="600px"
+                onEnded={playNext}
+                /* loop={true} */
               />
             </Col>
           </Row>
