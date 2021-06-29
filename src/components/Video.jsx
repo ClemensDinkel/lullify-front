@@ -97,7 +97,7 @@ const Video = ({ video,setVideo }) => {
                 width="100%"
                 height="600px"
                 onEnded={playNext}
-                /* loop={true} */
+                loop={true}
               />
             </Col>
           </Row>

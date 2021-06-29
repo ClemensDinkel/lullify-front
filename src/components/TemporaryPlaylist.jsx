@@ -12,9 +12,23 @@ const TemporaryPlaylist = () => {
   const [selected, setSelected] = useState(null)
   const [playlist, setPlaylist] = useContext(PlaylistContext)
 
+  /* useEffect(()=> {
+    const tempPlaylist = localStorage.getItem('lullifyPlaylist').split(', ')
+    if (tempPlaylist.length > 1) tempPlaylist.pop() // removes last element with ""
+    console.log(tempPlaylist)
+    setTemporaryPlaylist(tempPlaylist)
+  },[]) */
+
   const addVideo = (e) => {
     e.preventDefault()
-    if (selected !== null && !temporaryPlaylist.includes(selected)) setTemporaryPlaylist(prev => [...prev, selected])
+    if (selected !== null && !temporaryPlaylist.includes(selected)) {
+      setTemporaryPlaylist(prev => [...prev, selected])
+      let concatStr = ""
+      for (let i = 0; i < temporaryPlaylist.length; i++) {
+        concatStr += `${temporaryPlaylist[i]._id}, `
+      }
+      localStorage.setItem('lullifyPlaylist', `${concatStr}`)
+    }
   }
 
   const selectVideo = (e) => {
@@ -23,19 +37,19 @@ const TemporaryPlaylist = () => {
   };
 
   const playPlaylist = () => {
-    const sessionPlaylist = sessionStorage.getItem('lullifyPlaylist').split(', ')
-    if (sessionPlaylist.length > 1) sessionPlaylist.pop() // removes last element with "" 
-    setPlaylist(sessionPlaylist)
+    const tempPlaylist = localStorage.getItem('lullifyPlaylist').split(', ')
+    if (tempPlaylist.length > 1) tempPlaylist.pop() // removes last element with "" 
+    setPlaylist(tempPlaylist)
   }
 
-  useEffect(() => {
-    sessionStorage.clear();
+  /* useEffect(() => {
+    localStorage.clear();
     let concatStr = ""
     for (let i = 0; i < temporaryPlaylist.length; i++) {
       concatStr += `${temporaryPlaylist[i]._id}, `
     }
-    sessionStorage.setItem('lullifyPlaylist', `${concatStr}`)
-  }, [temporaryPlaylist])
+    localStorage.setItem('lullifyPlaylist', `${concatStr}`)
+  }, [temporaryPlaylist]) */
 
   return (
     <div>
