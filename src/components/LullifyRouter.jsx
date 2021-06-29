@@ -13,7 +13,7 @@ import EditVideo from './EditVideo'
 const LullifyRouter = () => {
 
   return (
-    <>
+    <div>
       <Switch>
         <Route exact path='/'><Home /></Route>
         <Route path='/player/:id?'><Player/></Route>
@@ -25,7 +25,7 @@ const LullifyRouter = () => {
         <Route path='/video/:video_id?'><EditVideo /></Route>
         <Route path='/about'><About /></Route>
       </Switch>
-    </>
+    </div>
   )
 }
 

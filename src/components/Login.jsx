@@ -41,10 +41,9 @@ const Login = () => {
         console.log(res.data)
         localStorage.setItem('auth-token', res.data.accessToken)
         setToken(res.data.accessToken)
-        console.log(history)
         history.push(`/`)
       })
-      .catch(err => console.log(err))
+      .catch(err => alert(err.message))
   };
 
   return (

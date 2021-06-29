@@ -30,10 +30,8 @@ const Playlists = () => {
   console.log(videoList);
 
   const onChangeVideoList = (e) => {
-    let id = e.target.id;
     let keyName = e.target.name;
     let value = e.target.value;
-    console.log(id);
     setVideoList((previous) => {
       return {
         ...previous,
@@ -63,8 +61,9 @@ const Playlists = () => {
 
   const addPlaylist = (e) => {
     //e.preventDefault();
+
+    window.confirm(`Do you want to add ${playlists.name} to your playlist?`) &&
     api.createPlaylist(playlists).then((res) => {
-      alert(`Do you want to add ${playlists.name} to your playlist?`);
       setPlaylists({ name: "" });
       history.push(`/`);
     });
@@ -103,8 +102,14 @@ const Playlists = () => {
         <Button type="submit" variant="outline-secondary">
           <AiOutlinePlus />
         </Button>
+      </Form>
+      <h4> </h4>
+      {displayPlaylists.length !== 0 ? (
+        <Form>
+        <Form.Label style={{ textAlign: "left" }}>
+          <b>Add Video</b>
+        </Form.Label>
         <Form.Control
-          /* style={{ width: "10px" }} */
           as="select"
           className="my-1 mr-sm-2"
           id="inlineFormCustomSelectPref"
@@ -112,8 +117,9 @@ const Playlists = () => {
           value={videoList.video_id}
           onChange={onChangeVideoList}
           custom
+          required
         >
-          <option value="">-----Add Video-----</option>
+          <option value="">-----Select Video-----</option>
           {videos &&
             videos.map((video, videoIndex) => {
               return (
@@ -124,6 +130,7 @@ const Playlists = () => {
             })}
         </Form.Control>
       </Form>
+      ) : null}
       <div>
         <ol>
           {displayPlaylists &&
@@ -143,12 +150,12 @@ const Playlists = () => {
                           type="submit"
                           variant="outline-secondary"
                           onClick={() => {
+                            window.confirm(
+                              `Do you want to delete ${playlist.name}?`
+                            ) &&
                             api
                               .deletePlaylist(decToken.id, playlist._id)
                               .then((res) => {
-                                alert(
-                                  `Do you want to delete ${playlist.name}?`
-                                );
                                 window.location.reload();
                                 history.push(`/`);
                               });
@@ -163,11 +170,37 @@ const Playlists = () => {
                             playlist.video_list.map(
                               (listVideo, listVideoIndex) => {
                                 return (
-                                  <li key={listVideoIndex}>
-                                    <Link to={`/player/${listVideo._id}`}>
-                                      {listVideo.title}
-                                    </Link>
-                                  </li>
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "space-between",
+                                    }}
+                                  >
+                                    <li key={listVideoIndex}>
+                                      <Link to={`/player/${listVideo._id}`}>
+                                        {listVideo.title}
+                                      </Link>
+                                    </li>
+                                    <Button
+                                      type="submit"
+                                      variant="outline-secondary"
+                                      onClick={() => {
+                                        window.confirm(`Do you want to delete?`) &&
+                                        api
+                                          .removeVideoFromPlaylist(
+                                            decToken.id,
+                                            playlist._id,
+                                            { video_id: listVideo._id }
+                                          )
+                                          .then((res) => {
+                                            window.location.reload();
+                                            history.push(`/`);
+                                          });
+                                      }}
+                                    >
+                                      <MdDelete />
+                                    </Button>
+                                  </div>
                                 );
                               }
                             )}
@@ -178,17 +211,20 @@ const Playlists = () => {
                           <Button
                             type="submit"
                             variant="outline-secondary"
-                            onClick={() => {
-                              api
-                                .updatePlaylist(
-                                  decToken.id,
-                                  playlist._id,
-                                  videoList
-                                )
-                                .then((res) => {
-                                  alert("Video has been added");
-                                  history.push("/");
-                                });
+                            onClick={(e) => {
+                              e.preventDefault()
+                              if(videoList.video_id === null)
+                                return alert('Select Video')
+                              window.confirm("Want to add Video?") &&
+                                api
+                                  .addVideoToPlaylist(
+                                    decToken.id,
+                                    playlist._id,
+                                    videoList
+                                  )
+                                  .then((res) => {
+                                    history.push("/");
+                                  });
                             }}
                           >
                             <AiOutlinePlus />
@@ -209,3 +245,4 @@ const Playlists = () => {
 };
 
 export default Playlists;
+

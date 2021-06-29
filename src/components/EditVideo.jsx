@@ -1,40 +1,41 @@
-import { useParams } from "react-router-dom"
-import { UserContext } from '../context/UserContext'
-import { useHistory } from "react-router-dom"
-import {useState, useEffect, useContext} from "react"
-import api from "../api"
+import { useParams } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
+import { useHistory } from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
+import api from "../api";
 import { Form, Button, Card, Col } from "react-bootstrap";
 
 const EditVideo = () => {
-  const {video_id} = useParams()
-  const { dTk } = useContext(UserContext)
-  const [decToken] = dTk
+  const { video_id } = useParams();
+  const { dTk } = useContext(UserContext);
+  const [decToken] = dTk;
 
   let history = useHistory();
-  console.log(video_id)
+  console.log(video_id);
 
-  const [getVideo, setGetVideo] = useState({})
+  const [getVideo, setGetVideo] = useState({});
 
   useEffect(() => {
-    api.getVideoById(video_id)
-    .then(res => {
-      console.log(res.data)
-      const videoInfo = res.data[0]
-      console.log(videoInfo)
-      setGetVideo({
-        title: videoInfo.title,
-        artist: videoInfo.artist,
-        video_url: videoInfo.video_url,
-        video_img_url: videoInfo.video_img_url,
-        short_description: videoInfo.short_description,
-        duration: videoInfo.duration,
-        languages: videoInfo.languages,
-        tags: videoInfo.tags,
-        errors: {}
+    api
+      .getVideoById(video_id)
+      .then((res) => {
+        console.log(res.data);
+        const videoInfo = res.data[0];
+        console.log(videoInfo);
+        setGetVideo({
+          title: videoInfo.title,
+          artist: videoInfo.artist,
+          video_url: videoInfo.video_url,
+          video_img_url: videoInfo.video_img_url,
+          short_description: videoInfo.short_description,
+          duration: videoInfo.duration,
+          languages: videoInfo.languages,
+          tags: videoInfo.tags,
+          errors: {},
+        });
       })
-    })
-    .catch(err => console.log(err))
-  },[]) 
+      .catch((err) => console.log(err));
+  }, []);
 
   const onChange = (e) => {
     let keyName = e.target.name;
@@ -45,22 +46,26 @@ const EditVideo = () => {
         [keyName]: value,
       };
     });
-  }
+  };
 
   const updateVideo = (e) => {
     e.preventDefault();
-    api.updateUploaderVideo(decToken.id, video_id, getVideo)
+    api
+      .updateUploaderVideo(decToken.id, video_id, getVideo)
       .then(() => {
-        alert("Your video has been successfully updated")
-        history.push(`/creatorpanel`)})
-      .catch(err => console.log(err))
+        alert("Your video has been successfully updated");
+        history.push(`/creatorpanel`);
+      })
+      .catch((err) => console.log(err));
   };
-  
 
-
-  return(
-    <div style={{ display: "flex", justifyContent: "center" }}>
-        <Card bg="light" style={{ flexGrow: "1", mixWidth: "30rem", textAlign: "left" }}>
+  return (
+    <>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <Card
+          bg="light"
+          style={{ flexGrow: "1", mixWidth: "30rem", textAlign: "left" }}
+        >
           <Card.Body>
             <Form onSubmit={updateVideo}>
               <Form.Row>
@@ -182,20 +187,32 @@ const EditVideo = () => {
                   />
                 </Form.Group>
               </Form.Row>
-              <Form.Row style={{ display: "flex", justifyContent: "space-around", marginTop: "10px" }}>
-              
+              <Form.Row
+                style={{
+                  display: "flex",
+                  justifyContent: "space-around",
+                  marginTop: "10px",
+                }}
+              >
                 <Button variant="outline-secondary" type="submit">
                   <b>Submit Changes</b>
                 </Button>
-              <Button variant="outline-secondary" type="button" onClick={() => { history.push('/creatorpanel') }}>
-                <b>Cancel</b>
-              </Button>
-            </Form.Row>
+                <Button
+                  variant="outline-secondary"
+                  type="button"
+                  onClick={() => {
+                    history.push("/creatorpanel");
+                  }}
+                >
+                  <b>Cancel</b>
+                </Button>
+              </Form.Row>
             </Form>
           </Card.Body>
         </Card>
       </div>
-  )
-}
+    </>
+  );
+};
 
 export default EditVideo;

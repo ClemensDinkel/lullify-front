@@ -6,7 +6,7 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { AiTwotoneHeart } from "react-icons/ai";
 import api from "../api";
 import { UserContext } from "../context/UserContext";
-import { AccordionDetails } from "@material-ui/core";
+
 
 const Video = ({ video,setVideo }) => {
   console.log(video);
@@ -25,23 +25,22 @@ const Video = ({ video,setVideo }) => {
 
   const reportButton = () => {
     if (decToken && decToken.id) {
+      window.confirm("Do you want to report this video?") &&
       api
         .reportVideo(video[0]._id, { user_id: decToken.id })
         .then(() => {
-          alert("Video has been reported")
           window.location.reload()
         })
         .catch((err) => console.log(err));
     }
   };
 
-  const deReportButton = () => {
+  const unReportButton = () => {
     if (decToken && decToken.id) {
-      console.log(decToken.id);
+      window.confirm("Do you want to unreport this video?") &&
       api
-        .deReportVideo(video[0]._id, { user_id: decToken.id })
+        .unReportVideo(video[0]._id, { user_id: decToken.id })
         .then(() => {
-          alert("Video has been unreported");
           window.location.reload()
         })
         .catch((err) => console.log(err));
@@ -50,10 +49,10 @@ const Video = ({ video,setVideo }) => {
 
   const addToFavorite = () => {
     if (decToken && decToken.id) {
+      window.confirm("Do you want to add to favourites?") &&
       api
         .addVideoToFavorite(decToken.id, { video_id: video[0]._id })
         .then((res) => {
-          alert("Video has been added to favourites");
           window.location.reload()
         })
         .catch((err) => console.log(err));
@@ -62,10 +61,10 @@ const Video = ({ video,setVideo }) => {
 
   const removeFromFavorite = () => {
     if (decToken && decToken.id) {
+      window.confirm("Do you want to remove from favourites?") &&
       api
         .removeVideoFromFavorite(decToken.id, { video_id: video[0]._id })
         .then((res) => {
-          alert("Video has been removed from favourites");
           window.location.reload()
         })
         .catch((err) => console.log(err));
@@ -132,7 +131,7 @@ const Video = ({ video,setVideo }) => {
                     </Button>
                   )}
                   {decToken && video[0].reportedBy.includes(decToken.id) && (
-                    <Button variant="light" onClick={() => deReportButton()}>
+                    <Button variant="light" onClick={() => unReportButton()}>
                       <b>Unreport</b>
                     </Button>
                   )}
@@ -158,20 +157,3 @@ const Video = ({ video,setVideo }) => {
 
 export default Video;
 
-{
-  /* <div>
-                <Accordion defaultActiveKey="0">
-                  <Accordion.Item eventKey="0">
-                    <Accordion.Header>
-                      <b>Read More</b>
-                    </Accordion.Header>
-                    <Accordion.Body>
-                      <h6>
-                        Duration: {secToMinConverter(video[0].duration)} mins
-                      </h6>
-                      <p>Description: {video[0].short_description}</p>
-                    </Accordion.Body>
-                  </Accordion.Item>
-                </Accordion>
-              </div> */
-}

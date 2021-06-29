@@ -1,14 +1,25 @@
-import { Form, Button, Image, Card, Col } from "react-bootstrap";
+import {
+  Form,
+  Button,
+  Image,
+  Card,
+  Col,
+  InputGroup,
+  OverlayTrigger,
+  Tooltip
+} from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { useState, useContext } from "react";
-import { UserContext } from '../context/UserContext';
-import api from "../api"
+import { UserContext } from "../context/UserContext";
+import api from "../api";
+import { BsQuestionOctagonFill } from "react-icons/bs";
+import "../App.css";
 
 const AddContent = () => {
-  let history = useHistory()
+  let history = useHistory();
 
-  const {dTk} = useContext(UserContext)
-  const [decToken, setDecToken] = dTk
+  const { dTk } = useContext(UserContext);
+  const [decToken, setDecToken] = dTk;
 
   const [addVideo, setAddVideo] = useState({
     title: "",
@@ -21,9 +32,9 @@ const AddContent = () => {
     languages: "",
     tags: "",
     errors: {},
-  })
+  });
 
-  console.log(addVideo)
+  console.log(addVideo);
 
   const onChange = (e) => {
     let keyName = e.target.name;
@@ -34,40 +45,51 @@ const AddContent = () => {
         [keyName]: value,
       };
     });
-  }
+  };
 
   const addNewVideo = (e) => {
     e.preventDefault();
 
     const newVideo = {
       title: addVideo.title,
-    artist: addVideo.artist,
-    video_url: addVideo.video_url,
-    video_img_url: addVideo.video_img_url,
-    short_description: addVideo.short_description,
-    duration: addVideo.duration,
-    uploader_id: decToken.id,
-    languages: addVideo.languages,
-    tags: addVideo.tags,
-    }
+      artist: addVideo.artist,
+      video_url: addVideo.video_url,
+      video_img_url: addVideo.video_img_url,
+      short_description: addVideo.short_description,
+      duration: addVideo.duration,
+      uploader_id: decToken.id,
+      languages: addVideo.languages.split(","),
+      tags: addVideo.tags.split(","),
+    };
 
-    api.addVideos(newVideo)
-    .then(() => {
-      console.log(newVideo)
-      alert("Video has been added")
+    api.addVideos(newVideo).then(() => {
+      console.log(newVideo);
+      alert("Video has been added");
       setAddVideo("");
-      history.push('/creatorpanel')
-      window.location.reload()
-    })
-  }
+      history.push("/creatorpanel");
+      window.location.reload();
+    });
+  };
 
   return (
-    <div style={{ display: "flex", justifyContent: "center", flexDirection: "column", width: "50%"}}>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        flexDirection: "column",
+        width: "50%",
+      }}
+    >
       <div>
         <h3>Add Content</h3>
       </div>
-      <div style={{ display: "flex", justifyContent: "center", margin: ".4rem" }}>
-        <Card bg="light" style={{ flexGrow: "1", maxWidth: "50rem", textAlign: "left" }}>
+      <div
+        style={{ display: "flex", justifyContent: "center", margin: ".4rem" }}
+      >
+        <Card
+          bg="light"
+          style={{ flexGrow: "1", maxWidth: "50rem", textAlign: "left" }}
+        >
           <Card.Body>
             <Form onSubmit={addNewVideo}>
               <Form.Label>
@@ -162,6 +184,16 @@ const AddContent = () => {
                     <b>Video Duration</b>
                     <span style={{ color: "red" }}>*</span>
                   </Form.Label>
+                  <OverlayTrigger
+                      key="top"
+                      placement="top"
+                      delay={{ show: 250, hide: 400 }}
+                      overlay={
+                        <Tooltip id="tooltip-top">
+                          Enter duration in seconds
+                        </Tooltip>
+                      }
+                    >
                   <Form.Control
                     type="number"
                     placeholder="Enter duration in secs"
@@ -170,6 +202,7 @@ const AddContent = () => {
                     onChange={onChange}
                     required
                   />
+                  </OverlayTrigger>
                 </Form.Group>
               </Form.Row>
               <Form.Row>
@@ -177,15 +210,37 @@ const AddContent = () => {
                   <Form.Label>
                     <b>Languages</b>
                   </Form.Label>
-                  {/* <Form.Check inline label="English" name="languages" type="checkbox" id={`inline-checkbox-1`} onChange={onChange} value={addVideo.languages} />
-                  <Form.Check inline label="German" name="languages" type="checkbox" id={`inline-checkbox-2`} onChange={onChange} value={addVideo.languages} /> */}
-                  <Form.Control
-                    type="text"
-                    placeholder="English, German, Hindi etc.."
-                    name="languages"
-                    value={addVideo.languages}
-                    onChange={onChange}
-                  />
+                  <InputGroup className="mb-2">
+                    <OverlayTrigger
+                      key="top"
+                      placement="top"
+                      delay={{ show: 250, hide: 400 }}
+                      overlay={
+                        <Tooltip id="tooltip-top">
+                          Enter languages code by separating each of them with
+                          comma ',' . For code use the hint.
+                        </Tooltip>
+                      }
+                    >
+                      <Form.Control
+                        type="text"
+                        placeholder="EN, DE, HI etc.."
+                        name="languages"
+                        value={addVideo.languages}
+                        onChange={onChange}
+                      />
+                    </OverlayTrigger>
+                    <InputGroup.Prepend>
+                      <InputGroup.Text>
+                        <a
+                          href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes"
+                          target="_blank"
+                        >
+                          <BsQuestionOctagonFill />
+                        </a>
+                      </InputGroup.Text>
+                    </InputGroup.Prepend>
+                  </InputGroup>
                 </Form.Group>
               </Form.Row>
               <Form.Row>
@@ -193,33 +248,47 @@ const AddContent = () => {
                   <Form.Label>
                     <b>Videos Tags</b>
                   </Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Kinder, Children, Fun etc.."
-                    name="tags"
-                    value={addVideo.tags}
-                    onChange={onChange}
-                  />
+                  <OverlayTrigger
+                    key="top"
+                    placement="top"
+                    delay={{ show: 250, hide: 400 }}
+                    overlay={
+                      <Tooltip id="tooltip-top">
+                        Enter tags by separating each of them with comma ','.
+                      </Tooltip>
+                    }
+                  >
+                    <Form.Control
+                      type="text"
+                      placeholder="Kinder, Children, Fun etc.."
+                      name="tags"
+                      value={addVideo.tags}
+                      onChange={onChange}
+                    />
+                  </OverlayTrigger>
                 </Form.Group>
               </Form.Row>
               <Form.Row
-              style={{
-                display: "flex",
-                justifyContent: "space-around",
-                marginTop: "10px",
-              }}
-            >
+                style={{
+                  display: "flex",
+                  justifyContent: "space-around",
+                  marginTop: "10px",
+                }}
+              >
                 <Button variant="outline-secondary" type="submit">
                   <b>Submit</b>
                 </Button>
-                <Button variant="outline-secondary" type="button" 
-                onClick={() => { 
-                  setAddVideo("");
-                  window.location.reload()
-                  history.push('/creator') 
-                  }}>
-                <b>Cancel</b>
-              </Button>
+                <Button
+                  variant="outline-secondary"
+                  type="button"
+                  onClick={() => {
+                    setAddVideo("");
+                    window.location.reload();
+                    history.push("/creator");
+                  }}
+                >
+                  <b>Cancel</b>
+                </Button>
               </Form.Row>
             </Form>
           </Card.Body>

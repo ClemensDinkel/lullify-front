@@ -23,19 +23,10 @@ const App = () => {
   return (
     <div className="App">
       <VideoController>
-      <UserController>
-      <Navigation
-        user={decToken}
-        setToken={setToken}
-        setUser={setDecToken}
-        singleUserInfo={singleUserInfo}
-      />
-      <LullifyRouter
-        user={decToken}
-        setToken={setToken}
-        singleUserInfo={singleUserInfo}
-      />
-      </UserController>
+        <UserController>
+          <Navigation />
+          <LullifyRouter />
+        </UserController>
       </VideoController>
     </div>
   );

@@ -1,14 +1,19 @@
 .App {
   text-align: center;
-  background-image: url("./images/5.png");
+  background-image: url("https://images.all-free-download.com/images/graphicthumb/rippled_wall_background_01_hd_pictures_169887.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   margin: 0;
 }
 
-.main {
+.navbar {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.home-container {
   display: flex;
 }
+
 /* ADMIN PANEL */
 .admin-panel {
   display: flex;
@@ -51,9 +56,6 @@
 }
 
 .video-container {
-  background-image: url("./images/5.png");
-  background-repeat: no-repeat;
-  background-size: cover;
   flex-grow: 4;
   width: 100%;
 }

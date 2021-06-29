@@ -1,4 +1,4 @@
-import { Card, Col, Form, Button,InputGroup } from "react-bootstrap";
+import { Card, Col, Form, Button, InputGroup } from "react-bootstrap";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { BiShow } from "react-icons/bi";
@@ -6,7 +6,6 @@ import { BiHide } from "react-icons/bi";
 import api from "../api";
 
 const UserRegister = () => {
-
   const [passwordShow, setPasswordShow] = useState(false);
 
   const [newRegister, setNewRegister] = useState({
@@ -16,9 +15,9 @@ const UserRegister = () => {
     email: "",
     password: "",
     errors: {},
-  })
+  });
 
-  let history = useHistory()
+  let history = useHistory();
 
   const onChange = (e) => {
     let keyName = e.target.name;
@@ -29,7 +28,7 @@ const UserRegister = () => {
         [keyName]: value,
       };
     });
-  }
+  };
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -42,25 +41,34 @@ const UserRegister = () => {
       password: newRegister.password,
     };
 
-    api.registerUser(newUser)
+    api
+      .registerUser(newUser)
       .then(() => {
-        console.log(newUser)
-        alert('You are registered')
-        history.push(`/login`)
+        console.log(newUser);
+        alert("You are registered");
+        history.push(`/login`);
       })
-      .catch(err => console.log(err))
+      .catch((err) => console.log(err));
   };
 
   return (
     <>
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <Card bg="light" style={{ flexGrow: "1", maxWidth: "30rem", textAlign: "left" }}>
+        <Card
+          bg="light"
+          style={{ flexGrow: "1", maxWidth: "30rem", textAlign: "left" }}
+        >
           <Card.Body>
             <Form onSubmit={onSubmit}>
-            <Form.Label><span style={{color: "red"}}>*</span> Fields are required</Form.Label>
+              <Form.Label>
+                <span style={{ color: "red" }}>*</span> Fields are required
+              </Form.Label>
               <Form.Row>
                 <Form.Group as={Col} controlId="formGridEmail">
-                  <Form.Label><b>First name:</b><span style={{color: "red"}}>*</span></Form.Label>
+                  <Form.Label>
+                    <b>First name:</b>
+                    <span style={{ color: "red" }}>*</span>
+                  </Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="Enter First name"
@@ -70,11 +78,14 @@ const UserRegister = () => {
                     required
                   />
                 </Form.Group>
-                </Form.Row>
+              </Form.Row>
 
-                <Form.Row>
+              <Form.Row>
                 <Form.Group as={Col} controlId="formGridPassword">
-                  <Form.Label><b>Last name:</b><span style={{color: "red"}}>*</span></Form.Label>
+                  <Form.Label>
+                    <b>Last name:</b>
+                    <span style={{ color: "red" }}>*</span>
+                  </Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="Enter Last name"
@@ -84,10 +95,13 @@ const UserRegister = () => {
                     required
                   />
                 </Form.Group>
-                </Form.Row>
-                <Form.Row>
+              </Form.Row>
+              <Form.Row>
                 <Form.Group as={Col} controlId="formGridEmail">
-                  <Form.Label><b>User name:</b><span style={{color: "red"}}>*</span></Form.Label>
+                  <Form.Label>
+                    <b>User name:</b>
+                    <span style={{ color: "red" }}>*</span>
+                  </Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="Enter User name"
@@ -101,7 +115,10 @@ const UserRegister = () => {
 
               <Form.Row>
                 <Form.Group as={Col} controlId="formGridEmail">
-                  <Form.Label><b>Email Address:</b><span style={{color: "red"}}>*</span></Form.Label>
+                  <Form.Label>
+                    <b>Email Address:</b>
+                    <span style={{ color: "red" }}>*</span>
+                  </Form.Label>
                   <Form.Control
                     type="email"
                     placeholder="Enter email"
@@ -113,53 +130,61 @@ const UserRegister = () => {
                 </Form.Group>
 
                 <Form.Group as={Col} controlId="formGridPassword">
-                  <Form.Label><b>Password:</b><span style={{color: "red"}}>*</span>
+                  <Form.Label>
+                    <b>Password:</b>
+                    <span style={{ color: "red" }}>*</span>
                   </Form.Label>
                   <InputGroup className="mb-2">
-                  <Form.Control
-                    type={passwordShow ? "text" : "password"}
-                    placeholder="Password"
-                    name="password"
-                    value={newRegister.password}
-                    onChange={onChange}
-                    required
-                  />
-                  <InputGroup.Prepend>
-                    <InputGroup.Text>
-                      {!passwordShow ? (
-                        <span
-                          className="password-icon"
-                          onClick={() => setPasswordShow(!passwordShow)}
-                        >
-                          <BiShow />
-                        </span>
-                      ) : (
-                        <span
-                          className="password-icon"
-                          onClick={() => setPasswordShow(!passwordShow)}
-                        >
-                          <BiHide />
-                        </span>
-                      )}
-                    </InputGroup.Text>
-                  </InputGroup.Prepend>
-                </InputGroup>
+                    <Form.Control
+                      type={passwordShow ? "text" : "password"}
+                      placeholder="Password"
+                      name="password"
+                      value={newRegister.password}
+                      onChange={onChange}
+                      required
+                    />
+                    <InputGroup.Prepend>
+                      <InputGroup.Text>
+                        {!passwordShow ? (
+                          <span
+                            className="password-icon"
+                            onClick={() => setPasswordShow(!passwordShow)}
+                          >
+                            <BiShow />
+                          </span>
+                        ) : (
+                          <span
+                            className="password-icon"
+                            onClick={() => setPasswordShow(!passwordShow)}
+                          >
+                            <BiHide />
+                          </span>
+                        )}
+                      </InputGroup.Text>
+                    </InputGroup.Prepend>
+                  </InputGroup>
                 </Form.Group>
               </Form.Row>
 
               <Form.Row
-              style={{
-                display: "flex",
-                justifyContent: "space-around",
-                marginTop: "10px",
-              }}
-            >
+                style={{
+                  display: "flex",
+                  justifyContent: "space-around",
+                  marginTop: "10px",
+                }}
+              >
                 <Button variant="outline-secondary" type="submit">
                   <b>Submit</b>
                 </Button>
-                <Button variant="outline-secondary" type="button" onClick={() => { history.push('/') }}>
-                <b>Cancel</b>
-              </Button>
+                <Button
+                  variant="outline-secondary"
+                  type="button"
+                  onClick={() => {
+                    history.push("/");
+                  }}
+                >
+                  <b>Cancel</b>
+                </Button>
               </Form.Row>
             </Form>
           </Card.Body>

@@ -19,7 +19,7 @@ const api = {
     );
   },
 
-  deReportVideo: async (video_id, deReportData) => {
+  unReportVideo: async (video_id, deReportData) => {
     return await axios.put(
       `${root}/videos/${video_id}/unreport`,
       queryString.stringify(deReportData)
@@ -84,17 +84,17 @@ const api = {
     return await axios.get(`${root}/users/${user_id}/playlists`);
   },
 
-  addVideoToPlaylist: async (user_id, playlist_id, video_id) => {
+  addVideoToPlaylist: async (user_id, playlist_id, videoId) => {
     return await axios.put(
       `${root}/users/${user_id}/playlists/${playlist_id}/addvideo`,
-      queryString.stringify(video_id)
+      queryString.stringify(videoId)
     );
   },
 
-  removeVideoFromPlaylist: async (user_id, playlist_id, video_id) => {
+  removeVideoFromPlaylist: async (user_id, playlist_id, videoId) => {
     return await axios.put(
       `${root}/users/${user_id}/playlists/${playlist_id}/removevideo`,
-      queryString.stringify(video_id)
+      queryString.stringify(videoId)
     );
   },
 
@@ -104,17 +104,17 @@ const api = {
     );
   },
 
-  addVideoToFavorite: async (user_id, videoData) => {
+  addVideoToFavorite: async (user_id, videoId) => {
     return await axios.put(
       `${root}/users/${user_id}/favorites`,
-      queryString.stringify(videoData)
+      queryString.stringify(videoId)
     );
   },
 
-  removeVideoFromFavorite: async (user_id, videoData) => {
+  removeVideoFromFavorite: async (user_id, videoId) => {
     return await axios.put(
       `${root}/users/${user_id}/removefavorites`,
-      queryString.stringify(videoData)
+      queryString.stringify(videoId)
     );
   },
 

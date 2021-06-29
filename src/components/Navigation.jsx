@@ -12,6 +12,7 @@ import { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { UserContext } from '../context/UserContext'
 import api from "../api";
+import "../App.css"
 
 const Navigation = () => {
   const { tk, dTk, sUI } = useContext(UserContext)
@@ -22,12 +23,12 @@ const Navigation = () => {
 
   const logOut = (e) => {
     e.preventDefault();
+    window.confirm(`${decToken.user_name}, Do you want to logged out?`) &&
     api.logoutUser()
       .then(() => {
         localStorage.clear();
         setToken("");
         setDecToken(null);
-        alert(`${decToken.user_name} logged out`);
         history.push("/");
       })
       .catch(err => console.log(err))
@@ -35,7 +36,7 @@ const Navigation = () => {
 
   return (
     <>
-      <Navbar bg="dark" variant="dark" expand="lg" fixed>
+      <Navbar className="navbar" expand="lg" fixed>
         <Navbar.Brand exact href="/">
           <Image
             src={logo_image}
@@ -60,7 +61,7 @@ const Navigation = () => {
             <option value=""></option>
             <option value="english">EN</option>
             <option value="deutsch">DE</option>
-            <option value="hindi">IN</option>
+            <option value="hindi">HI</option>
           </Form.Control>
           <FormControl
             type="search"
@@ -68,8 +69,8 @@ const Navigation = () => {
             className="mr-2"
             aria-label="Search"
           />
-          <Button type="submit" variant="outline-success">
-            Search
+          <Button type="submit" variant="success">
+            <b>Search</b>
           </Button>
         </Form>
 
