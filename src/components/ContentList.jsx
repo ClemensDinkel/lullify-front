@@ -65,15 +65,16 @@ const ContentList = () => {
                         type="submit"
                         variant="light"
                         onClick={(e) => {
+                          window.confirm(
+                            `Do you want to delete ${uploaderVideo.title}?`
+                          ) &&
                           api
                             .deleteUploaderVideo(decToken.id, uploaderVideo._id)
                             .then((res) => {
-                              alert(
-                                `Do you want to delete ${uploaderVideo.title}?`
-                              );
                               window.location.reload();
                               history.push(`/creator`);
-                            });
+                            })
+                            .catch(err => alert(err.message))
                         }}
                       >
                         <MdDelete />

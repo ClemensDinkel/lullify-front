@@ -50,13 +50,13 @@ const EditVideo = () => {
 
   const updateVideo = (e) => {
     e.preventDefault();
+    window.confirm("Do you want to update video information?") &&
     api
       .updateUploaderVideo(decToken.id, video_id, getVideo)
       .then(() => {
-        alert("Your video has been successfully updated");
         history.push(`/creatorpanel`);
       })
-      .catch((err) => console.log(err));
+      .catch(err => alert(err.message))
   };
 
   return (
