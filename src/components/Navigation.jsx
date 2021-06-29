@@ -78,13 +78,13 @@ const Navigation = () => {
         <Navbar.Collapse id="navbarScroll" className="justify-content-end">
           <Nav
             className="mr-auto my-2 my-lg-0 flex-row"
-            style={{ maxHeight: "100px", marginRight: "15px", justifyContent: "space-around", flexWrap: "wrap" }}
+            style={{ maxHeight: "100px", marginRight: "15px", justifyContent: "space-around", flexWrap: "wrap"}}
             navbarScroll
           >
-            <Nav.Link href="/" style ={{padding: "10px"}}>
+            <Nav.Link href="/" style={{ padding: "10px", margin: "auto"}}>
               <b>Home</b>
             </Nav.Link>
-            <Nav.Link href="/about" style ={{padding: "10px"}}>
+            <Nav.Link href="/about" style={{ padding: "10px", margin: "auto" }}>
               <b>About Us</b>
             </Nav.Link>
             {!decToken ? (
@@ -101,7 +101,7 @@ const Navigation = () => {
                     Content Creator
                   </NavDropdown.Item>
                 </NavDropdown>
-                <Nav.Link href="/login" style ={{padding: "10px"}}>
+                <Nav.Link href="/login" style={{ padding: "10px", margin: "auto" }}>
                   <b>Login</b>
                 </Nav.Link>
               </>
@@ -109,28 +109,31 @@ const Navigation = () => {
               <>
                 {(decToken.role === "admin" || decToken.role === "content_creator") && (
                   <>
-                    <Nav.Link href="/creatorpanel" style ={{padding: "10px"}}><b>CreatorPanel</b></Nav.Link>
+                    <Nav.Link href="/creatorpanel" style={{ padding: "10px", margin: "auto" }}><b>CreatorPanel</b></Nav.Link>
                   </>
                 )}
                 {decToken.role === "admin" && (
                   <>
-                    <Nav.Link href="/adminpanel" style ={{padding: "10px"}}><b>AdminPanel</b></Nav.Link>
+                    <Nav.Link href="/adminpanel" style={{ padding: "10px", margin: "auto" }}><b>AdminPanel</b></Nav.Link>
                   </>
                 )}
                 {(decToken.role === "admin" || decToken.role === "content_creator" || decToken.role === "user") && (
-                <>
-                <Navbar.Brand>
-                  <Image src={singleUserInfo.user_img_url} width="30px" height="30px" roundedCircle />
-                </Navbar.Brand>
+                  <>
+                    <div style={{ padding: "10px", margin: "auto", display: "flex" }}>
+                      <Navbar.Brand style={{paddingRight: 0, marginRight: 0}}>
+                        <Image src={singleUserInfo.user_img_url} width="30px" height="30px" roundedCircle />
+                      </Navbar.Brand>
 
-                <NavDropdown
-                  title= {decToken.user_name}
-                  id="navbarScrollingDropdown"
-                >
-                  <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
-                  <NavDropdown.Item onClick={logOut}>LogOut</NavDropdown.Item>
-                </NavDropdown>
-                </>
+                      <NavDropdown
+                        title={decToken.user_name}
+                        id="navbarScrollingDropdown"
+                        style={{paddingLeft: 0, marginLeft: "5px"}}
+                      >
+                        <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
+                        <NavDropdown.Item onClick={logOut}>LogOut</NavDropdown.Item>
+                      </NavDropdown>
+                    </div>
+                  </>
                 )}
               </>
             )}

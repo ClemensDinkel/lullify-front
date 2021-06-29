@@ -26,6 +26,7 @@
   display: block;
   text-align: left;
   padding: 5px;
+  height: 100%;
 }
 
 .request-panel {
@@ -33,6 +34,15 @@
   display: block;
   text-align: left;
   padding: 5px;
+  height: 100%;
+}
+
+.video-panel {
+  flex-grow: 1;
+  display: block;
+  text-align: left;
+  padding: 5px;
+  height: 100%;
 }
 
 .previews {

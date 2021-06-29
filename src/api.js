@@ -42,6 +42,10 @@ const api = {
     return await axios.post(`${root}/register`, queryString.stringify(newUser));
   },
 
+  refreshUserToken: async () => {
+    return await axios.post(`${root}/refresh`,{}, {withCredentials:true})
+  },
+
   fetchSingleUser: async (user_id) => {
     return await axios.get(`${root}/users/${user_id}`);
   },
