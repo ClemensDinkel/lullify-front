@@ -48,7 +48,7 @@ const UserRegister = () => {
         alert("You are registered");
         history.push(`/login`);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => alert(err.message));
   };
 
   return (

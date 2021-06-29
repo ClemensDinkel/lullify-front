@@ -43,7 +43,7 @@ const Login = () => {
         setToken(res.data.accessToken)
         history.push(`/`)
       })
-      .catch(err => alert(err.message))
+      .catch(err => alert("Email doesn't exist"))
   };
 
   return (
