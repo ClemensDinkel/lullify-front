@@ -43,7 +43,7 @@ export const UserController = ({children}) => {
         })
         .catch((err) => console.error(err));
     }
-  }, []);
+  }, [decToken]);
 
   return( 
     // <UserContext.Provider value={[singleUserInfo, decToken, setDecToken, setToken]}>
