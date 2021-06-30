@@ -7,9 +7,10 @@ import {
   Button,
   Image,
 } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
 import logo_image from "../images/logo7.png";
 import { useContext } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { UserContext } from '../context/UserContext'
 import api from "../api";
 import "../App.css"
@@ -20,6 +21,22 @@ const Navigation = () => {
   const [token, setToken] = tk
   const [singleUserInfo] = sUI
   let history = useHistory();
+  const [show, setShow] = useState(false)
+
+  //To change the color of navbar after scrolling
+  const navbarControl = () => {
+    if (window.scrollY > 100) {
+      setShow(true)
+    } else {
+      setShow(false)
+    }
+  }
+
+  useEffect(()=>{
+    window.addEventListener('scroll', navbarControl)
+    return () => 
+    { window.removeEventListener('scroll', navbarControl) }
+  },[])
 
   const logOut = (e) => {
     e.preventDefault();
@@ -36,8 +53,8 @@ const Navigation = () => {
 
   return (
     <>
-      <Navbar className="navbar" expand="lg" fixed>
-        <Navbar.Brand exact href="/">
+      <Navbar className={`navbar ${show && "navbar-dark"}`} expand="lg" sticky="top">
+        <Navbar.Brand as={Link} to="/">
           <Image
             src={logo_image}
             style={{
@@ -81,10 +98,10 @@ const Navigation = () => {
             style={{ maxHeight: "100px", marginRight: "15px", justifyContent: "space-around", flexWrap: "wrap"}}
             navbarScroll
           >
-            <Nav.Link href="/" style={{ padding: "10px", margin: "auto"}}>
+            <Nav.Link as={Link} to="/" style={{ padding: "10px", margin: "auto"}}>
               <b>Home</b>
             </Nav.Link>
-            <Nav.Link href="/about" style={{ padding: "10px", margin: "auto" }}>
+            <Nav.Link as={Link} to="/about" style={{ padding: "10px", margin: "auto" }}>
               <b>About Us</b>
             </Nav.Link>
             {!decToken ? (
@@ -92,16 +109,16 @@ const Navigation = () => {
                 <NavDropdown
                   title="Register"
                   id="navbarScrollingDropdown"
-                  style={{ fontWeight: "bold" }}
+                  style={{ fontWeight: "bold", padding: "2px", margin: "0" }}
                 >
-                  <NavDropdown.Item href="/register/userRegister">
+                  <NavDropdown.Item as={Link} to="/register/userRegister" style={{ padding: "10px", margin: "auto" }}>
                     User
                   </NavDropdown.Item>
-                  <NavDropdown.Item href="/register/creatorRegister">
+                  <NavDropdown.Item as={Link} to="/register/creatorRegister" style={{ padding: "10px", margin: "auto" }}>
                     Content Creator
                   </NavDropdown.Item>
                 </NavDropdown>
-                <Nav.Link href="/login" style={{ padding: "10px", margin: "auto" }}>
+                <Nav.Link as={Link} to="/login" style={{ padding: "10px", margin: "auto" }}>
                   <b>Login</b>
                 </Nav.Link>
               </>
@@ -109,12 +126,12 @@ const Navigation = () => {
               <>
                 {(decToken.role === "admin" || decToken.role === "content_creator") && (
                   <>
-                    <Nav.Link href="/creatorpanel" style={{ padding: "10px", margin: "auto" }}><b>CreatorPanel</b></Nav.Link>
+                    <Nav.Link as={Link} to="/creatorpanel" style={{ padding: "10px", margin: "auto" }}><b>CreatorPanel</b></Nav.Link>
                   </>
                 )}
                 {decToken.role === "admin" && (
                   <>
-                    <Nav.Link href="/adminpanel" style={{ padding: "10px", margin: "auto" }}><b>AdminPanel</b></Nav.Link>
+                    <Nav.Link as={Link} to="/adminpanel" style={{ padding: "10px", margin: "auto" }}><b>AdminPanel</b></Nav.Link>
                   </>
                 )}
                 {(decToken.role === "admin" || decToken.role === "content_creator" || decToken.role === "user") && (
@@ -127,10 +144,10 @@ const Navigation = () => {
                       <NavDropdown
                         title={decToken.user_name}
                         id="navbarScrollingDropdown"
-                        style={{paddingLeft: 0, marginLeft: "5px"}}
+                        style={{fontWeight: "bold", margin: "0"}}
                       >
-                        <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
-                        <NavDropdown.Item onClick={logOut}>LogOut</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="/profile" style={{ padding: "10px", margin: "auto" }}>Profile</NavDropdown.Item>
+                        <NavDropdown.Item onClick={logOut} style={{ padding: "10px", margin: "auto" }}>LogOut</NavDropdown.Item>
                       </NavDropdown>
                     </div>
                   </>

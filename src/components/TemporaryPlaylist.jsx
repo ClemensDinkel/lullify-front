@@ -10,7 +10,7 @@ const TemporaryPlaylist = () => {
   const [videos] = useContext(VideoContext);
   const [temporaryPlaylist, setTemporaryPlaylist] = useState([])
   const [selected, setSelected] = useState(null)
-  const [playlist, setPlaylist] = useContext(PlaylistContext)
+  const [autoPlaylist, setAutoPlaylist] = useContext(PlaylistContext)
 
   const addVideo = (e) => {
     e.preventDefault()
@@ -25,11 +25,11 @@ const TemporaryPlaylist = () => {
   const playPlaylist = () => {
     const sessionPlaylist = sessionStorage.getItem('lullifyPlaylist').split(', ')
     if (sessionPlaylist.length > 1) sessionPlaylist.pop() // removes last element with "" 
-    setPlaylist(sessionPlaylist)
+    setAutoPlaylist(sessionPlaylist)
   }
 
   useEffect(() => {
-    sessionStorage.clear();
+    //sessionStorage.clear();
     let concatStr = ""
     for (let i = 0; i < temporaryPlaylist.length; i++) {
       concatStr += `${temporaryPlaylist[i]._id}, `

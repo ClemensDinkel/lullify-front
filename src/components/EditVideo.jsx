@@ -60,8 +60,8 @@ const EditVideo = () => {
   };
 
   return (
-    <>
-      <div style={{ display: "flex", justifyContent: "center" }}>
+    <div className="main-container">
+      <div style={{ display: "flex", justifyContent: "center", width:"50%" }}>
         <Card
           bg="light"
           style={{ flexGrow: "1", mixWidth: "30rem", textAlign: "left" }}
@@ -211,7 +211,7 @@ const EditVideo = () => {
           </Card.Body>
         </Card>
       </div>
-    </>
+    </div>
   );
 };
 

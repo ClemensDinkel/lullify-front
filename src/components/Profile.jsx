@@ -48,15 +48,16 @@ const Profile = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    window.confirm("Do you want to update changes?") &&
     api.updateUser(decToken.id, profile)
       .then(() => {
-        alert("Your profile has been successfully updated")
         history.push(`/`)})
-      .catch(err => console.log(err))
+      .catch(err => alert("Please enter correct password"))
   };
 
   return (
-    <div style={{ display: "flex", justifyContent: "center" }}>
+    <div className="main-container">
+    <div style={{ display: "flex", justifyContent: "center", width:"50%" }}>
       <Card bg="light" style={{ flexGrow: "1", maxWidth: "30rem", textAlign: "left" }}>
         <Card.Body>
           <Form onSubmit={onSubmit}>
@@ -312,6 +313,7 @@ const Profile = () => {
           </Form>
         </Card.Body>
       </Card>
+    </div>
     </div>
   )
 }

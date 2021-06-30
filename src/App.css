@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 .App {
   text-align: center;
   background-image: url("https://images.all-free-download.com/images/graphicthumb/rippled_wall_background_01_hd_pictures_169887.jpg");
@@ -8,10 +12,28 @@
 
 .navbar {
   background-color: rgba(0, 0, 0, 0.2);
+  display: flex;
 }
 
-.home-container {
+.navbar-dark {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.footer {
   display: flex;
+  justify-content: space-between;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  margin-top: 2rem;
+}
+
+.main-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 5px;
+  position: relative;
+  height: 100%;
 }
 
 /* ADMIN PANEL */
@@ -55,25 +77,10 @@
   margin: 0;
 }
 
-.playlists {
-  display: block;
-  flex-grow: 1;
-  margin: 0;
-}
-
-.video-description {
-  text-align: left;
-}
-
-.video-container {
-  flex-grow: 4;
-  width: 100%;
-}
-
 .previews-card-container {
   padding: 5px;
   margin: 2px;
-  width: 10rem;
+  width: 14rem;
   height: 17rem;
 }
 
@@ -84,6 +91,22 @@
 .player-container {
   display: flex;
   justify-content: space-around;
+  width: 100%;
+}
+
+.playlists {
+  display: block;
+  flex-grow: 1;
+  margin-right: 5px;
+}
+
+.video-description {
+  text-align: left;
+}
+
+.video-container {
+  flex-grow: 4;
+  width: 100%;
 }
 
 .password-icon {

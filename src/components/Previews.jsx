@@ -15,11 +15,11 @@ const Previews = () => {
         videos && videos.map((video, index) => {
           return (
             <div>
-              <Card key={index} bg="light" className="previews-card-container">
+              <Card key={index} style={{background: "rgba(0,0,0,0.4)"}} text="white" className="previews-card-container">
                 <Link to={`/player/${video._id}`} onClick={() => setPlaylist([])}>
-                  <img variant="top" src={video.video_img_url} height="100px" width="100%" />
+                  <img variant="top" src={video.video_img_url} height="140px" width="100%" />
                 </Link>
-                <Card.Body>
+                <Card.Body style={{textAlign: "left"}}>
                   <Card.Title>{video.title}</Card.Title>
                   <Card.Text>{video.artist}</Card.Text>
                 </Card.Body>

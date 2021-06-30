@@ -9,7 +9,7 @@ const CreatorPanel = () => {
   return (
     <>
       {(dTk && dTk[0]) && (dTk[0].role === "admin" || dTk[0].role === "content_creator") ?
-        <div className="creator-panel">
+        <div className="creator-panel main-container">
           <ContentList />
           <AddContent />
         </div>

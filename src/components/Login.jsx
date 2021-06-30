@@ -43,11 +43,12 @@ const Login = () => {
         setToken(res.data.accessToken)
         history.push(`/`)
       })
-      .catch(err => alert("Email doesn't exist"))
+      .catch(err => alert("Enter correct Email & Password."))
   };
 
   return (
-    <div style={{ display: "flex", justifyContent: "center" }}>
+    <div className="main-container">
+    <div style={{ display: "flex", justifyContent: "center", width:"50%" }}>
       <Card bg="light" style={{ flexGrow: "1", maxWidth: "30rem", textAlign: "left" }}>
         <Card.Body>
           <Form onSubmit={onSubmit}>
@@ -137,6 +138,7 @@ const Login = () => {
           </Form>
         </Card.Body>
       </Card>
+    </div>
     </div>
   );
 };
