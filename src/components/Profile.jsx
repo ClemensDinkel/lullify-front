@@ -13,7 +13,9 @@ const Profile = () => {
   const [singleUserInfo] = sUI
   const [profile, setProfile] = useState({})
   let history = useHistory();
-  
+  console.log(dTk)
+  console.log(singleUserInfo)
+
   useEffect(() => {
     if (decToken && decToken.id) {
       setProfile({
