@@ -10,7 +10,7 @@ const Home = () => {
   const [decToken] = dTk;
 
 return (
-  <div className="home-container">
+  <div className="main-container">
     <Previews />
     {decToken && decToken.id ? 
     <Playlists /> :

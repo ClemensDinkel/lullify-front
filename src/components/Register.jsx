@@ -4,13 +4,13 @@ import CreatorRegister from './CreatorRegister'
 
 const Register = () => {
     return (
-        <>
+      <div className="main-container">
             <Switch>
             <Route path='/register/userRegister'><UserRegister/></Route>
             <Route path='/register/creatorRegister'><CreatorRegister/></Route>
             </Switch>
             
-        </>
+        </div>
     )
 }
 

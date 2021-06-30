@@ -13,7 +13,7 @@ const Player = () => {
   const [video, setVideo] = useState();
   const { dTk } = useContext(UserContext);
   const [decToken] = dTk;
-  const [playlist] = useContext(PlaylistContext)
+  const [autoPlaylist] = useContext(PlaylistContext)
 
   useEffect(() => {
     console.log("getting new video fired")
@@ -21,17 +21,17 @@ const Player = () => {
       .getVideoById(id)
       .then((res) => setVideo(res.data)) //array!!!
       .catch((err) => console.log(err));
-  }, [playlist]);
+  }, [autoPlaylist]); 
 
   // in video on end -> playlist.shift() ?      n nn                               
 
   return (
-    <>
+    <div className="main-container">
       <div className="player-container">
-        {video ? <Video video={video} setVideo={setVideo} /> : <p>Loading..</p>}
+        {video ? <Video video={video} /> : <p>Loading..</p>}
         {decToken && decToken.id ? <Playlists /> : <TemporaryPlaylist />}
       </div>
-    </>
+    </div>
   );
 };
 

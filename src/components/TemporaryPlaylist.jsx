@@ -10,7 +10,7 @@ const TemporaryPlaylist = () => {
   const [videos] = useContext(VideoContext);
   const [temporaryPlaylist, setTemporaryPlaylist] = useState([])
   const [selected, setSelected] = useState(null)
-  const [playlist, setPlaylist] = useContext(PlaylistContext)
+  const [autoPlaylist, setAutoPlaylist] = useContext(PlaylistContext)
 
   // load from local storage on first render
   useEffect(() => {

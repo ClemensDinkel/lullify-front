@@ -4,14 +4,14 @@ import { useState, createContext } from "react";
 export const PlaylistContext = createContext()
 
 export const PlaylistController = ({ children }) => {
-  const [playlist, setPlaylist] = useState([])
+  const [autoPlaylist, setAutoPlaylist] = useState([])
 
   useEffect(() => {
-    console.log(playlist)
-  },[playlist])
+    console.log(autoPlaylist)
+  },[autoPlaylist])
 
   return (
-    <PlaylistContext.Provider value={[playlist, setPlaylist]}>
+    <PlaylistContext.Provider value={[autoPlaylist, setAutoPlaylist]}>
       {children}
     </PlaylistContext.Provider>
   )

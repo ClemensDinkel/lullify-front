@@ -45,15 +45,15 @@ const UserRegister = () => {
       .registerUser(newUser)
       .then(() => {
         console.log(newUser);
-        alert("You are registered");
+        alert("Successfully registered");
         history.push(`/login`);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => alert("Email already exist. Please try with another email"));
   };
 
   return (
     <>
-      <div style={{ display: "flex", justifyContent: "center" }}>
+      <div style={{ display: "flex", justifyContent: "center", width:"50%"}}>
         <Card
           bg="light"
           style={{ flexGrow: "1", maxWidth: "30rem", textAlign: "left" }}

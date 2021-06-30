@@ -15,7 +15,8 @@ const AdminPanel = () => {
   const [inspectData, setInspectData] = useState({})
   const [inspectType, setInspectType] = useState("")
   return (
-    <div div div className="admin-panel" >
+    
+    <div className="admin-panel main-container" >
       {(dTk && dTk[0]) && dTk[0].role === "admin" ?
         !inspecting ?
           <>
@@ -54,6 +55,7 @@ const AdminPanel = () => {
         : <p>Access denied</p>
       }
     </div >
+  
   )
 }
 

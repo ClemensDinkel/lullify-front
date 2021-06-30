@@ -7,6 +7,7 @@ import {
   Button,
   Image,
 } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
 import logo_image from "../images/logo7.png";
 import { useContext } from "react";
 import { useHistory, Link } from "react-router-dom";
@@ -20,6 +21,22 @@ const Navigation = () => {
   const [token, setToken] = tk
   const [singleUserInfo] = sUI
   let history = useHistory();
+  const [show, setShow] = useState(false)
+
+  //To change the color of navbar after scrolling
+  const navbarControl = () => {
+    if (window.scrollY > 100) {
+      setShow(true)
+    } else {
+      setShow(false)
+    }
+  }
+
+  useEffect(()=>{
+    window.addEventListener('scroll', navbarControl)
+    return () => 
+    { window.removeEventListener('scroll', navbarControl) }
+  },[])
 
   const logOut = (e) => {
     e.preventDefault();
@@ -36,8 +53,8 @@ const Navigation = () => {
 
   return (
     <>
-      <Navbar className="navbar" expand="lg" fixed>
-        <Navbar.Brand href="/">
+      <Navbar className={`navbar ${show && "navbar-dark"}`} expand="lg" sticky="top">
+        <Navbar.Brand as={Link} to="/">
           <Image
             src={logo_image}
             style={{
@@ -81,10 +98,9 @@ const Navigation = () => {
             style={{ maxHeight: "100px", marginRight: "15px", justifyContent: "space-around", flexWrap: "wrap" }}
             navbarScroll
           >
-            <Nav.Link as={Link} to="/" style={{ padding: "10px", margin: "auto" }}>
+            <Nav.Link as={Link} to="/" style={{ padding: "10px", margin: "auto"}}>
               <b>Home</b>
             </Nav.Link>
-
             <Nav.Link as={Link} to="/about" style={{ padding: "10px", margin: "auto" }}>
               <b>About Us</b>
             </Nav.Link>
@@ -94,17 +110,13 @@ const Navigation = () => {
                 <NavDropdown
                   title="Register"
                   id="navbarScrollingDropdown"
-                  style={{ fontWeight: "bold", padding: "10px", margin: "auto" }}
+                  style={{ fontWeight: "bold", padding: "2px", margin: "0" }}
                 >
-                  <NavDropdown.Item href="/register/userRegister">
-                    <Nav.Link as={Link} to="/register/userRegister" style={{ padding: "10px", margin: "auto" }}>
-                      <b>User</b>
-                    </Nav.Link>
+                  <NavDropdown.Item as={Link} to="/register/userRegister" style={{ padding: "10px", margin: "auto" }}>
+                    User
                   </NavDropdown.Item>
-                  <NavDropdown.Item href="/register/creatorRegister">
-                    <Nav.Link as={Link} to="/register/creatorRegister" style={{ padding: "10px", margin: "auto" }}>
-                      <b>Creator</b>
-                    </Nav.Link>
+                  <NavDropdown.Item as={Link} to="/register/creatorRegister" style={{ padding: "10px", margin: "auto" }}>
+                    Content Creator
                   </NavDropdown.Item>
                 </NavDropdown>
                 <Nav.Link as={Link} to="/login" style={{ padding: "10px", margin: "auto" }}>
@@ -133,16 +145,10 @@ const Navigation = () => {
                       <NavDropdown
                         title={decToken.user_name}
                         id="navbarScrollingDropdown"
-                        style={{ fontWeight: "bold", padding: "10px", margin: "auto" }}
+                        style={{fontWeight: "bold", margin: "0"}}
                       >
-                        <NavDropdown.Item>
-                          <Nav.Link as={Link} to="/profile" style={{ padding: "10px", margin: "auto" }}>
-                            <b>Profile</b>
-                          </Nav.Link>
-                        </NavDropdown.Item>
-                        <NavDropdown.Item onClick={logOut}>
-                          LogOut
-                        </NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="/profile" style={{ padding: "10px", margin: "auto" }}>Profile</NavDropdown.Item>
+                        <NavDropdown.Item onClick={logOut} style={{ padding: "10px", margin: "auto" }}>LogOut</NavDropdown.Item>
                       </NavDropdown>
                     </div>
                   </>

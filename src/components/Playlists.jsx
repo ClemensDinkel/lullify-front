@@ -7,6 +7,7 @@ import { useState, useEffect, useContext } from "react";
 import "../App.css";
 import { UserContext } from "../context/UserContext";
 import { VideoContext } from "../context/VideoContext";
+import { PlaylistContext } from "../context/PlaylistContext";
 import { Link } from "react-router-dom";
 
 const Playlists = () => {
@@ -17,17 +18,17 @@ const Playlists = () => {
   let history = useHistory();
 
   const [loading, setLoading] = useState(true);
+  const [autoPlaylist, setAutoPlaylist] = useContext(PlaylistContext)
 
   const [playlists, setPlaylists] = useState({
     name: "",
     user_id: null,
   });
 
-  console.log(playlists);
-
   const [videoList, setVideoList] = useState({ video_id: null });
 
   console.log(videoList);
+  console.log(playlists);
 
   const onChangeVideoList = (e) => {
     let keyName = e.target.name;
@@ -60,7 +61,7 @@ const Playlists = () => {
   };
 
   const addPlaylist = (e) => {
-    //e.preventDefault();
+    e.preventDefault();
 
     window.confirm(`Do you want to add ${playlists.name} to your playlist?`) &&
     api.createPlaylist(playlists).then((res) => {
@@ -69,14 +70,18 @@ const Playlists = () => {
     });
   };
 
-  const playPlaylist = () => {
-    // setPlaylist(array of ids of the videos)  ---> which data to use?
-  }
+  const playPlaylist = (index) => {
+    const autoPlay = displayPlaylists[index].video_list
+    let finalAutoPlay = []
+    autoPlay.forEach(playlist => finalAutoPlay.push(playlist._id))
+    console.log(finalAutoPlay)
+    setAutoPlaylist(finalAutoPlay)
+  } 
    
   // To display Playlists
 
   const [displayPlaylists, setDisplayPlaylists] = useState([]);
-  console.log(displayPlaylists);
+  //console.log(displayPlaylists);
 
   useEffect(() => {
     if (decToken && decToken.id) {
@@ -88,7 +93,11 @@ const Playlists = () => {
         .catch((err) => console.log(err));
       setLoading(false);
     }
-  }, [playlists, decToken]);
+  }, [playlists]);
+
+  useEffect(() => {
+    console.log(displayPlaylists)
+  },[displayPlaylists])
 
   return (
     <div className="playlists">
@@ -149,22 +158,23 @@ const Playlists = () => {
                           justifyContent: "space-between",
                         }}
                       >
-                        <li key={playlistIndex} style={{ cursor: "pointer" }} onClick={playPlaylist}>
-                          <Link to={`/player/${playlist.length > 0 ? playlist[0]._id : ""}`}>
+                        <li key={playlistIndex} style={{ cursor: "pointer" }} onClick={() => playPlaylist(playlistIndex)}>
+                          <Link to={`/player/${playlist.video_list.length > 0 ? playlist.video_list[0]._id : ""}`}>
                             {playlist.name}
                           </Link>
                         </li>
                         <Button
                           type="submit"
                           variant="outline-secondary"
-                          onClick={() => {
+                          onClick={(e) => {
+                            e.preventDefault()
                             window.confirm(
                               `Do you want to delete ${playlist.name}?`
                             ) &&
                             api
                               .deletePlaylist(decToken.id, playlist._id)
                               .then((res) => {
-                                window.location.reload();
+                                window.location.reload(); 
                                 history.push(`/`);
                               });
                           }}
@@ -220,7 +230,6 @@ const Playlists = () => {
                             type="submit"
                             variant="outline-secondary"
                             onClick={(e) => {
-                              e.preventDefault()
                               if(videoList.video_id === null)
                                 return alert('Select Video')
                               window.confirm("Want to add Video?") &&
@@ -232,7 +241,8 @@ const Playlists = () => {
                                   )
                                   .then((res) => {
                                     history.push("/");
-                                  });
+                                  })
+                                  .catch((err) => alert("video already exist"))
                             }}
                           >
                             <AiOutlinePlus />
