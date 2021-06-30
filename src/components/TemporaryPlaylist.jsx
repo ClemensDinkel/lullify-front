@@ -15,7 +15,7 @@ const TemporaryPlaylist = () => {
   // load from local storage on first render
   useEffect(() => {
     if (localStorage.getItem('lullifyPlaylist') !== null) {
-      
+      setTemporaryPlaylist(JSON.parse(localStorage.getItem('lullifyPlaylist')))
     }
   }, [])
   // add video to temporary playlist
@@ -39,8 +39,14 @@ const TemporaryPlaylist = () => {
   };
 
   const playPlaylist = () => {
-    const tempPlaylist = ["1", "2"]
-    setPlaylist(tempPlaylist)
+    let onlyIdPlaylist = []
+    temporaryPlaylist.forEach(video => onlyIdPlaylist.push(video._id))
+    setAutoPlaylist(onlyIdPlaylist)
+  }
+
+  const playSingleVideo = (e) => {
+    console.log(e.target.value)
+    setAutoPlaylist(e.target.value)
   }
 
   return (
@@ -55,7 +61,7 @@ const TemporaryPlaylist = () => {
           {temporaryPlaylist.map(
             (listVideo, listVideoIndex) => {
               return (
-                <li key={listVideoIndex}>
+                <li key={listVideoIndex} onClick={playSingleVideo}>
                   <Link to={`/player/${listVideo._id}`}>
                     {listVideo.title}
                   </Link>
