@@ -110,7 +110,7 @@ const Video = ({ video }) => {
                 <div>
                 {singleUserInfo.favorites && !singleUserInfo.favorites.some(favorite => favorite._id === video[0]._id) && (
                     <Button variant="outline-dark" onClick={() => addToFavorite()}>
-                      <AiOutlineHeart />
+                      {/* <AiOutlineHeart /> */}Favorite
                     </Button>
                   )}
 
@@ -119,7 +119,7 @@ const Video = ({ video }) => {
                       variant="outline-dark"
                       onClick={() => removeFromFavorite()}
                     >
-                     <AiTwotoneHeart /> 
+                     {/* <AiTwotoneHeart />  */}UnFavorite
                     </Button>
                   )}
                 </div>
