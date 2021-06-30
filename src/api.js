@@ -13,42 +13,51 @@ const api = {
   },
 
   reportVideo: async (video_id, reportData) => {
-    return await axios.put(
-      `${root}/videos/${video_id}/report`,
-      queryString.stringify(reportData)
+    return await axios.put(`${root}/videos/${video_id}/report`,
+      reportData
     );
   },
 
   unReportVideo: async (video_id, deReportData) => {
-    return await axios.put(
-      `${root}/videos/${video_id}/unreport`,
-      queryString.stringify(deReportData)
+    return await axios.put(`${root}/videos/${video_id}/unreport`,
+      deReportData
     );
   },
 
   loginUser: async (user) => {
-    return await axios.post(`/login`, user, {
+    return await axios.post(`/login`,
+      user, {
       /* withCredentials: true, */
       baseURL: root
     });
   },
 
   logoutUser: async () => {
-    return await axios.get(`${root}/logout`, {
+    return await axios.get(
+      `${root}/logout`, {
       /* withCredentials: true, */
     });
   },
 
   registerUser: async (newUser) => {
-    return await axios.post(`${root}/register`, queryString.stringify(newUser));
+    return await axios.post(
+      `${root}/register`,
+      newUser
+    );
   },
 
   refreshUserToken: async () => {
-    return await axios.post(`${root}/refresh`,{}, /* {withCredentials:true} */)
+    return await axios.post(
+      `${root}/refresh`,
+      {},
+      /* {withCredentials:true} */
+    )
   },
 
   fetchSingleUser: async (user_id) => {
-    return await axios.get(`${root}/users/${user_id}`);
+    return await axios.get(
+      `${root}/users/${user_id}`
+    );
   },
 
   updateUser: async (user_id, userData) => {
@@ -59,47 +68,59 @@ const api = {
   },
 
   demoteUser: async (user_id) => {
-    return await axios.put(`${root}/users/${user_id}/demote`);
+    return await axios.put(
+      `${root}/users/${user_id}/demote`
+    );
   },
 
   promoteUser: async (user_id) => {
-    return await axios.put(`${root}/users/${user_id}/promote`);
+    return await axios.put(
+      `${root}/users/${user_id}/promote`
+    );
   },
 
   getAllUsers: async () => {
-    return await axios.get(`${root}/users`);
+    return await axios.get(
+      `${root}/users`
+    );
   },
 
   getAllRequests: async () => {
-    return await axios.get(`${root}/requests`);
+    return await axios.get(
+      `${root}/requests`
+    );
   },
 
   deleteRequest: async (request_id) => {
-    return await axios.delete(`${root}/requests/${request_id}`);
+    return await axios.delete(
+      `${root}/requests/${request_id}`
+    );
   },
 
   createPlaylist: async (newPlaylist) => {
     return await axios.post(
       `${root}/playlists`,
-      queryString.stringify(newPlaylist)
+      newPlaylist
     );
   },
 
   getPlaylist: async (user_id) => {
-    return await axios.get(`${root}/users/${user_id}/playlists`);
+    return await axios.get(
+      `${root}/users/${user_id}/playlists`
+    );
   },
 
   addVideoToPlaylist: async (user_id, playlist_id, videoId) => {
     return await axios.put(
       `${root}/users/${user_id}/playlists/${playlist_id}/addvideo`,
-      queryString.stringify(videoId)
+      videoId
     );
   },
 
   removeVideoFromPlaylist: async (user_id, playlist_id, videoId) => {
     return await axios.put(
       `${root}/users/${user_id}/playlists/${playlist_id}/removevideo`,
-      queryString.stringify(videoId)
+      videoId
     );
   },
 
@@ -112,33 +133,40 @@ const api = {
   addVideoToFavorite: async (user_id, videoId) => {
     return await axios.put(
       `${root}/users/${user_id}/favorites`,
-      queryString.stringify(videoId)
+      videoId
     );
   },
 
   removeVideoFromFavorite: async (user_id, videoId) => {
     return await axios.put(
       `${root}/users/${user_id}/removefavorites`,
-      queryString.stringify(videoId)
+      videoId
     );
   },
 
   addVideos: async (newVideo) => {
-    return await axios.post(`${root}/videos`, queryString.stringify(newVideo));
+    return await axios.post(
+      `${root}/videos`,
+      newVideo
+    );
   },
 
   getUploaderAllVideos: async (user_id) => {
-    return await axios.get(`${root}/videos/byUploader/${user_id}`);
+    return await axios.get(
+      `${root}/videos/byUploader/${user_id}`
+    );
   },
 
   deleteUploaderVideo: async (user_id, video_id) => {
-    return await axios.delete(`${root}/users/${user_id}/videos/${video_id}`);
+    return await axios.delete(
+      `${root}/users/${user_id}/videos/${video_id}`
+    );
   },
 
   updateUploaderVideo: async (user_id, video_id, videoData) => {
     return await axios.put(
       `${root}/users/${user_id}/videos/${video_id}`,
-      queryString.stringify(videoData)
+      videoData
     );
   },
 };
