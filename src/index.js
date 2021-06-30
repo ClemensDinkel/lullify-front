@@ -45,10 +45,10 @@ axios.interceptors.response.use(response => {
   return response
 })
 
-// Instantiate the interceptor (you can chain it as it returns the axios instance)
+/* // Instantiate the interceptor (you can chain it as it returns the axios instance)
 createAuthRefreshInterceptor(axios, refreshAuthLogic, {
   statusCodes: [401, 403]
-});
+}); */
 
 ReactDOM.render(
   <React.StrictMode>
