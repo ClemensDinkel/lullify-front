@@ -27,6 +27,7 @@ const App = () => {
           <PlaylistController>
             <Navigation />
             <LullifyRouter />
+
             <Footer />
           </PlaylistController>
         </UserController>

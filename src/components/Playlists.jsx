@@ -27,9 +27,6 @@ const Playlists = () => {
 
   const [videoList, setVideoList] = useState({ video_id: null });
 
-  console.log(videoList);
-  console.log(playlists);
-
   const onChangeVideoList = (e) => {
     let keyName = e.target.name;
     let value = e.target.value;
@@ -73,15 +70,14 @@ const Playlists = () => {
   const playPlaylist = (index) => {
     const autoPlay = displayPlaylists[index].video_list
     let finalAutoPlay = []
-    autoPlay.forEach(playlist => finalAutoPlay.push(playlist._id))
+    autoPlay.forEach(videolist => finalAutoPlay.push(videolist._id))
     console.log(finalAutoPlay)
     setAutoPlaylist(finalAutoPlay)
-  } 
+  }
    
   // To display Playlists
 
   const [displayPlaylists, setDisplayPlaylists] = useState([]);
-  //console.log(displayPlaylists);
 
   useEffect(() => {
     if (decToken && decToken.id) {
@@ -93,7 +89,7 @@ const Playlists = () => {
         .catch((err) => console.log(err));
       setLoading(false);
     }
-  }, [playlists]);
+  }, [playlists, decToken]);
 
   useEffect(() => {
     console.log(displayPlaylists)
@@ -101,8 +97,9 @@ const Playlists = () => {
 
   return (
     <div className="playlists">
-      <h2>Playlists</h2>
+      <h2 className="create-playlist">Create Playlist</h2>
       <Form className="d-flex" onSubmit={addPlaylist}>
+      <Form.Group controlId="formBasicEmail">
         <FormControl
           type="text"
           placeholder="Create Playlist"
@@ -112,6 +109,7 @@ const Playlists = () => {
           onChange={onChange}
           required
         />
+        </Form.Group>
         <Button type="submit" variant="outline-secondary">
           <AiOutlinePlus />
         </Button>
@@ -119,8 +117,8 @@ const Playlists = () => {
       <h4> </h4>
       {displayPlaylists.length !== 0 ? (
         <Form>
-        <Form.Label style={{ textAlign: "left" }}>
-          <b>Add Video</b>
+        <Form.Label>
+          <h6 style={{fontFamily: "cursive"}}>Add Video</h6>
         </Form.Label>
         <Form.Control
           as="select"
@@ -160,7 +158,7 @@ const Playlists = () => {
                       >
                         <li key={playlistIndex} style={{ cursor: "pointer" }} onClick={() => playPlaylist(playlistIndex)}>
                           <Link to={`/player/${playlist.video_list.length > 0 ? playlist.video_list[0]._id : ""}`}>
-                            {playlist.name}
+                            <h5 style={{color: "black"}}>{playlist.name}</h5>
                           </Link>
                         </li>
                         <Button

@@ -76,9 +76,9 @@ const Navigation = () => {
             custom
           >
             <option value=""></option>
-            <option value="english">EN</option>
-            <option value="deutsch">DE</option>
-            <option value="hindi">HI</option>
+            <option value="en">EN</option>
+            <option value="de">DE</option>
+            <option value="hi">HI</option>
           </Form.Control>
           <FormControl
             type="search"

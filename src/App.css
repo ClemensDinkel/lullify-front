@@ -100,6 +100,10 @@ html {
   margin-right: 5px;
 }
 
+.create-playlist {
+  font-family: cursive;
+}
+
 .video-description {
   text-align: left;
 }
