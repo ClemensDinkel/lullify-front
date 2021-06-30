@@ -54,7 +54,7 @@ const api = {
   updateUser: async (user_id, userData) => {
     return await axios.put(
       `${root}/users/${user_id}`,
-      queryString.stringify(userData)
+      userData
     );
   },
 
