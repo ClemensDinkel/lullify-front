@@ -5,7 +5,7 @@ import { MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { VideoContext } from "../context/VideoContext";
 import { PlaylistContext } from "../context/PlaylistContext";
-import moon_image from "../images/moon.png"
+import moon_image from "../images/moon2.png"
 
 const TemporaryPlaylist = () => {
   const [videos] = useContext(VideoContext);
@@ -35,7 +35,7 @@ const TemporaryPlaylist = () => {
   const selectVideo = (e) => {
     e.preventDefault()
     const video = videos.find(video => video._id === e.target.value)
-    const onlyIdAndName = {_id: video._id, title: video.title }
+    const onlyIdAndName = { _id: video._id, title: video.title }
     setSelected(onlyIdAndName)
   };
 
@@ -50,61 +50,61 @@ const TemporaryPlaylist = () => {
   return (
     <div>
       <div>
-      <h2 style={{ cursor: "pointer",fontFamily: "cursive", color:"yellow" }} onClick={playPlaylist}>
-        <Link to={`/player/${temporaryPlaylist.length > 0 ? temporaryPlaylist[0]._id : ""}`}>
-          Temporary Playlist
-        </Link>
-      </h2>
-      <div style={{ textAlign: "left" }}>
-        <ul>
-          {temporaryPlaylist.map(
-            (listVideo, listVideoIndex) => {
-              return (
-                <li key={listVideoIndex} onClick={() => playSingleVideo(listVideo._id)}>
-                  <Link to={`/player/${listVideo._id}`}>
-                    <p style={{color: "white"}}>{listVideo.title}</p>
-                  </Link>
-                </li>
-              );
-            }
-          )}
-        </ul>
-      </div>
-      <div>
-        <Form.Control
-          as="select"
-          className="my-1 mr-sm-2"
-          id="inlineFormCustomSelectPref"
-          name="video"
-          value={videos._id}
-          onChange={selectVideo}
-          custom
-        >
-          <option value="">-----Add Video-----</option>
-          {videos &&
-            videos.map((video, videoIndex) => {
-              return (
-                <option value={video._id} key={videoIndex}>
-                  {video.title}
-                </option>
-              );
-            })}
-        </Form.Control>
-        <Form className="d-flex">
-          <Button
-            type="submit"
-            variant="outline-secondary"
-            onClick={addVideo}
+        <h2 style={{ cursor: "pointer" }} onClick={playPlaylist}>
+          <Link to={`/player/${temporaryPlaylist.length > 0 ? temporaryPlaylist[0]._id : ""}`}>
+            <p style={{ fontFamily: "cursive", color: "yellow" }}>Temporary Playlist</p>
+          </Link>
+        </h2>
+        <div style={{ textAlign: "left" }}>
+          <ul>
+            {temporaryPlaylist.map(
+              (listVideo, listVideoIndex) => {
+                return (
+                  <li key={listVideoIndex} style={{ color: "white" }} onClick={() => playSingleVideo(listVideo._id)}>
+                    <Link to={`/player/${listVideo._id}`}>
+                      <p style={{ color: "white" }}>{listVideo.title}</p>
+                    </Link>
+                  </li>
+                );
+              }
+            )}
+          </ul>
+        </div>
+        <div>
+          <Form.Control
+            as="select"
+            className="my-1 mr-sm-2"
+            id="inlineFormCustomSelectPref"
+            name="video"
+            value={videos._id}
+            onChange={selectVideo}
+            custom
           >
-            <AiOutlinePlus />
-          </Button>
-        </Form>
+            <option value="">-----Add Video-----</option>
+            {videos &&
+              videos.map((video, videoIndex) => {
+                return (
+                  <option value={video._id} key={videoIndex}>
+                    {video.title}
+                  </option>
+                );
+              })}
+          </Form.Control>
+          <Form className="d-flex">
+            <Button
+              type="button"
+              variant="outline-light"
+              onClick={addVideo}
+            >
+              <AiOutlinePlus />
+            </Button>
+          </Form>
+        </div>
       </div>
-    </div>
 
-    <div >
-      <Image src={moon_image} alt="moon"></Image>
-    </div>
+      <div >
+        <Image src={moon_image} alt="moon"></Image>
+      </div>
     </div>
   )
 }

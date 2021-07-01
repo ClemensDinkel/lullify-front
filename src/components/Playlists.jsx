@@ -114,7 +114,7 @@ const Playlists = () => {
             onChange={onChangeNewPlaylist}
             required
           />
-          <Button type="submit" variant="outline-secondary">
+          <Button type="submit" variant="outline-light">
             <AiOutlinePlus />
           </Button>
         </Form>
@@ -145,7 +145,7 @@ const Playlists = () => {
         ) : null
         }
         <div>
-          <ol>
+          <ul style={{ listStyle: "none" }}>
             {displayedPlaylists &&
               displayedPlaylists.map((playlist, playlistIndex) => {
                 return (
@@ -242,7 +242,7 @@ const Playlists = () => {
                   </>
                 );
               })}
-          </ol>
+          </ul>
         </div >
       </div >
 

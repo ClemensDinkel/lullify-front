@@ -11,157 +11,157 @@ import { useHistory } from "react-router";
 import marked from 'marked';
 
 const Video = ({ video }) => {
-  
+
   const [readMore, setReadMore] = useState(false);
   const { dTk, sUI } = useContext(UserContext);
   const [autoPlaylist, setAutoPlaylist] = useContext(PlaylistContext)
   const [decToken] = dTk;
   const [singleUserInfo] = sUI;
   let history = useHistory();
-  
+
 
   const secToMinConverter = (n) => {
-    return `${Math.floor(n/60)}${n%60<10 ? ":0" : ":"}${Math.floor(n%60)}`
+    return `${Math.floor(n / 60)}${n % 60 < 10 ? ":0" : ":"}${Math.floor(n % 60)}`
   };
 
   const reportButton = () => {
     if (decToken && decToken.id) {
       window.confirm("Do you want to report this video?") &&
-      api
-        .reportVideo(video[0]._id, { user_id: decToken.id })
-        .then(() => {
-          window.location.reload()
-        })
-        .catch((err) => console.log(err));
+        api
+          .reportVideo(video[0]._id, { user_id: decToken.id })
+          .then(() => {
+            window.location.reload()
+          })
+          .catch((err) => console.log(err));
     }
   };
 
   const unReportButton = () => {
     if (decToken && decToken.id) {
       window.confirm("Do you want to unreport this video?") &&
-      api
-        .unReportVideo(video[0]._id, { user_id: decToken.id })
-        .then(() => {
-          window.location.reload()
-        })
-        .catch((err) => console.log(err));
+        api
+          .unReportVideo(video[0]._id, { user_id: decToken.id })
+          .then(() => {
+            window.location.reload()
+          })
+          .catch((err) => console.log(err));
     }
   };
 
   const addToFavorite = () => {
     if (decToken && decToken.id) {
       window.confirm("Do you want to add to favourites?") &&
-      api
-        .addVideoToFavorite(decToken.id, { video_id: video[0]._id })
-        .then((res) => {
-          window.location.reload()
-        })
-        .catch((err) => console.log(err));
+        api
+          .addVideoToFavorite(decToken.id, { video_id: video[0]._id })
+          .then((res) => {
+            window.location.reload()
+          })
+          .catch((err) => console.log(err));
     }
   };
 
   const removeFromFavorite = () => {
     if (decToken && decToken.id) {
       window.confirm("Do you want to remove from favourites?") &&
-      api
-        .removeVideoFromFavorite(decToken.id, { video_id: video[0]._id })
-        .then((res) => {
-          window.location.reload()
-        })
-        .catch((err) => console.log(err));
+        api
+          .removeVideoFromFavorite(decToken.id, { video_id: video[0]._id })
+          .then((res) => {
+            window.location.reload()
+          })
+          .catch((err) => console.log(err));
     }
   };
   const playNext = () => {
     const slicedPlaylist = autoPlaylist.slice(1)
-    if (slicedPlaylist.length > 0) {    
+    if (slicedPlaylist.length > 0) {
       history.push(`/player/${slicedPlaylist[0]}`)
-    setAutoPlaylist(slicedPlaylist)
+      setAutoPlaylist(slicedPlaylist)
     }
   }
 
   return (
     <>
       <div className="video-container">
-      <Container>
-        <Row>
-          <Col>
-            <ReactPlayer
-              controls={true}
-              className="react-player"
-              url={video[0].video_url}
-              muted={false}
-              playing={true}
-              width="100%"
-              height="600px"
-              onEnded={playNext}
+        <Container>
+          <Row>
+            <Col>
+              <ReactPlayer
+                controls={true}
+                className="react-player"
+                url={video[0].video_url}
+                muted={false}
+                playing={true}
+                width="100%"
+                height="600px"
+                onEnded={playNext}
               /* loop={true} */
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <div className="video-description">
-              <div
-                style={{ display: "flex", justifyContent: "space-between" }}
-              >
-                <div>
-                  <h3>{video[0].title}</h3>
-                  <p>{video[0].artist}</p>
-                </div>
-                <div>
-                {singleUserInfo.favorites && !singleUserInfo.favorites.some(favorite => favorite._id === video[0]._id) && (
-                    <Button variant="outline-dark" onClick={() => addToFavorite()}>
-                      {/* <AiOutlineHeart /> */}Favorite
-                    </Button>
-                  )}
-
-                  {singleUserInfo.favorites && singleUserInfo.favorites.some(favorite => favorite._id === video[0]._id) && (
-                    <Button
-                      variant="dark"
-                      onClick={() => removeFromFavorite()}
-                    >
-                     {/* <AiTwotoneHeart />  */}UnFavorite
-                    </Button>
-                  )}
-                </div>
-              </div>
-               <div
-                style={{ display: "flex", justifyContent: "space-between" }}
-              >
-                <Button
-                  variant="dark"
-                  onClick={() => setReadMore(!readMore)}
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <div className="video-description">
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
                 >
-                  {!readMore ? <b>Show More</b> : <b>Show less</b>}
-                </Button>
-
-                {decToken && !video[0].reportedBy.includes(decToken.id) && (
-                  <Button variant="dark" onClick={() => reportButton()}>
-                    <b>Report</b>
-                  </Button>
-                )}
-                {decToken && video[0].reportedBy.includes(decToken.id) && (
-                  <Button variant="dark" onClick={() => unReportButton()}>
-                    <b>Unreport</b>
-                  </Button>
-                )}
-              </div>
-              <div>
-                {readMore ? (
-                  <div style={{ backgroundColor: "rgba(0,0,0,0.2)" }}>
-                    <h6>
-                      Duration: {secToMinConverter(video[0].duration)} mins
-                    </h6>
-                    <h6>Description:</h6>
-                    <section dangerouslySetInnerHTML={{ __html: marked(video[0].short_description)}} />
+                  <div>
+                    <h3>{video[0].title}</h3>
+                    <p>{video[0].artist}</p>
                   </div>
-                ) : null}
+                  <div>
+                    {decToken && singleUserInfo.favorites && !singleUserInfo.favorites.some(favorite => favorite._id === video[0]._id) && (
+                      <Button variant="dark" onClick={() => addToFavorite()}>
+                        <AiOutlineHeart />{/* Favorite */}
+                      </Button>
+                    )}
+
+                    {decToken && singleUserInfo.favorites && singleUserInfo.favorites.some(favorite => favorite._id === video[0]._id) && (
+                      <Button
+                        variant="dark"
+                        onClick={() => removeFromFavorite()}
+                      >
+                        <AiTwotoneHeart /> {/* UnFavorite */}
+                      </Button>
+                    )}
+                  </div>
+                </div>
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <Button
+                    variant="dark"
+                    onClick={() => setReadMore(!readMore)}
+                  >
+                    {!readMore ? <b>Show More</b> : <b>Show less</b>}
+                  </Button>
+
+                  {decToken && !video[0].reportedBy.includes(decToken.id) && (
+                    <Button variant="dark" onClick={() => reportButton()}>
+                      <b>Report</b>
+                    </Button>
+                  )}
+                  {decToken && video[0].reportedBy.includes(decToken.id) && (
+                    <Button variant="dark" onClick={() => unReportButton()}>
+                      <b>Unreport</b>
+                    </Button>
+                  )}
+                </div>
+                <div>
+                  {readMore ? (
+                    <div style={{ backgroundColor: "rgba(0,0,0,0.2)" }}>
+                      <h6>
+                        Duration: {secToMinConverter(video[0].duration)} mins
+                      </h6>
+                      <h6>Description:</h6>
+                      <section dangerouslySetInnerHTML={{ __html: marked(video[0].short_description) }} />
+                    </div>
+                  ) : null}
+                </div>
               </div>
-            </div>
-          </Col>
-        </Row>
-      </Container>
-    </div> 
+            </Col>
+          </Row>
+        </Container>
+      </div>
     </>
   );
 };
