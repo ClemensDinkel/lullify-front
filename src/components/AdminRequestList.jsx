@@ -18,7 +18,6 @@ const AdminRequestList = ({ setInspecting, setInspectData, setInspectType }) => 
     api.getAllRequests()
       .then(res => setRequests(res.data));
   }, [])
-  console.log(requests)
 
   return (
     <div className="request-panel">

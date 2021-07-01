@@ -3,26 +3,6 @@ const root = "http://localhost:3001";
 // const root = 'https://tranquil-reaches-12289.herokuapp.com';
 
 const api = {
-  fetchVideos: async () => {
-    return await axios.get(`${root}/videos`);
-  },
-
-  getVideoById: async (video_id) => {
-    return await axios.get(`${root}/videos/${video_id}`);
-  },
-
-  reportVideo: async (video_id, reportData) => {
-    return await axios.put(`${root}/videos/${video_id}/report`,
-      reportData
-    );
-  },
-
-  unReportVideo: async (video_id, deReportData) => {
-    return await axios.put(`${root}/videos/${video_id}/unreport`,
-      deReportData
-    );
-  },
-
   loginUser: async (user) => {
     return await axios.post(`/login`,
       user, {
@@ -140,6 +120,26 @@ const api = {
     return await axios.put(
       `${root}/users/${user_id}/removefavorites`,
       videoId
+    );
+  },
+
+  getVideos: async () => {
+    return await axios.get(`${root}/videos`);
+  },
+
+  getVideoById: async (video_id) => {
+    return await axios.get(`${root}/videos/${video_id}`);
+  },
+
+  reportVideo: async (video_id, reportData) => {
+    return await axios.put(`${root}/videos/${video_id}/report`,
+      reportData
+    );
+  },
+
+  unReportVideo: async (video_id, deReportData) => {
+    return await axios.put(`${root}/videos/${video_id}/unreport`,
+      deReportData
     );
   },
 

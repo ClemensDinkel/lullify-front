@@ -6,7 +6,6 @@ import Table from 'react-bootstrap/Table'
 
 const AdminVideoList = ({ setInspecting, setInspectData, setInspectType }) => {
   const [videos] = useContext(VideoContext)
-  console.log(videos)
   const seeSingleVideo = (videoData) => {
     setInspecting(true);
     setInspectData(videoData);

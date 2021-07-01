@@ -34,8 +34,6 @@ const AddContent = () => {
     errors: {},
   });
 
-  console.log(addVideo);
-
   const onChange = (e) => {
     let keyName = e.target.name;
     let value = e.target.value;
@@ -63,7 +61,6 @@ const AddContent = () => {
     };
 
     api.addVideos(newVideo).then(() => {
-      console.log(newVideo);
       alert("Video has been added");
       setAddVideo("");
       history.push("/creatorpanel");

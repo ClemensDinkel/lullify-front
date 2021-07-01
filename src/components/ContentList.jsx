@@ -22,8 +22,6 @@ const ContentList = () => {
   const [decToken, setDecToken] = dTk;
   const [uploaderVideos, setUploaderVideos] = useState([]);
 
-  console.log(uploaderVideos);
-
   useEffect(() => {
     if (decToken && decToken.id) {
       api

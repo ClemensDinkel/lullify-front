@@ -19,7 +19,6 @@ const Video = ({ video, setVideo }) => {
   const [decToken] = dTk;
   const [singleUserInfo, setSingleUserInfo] = sUI;
   let history = useHistory();
-  console.log(video)
 
   const secToMinConverter = (n) => {
     return `${Math.floor(n / 60)}${n % 60 < 10 ? ":0" : ":"}${Math.floor(n % 60)}`
@@ -30,7 +29,7 @@ const Video = ({ video, setVideo }) => {
       window.confirm("Do you want to report this video?") &&
         api
           .reportVideo(video[0]._id, { user_id: decToken.id })
-          .then((res) => setVideo(res.data))
+          .then((res) => setVideo([res.data]))
           .catch((err) => console.log(err));
     }
   };
@@ -40,16 +39,7 @@ const Video = ({ video, setVideo }) => {
       window.confirm("Do you want to remove your report of this video?") &&
         api
           .unReportVideo(video[0]._id, { user_id: decToken.id })
-          .then((res) => {
-            console.log(res.data)
-            console.log(video[0])
-            /* setSingleUserInfo((previous) => {
-              return {
-                ...previous,
-                favorites: res.data
-              };
-            }) */
-          })
+          .then((res) => setVideo([res.data]))
           .catch((err) => console.log(err));
     }
   };
@@ -59,7 +49,6 @@ const Video = ({ video, setVideo }) => {
       api
         .addVideoToFavorite(decToken.id, { video_id: video[0]._id })
         .then((res) => {
-          console.log(res.data)
           setSingleUserInfo((previous) => {
             return {
               ...previous,
@@ -76,7 +65,6 @@ const Video = ({ video, setVideo }) => {
       api
         .removeVideoFromFavorite(decToken.id, { video_id: video[0]._id })
         .then((res) => {
-          console.log(res.data)
           setSingleUserInfo((previous) => {
             return {
               ...previous,

@@ -43,7 +43,6 @@ export const UserController = ({children}) => {
         })
         .catch((err) => console.error(err));
     }
-    console.log("singleuserinfo set")
   }, [decToken]);
 
   return( 

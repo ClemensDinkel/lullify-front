@@ -44,7 +44,6 @@ const UserRegister = () => {
     api
       .registerUser(newUser)
       .then(() => {
-        console.log(newUser);
         alert("Successfully registered");
         history.push(`/login`);
       })

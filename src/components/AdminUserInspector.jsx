@@ -3,7 +3,6 @@ import api from "../api"
 import '../App.css'
 
 const AdminUserInspector = ({ inspectData, setInspecting, setInspectData }) => {
-  console.log(inspectData)
   const { user_img_url, user_name, first_name, last_name, _id, role, email, phone, street, house_nr, city_name, city_code, country, company, reg_date } = inspectData
   const goWayBack = () => setInspecting(false)
   const changeRole = (toRole) => {

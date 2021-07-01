@@ -7,7 +7,7 @@ export const VideoController = ({ children }) => {
   const [videos, setVideos] = useState([])
 
   useEffect(() => {
-    api.fetchVideos()
+    api.getVideos()
       .then(res => {
         setVideos(res.data)
       })

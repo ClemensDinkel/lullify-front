@@ -16,7 +16,6 @@ const Player = () => {
   const [autoPlaylist] = useContext(PlaylistContext)
 
   useEffect(() => {
-    console.log("getting new video fired")
     api
       .getVideoById(id)
       .then((res) => setVideo(res.data)) //array!!!

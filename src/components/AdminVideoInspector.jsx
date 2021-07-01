@@ -3,8 +3,6 @@ import api from "../api"
 import '../App.css'
 
 const AdminVideoInspector = ({ inspectData, inspectType, setInspecting }) => {
-  console.log(inspectData)
-  console.log(inspectType)
   const { _id, adding_date, artist, duration, languages, reportedBy, reports, tags, title, uploader_id, video_img_url, video_url } = inspectData
   const goWayBack = () => setInspecting(false)
   const deleteVideo = () => {

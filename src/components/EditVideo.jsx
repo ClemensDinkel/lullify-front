@@ -9,19 +9,14 @@ const EditVideo = () => {
   const { video_id } = useParams();
   const { dTk } = useContext(UserContext);
   const [decToken] = dTk;
-
-  let history = useHistory();
-  console.log(video_id);
-
   const [getVideo, setGetVideo] = useState({});
+  let history = useHistory();
 
   useEffect(() => {
     api
       .getVideoById(video_id)
       .then((res) => {
-        console.log(res.data);
         const videoInfo = res.data[0];
-        console.log(videoInfo);
         setGetVideo({
           title: videoInfo.title,
           artist: videoInfo.artist,
