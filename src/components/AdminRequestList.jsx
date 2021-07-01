@@ -23,7 +23,7 @@ const AdminRequestList = ({ setInspecting, setInspectData, setInspectType }) => 
   return (
     <div className="request-panel">
       <h2 style={{ textAlign: "center", fontFamily: "cursive", color: "white" }}>Requests</h2>
-      <h3 style={{fontFamily: "cursive", color:"white"}}>Content creator promotion</h3>
+      <h3 style={{fontFamily: "cursive", color:"yellow"}}>Content creator promotion</h3>
       <div style={{ overflowY: "scroll", maxHeight: "39vh" }}>
         <Table striped bordered hover variant="dark" size="sm" responsive>
           <thead>
@@ -45,8 +45,8 @@ const AdminRequestList = ({ setInspecting, setInspectData, setInspectType }) => 
         </Table>
       </div>
 
-      <h3 style={{fontFamily: "cursive", color:"white"}}>Feature request</h3>
-      <p style={{fontFamily: "cursive", color:"white"}}>tbd...</p>
+      {/* <h3 style={{fontFamily: "cursive", color:"white"}}>Feature request</h3>
+      <p style={{fontFamily: "cursive", color:"white"}}>tbd...</p> */}
     </div>
   )
 }

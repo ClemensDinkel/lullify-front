@@ -18,7 +18,7 @@ const Previews = () => {
   }
 
   return (
-    <div className="previews">
+    <div className="previews-container">
       {
         videos && videos.map((video, index) => {
           return (

@@ -48,12 +48,26 @@ const UserRegister = () => {
         alert("Successfully registered");
         history.push(`/login`);
       })
-      .catch((err) => alert("Email already exist. Please try with another email"));
+      .catch((err) =>
+        alert("Email already exist. Please try with another email")
+      );
   };
 
   return (
-    <>
-      <div style={{ display: "flex", justifyContent: "center", width:"50%"}}>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        width: "100%",
+      }}
+    >
+      <div style={{ display: "flex", justifyContent: "center", width: "50%", marginTop: "10rem" }}>
+        <div style={{ marginBottom: "30px", color: "white" }}>
+          <h1 style={{ fontFamily: "cursive" }}>Lullify</h1>
+          <p>Register yourself to enjoy more functionaliy in lullify.</p>
+        </div>
+      </div>
+      <div style={{ display: "flex", justifyContent: "center", width: "50%" }}>
         <Card
           bg="light"
           style={{ flexGrow: "1", maxWidth: "30rem", textAlign: "left" }}
@@ -190,7 +204,7 @@ const UserRegister = () => {
           </Card.Body>
         </Card>
       </div>
-    </>
+    </div>
   );
 };
 

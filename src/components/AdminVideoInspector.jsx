@@ -16,7 +16,7 @@ const AdminVideoInspector = ({ inspectData, inspectType, setInspecting }) => {
 
   return (
     <div>
-      <div style={{ textAlign: "left" }}>
+      <div style={{ textAlign: "left", color: "rgba(210, 215, 211, 1)"}}>
         <div className="img-container" style={{ float: "right", margin: "5px" }}>
           <Image src={video_img_url} style={{ maxWidth: "80px" }}></Image>
         </div>
@@ -37,11 +37,11 @@ const AdminVideoInspector = ({ inspectData, inspectType, setInspecting }) => {
         }
       </div>
       <div style={{ display: "flex", justifyContent: "center", marginTop: "10px", padding: "5px" }}>
-        <Button variant="primary" type="button" style={{ margin: "5px" }} onClick={deleteVideo}>
+        <Button variant="outline-light" type="button" style={{ margin: "5px" }} onClick={deleteVideo}>
           Delete
         </Button>
         <Button
-          variant="primary"
+          variant="outline-light"
           type="button"
           onClick={goWayBack}
           style={{ margin: "5px" }}

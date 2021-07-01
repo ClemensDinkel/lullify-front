@@ -8,7 +8,7 @@ import {
   Image,
 } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
-import logo_image from "../images/logo1.jfif";
+import logo_image from "../images/moon2.png"; 
 import { useContext } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { UserContext } from '../context/UserContext'
@@ -56,7 +56,7 @@ const Navigation = () => {
       <Navbar className={`navbar ${show && "navbar-dark"}`} expand="lg"  sticky="top">
         <Navbar.Brand as={Link} to="/">
           <Image
-            src="https://banner2.cleanpng.com/20181111/fut/kisspng-save-the-children-charitable-organization-non-gove-5be8d9c3cb9fa4.6932887915419867558341.jpg"
+            src={logo_image}
             style={{
               display: "inline-block",
               maxHeight: "70px",
@@ -86,7 +86,7 @@ const Navigation = () => {
             className="mr-2"
             aria-label="Search"
           />
-          <Button type="submit" variant="success">
+          <Button type="submit" variant="dark">
             <b>Search</b>
           </Button>
         </Form>
@@ -135,7 +135,7 @@ const Navigation = () => {
                   </>
                 )}
                 {(decToken.role === "admin" || decToken.role === "content_creator" || decToken.role === "user") && (
-                  <>
+                  
                     <div style={{ padding: "10px", margin: "auto", display: "flex" }}>
                       <Navbar.Brand style={{paddingRight: 0, marginRight: 0}}>
                         <Image src={singleUserInfo.user_img_url} width="30px" height="30px" roundedCircle />
@@ -146,11 +146,11 @@ const Navigation = () => {
                         id="navbarScrollingDropdown"
                         style={{fontWeight: "bold", margin: "0"}}
                       >
-                        <NavDropdown.Item as={Link} to="/profile" style={{ padding: "10px", margin: "auto" }}>Profile</NavDropdown.Item>
-                        <NavDropdown.Item onClick={logOut} style={{ padding: "10px", margin: "auto" }}>LogOut</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="/profile" style={{ padding: "10px" }}>Profile</NavDropdown.Item>
+                        <NavDropdown.Item onClick={logOut} style={{ padding: "10px" }}>LogOut</NavDropdown.Item>
                       </NavDropdown>
                     </div>
-                  </>
+                  
                 )}
               </>
             )}

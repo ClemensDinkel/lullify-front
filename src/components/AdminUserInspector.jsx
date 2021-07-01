@@ -29,12 +29,15 @@ const AdminUserInspector = ({ inspectData, setInspecting, setInspectData }) => {
 
   return (
     <div>
-      <div style={{ textAlign: "left" }}>
-        <div className="img-container" style={{ float: "right", margin: "5px" }}>
+      <div style={{ textAlign: "left", color: "rgba(218, 223, 225, 1)" }}>
+        {/* <div className="img-container" style={{ float: "center", margin: "5px"}}>
           <Image src={user_img_url} style={{ maxWidth: "80px" }}></Image>
+        </div> */}
+        <div style={{ textAlign: "center" }}>
+        <Image src={user_img_url} style={{ maxWidth: "80px" }}></Image>
         </div>
         <br />
-        <h2 style={{ textAlign: "center" }}>{user_name}</h2>
+        <h2 style={{ textAlign: "center", color: "white" }}>{user_name}</h2>
         <br />
         <span><b>Real Name</b>: {first_name} {last_name}</span><br />
         <span><b>ID</b>: {_id}</span><br />
@@ -52,16 +55,16 @@ const AdminUserInspector = ({ inspectData, setInspecting, setInspectData }) => {
 
       <div style={{ display: "flex", justifyContent: "center", marginTop: "10px", padding: "5px" }}>
         {inspectData.role === "user" &&
-          <Button variant="primary" type="button" style={{ margin: "5px" }} onClick={() => changeRole("content_creator")}>
+          <Button variant="outline-light" type="button" style={{ margin: "5px" }} onClick={() => changeRole("content_creator")}>
             Promote
           </Button>
         }
         {inspectData.role === "content_creator" &&
-          <Button variant="primary" type="button" style={{ margin: "5px" }} onClick={() => changeRole("user")}>
+          <Button variant="outline-light" type="button" style={{ margin: "5px" }} onClick={() => changeRole("user")}>
             Demote
           </Button>
         }
-        <Button variant="primary" type="button" onClick={goWayBack} style={{ margin: "5px" }}>
+        <Button variant="outline-light" type="button" onClick={goWayBack} style={{ margin: "5px" }}>
           Back to admin panel
         </Button>
       </div>

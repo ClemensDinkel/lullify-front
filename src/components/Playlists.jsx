@@ -1,4 +1,4 @@
-import { Form, FormControl, Button, Image, Alert } from "react-bootstrap";
+import { Form, FormControl, Button, Col, Image } from "react-bootstrap";
 import api from "../api";
 import { AiOutlinePlus } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
@@ -9,6 +9,7 @@ import { UserContext } from "../context/UserContext";
 import { VideoContext } from "../context/VideoContext";
 import { PlaylistContext } from "../context/PlaylistContext";
 import { Link } from "react-router-dom";
+import moon_image from "../images/moon2.png"
 
 const Playlists = () => {
   const { dTk } = useContext(UserContext);
@@ -18,7 +19,7 @@ const Playlists = () => {
   let history = useHistory();
 
   const [loading, setLoading] = useState(true);
-  const [autoPlaylist, setAutoPlaylist] = useContext(PlaylistContext)
+  const [autoPlaylist, setAutoPlaylist] = useContext(PlaylistContext);
 
   const [playlists, setPlaylists] = useState({
     name: "",
@@ -58,23 +59,22 @@ const Playlists = () => {
   };
 
   const addPlaylist = (e) => {
-    e.preventDefault();
-
-    window.confirm(`Do you want to add ${playlists.name} to your playlist?`) &&
+    /* e.preventDefault(); */
     api.createPlaylist(playlists).then((res) => {
+      alert("Added Successfully");
       setPlaylists({ name: "" });
-      history.push(`/`);
+      /* history.push(`/`); */
     });
   };
 
   const playPlaylist = (index) => {
-    const autoPlay = displayPlaylists[index].video_list
-    let finalAutoPlay = []
-    autoPlay.forEach(videolist => finalAutoPlay.push(videolist._id))
-    console.log(finalAutoPlay)
-    setAutoPlaylist(finalAutoPlay)
-  }
-   
+    const autoPlay = displayPlaylists[index].video_list;
+    let finalAutoPlay = [];
+    autoPlay.forEach((videolist) => finalAutoPlay.push(videolist._id));
+    console.log(finalAutoPlay);
+    setAutoPlaylist(finalAutoPlay);
+  };
+
   // To display Playlists
 
   const [displayPlaylists, setDisplayPlaylists] = useState([]);
@@ -89,58 +89,57 @@ const Playlists = () => {
         .catch((err) => console.log(err));
       setLoading(false);
     }
-  }, [playlists, decToken]);
+  }, [decToken, addPlaylist]);
 
   useEffect(() => {
-    console.log(displayPlaylists)
-  },[displayPlaylists])
+    console.log(displayPlaylists);
+  }, [displayPlaylists]);
 
   return (
+    <div>
     <div className="playlists">
       <h2 className="create-playlist">Create Playlist</h2>
-      <Form className="d-flex" onSubmit={addPlaylist}>
-      <Form.Group controlId="formBasicEmail">
-        <FormControl
-          type="text"
-          placeholder="Create Playlist"
-          className="mr-6"
-          name="name"
-          value={playlists.name}
-          onChange={onChange}
-          required
-        />
+      <Form className="d-flex">
+        <Form.Group as={Col} controlId="formBasicEmail">
+          <FormControl
+            type="text"
+            placeholder="Create Playlist"
+            className="mr-10"
+            name="name"
+            value={playlists.name}
+            onChange={onChange}
+            required
+          />
         </Form.Group>
-        <Button type="submit" variant="outline-secondary">
+        <Button type="button" variant="outline-light" onClick={addPlaylist}>
           <AiOutlinePlus />
         </Button>
       </Form>
       <h4> </h4>
       {displayPlaylists.length !== 0 ? (
         <Form>
-        <Form.Label>
-          <h6 style={{fontFamily: "cursive"}}>Add Video</h6>
-        </Form.Label>
-        <Form.Control
-          as="select"
-          className="my-1 mr-sm-2"
-          id="inlineFormCustomSelectPref"
-          name="video_id"
-          value={videoList.video_id}
-          onChange={onChangeVideoList}
-          custom
-          required
-        >
-          <option value="">-----Select Video-----</option>
-          {videos &&
-            videos.map((video, videoIndex) => {
-              return (
-                <option value={video._id} key={videoIndex}>
-                  {video.title}
-                </option>
-              );
-            })}
-        </Form.Control>
-      </Form>
+          <h6 style={{ fontFamily: "cursive", color: "yellow" }}>Add Video</h6>
+          <Form.Control
+            as="select"
+            className="my-1 mr-sm-2"
+            id="inlineFormCustomSelectPref"
+            name="video_id"
+            value={videoList.video_id}
+            onChange={onChangeVideoList}
+            custom
+            required
+          >
+            <option value="">-----Select Video-----</option>
+            {videos &&
+              videos.map((video, videoIndex) => {
+                return (
+                  <option value={video._id} key={videoIndex}>
+                    {video.title}
+                  </option>
+                );
+              })}
+          </Form.Control>
+        </Form>
       ) : null}
       <div>
         <ol>
@@ -156,25 +155,37 @@ const Playlists = () => {
                           justifyContent: "space-between",
                         }}
                       >
-                        <li key={playlistIndex} style={{ cursor: "pointer" }} onClick={() => playPlaylist(playlistIndex)}>
-                          <Link to={`/player/${playlist.video_list.length > 0 ? playlist.video_list[0]._id : ""}`}>
-                            <h5 style={{color: "antiquewhite"}}>{playlist.name}</h5>
+                        <li
+                          key={playlistIndex}
+                          style={{ cursor: "pointer", color: "antiquewhite" }}
+                          onClick={() => playPlaylist(playlistIndex)}
+                        >
+                          <Link
+                            to={`/player/${
+                              playlist.video_list.length > 0
+                                ? playlist.video_list[0]._id
+                                : ""
+                            }`}
+                          >
+                            <h5 style={{ color: "antiquewhite" }}>
+                              {playlist.name}
+                            </h5>
                           </Link>
                         </li>
                         <Button
-                          type="submit"
-                          variant="outline-secondary"
+                          type="button"
+                          variant="outline-light"
                           onClick={(e) => {
-                            e.preventDefault()
+                            e.preventDefault();
                             window.confirm(
                               `Do you want to delete ${playlist.name}?`
                             ) &&
-                            api
-                              .deletePlaylist(decToken.id, playlist._id)
-                              .then((res) => {
-                                window.location.reload(); 
-                                history.push(`/`);
-                              });
+                              api
+                                .deletePlaylist(decToken.id, playlist._id)
+                                .then((res) => {
+                                  window.location.reload();
+                                  /* history.push(`/`); */
+                                });
                           }}
                         >
                           <MdDelete />
@@ -192,26 +203,33 @@ const Playlists = () => {
                                       justifyContent: "space-between",
                                     }}
                                   >
-                                    <li key={listVideoIndex}>
+                                    <li
+                                      key={listVideoIndex}
+                                      style={{ color: "antiquewhite" }}
+                                    >
                                       <Link to={`/player/${listVideo._id}`}>
-                                        <p style={{color: "antiquewhite"}}>{listVideo.title} </p>
+                                        <p style={{ color: "antiquewhite" }}>
+                                          {listVideo.title}{" "}
+                                        </p>
                                       </Link>
                                     </li>
                                     <Button
-                                      type="submit"
-                                      variant="outline-secondary"
+                                      type="button"
+                                      variant="outline-light"
                                       onClick={() => {
-                                        window.confirm(`Do you want to delete?`) &&
-                                        api
-                                          .removeVideoFromPlaylist(
-                                            decToken.id,
-                                            playlist._id,
-                                            { video_id: listVideo._id }
-                                          )
-                                          .then((res) => {
-                                            window.location.reload();
-                                            history.push(`/`);
-                                          });
+                                        window.confirm(
+                                          `Do you want to delete?`
+                                        ) &&
+                                          api
+                                            .removeVideoFromPlaylist(
+                                              decToken.id,
+                                              playlist._id,
+                                              { video_id: listVideo._id }
+                                            )
+                                            .then((res) => {
+                                              window.location.reload();
+                                              /* history.push(`/`); */
+                                            });
                                       }}
                                     >
                                       <MdDelete />
@@ -225,22 +243,22 @@ const Playlists = () => {
                       <div>
                         <Form className="d-flex">
                           <Button
-                            type="submit"
-                            variant="outline-secondary"
+                            type="button"
+                            variant="outline-light"
                             onClick={(e) => {
-                              if(videoList.video_id === null)
-                                return alert('Select Video')
-                              window.confirm("Want to add Video?") &&
-                                api
-                                  .addVideoToPlaylist(
-                                    decToken.id,
-                                    playlist._id,
-                                    videoList
-                                  )
-                                  .then((res) => {
-                                    history.push("/");
-                                  })
-                                  .catch((err) => alert("video already exist"))
+                              if (videoList.video_id === null)
+                                return alert("Select Video");
+                              api
+                                .addVideoToPlaylist(
+                                  decToken.id,
+                                  playlist._id,
+                                  videoList
+                                )
+                                .then((res) => {
+                                  alert("Video successfully added");
+                                  window.location.reload();
+                                })
+                                .catch((err) => alert("video already exist"));
                             }}
                           >
                             <AiOutlinePlus />
@@ -257,8 +275,12 @@ const Playlists = () => {
         </ol>
       </div>
     </div>
-  );
+  
+    <div >
+      <Image src={moon_image} alt="moon"></Image>
+    </div>
+    </div>
+    );
 };
 
 export default Playlists;
-

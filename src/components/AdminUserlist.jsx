@@ -30,8 +30,8 @@ const AdminUserList = ({ setInspecting, setInspectData, setInspectType }) => {
 
   return (
     <div className="user-list">
-      <h2 style={{ textAlign: "center" }}>User List</h2>
-      <h3 style={{fontFamily: "cursive", color:"white"}}>Admins</h3>
+      <h2 style={{ textAlign: "center", fontFamily: "cursive", color:"white"}}>User List</h2>
+      <h3 style={{fontFamily: "cursive", color:"yellow"}}>Admins</h3>
       <div style={{ overflowY: "scroll", maxHeight: "26vh" }}>
         <Table striped bordered hover variant="dark" size="sm" responsive>
           <thead>
@@ -55,7 +55,7 @@ const AdminUserList = ({ setInspecting, setInspectData, setInspectType }) => {
         </Table>
       </div>
 
-      <h3 style={{fontFamily: "cursive", color:"white"}}>Content Creators</h3>
+      <h3 style={{fontFamily: "cursive", color:"yellow"}}>Content Creators</h3>
       <div style={{ overflowY: "scroll", maxHeight: "26vh" }}>
         <Table striped bordered hover variant="dark" size="sm" responsive>
           <thead>
@@ -78,7 +78,7 @@ const AdminUserList = ({ setInspecting, setInspectData, setInspectType }) => {
           </tbody>
         </Table>
       </div>
-      <h3 style={{fontFamily: "cursive", color:"white"}}>Users</h3>
+      <h3 style={{fontFamily: "cursive", color:"yellow"}}>Users</h3>
       <div style={{ overflowY: "scroll", maxHeight: "26vh" }}>
         <Table striped bordered hover variant="dark" size="sm" responsive>
           <thead>

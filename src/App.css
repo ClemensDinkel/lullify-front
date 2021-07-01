@@ -4,14 +4,16 @@ html {
 
 .App {
   text-align: center;
-  background-image: url("https://p4.wallpaperbetter.com/wallpaper/254/490/433/stars-galaxy-milky-way-starry-sky-wallpaper-preview.jpg");
+  background-image: url("./images/bg.jpg");
   background-repeat: no-repeat;
+  background-position: center;
   background-size: cover;
-  margin: 0;
+  background-attachment: fixed;
 }
 
 .navbar {
-  background-color: rgba(255, 255, 255, 0.5);
+  /* background-color: rgba(255, 255, 255, 0.5); */
+  background-color: rgba(210, 215, 211, 0.8);
   display: flex;
 }
 
@@ -29,11 +31,11 @@ html {
 
 .main-container {
   display: flex;
+  flex-direction: row;
   justify-content: center;
   width: 100%;
   margin-top: 15px;
   position: relative;
-  height: 100%;
 }
 
 /* ADMIN PANEL */
@@ -67,7 +69,7 @@ html {
   height: 100%;
 }
 
-.previews {
+.previews-container {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
@@ -97,7 +99,7 @@ html {
 .playlists {
   display: block;
   flex-grow: 1;
-  margin-right: 5px;
+  margin-right: 15px;
 }
 
 .create-playlist {
