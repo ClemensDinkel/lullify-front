@@ -1,9 +1,9 @@
-import { useContext } from "react";
-import Previews from "./Previews";
-import Playlists from "./Playlists";
-import TemporaryPlaylist from "./TemporaryPlaylist";
+import { useContext } from 'react';
+import Previews from './Previews'
+import Playlists from './Playlists'
+import TemporaryPlaylist from './TemporaryPlaylist'
 import { UserContext } from "../context/UserContext";
-import "../App.css";
+import '../App.css'
 
 const Home = () => {
   const { dTk } = useContext(UserContext);
@@ -12,9 +12,13 @@ const Home = () => {
   return (
     <div className="main-container">
       <Previews />
-      {decToken && decToken.id ? <Playlists /> : <TemporaryPlaylist />}
-    </div>
-  );
-};
+      {decToken && decToken.id ?
+        <Playlists /> :
+        <TemporaryPlaylist />
+      }
 
-export default Home;
+    </div>
+  )
+}
+
+export default Home
