@@ -2,7 +2,6 @@ import { Form, FormControl, Button, Image, Alert } from "react-bootstrap";
 import api from "../api";
 import { AiOutlinePlus } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
-import { useHistory } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import "../App.css";
 import { UserContext } from "../context/UserContext";
@@ -14,90 +13,89 @@ const Playlists = () => {
   const { dTk } = useContext(UserContext);
   const [decToken] = dTk;
   const [videos] = useContext(VideoContext);
-
-  let history = useHistory();
-
   const [loading, setLoading] = useState(true);
   const [autoPlaylist, setAutoPlaylist] = useContext(PlaylistContext)
-
-  const [playlists, setPlaylists] = useState({
+  const [selectedVideo, setSelectedVideo] = useState({ video_id: null });
+  const [displayedPlaylists, setDisplayedPlaylists] = useState([]);
+  const [newPlaylist, setNewPlaylist] = useState({
     name: "",
     user_id: null,
   });
 
-  const [videoList, setVideoList] = useState({ video_id: null });
-
-  console.log(videoList);
-  console.log(playlists);
-
-  const onChangeVideoList = (e) => {
-    let keyName = e.target.name;
-    let value = e.target.value;
-    setVideoList((previous) => {
-      return {
-        ...previous,
-        [keyName]: value,
-      };
-    });
-  };
-
+  // get playlists on first mount
   useEffect(() => {
-    if (decToken && decToken.id) {
-      setPlaylists((prev) => {
-        return { ...prev, user_id: decToken.id };
-      });
-    }
-  }, [decToken]);
+    if (decToken && decToken.id) getPlaylists()
+  }, []);
 
-  const onChange = (e) => {
+  // called on first mount and whenever new playlist is added or changed
+  const getPlaylists = () => {
+    api
+      .getPlaylist(decToken.id)
+      .then((res) => {
+        setDisplayedPlaylists(res.data);
+      })
+      .catch((err) => console.log(err));
+    setLoading(false);
+  }
+
+  // keeps track of a newPlalist's name and user_id
+  const onChangeNewPlaylist = (e) => {
     let keyName = e.target.name;
     let value = e.target.value;
-    setPlaylists((previous) => {
-      return {
-        ...previous,
-        [keyName]: value,
-      };
+    setNewPlaylist({
+      [keyName]: value,
+      user_id: decToken.id
     });
   };
 
+  // adds new playlist and gets new data afterwards
   const addPlaylist = (e) => {
     e.preventDefault();
-
-    window.confirm(`Do you want to add ${playlists.name} to your playlist?`) &&
-    api.createPlaylist(playlists).then((res) => {
-      setPlaylists({ name: "" });
-      history.push(`/`);
-    });
+    api.createPlaylist(newPlaylist)
+      .then(() => {
+        setNewPlaylist({});
+        getPlaylists();
+      });
   };
 
+  const deletePlaylist = (playlist_id) => {
+    api
+      .deletePlaylist(decToken.id, playlist_id)
+      .then(() => getPlaylists());
+  }
+
+  // <<Playlist -- Videos>>
+
+  // manages video selection for adding a video to a playlist
+  const onChangeVideoSelector = (e) => {
+    let keyName = e.target.name;
+    let value = e.target.value;
+    setSelectedVideo({ [keyName]: value })
+  };
+
+  // add video to a playlist
+  const addVideo = (playlist_id) => {
+    console.log("adding...")
+    api.addVideoToPlaylist(decToken.id, playlist_id, selectedVideo)
+      .then(() => getPlaylists())
+      .catch((err) => alert("video can only be added once to the same playlist"))
+  }
+
+  const removeVideo = (playlist_id, video_id) => {
+    api.removeVideoFromPlaylist(decToken.id, playlist_id,{ video_id: video_id })
+      .then(() => getPlaylists());
+  }
+
+  // run the player with the selected video
   const playPlaylist = (index) => {
-    const autoPlay = displayPlaylists[index].video_list
+    const autoPlay = displayedPlaylists[index].video_list
     let finalAutoPlay = []
     autoPlay.forEach(playlist => finalAutoPlay.push(playlist._id))
     console.log(finalAutoPlay)
     setAutoPlaylist(finalAutoPlay)
-  } 
-   
-  // To display Playlists
+  }
 
-  const [displayPlaylists, setDisplayPlaylists] = useState([]);
-  //console.log(displayPlaylists);
-
-  useEffect(() => {
-    if (decToken && decToken.id) {
-      api
-        .getPlaylist(decToken.id)
-        .then((res) => {
-          setDisplayPlaylists(res.data);
-        })
-        .catch((err) => console.log(err));
-      setLoading(false);
-    }
-  }, [playlists]);
-
-  useEffect(() => {
-    console.log(displayPlaylists)
-  },[displayPlaylists])
+  const playSingleVideo = (id) => setAutoPlaylist([id])
 
   return (
     <div className="playlists">
@@ -108,46 +106,45 @@ const Playlists = () => {
           placeholder="Create Playlist"
           className="mr-6"
           name="name"
-          value={playlists.name}
-          onChange={onChange}
+          value={newPlaylist.name || ""}
+          onChange={onChangeNewPlaylist}
           required
         />
         <Button type="submit" variant="outline-secondary">
           <AiOutlinePlus />
         </Button>
       </Form>
-      <h4> </h4>
-      {displayPlaylists.length !== 0 ? (
+      {displayedPlaylists.length !== 0 ? (
         <Form>
-        <Form.Label style={{ textAlign: "left" }}>
-          <b>Add Video</b>
-        </Form.Label>
-        <Form.Control
-          as="select"
-          className="my-1 mr-sm-2"
-          id="inlineFormCustomSelectPref"
-          name="video_id"
-          value={videoList.video_id}
-          onChange={onChangeVideoList}
-          custom
-          required
-        >
-          <option value="">-----Select Video-----</option>
-          {videos &&
-            videos.map((video, videoIndex) => {
-              return (
-                <option value={video._id} key={videoIndex}>
-                  {video.title}
-                </option>
-              );
-            })}
-        </Form.Control>
-      </Form>
+          <Form.Label style={{ textAlign: "left" }}>
+            <b>Add Video to a playlist</b>
+          </Form.Label>
+          <Form.Control
+            as="select"
+            className="my-1 mr-sm-2"
+            id="inlineFormCustomSelectPref"
+            name="video_id"
+            value={selectedVideo.video_id}
+            onChange={onChangeVideoSelector}
+            custom
+            required
+          >
+            <option value="">-----Select Video-----</option>
+            {videos &&
+              videos.map((video, videoIndex) => {
+                return (
+                  <option value={video._id} key={videoIndex}>
+                    {video.title}
+                  </option>
+                );
+              })}
+          </Form.Control>
+        </Form>
       ) : null}
       <div>
         <ol>
-          {displayPlaylists &&
-            displayPlaylists.map((playlist, playlistIndex) => {
+          {displayedPlaylists &&
+            displayedPlaylists.map((playlist, playlistIndex) => {
               return (
                 <>
                   {!loading ? (
@@ -167,16 +164,10 @@ const Playlists = () => {
                           type="submit"
                           variant="outline-secondary"
                           onClick={(e) => {
-                            e.preventDefault()
                             window.confirm(
-                              `Do you want to delete ${playlist.name}?`
+                              `Do you really want to delete ${playlist.name}?`
                             ) &&
-                            api
-                              .deletePlaylist(decToken.id, playlist._id)
-                              .then((res) => {
-                                window.location.reload(); 
-                                history.push(`/`);
-                              });
+                              deletePlaylist(playlist._id);
                           }}
                         >
                           <MdDelete />
@@ -194,27 +185,15 @@ const Playlists = () => {
                                       justifyContent: "space-between",
                                     }}
                                   >
-                                    <li key={listVideoIndex}>
+                                    <li key={listVideoIndex} onClick={() => playSingleVideo(listVideo._id)}>
                                       <Link to={`/player/${listVideo._id}`}>
                                         {listVideo.title}
                                       </Link>
                                     </li>
                                     <Button
-                                      type="submit"
+                                      type="button"
                                       variant="outline-secondary"
-                                      onClick={() => {
-                                        window.confirm(`Do you want to delete?`) &&
-                                        api
-                                          .removeVideoFromPlaylist(
-                                            decToken.id,
-                                            playlist._id,
-                                            { video_id: listVideo._id }
-                                          )
-                                          .then((res) => {
-                                            window.location.reload();
-                                            history.push(`/`);
-                                          });
-                                      }}
+                                      onClick={() => { removeVideo(playlist._id, listVideo._id); }}
                                     >
                                       <MdDelete />
                                     </Button>
@@ -230,19 +209,10 @@ const Playlists = () => {
                             type="submit"
                             variant="outline-secondary"
                             onClick={(e) => {
-                              if(videoList.video_id === null)
+                              e.preventDefault()
+                              if (selectedVideo.video_id === null)
                                 return alert('Select Video')
-                              window.confirm("Want to add Video?") &&
-                                api
-                                  .addVideoToPlaylist(
-                                    decToken.id,
-                                    playlist._id,
-                                    videoList
-                                  )
-                                  .then((res) => {
-                                    history.push("/");
-                                  })
-                                  .catch((err) => alert("video already exist"))
+                                addVideo(playlist._id);
                             }}
                           >
                             <AiOutlinePlus />

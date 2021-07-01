@@ -44,10 +44,7 @@ const TemporaryPlaylist = () => {
     setAutoPlaylist(onlyIdPlaylist)
   }
 
-  const playSingleVideo = (e) => {
-    console.log(e.target.value)
-    setAutoPlaylist(e.target.value)
-  }
+  const playSingleVideo = (id) => setAutoPlaylist([id])
 
   return (
     <div>
@@ -61,7 +58,7 @@ const TemporaryPlaylist = () => {
           {temporaryPlaylist.map(
             (listVideo, listVideoIndex) => {
               return (
-                <li key={listVideoIndex} onClick={playSingleVideo}>
+                <li key={listVideoIndex} onClick={() => playSingleVideo(listVideo._id)}>
                   <Link to={`/player/${listVideo._id}`}>
                     {listVideo.title}
                   </Link>
