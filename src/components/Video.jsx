@@ -16,7 +16,7 @@ const Video = ({ video }) => {
   const { dTk, sUI } = useContext(UserContext);
   const [autoPlaylist, setAutoPlaylist] = useContext(PlaylistContext)
   const [decToken] = dTk;
-  const [singleUserInfo] = sUI;
+  const [singleUserInfo, setSingleUserInfo] = sUI;
   let history = useHistory();
 
 
@@ -53,8 +53,12 @@ const Video = ({ video }) => {
       window.confirm("Do you want to add to favourites?") &&
         api
           .addVideoToFavorite(decToken.id, { video_id: video[0]._id })
-          .then((res) => {
-            window.location.reload()
+          .then(() => {
+            console.log(singleUserInfo.favorites)
+            const newInfo = { ...singleUserInfo }
+            console.log(newInfo)
+            newInfo.favorites.push(video[0]._id)
+            setSingleUserInfo(newInfo)
           })
           .catch((err) => console.log(err));
     }
@@ -65,12 +69,19 @@ const Video = ({ video }) => {
       window.confirm("Do you want to remove from favourites?") &&
         api
           .removeVideoFromFavorite(decToken.id, { video_id: video[0]._id })
-          .then((res) => {
-            window.location.reload()
+          .then(() => {
+            console.log(singleUserInfo.favorites)
+            const newInfo = singleUserInfo.favorites.filter(favorite => favorite._id !== video[0]._id)
+            setSingleUserInfo(newInfo)
           })
           .catch((err) => console.log(err));
     }
   };
+
+  useEffect(() => {
+    console.log(singleUserInfo)
+  }, [singleUserInfo])
+
   const playNext = () => {
     const slicedPlaylist = autoPlaylist.slice(1)
     if (slicedPlaylist.length > 0) {

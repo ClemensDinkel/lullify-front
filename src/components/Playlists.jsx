@@ -199,12 +199,12 @@ const Playlists = () => {
                                         justifyContent: "space-between",
                                       }}
                                     >
-                                      <li key={listVideoIndex} style={{ color: "antiquewhite" }} onClick={() => playSingleVideo(listVideo._id)}>
+                                      <li key={listVideoIndex} style={{ color: "antiquewhite", display: "flex", flexDirection: "row" }} onClick={() => playSingleVideo(listVideo._id)}>
                                         <Link to={`/player/${listVideo._id}`}>
-                                          <p style={{ color: "antiquewhite" }}>
-                                            {listVideo.title}{" "}
+                                          <p style={{ color: "antiquewhite", width: "14ch", overflow: "hidden", whiteSpace: "nowrap" }}>
+                                            {listVideo.title}
                                           </p>
-                                        </Link>
+                                        </Link><span>.....</span>
                                       </li>
                                       <Button
                                         type="button"
