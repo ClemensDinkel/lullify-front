@@ -158,7 +158,7 @@ const Playlists = () => {
                       >
                         <li key={playlistIndex} style={{ cursor: "pointer" }} onClick={() => playPlaylist(playlistIndex)}>
                           <Link to={`/player/${playlist.video_list.length > 0 ? playlist.video_list[0]._id : ""}`}>
-                            <h5 style={{color: "black"}}>{playlist.name}</h5>
+                            <h5 style={{color: "white"}}>{playlist.name}</h5>
                           </Link>
                         </li>
                         <Button
@@ -194,7 +194,7 @@ const Playlists = () => {
                                   >
                                     <li key={listVideoIndex}>
                                       <Link to={`/player/${listVideo._id}`}>
-                                        {listVideo.title}
+                                        <p style={{color: "white"}}>{listVideo.title} </p>
                                       </Link>
                                     </li>
                                     <Button

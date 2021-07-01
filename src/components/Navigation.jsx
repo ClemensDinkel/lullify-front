@@ -8,7 +8,7 @@ import {
   Image,
 } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
-import logo_image from "../images/logo7.png";
+import logo_image from "../images/logo1.jfif";
 import { useContext } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { UserContext } from '../context/UserContext'
@@ -53,16 +53,16 @@ const Navigation = () => {
 
   return (
     <>
-      <Navbar className={`navbar ${show && "navbar-dark"}`} expand="lg" sticky="top">
+      <Navbar className={`navbar ${show && "navbar-dark"}`} expand="lg"  sticky="top">
         <Navbar.Brand as={Link} to="/">
           <Image
-            src={logo_image}
+            src="https://banner2.cleanpng.com/20181111/fut/kisspng-save-the-children-charitable-organization-non-gove-5be8d9c3cb9fa4.6932887915419867558341.jpg"
             style={{
               display: "inline-block",
               maxHeight: "70px",
               width: "100px",
             }}
-          />
+          /> 
           {/* <span style={{ fontSize: '40px', fontFamily: 'cursive', color:'#0C7C43' }} >
                         Lullify
                     </span> */}
@@ -109,7 +109,7 @@ const Navigation = () => {
                 <NavDropdown
                   title="Register"
                   id="navbarScrollingDropdown"
-                  style={{ fontWeight: "bold", padding: "2px", margin: "0" }}
+                  style={{ fontWeight: "bold", padding: "2px", margin: "0", fontColor: "gray" }}
                 >
                   <NavDropdown.Item as={Link} to="/register/userRegister" style={{ padding: "10px", margin: "auto" }}>
                     User

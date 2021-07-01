@@ -4,19 +4,19 @@ html {
 
 .App {
   text-align: center;
-  background-image: url("https://images.all-free-download.com/images/graphicthumb/rippled_wall_background_01_hd_pictures_169887.jpg");
+  background-image: url("https://p4.wallpaperbetter.com/wallpaper/254/490/433/stars-galaxy-milky-way-starry-sky-wallpaper-preview.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   margin: 0;
 }
 
 .navbar {
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(255, 255, 255, 0.5);
   display: flex;
 }
 
 .navbar-dark {
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.9);
 }
 
 .footer {
@@ -31,7 +31,7 @@ html {
   display: flex;
   justify-content: center;
   width: 100%;
-  margin-top: 5px;
+  margin-top: 15px;
   position: relative;
   height: 100%;
 }
@@ -102,15 +102,18 @@ html {
 
 .create-playlist {
   font-family: cursive;
+  color: yellow;
 }
 
 .video-description {
   text-align: left;
+  color: white;
 }
 
 .video-container {
   flex-grow: 4;
   width: 100%;
+  color: white;
 }
 
 .password-icon {
@@ -127,3 +130,5 @@ html {
   padding: 10px;
   margin: 0;
 }
+
+/* https://p4.wallpaperbetter.com/wallpaper/254/490/433/stars-galaxy-milky-way-starry-sky-wallpaper-preview.jpg */
