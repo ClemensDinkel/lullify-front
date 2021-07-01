@@ -24,11 +24,11 @@ const Playlists = () => {
 
   // get playlists on first mount
   useEffect(() => {
-    if (decToken && decToken.id) getPlaylists()
+    if (decToken && decToken.id) updatePlaylists()
   }, []);
 
   // called on first mount and whenever new playlist is added or changed
-  const getPlaylists = () => {
+  const updatePlaylists = () => {
     api
       .getPlaylist(decToken.id)
       .then((res) => {
@@ -37,6 +37,8 @@ const Playlists = () => {
       .catch((err) => console.log(err));
     setLoading(false);
   }
+
+  useEffect(()=> console.log(displayedPlaylists),[displayedPlaylists])
 
   // keeps track of a newPlalist's name and user_id
   const onChangeNewPlaylist = (e) => {
@@ -54,14 +56,14 @@ const Playlists = () => {
     api.createPlaylist(newPlaylist)
       .then(() => {
         setNewPlaylist({});
-        getPlaylists();
+        updatePlaylists();
       });
   };
 
   const deletePlaylist = (playlist_id) => {
     api
       .deletePlaylist(decToken.id, playlist_id)
-      .then(() => getPlaylists());
+      .then(() => updatePlaylists());
   }
 
   // <<Playlist -- Videos>>
@@ -77,13 +79,13 @@ const Playlists = () => {
   const addVideo = (playlist_id) => {
     console.log("adding...")
     api.addVideoToPlaylist(decToken.id, playlist_id, selectedVideo)
-      .then(() => getPlaylists())
+      .then(() => updatePlaylists())
       .catch((err) => alert("video can only be added once to the same playlist"))
   }
 
   const removeVideo = (playlist_id, video_id) => {
     api.removeVideoFromPlaylist(decToken.id, playlist_id,{ video_id: video_id })
-      .then(() => getPlaylists());
+      .then(() => updatePlaylists());
   }
 
   // run the player with the selected video
