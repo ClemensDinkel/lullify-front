@@ -1,6 +1,6 @@
 import axios from "axios";
-// const root = "http://localhost:3001";
-const root = 'https://tranquil-reaches-12289.herokuapp.com';
+const root = "http://localhost:3001";
+// const root = 'https://tranquil-reaches-12289.herokuapp.com';
 
 const api = {
   fetchVideos: async () => {

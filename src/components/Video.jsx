@@ -9,8 +9,9 @@ import { UserContext } from "../context/UserContext";
 import { PlaylistContext } from "../context/PlaylistContext";
 import { useHistory } from "react-router";
 import marked from 'marked';
+import { CollectionsBookmarkTwoTone, SettingsInputSvideo } from "@material-ui/icons";
 
-const Video = ({ video }) => {
+const Video = ({ video, setVideo }) => {
 
   const [readMore, setReadMore] = useState(false);
   const { dTk, sUI } = useContext(UserContext);
@@ -18,7 +19,7 @@ const Video = ({ video }) => {
   const [decToken] = dTk;
   const [singleUserInfo, setSingleUserInfo] = sUI;
   let history = useHistory();
-
+  console.log(video)
 
   const secToMinConverter = (n) => {
     return `${Math.floor(n / 60)}${n % 60 < 10 ? ":0" : ":"}${Math.floor(n % 60)}`
@@ -29,20 +30,25 @@ const Video = ({ video }) => {
       window.confirm("Do you want to report this video?") &&
         api
           .reportVideo(video[0]._id, { user_id: decToken.id })
-          .then(() => {
-            window.location.reload()
-          })
+          .then((res) => setVideo(res.data))
           .catch((err) => console.log(err));
     }
   };
 
   const unReportButton = () => {
     if (decToken && decToken.id) {
-      window.confirm("Do you want to unreport this video?") &&
+      window.confirm("Do you want to remove your report of this video?") &&
         api
           .unReportVideo(video[0]._id, { user_id: decToken.id })
-          .then(() => {
-            window.location.reload()
+          .then((res) => {
+            console.log(res.data)
+            console.log(video[0])
+            /* setSingleUserInfo((previous) => {
+              return {
+                ...previous,
+                favorites: res.data
+              };
+            }) */
           })
           .catch((err) => console.log(err));
     }
@@ -50,34 +56,39 @@ const Video = ({ video }) => {
 
   const addToFavorite = () => {
     if (decToken && decToken.id) {
-      window.confirm("Do you want to add to favourites?") &&
-        api
-          .addVideoToFavorite(decToken.id, { video_id: video[0]._id })
-          .then(() => {
-            console.log(singleUserInfo.favorites)
-            const newInfo = { ...singleUserInfo }
-            console.log(newInfo)
-            newInfo.favorites.push(video[0]._id)
-            setSingleUserInfo(newInfo)
+      api
+        .addVideoToFavorite(decToken.id, { video_id: video[0]._id })
+        .then((res) => {
+          console.log(res.data)
+          setSingleUserInfo((previous) => {
+            return {
+              ...previous,
+              favorites: res.data
+            };
           })
-          .catch((err) => console.log(err));
+        })
+        .catch((err) => console.log(err));
     }
   };
 
   const removeFromFavorite = () => {
     if (decToken && decToken.id) {
-      window.confirm("Do you want to remove from favourites?") &&
-        api
-          .removeVideoFromFavorite(decToken.id, { video_id: video[0]._id })
-          .then(() => {
-            console.log(singleUserInfo.favorites)
-            const newInfo = singleUserInfo.favorites.filter(favorite => favorite._id !== video[0]._id)
-            setSingleUserInfo(newInfo)
+      api
+        .removeVideoFromFavorite(decToken.id, { video_id: video[0]._id })
+        .then((res) => {
+          console.log(res.data)
+          setSingleUserInfo((previous) => {
+            return {
+              ...previous,
+              favorites: res.data
+            };
           })
-          .catch((err) => console.log(err));
+        })
+        .catch((err) => console.log(err));
     }
   };
 
+  // for testing
   useEffect(() => {
     console.log(singleUserInfo)
   }, [singleUserInfo])
