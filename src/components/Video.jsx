@@ -8,6 +8,7 @@ import api from "../api";
 import { UserContext } from "../context/UserContext";
 import { PlaylistContext } from "../context/PlaylistContext";
 import { useHistory } from "react-router";
+import marked from 'marked';
 
 const Video = ({ video }) => {
   
@@ -116,7 +117,7 @@ const Video = ({ video }) => {
 
                   {singleUserInfo.favorites && singleUserInfo.favorites.some(favorite => favorite._id === video[0]._id) && (
                     <Button
-                      variant="outline-dark"
+                      variant="dark"
                       onClick={() => removeFromFavorite()}
                     >
                      {/* <AiTwotoneHeart />  */}UnFavorite
@@ -151,7 +152,8 @@ const Video = ({ video }) => {
                     <h6>
                       Duration: {secToMinConverter(video[0].duration)} mins
                     </h6>
-                    <p>Description: {video[0].short_description}</p>
+                    <h6>Description:</h6>
+                    <section dangerouslySetInnerHTML={{ __html: marked(video[0].short_description)}} />
                   </div>
                 ) : null}
               </div>

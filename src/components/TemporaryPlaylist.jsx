@@ -1,10 +1,11 @@
 import { useState, useEffect, useContext } from "react";
-import { Form, FormControl, Button } from "react-bootstrap";
+import { Form, FormControl, Button, Image } from "react-bootstrap";
 import { AiOutlinePlus } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { VideoContext } from "../context/VideoContext"; import { UserContext } from "../context/UserContext";
+import { VideoContext } from "../context/VideoContext";
 import { PlaylistContext } from "../context/PlaylistContext";
+import moon_image from "../images/moon.png"
 
 const TemporaryPlaylist = () => {
   const [videos] = useContext(VideoContext);
@@ -48,7 +49,8 @@ const TemporaryPlaylist = () => {
 
   return (
     <div>
-      <h2 style={{ cursor: "pointer" }} onClick={playPlaylist}>
+      <div>
+      <h2 style={{ cursor: "pointer",fontFamily: "cursive", color:"yellow" }} onClick={playPlaylist}>
         <Link to={`/player/${temporaryPlaylist.length > 0 ? temporaryPlaylist[0]._id : ""}`}>
           Temporary Playlist
         </Link>
@@ -60,7 +62,7 @@ const TemporaryPlaylist = () => {
               return (
                 <li key={listVideoIndex} onClick={() => playSingleVideo(listVideo._id)}>
                   <Link to={`/player/${listVideo._id}`}>
-                    {listVideo.title}
+                    <p style={{color: "white"}}>{listVideo.title}</p>
                   </Link>
                 </li>
               );
@@ -98,6 +100,11 @@ const TemporaryPlaylist = () => {
           </Button>
         </Form>
       </div>
+    </div>
+
+    <div >
+      <Image src={moon_image} alt="moon"></Image>
+    </div>
     </div>
   )
 }

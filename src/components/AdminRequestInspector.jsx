@@ -20,7 +20,7 @@ const AdminRequestInspector = ({ inspectData, inspectType, setInspecting }) => {
 
   return (
     <div>
-      <div style={{ textAlign: "left" }}>
+      <div style={{ textAlign: "left", color: "rgba(210, 215, 211, 1)" }}>
         <h2 style={{ textAlign: "center" }}>Request type</h2> {/* placeholder */}
         <span><b>Request ID</b>: {_id}</span><br />
         <span><b>Issued at</b>: {req_date}</span><br />
@@ -42,14 +42,14 @@ const AdminRequestInspector = ({ inspectData, inspectType, setInspecting }) => {
         <span><b>Registered since</b>: {user_id.reg_date}</span><br />
       </div>
       <div style={{ display: "flex", justifyContent: "center", marginTop: "10px", padding: "5px" }}>
-        <Button variant="primary" type="button" style={{ margin: "5px" }} onClick={() => {promoteUser();deleteRequest()}}>
+        <Button variant="outline-light" type="button" style={{ margin: "5px" }} onClick={() => {promoteUser();deleteRequest()}}>
           Grant request
         </Button>
-        <Button variant="primary" type="button" style={{ margin: "5px" }} onClick={deleteRequest}>
+        <Button variant="outline-light" type="button" style={{ margin: "5px" }} onClick={deleteRequest}>
           Deny request
         </Button>
         <Button
-          variant="primary"
+          variant="outline-light"
           type="button"
           onClick={goWayBack}
           style={{ margin: "5px" }}

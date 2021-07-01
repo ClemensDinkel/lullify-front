@@ -15,8 +15,8 @@ const AdminVideoList = ({ setInspecting, setInspectData, setInspectType }) => {
 
   return (
     <div className="video-panel">
-      <h2 style={{ textAlign: "center" }}>Videos</h2>
-      <h3>sorted by reports</h3>
+      <h2 style={{ textAlign: "center", fontFamily: "cursive", color:"white" }}>Videos</h2>
+      <h3 style={{fontFamily: "cursive", color:"yellow"}}>sorted by reports</h3>
       <div style={{ overflowY: "scroll", maxHeight: "78vh" }}>
         <Table striped bordered hover variant="dark" size="sm" responsive>
           <thead>

@@ -7,16 +7,24 @@ import { PlaylistContext } from '../context/PlaylistContext';
 
 const Previews = () => {
   const [videos] = useContext(VideoContext)
-  const [playlist, setPlaylist] = useContext(PlaylistContext)
+  const [autoPlaylist, setAutoPlaylist] = useContext(PlaylistContext)
+  
+
+  const playPlaylist = () => {
+    const autoPlay=[]
+    videos.forEach(video => autoPlay.push(video._id))
+    console.log(autoPlay)
+    setAutoPlaylist(autoPlay)
+  }
 
   return (
-    <div className="previews">
+    <div className="previews-container">
       {
         videos && videos.map((video, index) => {
           return (
             <div>
-              <Card key={index} style={{background: "rgba(0,0,0,0.4)"}} text="white" className="previews-card-container">
-                <Link to={`/player/${video._id}`} onClick={() => setPlaylist([])}>
+              <Card key={index} style={{background: "rgba(0,0,0,0.4)"}} text="white" className="previews-card-container" onClick={()=> playPlaylist()}>
+                <Link to={`/player/${video._id}`}>
                   <img variant="top" src={video.video_img_url} height="140px" width="100%" />
                 </Link>
                 <Card.Body style={{textAlign: "left"}}>

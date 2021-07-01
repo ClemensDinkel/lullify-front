@@ -81,7 +81,7 @@ const AddContent = () => {
       }}
     >
       <div>
-        <h3>Add Content</h3>
+        <h3 style={{fontFamily: "cursive", color:"white"}}>Add Content</h3>
       </div>
       <div
         style={{ display: "flex", justifyContent: "center", margin: ".4rem" }}

@@ -1,4 +1,4 @@
-import { Form, FormControl, Button, Image, Alert } from "react-bootstrap";
+import { Form, FormControl, Button, Col, Image } from "react-bootstrap";
 import api from "../api";
 import { AiOutlinePlus } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
@@ -8,6 +8,7 @@ import { UserContext } from "../context/UserContext";
 import { VideoContext } from "../context/VideoContext";
 import { PlaylistContext } from "../context/PlaylistContext";
 import { Link } from "react-router-dom";
+import moon_image from "../images/moon2.png"
 
 const Playlists = () => {
   const { dTk } = useContext(UserContext);
@@ -38,7 +39,7 @@ const Playlists = () => {
     setLoading(false);
   }
 
-  useEffect(()=> console.log(displayedPlaylists),[displayedPlaylists])
+  useEffect(() => console.log(displayedPlaylists), [displayedPlaylists])
 
   // keeps track of a newPlalist's name and user_id
   const onChangeNewPlaylist = (e) => {
@@ -84,7 +85,7 @@ const Playlists = () => {
   }
 
   const removeVideo = (playlist_id, video_id) => {
-    api.removeVideoFromPlaylist(decToken.id, playlist_id,{ video_id: video_id })
+    api.removeVideoFromPlaylist(decToken.id, playlist_id, { video_id: video_id })
       .then(() => updatePlaylists());
   }
 
@@ -100,139 +101,156 @@ const Playlists = () => {
   const playSingleVideo = (id) => setAutoPlaylist([id])
 
   return (
-    <div className="playlists">
-      <h2>Playlists</h2>
-      <Form className="d-flex" onSubmit={addPlaylist}>
-        <FormControl
-          type="text"
-          placeholder="Create Playlist"
-          className="mr-6"
-          name="name"
-          value={newPlaylist.name || ""}
-          onChange={onChangeNewPlaylist}
-          required
-        />
-        <Button type="submit" variant="outline-secondary">
-          <AiOutlinePlus />
-        </Button>
-      </Form>
-      {displayedPlaylists.length !== 0 ? (
-        <Form>
-          <Form.Label style={{ textAlign: "left" }}>
-            <b>Add Video to a playlist</b>
-          </Form.Label>
-          <Form.Control
-            as="select"
-            className="my-1 mr-sm-2"
-            id="inlineFormCustomSelectPref"
-            name="video_id"
-            value={selectedVideo.video_id}
-            onChange={onChangeVideoSelector}
-            custom
+    <div>
+      <div className="playlists">
+        <h2 className="create-playlist">Playlists</h2>
+        <Form className="d-flex" onSubmit={addPlaylist}>
+          <FormControl
+            type="text"
+            placeholder="Create Playlist"
+            className="mr-6"
+            name="name"
+            value={newPlaylist.name || ""}
+            onChange={onChangeNewPlaylist}
             required
-          >
-            <option value="">-----Select Video-----</option>
-            {videos &&
-              videos.map((video, videoIndex) => {
-                return (
-                  <option value={video._id} key={videoIndex}>
-                    {video.title}
-                  </option>
-                );
-              })}
-          </Form.Control>
+          />
+          <Button type="submit" variant="outline-secondary">
+            <AiOutlinePlus />
+          </Button>
         </Form>
-      ) : null}
-      <div>
-        <ol>
-          {displayedPlaylists &&
-            displayedPlaylists.map((playlist, playlistIndex) => {
-              return (
-                <>
-                  {!loading ? (
-                    <div>
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                        }}
-                      >
-                        <li key={playlistIndex} style={{ cursor: "pointer" }} onClick={() => playPlaylist(playlistIndex)}>
-                          <Link to={`/player/${playlist.video_list.length > 0 ? playlist.video_list[0]._id : ""}`}>
-                            {playlist.name}
-                          </Link>
-                        </li>
-                        <Button
-                          type="submit"
-                          variant="outline-secondary"
-                          onClick={(e) => {
-                            window.confirm(
-                              `Do you really want to delete ${playlist.name}?`
-                            ) &&
-                              deletePlaylist(playlist._id);
+        {displayedPlaylists.length !== 0 ? (
+          <Form>
+            <h6 style={{ fontFamily: "cursive", color: "yellow" }}>Add Video</h6>
+            <Form.Control
+              as="select"
+              className="my-1 mr-sm-2"
+              id="inlineFormCustomSelectPref"
+              name="video_id"
+              value={selectedVideo.video_id}
+              onChange={onChangeVideoSelector}
+              custom
+              required
+            >
+              <option value="">-----Select Video-----</option>
+              {videos &&
+                videos.map((video, videoIndex) => {
+                  return (
+                    <option value={video._id} key={videoIndex}>
+                      {video.title}
+                    </option>
+                  );
+                })}
+            </Form.Control>
+          </Form>
+        ) : null
+        }
+        <div>
+          <ol>
+            {displayedPlaylists &&
+              displayedPlaylists.map((playlist, playlistIndex) => {
+                return (
+                  <>
+                    {!loading ? (
+                      <div>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
                           }}
                         >
-                          <MdDelete />
-                        </Button>
-                      </div>
-                      <div>
-                        <ul>
-                          {playlist.video_list &&
-                            playlist.video_list.map(
-                              (listVideo, listVideoIndex) => {
-                                return (
-                                  <div
-                                    style={{
-                                      display: "flex",
-                                      justifyContent: "space-between",
-                                    }}
-                                  >
-                                    <li key={listVideoIndex} onClick={() => playSingleVideo(listVideo._id)}>
-                                      <Link to={`/player/${listVideo._id}`}>
-                                        {listVideo.title}
-                                      </Link>
-                                    </li>
-                                    <Button
-                                      type="button"
-                                      variant="outline-secondary"
-                                      onClick={() => { removeVideo(playlist._id, listVideo._id); }}
-                                    >
-                                      <MdDelete />
-                                    </Button>
-                                  </div>
-                                );
-                              }
-                            )}
-                        </ul>
-                      </div>
-                      <div>
-                        <Form className="d-flex">
+                          <li
+                            key={playlistIndex}
+                            style={{ cursor: "pointer", color: "antiquewhite" }}
+                            onClick={() => playPlaylist(playlistIndex)}
+                          >
+                            <Link
+                              to={`/player/${playlist.video_list.length > 0
+                                ? playlist.video_list[0]._id
+                                : ""
+                                }`}
+                            >
+                              <h5 style={{ color: "antiquewhite" }}>
+                                {playlist.name}
+                              </h5>
+                            </Link>
+                          </li>
                           <Button
-                            type="submit"
-                            variant="outline-secondary"
+                            type="button"
+                            variant="outline-light"
                             onClick={(e) => {
-                              e.preventDefault()
-                              if (selectedVideo.video_id === null)
-                                return alert('Select Video')
-                                addVideo(playlist._id);
+                              window.confirm(
+                                `Do you really want to delete ${playlist.name}?`
+                              ) &&
+                                deletePlaylist(playlist._id);
                             }}
                           >
-                            <AiOutlinePlus />
+                            <MdDelete />
                           </Button>
-                        </Form>
+                        </div>
+                        <div>
+                          <ul>
+                            {playlist.video_list &&
+                              playlist.video_list.map(
+                                (listVideo, listVideoIndex) => {
+                                  return (
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        justifyContent: "space-between",
+                                      }}
+                                    >
+                                      <li key={listVideoIndex} style={{ color: "antiquewhite" }} onClick={() => playSingleVideo(listVideo._id)}>
+                                        <Link to={`/player/${listVideo._id}`}>
+                                          <p style={{ color: "antiquewhite" }}>
+                                            {listVideo.title}{" "}
+                                          </p>
+                                        </Link>
+                                      </li>
+                                      <Button
+                                        type="button"
+                                        variant="outline-light"
+                                        onClick={() => { removeVideo(playlist._id, listVideo._id); }}
+                                      >
+                                        <MdDelete />
+                                      </Button>
+                                    </div>
+                                  );
+                                }
+                              )}
+                          </ul>
+                        </div>
+                        <div>
+                          <Form className="d-flex">
+                            <Button
+                              type="button"
+                              variant="outline-light"
+                              onClick={(e) => {
+                                e.preventDefault()
+                                if (selectedVideo.video_id === null)
+                                  return alert('Select Video')
+                                addVideo(playlist._id);
+                              }}
+                            >
+                              <AiOutlinePlus />
+                            </Button>
+                          </Form>
+                        </div>
                       </div>
-                    </div>
-                  ) : (
-                    <p>Loading..</p>
-                  )}
-                </>
-              );
-            })}
-        </ol>
+                    ) : (
+                      <p>Loading..</p>
+                    )}
+                  </>
+                );
+              })}
+          </ol>
+        </div >
+      </div >
+
+      <div >
+        <Image src={moon_image} alt="moon"></Image>
       </div>
-    </div>
+    </div >
   );
 };
 
 export default Playlists;
-

@@ -8,7 +8,7 @@ import {
   Image,
 } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
-import logo_image from "../images/logo7.png";
+import logo_image from "../images/moon2.png"; 
 import { useContext } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { UserContext } from '../context/UserContext'
@@ -53,7 +53,7 @@ const Navigation = () => {
 
   return (
     <>
-      <Navbar className={`navbar ${show && "navbar-dark"}`} expand="lg" sticky="top">
+      <Navbar className={`navbar ${show && "navbar-dark"}`} expand="lg"  sticky="top">
         <Navbar.Brand as={Link} to="/">
           <Image
             src={logo_image}
@@ -62,7 +62,7 @@ const Navigation = () => {
               maxHeight: "70px",
               width: "100px",
             }}
-          />
+          /> 
           {/* <span style={{ fontSize: '40px', fontFamily: 'cursive', color:'#0C7C43' }} >
                         Lullify
                     </span> */}
@@ -76,9 +76,9 @@ const Navigation = () => {
             custom
           >
             <option value=""></option>
-            <option value="english">EN</option>
-            <option value="deutsch">DE</option>
-            <option value="hindi">HI</option>
+            <option value="en">EN</option>
+            <option value="de">DE</option>
+            <option value="hi">HI</option>
           </Form.Control>
           <FormControl
             type="search"
@@ -86,7 +86,7 @@ const Navigation = () => {
             className="mr-2"
             aria-label="Search"
           />
-          <Button type="submit" variant="success">
+          <Button type="submit" variant="dark">
             <b>Search</b>
           </Button>
         </Form>
@@ -110,7 +110,7 @@ const Navigation = () => {
                 <NavDropdown
                   title="Register"
                   id="navbarScrollingDropdown"
-                  style={{ fontWeight: "bold", padding: "2px", margin: "0" }}
+                  style={{ fontWeight: "bold", padding: "2px", margin: "0", fontColor: "gray" }}
                 >
                   <NavDropdown.Item as={Link} to="/register/userRegister" style={{ padding: "10px", margin: "auto" }}>
                     User
@@ -136,7 +136,7 @@ const Navigation = () => {
                   </>
                 )}
                 {(decToken.role === "admin" || decToken.role === "content_creator" || decToken.role === "user") && (
-                  <>
+                  
                     <div style={{ padding: "10px", margin: "auto", display: "flex" }}>
                       <Navbar.Brand style={{ paddingRight: 0, marginRight: 0 }}>
                         <Image src={singleUserInfo.user_img_url} width="30px" height="30px" roundedCircle/>
@@ -147,11 +147,11 @@ const Navigation = () => {
                         id="navbarScrollingDropdown"
                         style={{fontWeight: "bold", margin: "0"}}
                       >
-                        <NavDropdown.Item as={Link} to="/profile" style={{ padding: "10px", margin: "auto" }}>Profile</NavDropdown.Item>
-                        <NavDropdown.Item onClick={logOut} style={{ padding: "10px", margin: "auto" }}>LogOut</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="/profile" style={{ padding: "10px" }}>Profile</NavDropdown.Item>
+                        <NavDropdown.Item onClick={logOut} style={{ padding: "10px" }}>LogOut</NavDropdown.Item>
                       </NavDropdown>
                     </div>
-                  </>
+                  
                 )}
               </>
             )}
