@@ -85,7 +85,7 @@ const Profile = () => {
   return (
     <div className="main-container">
       <div style={{ display: "flex", justifyContent: "center", width: "50%" }}>
-        <Card bg="light" style={{ flexGrow: "1", maxWidth: "30rem", textAlign: "left" }}>
+        <Card bg="light" style={{ flexGrow: "1", maxWidth: "30rem", height: "fit-content", textAlign: "left" }}>
           <Card.Body>
             <Form onSubmit={onSubmit}>
               <Form.Row>

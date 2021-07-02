@@ -8,13 +8,9 @@ const About = () => {
           <Col>
             <div style={{display: "flex", justifyContent: "center"}}>
             <div style={{marginBottom: "30px", width: "70%", color: "white"}}>
-              <h1 style={{fontFamily: "cursive"}}>Our work</h1>
+              <h1 style={{fontFamily: "cursive"}}>Our mission</h1>
               <p>
-                Your child can join Tintin as he travels the world, solves
-                mysteries and nabs crooks; your child can study at Hogwarts and
-                learn about life through the magical world of Harry Potter; your
-                child can go back in time and become an active participant at
-                Akbar’s court.
+                Lullify is for entertaining Children.
               </p>
             </div>
             </div>

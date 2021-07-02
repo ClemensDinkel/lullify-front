@@ -1,24 +1,20 @@
-import { useContext } from 'react';
-import Previews from './Previews'
-import Playlists from './Playlists'
-import TemporaryPlaylist from './TemporaryPlaylist'
+import { useContext } from "react";
+import Previews from "./Previews";
+import Playlists from "./Playlists";
+import TemporaryPlaylist from "./TemporaryPlaylist";
 import { UserContext } from "../context/UserContext";
-import '../App.css'
+import "../App.css";
 
 const Home = () => {
   const { dTk } = useContext(UserContext);
   const [decToken] = dTk;
 
   return (
-    <div className="main-container">
+    <div className="main-container home-container">
       <Previews />
-      {decToken && decToken.id ?
-        <Playlists /> :
-        <TemporaryPlaylist />
-      }
-
+      {decToken && decToken.id ? <Playlists /> : <TemporaryPlaylist />}
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

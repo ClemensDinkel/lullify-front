@@ -91,7 +91,6 @@ const Video = ({ video }) => {
   }
 
   return (
-    <>
       <div className="video-container">
         <Container>
           <Row>
@@ -173,7 +172,6 @@ const Video = ({ video }) => {
           </Row>
         </Container>
       </div>
-    </>
   );
 };
 
