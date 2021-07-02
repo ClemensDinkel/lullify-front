@@ -24,8 +24,8 @@ const EditVideo = () => {
           video_img_url: videoInfo.video_img_url,
           short_description: videoInfo.short_description,
           duration: videoInfo.duration,
-          languages: videoInfo.languages,
-          tags: videoInfo.tags,
+          languages: videoInfo.languages.join(", "),
+          tags: videoInfo.tags.join(", "),
           errors: {},
         });
       })
@@ -45,12 +45,9 @@ const EditVideo = () => {
 
   const updateVideo = (e) => {
     e.preventDefault();
-    console.log(getVideo)
     const sendVideo = {...getVideo}
-    console.log(sendVideo)
     sendVideo.languages = sendVideo.languages.replace(/ /g,'').split(",")
     sendVideo.tags = sendVideo.tags.replace(/ /g,'').split(",")
-    console.log(sendVideo)
     window.confirm("Do you want to update video information?") &&
     api
       .updateUploaderVideo(decToken.id, video_id, sendVideo)
