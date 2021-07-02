@@ -11,16 +11,16 @@ import {
 import { useHistory } from "react-router-dom";
 import { useState, useContext } from "react";
 import { UserContext } from "../context/UserContext";
+import { VideoContext } from "../context/VideoContext";
 import api from "../api";
 import { BsQuestionOctagonFill } from "react-icons/bs";
 import "../App.css";
 
-const AddContent = () => {
+const AddContent = ({setUploaderVideos}) => {
   let history = useHistory();
-
   const { dTk } = useContext(UserContext);
   const [decToken, setDecToken] = dTk;
-
+  const [videos, setVideos] = useContext(VideoContext)
   const [addVideo, setAddVideo] = useState({
     title: "",
     artist: "",
@@ -33,8 +33,6 @@ const AddContent = () => {
     tags: "",
     errors: {},
   });
-
-  console.log(addVideo);
 
   const onChange = (e) => {
     let keyName = e.target.name;
@@ -49,7 +47,7 @@ const AddContent = () => {
 
   const addNewVideo = (e) => {
     e.preventDefault();
-
+    console.log(addVideo.languages)
     const newVideo = {
       title: addVideo.title,
       artist: addVideo.artist,
@@ -58,16 +56,26 @@ const AddContent = () => {
       short_description: addVideo.short_description,
       duration: addVideo.duration,
       uploader_id: decToken.id,
-      languages: addVideo.languages.split(","),
-      tags: addVideo.tags.split(","),
+      languages: addVideo.languages.replace(/ /g,'').split(","),
+      tags: addVideo.tags.replace(/ /g,'').split(",")
     };
-
-    api.addVideos(newVideo).then(() => {
-      console.log(newVideo);
+    console.log(newVideo.languages)
+    api.addVideos(newVideo).then((res) => {
       alert("Video has been added");
-      setAddVideo("");
-      history.push("/creatorpanel");
-      window.location.reload();
+      setAddVideo({
+        title: "",
+        artist: "",
+        video_url: "",
+        video_img_url: "",
+        short_description: "",
+        duration: 0,
+        uploader_id: null,
+        languages: "",
+        tags: "",
+        errors: {},
+      });
+      setVideos(prev => [...prev, res.data])
+      setUploaderVideos(prev => [...prev, res.data])
     });
   };
 

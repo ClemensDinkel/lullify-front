@@ -9,19 +9,14 @@ const EditVideo = () => {
   const { video_id } = useParams();
   const { dTk } = useContext(UserContext);
   const [decToken] = dTk;
-
-  let history = useHistory();
-  console.log(video_id);
-
   const [getVideo, setGetVideo] = useState({});
+  let history = useHistory();
 
   useEffect(() => {
     api
       .getVideoById(video_id)
       .then((res) => {
-        console.log(res.data);
         const videoInfo = res.data[0];
-        console.log(videoInfo);
         setGetVideo({
           title: videoInfo.title,
           artist: videoInfo.artist,
@@ -29,8 +24,8 @@ const EditVideo = () => {
           video_img_url: videoInfo.video_img_url,
           short_description: videoInfo.short_description,
           duration: videoInfo.duration,
-          languages: videoInfo.languages,
-          tags: videoInfo.tags,
+          languages: videoInfo.languages.join(", "),
+          tags: videoInfo.tags.join(", "),
           errors: {},
         });
       })
@@ -50,9 +45,12 @@ const EditVideo = () => {
 
   const updateVideo = (e) => {
     e.preventDefault();
+    const sendVideo = {...getVideo}
+    sendVideo.languages = sendVideo.languages.replace(/ /g,'').split(",")
+    sendVideo.tags = sendVideo.tags.replace(/ /g,'').split(",")
     window.confirm("Do you want to update video information?") &&
     api
-      .updateUploaderVideo(decToken.id, video_id, getVideo)
+      .updateUploaderVideo(decToken.id, video_id, sendVideo)
       .then(() => {
         history.push(`/creatorpanel`);
       })

@@ -58,7 +58,6 @@ const CreatorRegister = () => {
     api
       .registerUser(newUser)
       .then(() => {
-        console.log(newUser);
         alert(
           "Successfully registered. Enjoy Lullify still Admin promotes you to Content Creator!"
         );

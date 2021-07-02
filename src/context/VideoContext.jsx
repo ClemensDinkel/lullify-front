@@ -7,12 +7,16 @@ export const VideoController = ({ children }) => {
   const [videos, setVideos] = useState([])
 
   useEffect(() => {
-    api.fetchVideos()
+    api.getVideos()
       .then(res => {
         setVideos(res.data)
       })
       .catch(err => console.log(err))
   },[])
+
+  useEffect(() => {
+    console.log(videos)
+  },[videos])
 
   return (
     <VideoContext.Provider value={[videos, setVideos]}>

@@ -3,8 +3,6 @@ import api from "../api"
 import '../App.css'
 
 const AdminRequestInspector = ({ inspectData, inspectType, setInspecting }) => {
-  console.log(inspectData)
-  console.log(inspectType)
   const { _id, req_date, user_id } = inspectData
   const goWayBack = () => setInspecting(false)
   const promoteUser = () => {

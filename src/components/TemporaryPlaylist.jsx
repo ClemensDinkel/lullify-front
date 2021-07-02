@@ -28,7 +28,6 @@ const TemporaryPlaylist = () => {
   }
   // update local storage as well
   useEffect(() => {
-    console.log(temporaryPlaylist)
     localStorage.setItem("lullifyPlaylist", JSON.stringify(temporaryPlaylist))
   }, [temporaryPlaylist])
 

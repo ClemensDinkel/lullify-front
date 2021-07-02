@@ -14,14 +14,13 @@ const getAccessToken = () => {
   return localStorage.getItem('auth-token');
 }
 
-// Function that will be called to refresh authorization
-const refreshAuthLogic = failedRequest => api.refreshUserToken()
+/* // Function that will be called to refresh authorization
+  const refreshAuthLogic = failedRequest =>  api.refreshUserToken()
   .then(tokenRefreshResponse => {
-    console.log(tokenRefreshResponse)
     localStorage.setItem('auth-token', tokenRefreshResponse.data.accessToken);
     failedRequest.response.config.headers['Authorization'] = `Bearer ${tokenRefreshResponse.data.token}`;
-    return Promise.resolve();
-  });
+    return Promise.resolve(); 
+  }); */
 
 // Interceptor to inject the access token to requests
 axios.interceptors.request.use(request => {

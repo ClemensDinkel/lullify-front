@@ -14,6 +14,7 @@ const AdminPanel = () => {
   const [inspecting, setInspecting] = useState(false);
   const [inspectData, setInspectData] = useState({})
   const [inspectType, setInspectType] = useState("")
+  
   return (
     
     <div className="admin-panel main-container" >

@@ -1,39 +1,13 @@
-import { useState, useEffect, useContext } from "react";
-import { UserContext } from "../context/UserContext";
+import { useContext } from "react";
 import api from "../api";
-import { useHistory } from "react-router-dom";
 import { MdDelete } from "react-icons/md";
 import { AiTwotoneEdit } from "react-icons/ai";
-import {
-  Form,
-  FormControl,
-  Button,
-  Image,
-  Alert,
-  Table,
-} from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { green } from "@material-ui/core/colors";
+import { VideoContext } from "../context/VideoContext";
 
-const ContentList = () => {
-  let history = useHistory();
-
-  const { dTk } = useContext(UserContext);
-  const [decToken, setDecToken] = dTk;
-  const [uploaderVideos, setUploaderVideos] = useState([]);
-
-  console.log(uploaderVideos);
-
-  useEffect(() => {
-    if (decToken && decToken.id) {
-      api
-        .getUploaderAllVideos(decToken.id)
-        .then((res) => {
-          setUploaderVideos(res.data);
-        })
-        .catch((err) => console.log(err));
-    }
-  }, [decToken]);
+const ContentList = ({ uploaderVideos, setUploaderVideos, decToken }) => {
+  const [videos, setVideos] = useContext(VideoContext)
 
   return (
     <div className="content-list">
@@ -42,9 +16,9 @@ const ContentList = () => {
         <Table striped bordered hover variant="light" size="sm" responsive>
           <thead>
             <tr>
-              <th style={{width: "80%"}}>Title</th>
-              <th style={{width: "10%"}}>Edit</th>
-              <th style={{width: "10%"}}>Delete</th>
+              <th style={{ width: "80%" }}>Title</th>
+              <th style={{ width: "10%" }}>Edit</th>
+              <th style={{ width: "10%" }}>Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -52,7 +26,7 @@ const ContentList = () => {
               uploaderVideos.map((uploaderVideo, index) => {
                 return (
                   <tr>
-                    <td style={{textAlign: "left"}}>{uploaderVideo.title}</td>
+                    <td style={{ textAlign: "left" }}>{uploaderVideo.title}</td>
                     <td>
                       <Link exact to={`/video/${uploaderVideo._id}`}>
                         <Button type="submit" variant="light">
@@ -64,17 +38,19 @@ const ContentList = () => {
                       <Button
                         type="submit"
                         variant="light"
-                        onClick={(e) => {
+                        onClick={() => {
                           window.confirm(
                             `Do you want to delete ${uploaderVideo.title}?`
                           ) &&
-                          api
-                            .deleteUploaderVideo(decToken.id, uploaderVideo._id)
-                            .then((res) => {
-                              window.location.reload();
-                              history.push(`/creator`);
-                            })
-                            .catch(err => alert(err.message))
+                            api
+                              .deleteUploaderVideo(decToken.id, uploaderVideo._id)
+                              .then(() => {
+                                setUploaderVideos(prev =>
+                                  prev.filter(video => video._id !== uploaderVideo._id))
+                                setVideos(prev =>
+                                  prev.filter(video => video._id !== uploaderVideo._id))
+                              })
+                              .catch(err => alert(err.message))
                         }}
                       >
                         <MdDelete />
@@ -91,34 +67,3 @@ const ContentList = () => {
 };
 
 export default ContentList;
-
-{
-  /* <Alert key={index} variant="secondary">
-                  <div style={{ display: "flex", textAlign: "left"}}>
-                    <div style={{width: "80%"}}>
-                    <p>{uploaderVideo.title}</p>
-                    </div>
-                    <div style={{width: "20%"}}>
-                    <Link exact to={`/video/${uploaderVideo._id}`}>
-                    <Button type="submit" variant="outline-secondary">
-                      <AiTwotoneEdit />
-                    </Button>
-                    </Link>
-                    <Button type="submit" variant="outline-secondary"
-                      onClick={(e) => {
-                        api.deleteUploaderVideo(decToken.id, uploaderVideo._id)
-                        .then((res) => {
-                          alert(
-                            `Do you want to delete ${uploaderVideo.title}?`
-                          );
-                          window.location.reload();
-                          history.push(`/creator`);
-                        });
-                      }}
-                    >
-                      <MdDelete />
-                    </Button>
-                    </div>
-                  </div>
-                </Alert> */
-}

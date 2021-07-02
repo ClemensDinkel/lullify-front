@@ -38,7 +38,6 @@ const Login = () => {
 
     api.loginUser(userLogin)
       .then(res => {
-        console.log(res.data)
         localStorage.setItem('auth-token', res.data.accessToken)
         setToken(res.data.accessToken)
         history.push(`/`)

@@ -13,7 +13,6 @@ const Previews = () => {
   const playPlaylist = () => {
     const autoPlay=[]
     videos.forEach(video => autoPlay.push(video._id))
-    console.log(autoPlay)
     setAutoPlaylist(autoPlay)
   }
 

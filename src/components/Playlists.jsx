@@ -8,7 +8,8 @@ import { UserContext } from "../context/UserContext";
 import { VideoContext } from "../context/VideoContext";
 import { PlaylistContext } from "../context/PlaylistContext";
 import { Link } from "react-router-dom";
-import moon_image from "../images/moon2.png";
+import moon_image from "../images/moon2.png"
+import { useHistory } from "react-router";
 
 const Playlists = () => {
   const { dTk } = useContext(UserContext);
@@ -28,7 +29,7 @@ const Playlists = () => {
     if (decToken && decToken.id) updatePlaylists();
   }, []);
 
-  // called on first mount and whenever new playlist is added or changed
+  // called on first mount
   const updatePlaylists = () => {
     api
       .getPlaylist(decToken.id)
@@ -38,8 +39,6 @@ const Playlists = () => {
       .catch((err) => console.log(err));
     setLoading(false);
   };
-
-  useEffect(() => console.log(displayedPlaylists), [displayedPlaylists]);
 
   // keeps track of a newPlalist's name and user_id
   const onChangeNewPlaylist = (e) => {
@@ -54,15 +53,21 @@ const Playlists = () => {
   // adds new playlist and gets new data afterwards
   const addPlaylist = (e) => {
     e.preventDefault();
-    api.createPlaylist(newPlaylist).then(() => {
-      setNewPlaylist({});
-      updatePlaylists();
-    });
-  };
+    api.createPlaylist(newPlaylist)
+      .then(res => {
+        setDisplayedPlaylists(prev => [...prev, res.data])
+        setNewPlaylist({})
+      })
+      .catch(err => console.log(err))
+  }
 
   const deletePlaylist = (playlist_id) => {
-    api.deletePlaylist(decToken.id, playlist_id).then(() => updatePlaylists());
-  };
+    api
+      .deletePlaylist(decToken.id, playlist_id)
+      .then(() =>
+        setDisplayedPlaylists(prev =>
+          prev.filter(playlist => playlist._id !== playlist_id)));
+  }
 
   // <<Playlist -- Videos>>
 
@@ -74,30 +79,33 @@ const Playlists = () => {
   };
 
   // add video to a playlist
-  const addVideo = (playlist_id) => {
-    console.log("adding...");
-    api
-      .addVideoToPlaylist(decToken.id, playlist_id, selectedVideo)
-      .then(() => updatePlaylists())
-      .catch((err) =>
-        alert("video can only be added once to the same playlist")
-      );
-  };
+  const addVideo = (playlist_id, playlistIndex) => {
+    api.addVideoToPlaylist(decToken.id, playlist_id, selectedVideo)
+      .then((res) => {
+        let newDP = [...displayedPlaylists]
+        newDP[playlistIndex] = res.data
+        setDisplayedPlaylists(newDP)
+      })
+      .catch(err => console.log(err))
+  }
 
-  const removeVideo = (playlist_id, video_id) => {
-    api
-      .removeVideoFromPlaylist(decToken.id, playlist_id, { video_id: video_id })
-      .then(() => updatePlaylists());
-  };
+  const removeVideo = (playlist_id, playlistIndex, video_id) => {
+    api.removeVideoFromPlaylist(decToken.id, playlist_id, { video_id: video_id })
+    .then((res) => {
+      let newDP = [...displayedPlaylists]
+      newDP[playlistIndex] = res.data
+      setDisplayedPlaylists(newDP)
+    })
+      .catch(err => console.log(err))
+  }
 
   // run the player with the selected video
   const playPlaylist = (index) => {
-    const autoPlay = displayedPlaylists[index].video_list;
-    let finalAutoPlay = [];
-    autoPlay.forEach((playlist) => finalAutoPlay.push(playlist._id));
-    console.log(finalAutoPlay);
-    setAutoPlaylist(finalAutoPlay);
-  };
+    const autoPlay = displayedPlaylists[index].video_list
+    let finalAutoPlay = []
+    autoPlay.forEach(playlist => finalAutoPlay.push(playlist._id))
+    setAutoPlaylist(finalAutoPlay)
+  }
 
   const playSingleVideo = (id) => setAutoPlaylist([id]);
 
@@ -233,12 +241,7 @@ const Playlists = () => {
                                       <Button
                                         type="button"
                                         variant="outline-light"
-                                        onClick={() => {
-                                          removeVideo(
-                                            playlist._id,
-                                            listVideo._id
-                                          );
-                                        }}
+                                        onClick={() => { removeVideo(playlist._id, playlistIndex, listVideo._id); }}
                                       >
                                         <MdDelete />
                                       </Button>
@@ -256,8 +259,8 @@ const Playlists = () => {
                               onClick={(e) => {
                                 e.preventDefault();
                                 if (selectedVideo.video_id === null)
-                                  return alert("Select Video");
-                                addVideo(playlist._id);
+                                  return alert('Select Video')
+                                addVideo(playlist._id, playlistIndex);
                               }}
                             >
                               <AiOutlinePlus />
