@@ -15,13 +15,16 @@ const getAccessToken = () => {
 }
 
 // Function that will be called to refresh authorization
-const refreshAuthLogic = failedRequest => api.refreshUserToken()
+const refreshAuthLogic = failedRequest => /* api.refreshUserToken()
   .then(tokenRefreshResponse => {
-    console.log(tokenRefreshResponse)
     localStorage.setItem('auth-token', tokenRefreshResponse.data.accessToken);
     failedRequest.response.config.headers['Authorization'] = `Bearer ${tokenRefreshResponse.data.token}`;
-    return Promise.resolve();
-  });
+    return Promise.resolve(); 
+  });*/
+  {
+    localStorage.removeItem("auth-token")
+    window.alert("Your token has expired, please login again")
+  }
 
 // Interceptor to inject the access token to requests
 axios.interceptors.request.use(request => {
@@ -45,10 +48,10 @@ axios.interceptors.response.use(response => {
   return response
 })
 
-/* // Instantiate the interceptor (you can chain it as it returns the axios instance)
+// Instantiate the interceptor (you can chain it as it returns the axios instance)
 createAuthRefreshInterceptor(axios, refreshAuthLogic, {
   statusCodes: [401, 403]
-}); */
+});
 
 ReactDOM.render(
   <React.StrictMode>
