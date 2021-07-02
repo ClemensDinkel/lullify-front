@@ -106,7 +106,6 @@ html {
   flex-direction: column;
   height: fit-content;
   flex-grow: 1;
-  border: 1px solid white;
 }
 
 .playlists {
