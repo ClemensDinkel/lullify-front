@@ -47,7 +47,7 @@ const AddContent = () => {
 
   const addNewVideo = (e) => {
     e.preventDefault();
-
+    console.log(addVideo.languages)
     const newVideo = {
       title: addVideo.title,
       artist: addVideo.artist,
@@ -56,15 +56,15 @@ const AddContent = () => {
       short_description: addVideo.short_description,
       duration: addVideo.duration,
       uploader_id: decToken.id,
-      languages: addVideo.languages.split(","),
-      tags: addVideo.tags.split(","),
+      languages: addVideo.languages.replace(/ /g,'').split(","),
+      tags: addVideo.tags.replace(/ /g,'').split(",")
     };
-
+    console.log(newVideo.languages)
     api.addVideos(newVideo).then(() => {
       alert("Video has been added");
       setAddVideo("");
       history.push("/creatorpanel");
-      window.location.reload();
+      /* window.location.reload(); */
     });
   };
 

@@ -9,7 +9,6 @@ import { UserContext } from "../context/UserContext";
 import { PlaylistContext } from "../context/PlaylistContext";
 import { useHistory } from "react-router";
 import marked from 'marked';
-import { CollectionsBookmarkTwoTone, SettingsInputSvideo } from "@material-ui/icons";
 
 const Video = ({ video, setVideo }) => {
 

@@ -45,9 +45,15 @@ const EditVideo = () => {
 
   const updateVideo = (e) => {
     e.preventDefault();
+    console.log(getVideo)
+    const sendVideo = {...getVideo}
+    console.log(sendVideo)
+    sendVideo.languages = sendVideo.languages.replace(/ /g,'').split(",")
+    sendVideo.tags = sendVideo.tags.replace(/ /g,'').split(",")
+    console.log(sendVideo)
     window.confirm("Do you want to update video information?") &&
     api
-      .updateUploaderVideo(decToken.id, video_id, getVideo)
+      .updateUploaderVideo(decToken.id, video_id, sendVideo)
       .then(() => {
         history.push(`/creatorpanel`);
       })
