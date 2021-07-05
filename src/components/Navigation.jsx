@@ -17,7 +17,7 @@ import { VideoContext } from "../context/VideoContext";
 import api from "../api";
 import "../App.css"
 
-const Navigation = () => {
+const Navigation = ({handlePageScroll}) => {
   const { tk, dTk, sUI } = useContext(UserContext)
   const [decToken, setDecToken] = dTk
   const [token, setToken] = tk
@@ -119,10 +119,10 @@ const Navigation = () => {
             style={{ maxHeight: "100px", marginRight: "15px", justifyContent: "space-around", flexWrap: "wrap" }}
             navbarScroll
           >
-            <Nav.Link as={Link} to="/" style={{ padding: "10px", margin: "auto" }}>
+            <Nav.Link as={Link} to="/" style={{ padding: "10px", margin: "auto" }} onClick={handlePageScroll}>
               <b>Home</b>
             </Nav.Link>
-            <Nav.Link as={Link} to="/about" style={{ padding: "10px", margin: "auto" }}>
+            <Nav.Link as={Link} to="/about" style={{ padding: "10px", margin: "auto" }} onClick={handlePageScroll}>
               <b>About Us</b>
             </Nav.Link>
 
@@ -133,14 +133,14 @@ const Navigation = () => {
                   id="navbarScrollingDropdown"
                   style={{ fontWeight: "bold", padding: "2px", margin: "0", fontColor: "gray" }}
                 >
-                  <NavDropdown.Item as={Link} to="/register/userRegister" style={{ padding: "10px", margin: "auto" }}>
+                  <NavDropdown.Item as={Link} to="/register/userRegister" style={{ padding: "10px", margin: "auto" }} onClick={handlePageScroll}>
                     User
                   </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="/register/creatorRegister" style={{ padding: "10px", margin: "auto" }}>
+                  <NavDropdown.Item as={Link} to="/register/creatorRegister" style={{ padding: "10px", margin: "auto" }} onClick={handlePageScroll}>
                     Content Creator
                   </NavDropdown.Item>
                 </NavDropdown>
-                <Nav.Link as={Link} to="/login" style={{ padding: "10px", margin: "auto" }}>
+                <Nav.Link as={Link} to="/login" style={{ padding: "10px", margin: "auto" }} onClick={handlePageScroll}>
                   <b>Login</b>
                 </Nav.Link>
               </>
@@ -148,12 +148,12 @@ const Navigation = () => {
               <>
                 {(decToken.role === "admin" || decToken.role === "content_creator") && (
                   <>
-                    <Nav.Link as={Link} to="/creatorpanel" style={{ padding: "10px", margin: "auto" }}><b>CreatorPanel</b></Nav.Link>
+                    <Nav.Link as={Link} to="/creatorpanel" style={{ padding: "10px", margin: "auto" }} onClick={handlePageScroll}><b>CreatorPanel</b></Nav.Link>
                   </>
                 )}
                 {decToken.role === "admin" && (
                   <>
-                    <Nav.Link as={Link} to="/adminpanel" style={{ padding: "10px", margin: "auto" }}><b>AdminPanel</b></Nav.Link>
+                    <Nav.Link as={Link} to="/adminpanel" style={{ padding: "10px", margin: "auto" }} onClick={handlePageScroll}><b>AdminPanel</b></Nav.Link>
                   </>
                 )}
                 {(decToken.role === "admin" || decToken.role === "content_creator" || decToken.role === "user") && (
@@ -168,7 +168,7 @@ const Navigation = () => {
                       id="navbarScrollingDropdown"
                       style={{ fontWeight: "bold", margin: "0" }}
                     >
-                      <NavDropdown.Item as={Link} to="/profile" style={{ padding: "10px" }}>Profile</NavDropdown.Item>
+                      <NavDropdown.Item as={Link} to="/profile" style={{ padding: "10px" }} onClick={handlePageScroll}>Profile</NavDropdown.Item>
                       <NavDropdown.Item onClick={logOut} style={{ padding: "10px" }}>LogOut</NavDropdown.Item>
                     </NavDropdown>
                   </div>

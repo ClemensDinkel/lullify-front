@@ -1,6 +1,6 @@
 import axios from "axios";
-const root = "http://localhost:3001";
-// const root = "https://tranquil-reaches-12289.herokuapp.com";
+//const root = "http://localhost:3001";
+const root = "https://tranquil-reaches-12289.herokuapp.com";
 
 const api = {
   loginUser: async (user) => {
@@ -93,10 +93,12 @@ const api = {
   },
 
   getVideos: async (lang, filter) => {
-    return await axios.get(`${root}/videos`, {params: {
-      lang: lang,
-      filter: filter
-    }});
+    return await axios.get(`${root}/videos`, {
+      params: {
+        lang: lang,
+        filter: filter,
+      },
+    });
   },
 
   getVideoById: async (video_id) => {

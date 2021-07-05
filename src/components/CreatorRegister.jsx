@@ -69,31 +69,18 @@ const CreatorRegister = () => {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        width: "100%",
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          width: "50%",
-          marginTop: "10rem",
-        }}
-      >
+    <div className= "registration-container">
+      <div className="registration-info">
         <div style={{ marginBottom: "30px", color: "white" }}>
           <h1 style={{ fontFamily: "cursive" }}>Lullify</h1>
           <p>
-            Register yourself to enjoy more functionaliy in lullify. Admin will
+            Register yourself to enjoy more functionaliy in lullify.<br /> Admin will
             contact you and promote you after checking all information
           </p>
         </div>
       </div>
-      <div style={{ display: "flex", justifyContent: "center", width: "50%" }}>
-        <Card style={{ flexGrow: "1", maxWidth: "30rem", height: "fit-content", textAlign: "left" }}>
+      <div className="registration-creator">
+        <Card style={{ flexGrow: "1", maxWidth: "30rem", minWidth: "25rem", height: "fit-content", textAlign: "left" }}>
           <Card.Body>
             <Form onSubmit={onSubmit}>
               <Form.Label>

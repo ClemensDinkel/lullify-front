@@ -53,23 +53,18 @@ const UserRegister = () => {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        width: "100%",
-      }}
+    <div className= "registration-container"
     >
-      <div style={{ display: "flex", justifyContent: "center", width: "50%", marginTop: "10rem" }}>
-        <div style={{ marginBottom: "30px", color: "white" }}>
+      <div className="registration-info">
+        <div style={{ color: "white" }}>
           <h1 style={{ fontFamily: "cursive" }}>Lullify</h1>
           <p>Register yourself to enjoy more functionaliy in lullify.</p>
         </div>
       </div>
-      <div style={{ display: "flex", justifyContent: "center", width: "50%" }}>
+      <div className="registration-info">
         <Card
           bg="light"
-          style={{ flexGrow: "1", maxWidth: "30rem", height: "fit-content", textAlign: "left" }}
+          style={{ flexGrow: "1", maxWidth: "50rem", height: "fit-content", textAlign: "left" }}
         >
           <Card.Body>
             <Form onSubmit={onSubmit}>

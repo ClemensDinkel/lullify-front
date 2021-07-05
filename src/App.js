@@ -6,7 +6,11 @@ import { VideoController } from "./context/VideoContext";
 import { UserController } from "./context/UserContext";
 import { PlaylistController } from "./context/PlaylistContext";
 import { QueryController } from "./context/QueryContext";
+
 const App = () => {
+  const handlePageScroll = () => {
+    window.scrollTo(0, 0);
+  };
 
   return (
     <div className="App">
@@ -14,7 +18,7 @@ const App = () => {
         <UserController>
           <PlaylistController>
             <QueryController>
-              <Navigation />
+              <Navigation handlePageScroll={handlePageScroll} />
               <LullifyRouter />
               <Footer />
             </QueryController>

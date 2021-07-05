@@ -59,10 +59,10 @@ const TemporaryPlaylist = () => {
             {temporaryPlaylist.map(
               (listVideo, listVideoIndex) => {
                 return (
-                  <li key={listVideoIndex} style={{ color: "white" }} onClick={() => playSingleVideo(listVideo._id)}>
-                    <Link to={`/player/${listVideo._id}`}>
-                      <p style={{ color: "white" }}>{listVideo.title}</p>
-                    </Link>
+                  <li key={listVideoIndex} style={{ color: "antiquewhite" }} onClick={() => playSingleVideo(listVideo._id)}>
+                    <Nav.Link to={`/player/${listVideo._id}`}>
+                      <h6 style={{ color: "antiquewhite" }}>{listVideo.title}</h6>
+                    </Nav.Link>
                   </li>
                 );
               }
@@ -70,6 +70,7 @@ const TemporaryPlaylist = () => {
           </ul>
         </div>
         <div>
+        <Form className="d-flex">
           <Form.Control
             as="select"
             className="my-1 mr-sm-2"
@@ -89,7 +90,7 @@ const TemporaryPlaylist = () => {
                 );
               })}
           </Form.Control>
-          <Form className="d-flex">
+          
             <Button
               type="button"
               variant="outline-light"

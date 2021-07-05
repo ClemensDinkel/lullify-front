@@ -112,8 +112,8 @@ const Video = ({ video, setVideo }) => {
                 <div
                   style={{ display: "flex", justifyContent: "space-between" }}
                 >
-                  <div>
-                    <h3>{video[0].title}</h3>
+                  <div style={{ color: "antiquewhite" }}>
+                    <h3 style={{ fontFamily: "cursive" }}>{video[0].title}</h3>
                     <p>{video[0].artist}</p>
                   </div>
                   <div>
@@ -156,12 +156,12 @@ const Video = ({ video, setVideo }) => {
                 </div>
                 <div>
                   {readMore ? (
-                    <div style={{ backgroundColor: "rgba(0,0,0,0.2)" }}>
-                      <h6>
+                    <div style={{ backgroundColor: "rgba(0,0,0,0.4)" }}>
+                      <h6 >
                         Duration: {secToMinConverter(video[0].duration)} mins
                       </h6>
-                      <h6>Description:</h6>
-                      <section dangerouslySetInnerHTML={{ __html: marked(video[0].short_description) }} />
+                      <h6 >Description:</h6>
+                      <section  dangerouslySetInnerHTML={{ __html: marked(video[0].short_description) }} />
                     </div>
                   ) : null}
                 </div>

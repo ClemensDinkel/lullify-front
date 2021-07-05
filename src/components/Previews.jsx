@@ -26,9 +26,9 @@ const Previews = () => {
                 <Link to={`/player/${video._id}`}>
                   <img variant="top" src={video.video_img_url} height="140px" width="100%" />
                 </Link>
-                <Card.Body style={{textAlign: "left", fontFamily: "cursive"}}>
-                  <Card.Title>{video.title}</Card.Title>
-                  <Card.Text>{video.artist}</Card.Text>
+                <Card.Body style={{textAlign: "left"}}>
+                  <Card.Title style={{fontFamily: "cursive"}}>{video.title}</Card.Title>
+                  <Card.Text >{video.artist}</Card.Text>
                 </Card.Body>
               </Card>
             </div>

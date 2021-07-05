@@ -27,7 +27,7 @@ html {
 .footer {
   display: flex;
   justify-content: space-between;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.9);
   color: white;
   margin-top: 2rem;
 }
@@ -107,11 +107,13 @@ html {
   flex-direction: column;
   height: fit-content;
   flex-grow: 1;
-  /* margin-left: 3rem; */
+  margin-right: 2rem;
+  margin-left: 2rem;
 }
 
 .playlists {
   display: flex;
+  justify-content: center;
   flex-direction: column;
   flex-grow: 4;
   width: 100%;
@@ -155,13 +157,42 @@ html {
   flex-wrap: wrap;
   width: 100%;
   padding: 10px;
-  margin: 0; 
+  margin: 0;
 }
 
 .content-list {
+  flex-grow: 1;
   display: block;
+  margin-left: 2rem;
+  overflow: auto;
+  height: 100vh;
 }
 
 .add-content {
-  display: block
+  display: block;
+  flex-grow: 1;
+  overflow: auto;
+  height: 100vh;
+}
+
+.registration-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 10px;
+}
+
+.registration-info {
+  display: block;
+  margin: auto;
+  flex-grow: 1;
+}
+
+.registration-creator {
+  display: block;
+  margin: auto;
+  flex-grow: 1;
+  overflow: auto;
+  height: 100vh;
 }
