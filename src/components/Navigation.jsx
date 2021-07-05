@@ -46,7 +46,7 @@ const Navigation = () => {
 
   const logOut = (e) => {
     e.preventDefault();
-    window.confirm(`${decToken.user_name}, Do you want to logged out?`) &&
+    window.confirm(`${decToken.user_name}, Do you want to log out?`) &&
       api.logoutUser()
         .then(() => {
           localStorage.clear();
@@ -57,7 +57,7 @@ const Navigation = () => {
         .catch(err => console.log(err))
   };
 
-  const updateVideos = (e) => {
+  const update = (e) => {
     e.preventDefault();
     api.getVideos(lang, filter)
       .then(res => {
@@ -84,7 +84,7 @@ const Navigation = () => {
                     </span> */}
         </Navbar.Brand>
 
-        <Form className="d-flex justify-content-space-between" onSubmit={updateVideos}>
+        <Form className="d-flex justify-content-space-between" onSubmit={update}>
           <Form.Control
             as="select"
             className="my-1 mr-sm-2"

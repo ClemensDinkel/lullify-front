@@ -10,9 +10,9 @@ export const QueryController = ({ children }) => {
   /* useEffect(() => {
     console.log(filter)
   }, [filter]) */
-  useEffect(() => {
+  /* useEffect(() => {
     console.log(lang)
-  }, [lang])
+  }, [lang]) */
 
   return (
     <QueryContext.Provider value={{ ft: [filter, setFilter], lg: [lang, setLang] }}>

@@ -6,9 +6,9 @@ export const PlaylistContext = createContext()
 export const PlaylistController = ({ children }) => {
   const [autoPlaylist, setAutoPlaylist] = useState([])
 
-  useEffect(() => {
+  /* useEffect(() => {
     console.log(autoPlaylist)
-  },[autoPlaylist])
+  },[autoPlaylist]) */
 
   return (
     <PlaylistContext.Provider value={[autoPlaylist, setAutoPlaylist]}>

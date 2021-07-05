@@ -91,11 +91,11 @@ const Playlists = () => {
 
   const removeVideo = (playlist_id, playlistIndex, video_id) => {
     api.removeVideoFromPlaylist(decToken.id, playlist_id, { video_id: video_id })
-    .then((res) => {
-      let newDP = [...displayedPlaylists]
-      newDP[playlistIndex] = res.data
-      setDisplayedPlaylists(newDP)
-    })
+      .then((res) => {
+        let newDP = [...displayedPlaylists]
+        newDP[playlistIndex] = res.data
+        setDisplayedPlaylists(newDP)
+      })
       .catch(err => console.log(err))
   }
 
@@ -167,21 +167,20 @@ const Playlists = () => {
                           style={{
                             display: "flex",
                             justifyContent: "space-between",
-                            flexWrap: "wrap",
+                            width: "100%"
                           }}
                         >
                           <li
                             key={playlistIndex}
-                            style={{ cursor: "pointer", color: "antiquewhite" }}
+                            style={{ cursor: "pointer", color: "antiquewhite", height: "10px", width: "80%" }}
                             onClick={() => playPlaylist(playlistIndex)}
                           >
                             <Nav.Link
                               as={Link}
-                              to={`/player/${
-                                playlist.video_list.length > 0
-                                  ? playlist.video_list[0]._id
-                                  : ""
-                              }`}
+                              to={`/player/${playlist.video_list.length > 0
+                                ? playlist.video_list[0]._id
+                                : ""
+                                }`}
                             >
                               <h5
                                 style={{
@@ -195,6 +194,7 @@ const Playlists = () => {
                           </li>
                           <Button
                             type="button"
+                            style={{ maxHeight: "40px" }}
                             variant="outline-light"
                             onClick={(e) => {
                               window.confirm(
@@ -215,7 +215,7 @@ const Playlists = () => {
                                       style={{
                                         display: "flex",
                                         justifyContent: "space-between",
-                                        flexWrap: "wrap",
+                                        width: "100%"
                                       }}
                                     >
                                       <li
@@ -223,7 +223,8 @@ const Playlists = () => {
                                         style={{
                                           color: "antiquewhite",
                                           display: "flex",
-                                          flexDirection: "row",
+                                          flexWrap: "wrap",
+                                          width: "80%"
                                         }}
                                         onClick={() =>
                                           playSingleVideo(listVideo._id)
@@ -240,6 +241,7 @@ const Playlists = () => {
                                       </li>
                                       <Button
                                         type="button"
+                                        style={{ maxHeight: "40px" }}
                                         variant="outline-light"
                                         onClick={() => { removeVideo(playlist._id, playlistIndex, listVideo._id); }}
                                       >

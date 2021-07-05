@@ -11,7 +11,7 @@ const ContentList = ({ uploaderVideos, setUploaderVideos, decToken }) => {
 
   return (
     <div className="content-list">
-      <h3 style={{fontFamily: "cursive", color:"white"}}>Content List</h3>
+      <h3 style={{ fontFamily: "cursive", color: "white" }}>Content List</h3>
       <div style={{ margin: ".4rem" }}>
         <Table striped bordered hover variant="light" size="sm" responsive>
           <thead>

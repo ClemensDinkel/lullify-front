@@ -82,10 +82,11 @@ html {
   display: flex;
   flex-wrap: wrap;
   width: 60%;
-  height: 130vh;
+  max-height: 130vh;
   overflow: auto;
   padding: 10px;
   justify-content: center;
+  align-content: flex-start;
   flex-grow: 4;
   margin: 0;
 }
@@ -113,7 +114,7 @@ html {
   display: flex;
   flex-direction: column;
   flex-grow: 4;
-  width: 80%;
+  width: 100%;
   margin-right: 0rem;
 }
 
@@ -154,13 +155,13 @@ html {
   flex-wrap: wrap;
   width: 100%;
   padding: 10px;
-  margin: 0;
+  margin: 0; 
 }
 
 .content-list {
-  max-width: 40%;
+  display: block;
 }
 
 .add-content {
-  max-width: 60%;
+  display: block
 }

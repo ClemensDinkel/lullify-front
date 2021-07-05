@@ -83,13 +83,13 @@ const AddContent = ({ setUploaderVideos }) => {
     <div className="add-content">
       <h3 style={{ fontFamily: "cursive", color: "white" }}>Add Content</h3>
       <div
-        style={{ display: "flex", justifyContent: "center", maxWidth: "100%", margin: ".4rem" }}
+        style={{ display: "flex", justifyContent: "center", width: "100%", margin: ".4rem" }}
       >
         <Card
           bg="light"
           style={{
             flexGrow: "1",
-            width: "100%",
+            maxWidth: "30rem",
             height: "fit-content",
             textAlign: "left",
           }}
