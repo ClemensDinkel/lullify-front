@@ -3,7 +3,7 @@ import { UserContext } from "../context/UserContext";
 import { useHistory } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import api from "../api";
-import { Form, Button, Card, Col } from "react-bootstrap";
+import { Form, Button, Card, Col, OverlayTrigger, Tooltip } from "react-bootstrap";
 
 const EditVideo = () => {
   const { video_id } = useParams();
@@ -25,7 +25,7 @@ const EditVideo = () => {
           short_description: videoInfo.short_description,
           duration: videoInfo.duration,
           languages: videoInfo.languages.join(", "),
-          tags: videoInfo.tags.join(", "),
+          tags: videoInfo.tags,
           errors: {},
         });
       })
@@ -45,21 +45,21 @@ const EditVideo = () => {
 
   const updateVideo = (e) => {
     e.preventDefault();
-    const sendVideo = {...getVideo}
-    sendVideo.languages = sendVideo.languages.replace(/ /g,'').split(",")
-    sendVideo.tags = sendVideo.tags.replace(/ /g,'').split(",")
+    const sendVideo = { ...getVideo }
+    sendVideo.languages = sendVideo.languages.replace(/ /g, '').split(",")
+    /* sendVideo.tags = sendVideo.tags.replace(/ /g,'').split(",") */
     window.confirm("Do you want to update video information?") &&
-    api
-      .updateUploaderVideo(decToken.id, video_id, sendVideo)
-      .then(() => {
-        history.push(`/creatorpanel`);
-      })
-      .catch(err => alert(err.message))
+      api
+        .updateUploaderVideo(decToken.id, video_id, sendVideo)
+        .then(() => {
+          history.push(`/creatorpanel`);
+        })
+        .catch(err => alert(err.message))
   };
 
   return (
     <div className="main-container">
-      <div style={{ display: "flex", justifyContent: "center", width:"50%" }}>
+      <div style={{ display: "flex", justifyContent: "center", width: "50%" }}>
         <Card
           bg="light"
           style={{ flexGrow: "1", mixWidth: "30rem", textAlign: "left" }}
@@ -77,6 +77,7 @@ const EditVideo = () => {
                     name="title"
                     value={getVideo ? getVideo.title : ""}
                     onChange={onChange}
+                    maxLength="50"
                     required
                   />
                 </Form.Group>
@@ -92,6 +93,7 @@ const EditVideo = () => {
                     name="artist"
                     value={getVideo ? getVideo.artist : ""}
                     onChange={onChange}
+                    maxLength="20"
                     required
                   />
                 </Form.Group>
@@ -147,14 +149,25 @@ const EditVideo = () => {
                   <Form.Label>
                     <b>Video Duration</b>
                   </Form.Label>
-                  <Form.Control
-                    type="number"
-                    placeholder="Enter duration in secs"
-                    name="duration"
-                    value={getVideo ? getVideo.duration : ""}
-                    onChange={onChange}
-                    required
-                  />
+                  <OverlayTrigger
+                    key="top"
+                    placement="top"
+                    delay={{ show: 250, hide: 400 }}
+                    overlay={
+                      <Tooltip id="tooltip-top">
+                        Enter duration in seconds
+                      </Tooltip>
+                    }
+                  >
+                    <Form.Control
+                      type="number"
+                      placeholder="Enter duration in secs"
+                      name="duration"
+                      value={getVideo ? getVideo.duration : ""}
+                      onChange={onChange}
+                      required
+                    />
+                  </OverlayTrigger>
                 </Form.Group>
               </Form.Row>
               <Form.Row>
@@ -162,13 +175,25 @@ const EditVideo = () => {
                   <Form.Label>
                     <b>Languages</b>
                   </Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="English, German, Hindi etc.."
-                    name="languages"
-                    value={getVideo ? getVideo.languages : ""}
-                    onChange={onChange}
-                  />
+                  <OverlayTrigger
+                    key="top"
+                    placement="top"
+                    delay={{ show: 250, hide: 400 }}
+                    overlay={
+                      <Tooltip id="tooltip-top">
+                        Enter languages code by separating each of them with
+                        comma ',' . For code use the hint.
+                      </Tooltip>
+                    }
+                  >
+                    <Form.Control
+                      type="text"
+                      placeholder="EN, DE, HI etc.."
+                      name="languages"
+                      value={getVideo ? getVideo.languages : ""}
+                      onChange={onChange}
+                    />
+                  </OverlayTrigger>
                 </Form.Group>
               </Form.Row>
               <Form.Row>
@@ -176,13 +201,25 @@ const EditVideo = () => {
                   <Form.Label>
                     <b>Videos Tags</b>
                   </Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Kinder, Children, Fun etc.."
-                    name="tags"
-                    value={getVideo ? getVideo.tags : ""}
-                    onChange={onChange}
-                  />
+                  <OverlayTrigger
+                    key="top"
+                    placement="top"
+                    delay={{ show: 250, hide: 400 }}
+                    overlay={
+                      <Tooltip id="tooltip-top">
+                        Enter tags by separating each of them with comma ',' or whitespace.
+                      </Tooltip>
+                    }
+                  >
+                    <Form.Control
+                      type="text"
+                      placeholder="Kinder, Children, Fun etc.."
+                      name="tags"
+                      value={getVideo ? getVideo.tags : ""}
+                      onChange={onChange}
+                      maxLength="40"
+                    />
+                  </OverlayTrigger>
                 </Form.Group>
               </Form.Row>
               <Form.Row

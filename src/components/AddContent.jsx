@@ -16,7 +16,7 @@ import api from "../api";
 import { BsQuestionOctagonFill } from "react-icons/bs";
 import "../App.css";
 
-const AddContent = ({setUploaderVideos}) => {
+const AddContent = ({ setUploaderVideos }) => {
   let history = useHistory();
   const { dTk } = useContext(UserContext);
   const [decToken, setDecToken] = dTk;
@@ -56,8 +56,8 @@ const AddContent = ({setUploaderVideos}) => {
       short_description: addVideo.short_description,
       duration: addVideo.duration,
       uploader_id: decToken.id,
-      languages: addVideo.languages.replace(/ /g,'').split(","),
-      tags: addVideo.tags.replace(/ /g,'').split(",")
+      languages: addVideo.languages.replace(/ /g, '').split(","),
+      tags: addVideo.tags.replace(/ /g, '')
     };
     console.log(newVideo.languages)
     api.addVideos(newVideo).then((res) => {
@@ -89,7 +89,7 @@ const AddContent = ({setUploaderVideos}) => {
       }}
     >
       <div>
-        <h3 style={{fontFamily: "cursive", color:"white"}}>Add Content</h3>
+        <h3 style={{ fontFamily: "cursive", color: "white" }}>Add Content</h3>
       </div>
       <div
         style={{ display: "flex", justifyContent: "center", margin: ".4rem" }}
@@ -115,6 +115,7 @@ const AddContent = ({setUploaderVideos}) => {
                     name="title"
                     value={addVideo.title}
                     onChange={onChange}
+                    maxLength="40"
                     required
                   />
                 </Form.Group>
@@ -193,23 +194,23 @@ const AddContent = ({setUploaderVideos}) => {
                     <span style={{ color: "red" }}>*</span>
                   </Form.Label>
                   <OverlayTrigger
-                      key="top"
-                      placement="top"
-                      delay={{ show: 250, hide: 400 }}
-                      overlay={
-                        <Tooltip id="tooltip-top">
-                          Enter duration in seconds
-                        </Tooltip>
-                      }
-                    >
-                  <Form.Control
-                    type="number"
-                    placeholder="Enter duration in secs"
-                    name="duration"
-                    value={addVideo.duration}
-                    onChange={onChange}
-                    required
-                  />
+                    key="top"
+                    placement="top"
+                    delay={{ show: 250, hide: 400 }}
+                    overlay={
+                      <Tooltip id="tooltip-top">
+                        Enter duration in seconds
+                      </Tooltip>
+                    }
+                  >
+                    <Form.Control
+                      type="number"
+                      placeholder="Enter duration in secs"
+                      name="duration"
+                      value={addVideo.duration}
+                      onChange={onChange}
+                      required
+                    />
                   </OverlayTrigger>
                 </Form.Group>
               </Form.Row>
@@ -262,7 +263,7 @@ const AddContent = ({setUploaderVideos}) => {
                     delay={{ show: 250, hide: 400 }}
                     overlay={
                       <Tooltip id="tooltip-top">
-                        Enter tags by separating each of them with comma ','.
+                        Enter tags by separating each of them with comma ',' or whitespace.
                       </Tooltip>
                     }
                   >
@@ -272,6 +273,7 @@ const AddContent = ({setUploaderVideos}) => {
                       name="tags"
                       value={addVideo.tags}
                       onChange={onChange}
+                      maxLength="40"
                     />
                   </OverlayTrigger>
                 </Form.Group>
