@@ -59,7 +59,8 @@ const Navigation = () => {
             style={{
               display: "inline-block",
               maxHeight: "70px",
-              width: "100px",
+              maxWidth: "100px",
+              paddingLeft: "10px"
             }}
           />
           {/* <span style={{ fontSize: '40px', fontFamily: 'cursive', color:'#0C7C43' }} >
