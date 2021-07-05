@@ -172,7 +172,7 @@ const Playlists = () => {
                         >
                           <li
                             key={playlistIndex}
-                            style={{ cursor: "pointer", color: "antiquewhite", height: "10px", width: "80%" }}
+                            style={{ cursor: "pointer", color: "antiquewhite", height: "10px", width: "80%", textAlign: "left" }}
                             onClick={() => playPlaylist(playlistIndex)}
                           >
                             <Nav.Link
@@ -224,7 +224,8 @@ const Playlists = () => {
                                           color: "antiquewhite",
                                           display: "flex",
                                           flexWrap: "wrap",
-                                          width: "80%"
+                                          width: "80%",
+                                          textAlign: "left"
                                         }}
                                         onClick={() =>
                                           playSingleVideo(listVideo._id)
