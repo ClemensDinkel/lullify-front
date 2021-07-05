@@ -89,7 +89,6 @@ const Video = ({ video, setVideo }) => {
   }
 
   return (
-    <>
       <div className="video-container">
         <Container>
           <Row>
@@ -171,7 +170,6 @@ const Video = ({ video, setVideo }) => {
           </Row>
         </Container>
       </div>
-    </>
   );
 };
 

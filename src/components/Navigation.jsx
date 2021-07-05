@@ -52,7 +52,7 @@ const Navigation = () => {
 
   return (
     <>
-      <Navbar className={`navbar ${show && "navbar-dark"}`} expand="lg" sticky="top">
+      <Navbar className={`navbar ${show && "navbar-scroll"}`} expand="lg" sticky="top">
         <Navbar.Brand as={Link} to="/">
           <Image
             src={logo_image}

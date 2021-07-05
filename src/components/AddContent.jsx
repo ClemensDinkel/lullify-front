@@ -6,7 +6,7 @@ import {
   Col,
   InputGroup,
   OverlayTrigger,
-  Tooltip
+  Tooltip,
 } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { useState, useContext } from "react";
@@ -80,23 +80,19 @@ const AddContent = ({ setUploaderVideos }) => {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        flexDirection: "column",
-        width: "50%",
-      }}
-    >
-      <div>
-        <h3 style={{ fontFamily: "cursive", color: "white" }}>Add Content</h3>
-      </div>
+    <div className="add-content">
+      <h3 style={{ fontFamily: "cursive", color: "white" }}>Add Content</h3>
       <div
-        style={{ display: "flex", justifyContent: "center", margin: ".4rem" }}
+        style={{ display: "flex", justifyContent: "center", maxWidth: "100%", margin: ".4rem" }}
       >
         <Card
           bg="light"
-          style={{ flexGrow: "1", maxWidth: "50rem", textAlign: "left" }}
+          style={{
+            flexGrow: "1",
+            width: "100%",
+            height: "fit-content",
+            textAlign: "left",
+          }}
         >
           <Card.Body>
             <Form onSubmit={addNewVideo}>

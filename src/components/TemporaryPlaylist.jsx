@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { Form, FormControl, Button, Image } from "react-bootstrap";
+import { Form, FormControl, Button, Image, Nav } from "react-bootstrap";
 import { AiOutlinePlus } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
@@ -47,12 +47,12 @@ const TemporaryPlaylist = () => {
   const playSingleVideo = (id) => setAutoPlaylist([id])
 
   return (
-    <div>
-      <div>
+    <div className="playlists-container">
+      <div className="playlists">
         <h2 style={{ cursor: "pointer" }} onClick={playPlaylist}>
-          <Link to={`/player/${temporaryPlaylist.length > 0 ? temporaryPlaylist[0]._id : ""}`}>
+          <Nav.Link as={Link} to={`/player/${temporaryPlaylist.length > 0 ? temporaryPlaylist[0]._id : ""}`}>
             <p style={{ fontFamily: "cursive", color: "yellow" }}>Temporary Playlist</p>
-          </Link>
+          </Nav.Link>
         </h2>
         <div style={{ textAlign: "left" }}>
           <ul>
@@ -101,7 +101,7 @@ const TemporaryPlaylist = () => {
         </div>
       </div>
 
-      <div >
+      <div className="moon-image">
         <Image src={moon_image} alt="moon"></Image>
       </div>
     </div>

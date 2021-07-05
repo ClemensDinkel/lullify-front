@@ -1,4 +1,4 @@
-import { Form, FormControl, Button, Col, Image } from "react-bootstrap";
+import { Form, FormControl, Button, Col, Image, Nav } from "react-bootstrap";
 import api from "../api";
 import { AiOutlinePlus } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
@@ -16,7 +16,7 @@ const Playlists = () => {
   const [decToken] = dTk;
   const [videos] = useContext(VideoContext);
   const [loading, setLoading] = useState(true);
-  const [autoPlaylist, setAutoPlaylist] = useContext(PlaylistContext)
+  const [autoPlaylist, setAutoPlaylist] = useContext(PlaylistContext);
   const [selectedVideo, setSelectedVideo] = useState({ video_id: null });
   const [displayedPlaylists, setDisplayedPlaylists] = useState([]);
   const [newPlaylist, setNewPlaylist] = useState({
@@ -26,7 +26,7 @@ const Playlists = () => {
 
   // get playlists on first mount
   useEffect(() => {
-    if (decToken && decToken.id) updatePlaylists()
+    if (decToken && decToken.id) updatePlaylists();
   }, []);
 
   // called on first mount
@@ -38,7 +38,7 @@ const Playlists = () => {
       })
       .catch((err) => console.log(err));
     setLoading(false);
-  }
+  };
 
   // keeps track of a newPlalist's name and user_id
   const onChangeNewPlaylist = (e) => {
@@ -46,7 +46,7 @@ const Playlists = () => {
     let value = e.target.value;
     setNewPlaylist({
       [keyName]: value,
-      user_id: decToken.id
+      user_id: decToken.id,
     });
   };
 
@@ -75,7 +75,7 @@ const Playlists = () => {
   const onChangeVideoSelector = (e) => {
     let keyName = e.target.name;
     let value = e.target.value;
-    setSelectedVideo({ [keyName]: value })
+    setSelectedVideo({ [keyName]: value });
   };
 
   // add video to a playlist
@@ -107,13 +107,13 @@ const Playlists = () => {
     setAutoPlaylist(finalAutoPlay)
   }
 
-  const playSingleVideo = (id) => setAutoPlaylist([id])
+  const playSingleVideo = (id) => setAutoPlaylist([id]);
 
   return (
-    <div>
+    <div className="playlists-container">
       <div className="playlists">
         <h2 className="create-playlist">Playlists</h2>
-        <Form className="d-flex" onSubmit={addPlaylist}>
+        <Form style={{ display: "flex" }} onSubmit={addPlaylist}>
           <FormControl
             type="text"
             placeholder="Create Playlist"
@@ -127,9 +127,12 @@ const Playlists = () => {
             <AiOutlinePlus />
           </Button>
         </Form>
+        <h1> </h1>
         {displayedPlaylists.length !== 0 ? (
-          <Form>
-            <h6 style={{ fontFamily: "cursive", color: "yellow" }}>Add Video</h6>
+          <Form style={{ width: "70%" }}>
+            <h6 style={{ fontFamily: "cursive", color: "yellow" }}>
+              Add Video
+            </h6>
             <Form.Control
               as="select"
               className="my-1 mr-sm-2"
@@ -151,8 +154,7 @@ const Playlists = () => {
                 })}
             </Form.Control>
           </Form>
-        ) : null
-        }
+        ) : null}
         <div>
           <ul style={{ listStyle: "none" }}>
             {displayedPlaylists &&
@@ -165,6 +167,7 @@ const Playlists = () => {
                           style={{
                             display: "flex",
                             justifyContent: "space-between",
+                            flexWrap: "wrap",
                           }}
                         >
                           <li
@@ -172,16 +175,23 @@ const Playlists = () => {
                             style={{ cursor: "pointer", color: "antiquewhite" }}
                             onClick={() => playPlaylist(playlistIndex)}
                           >
-                            <Link
-                              to={`/player/${playlist.video_list.length > 0
-                                ? playlist.video_list[0]._id
-                                : ""
-                                }`}
+                            <Nav.Link
+                              as={Link}
+                              to={`/player/${
+                                playlist.video_list.length > 0
+                                  ? playlist.video_list[0]._id
+                                  : ""
+                              }`}
                             >
-                              <h5 style={{ color: "antiquewhite" }}>
+                              <h5
+                                style={{
+                                  color: "antiquewhite",
+                                  fontFamily: "cursive",
+                                }}
+                              >
                                 {playlist.name}
                               </h5>
-                            </Link>
+                            </Nav.Link>
                           </li>
                           <Button
                             type="button"
@@ -189,8 +199,7 @@ const Playlists = () => {
                             onClick={(e) => {
                               window.confirm(
                                 `Do you really want to delete ${playlist.name}?`
-                              ) &&
-                                deletePlaylist(playlist._id);
+                              ) && deletePlaylist(playlist._id);
                             }}
                           >
                             <MdDelete />
@@ -206,14 +215,28 @@ const Playlists = () => {
                                       style={{
                                         display: "flex",
                                         justifyContent: "space-between",
+                                        flexWrap: "wrap",
                                       }}
                                     >
-                                      <li key={listVideoIndex} style={{ color: "antiquewhite", display: "flex", flexDirection: "row" }} onClick={() => playSingleVideo(listVideo._id)}>
-                                        <Link to={`/player/${listVideo._id}`}>
-                                          <p style={{ color: "antiquewhite", width: "14ch", overflow: "hidden", whiteSpace: "nowrap" }}>
+                                      <li
+                                        key={listVideoIndex}
+                                        style={{
+                                          color: "antiquewhite",
+                                          display: "flex",
+                                          flexDirection: "row",
+                                        }}
+                                        onClick={() =>
+                                          playSingleVideo(listVideo._id)
+                                        }
+                                      >
+                                        <Nav.Link
+                                          as={Link}
+                                          to={`/player/${listVideo._id}`}
+                                        >
+                                          <h6 style={{ color: "antiquewhite" }}>
                                             {listVideo.title}
-                                          </p>
-                                        </Link><span>.....</span>
+                                          </h6>
+                                        </Nav.Link>
                                       </li>
                                       <Button
                                         type="button"
@@ -234,7 +257,7 @@ const Playlists = () => {
                               type="button"
                               variant="outline-light"
                               onClick={(e) => {
-                                e.preventDefault()
+                                e.preventDefault();
                                 if (selectedVideo.video_id === null)
                                   return alert('Select Video')
                                 addVideo(playlist._id, playlistIndex);
@@ -252,13 +275,13 @@ const Playlists = () => {
                 );
               })}
           </ul>
-        </div >
-      </div >
-
-      <div >
-        <Image src={moon_image} alt="moon"></Image>
+        </div>
       </div>
-    </div >
+
+      <div className="moon-image">
+        <Image src={moon_image} alt="moon" width="50%"></Image>
+      </div>
+    </div>
   );
 };
 

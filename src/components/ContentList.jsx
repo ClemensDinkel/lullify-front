@@ -10,8 +10,8 @@ const ContentList = ({ uploaderVideos, setUploaderVideos, decToken }) => {
   const [videos, setVideos] = useContext(VideoContext)
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", width: "50%" }}>
-      <h3 style={{ fontFamily: "cursive", color: "white" }}>Content List</h3>
+    <div className="content-list">
+      <h3 style={{fontFamily: "cursive", color:"white"}}>Content List</h3>
       <div style={{ margin: ".4rem" }}>
         <Table striped bordered hover variant="light" size="sm" responsive>
           <thead>
@@ -67,34 +67,3 @@ const ContentList = ({ uploaderVideos, setUploaderVideos, decToken }) => {
 };
 
 export default ContentList;
-
-{
-  /* <Alert key={index} variant="secondary">
-                  <div style={{ display: "flex", textAlign: "left"}}>
-                    <div style={{width: "80%"}}>
-                    <p>{uploaderVideo.title}</p>
-                    </div>
-                    <div style={{width: "20%"}}>
-                    <Link exact to={`/video/${uploaderVideo._id}`}>
-                    <Button type="submit" variant="outline-secondary">
-                      <AiTwotoneEdit />
-                    </Button>
-                    </Link>
-                    <Button type="submit" variant="outline-secondary"
-                      onClick={(e) => {
-                        api.deleteUploaderVideo(decToken.id, uploaderVideo._id)
-                        .then((res) => {
-                          alert(
-                            `Do you want to delete ${uploaderVideo.title}?`
-                          );
-                          window.location.reload();
-                          history.push(`/creator`);
-                        });
-                      }}
-                    >
-                      <MdDelete />
-                    </Button>
-                    </div>
-                  </div>
-                </Alert> */
-}

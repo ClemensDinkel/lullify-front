@@ -93,7 +93,7 @@ const CreatorRegister = () => {
         </div>
       </div>
       <div style={{ display: "flex", justifyContent: "center", width: "50%" }}>
-        <Card style={{ flexGrow: "1", maxWidth: "30rem", textAlign: "left" }}>
+        <Card style={{ flexGrow: "1", maxWidth: "30rem", height: "fit-content", textAlign: "left" }}>
           <Card.Body>
             <Form onSubmit={onSubmit}>
               <Form.Label>
