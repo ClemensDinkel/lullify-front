@@ -1,10 +1,13 @@
-import { Card, Col, Form, Button } from "react-bootstrap";
-import { register } from "./AuthFunctions";
+import { Card, Col, Form, Button, InputGroup } from "react-bootstrap";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import queryString from "query-string";
+import { BiShow } from "react-icons/bi";
+import { BiHide } from "react-icons/bi";
+import api from "../api";
 
 const UserRegister = () => {
+  const [passwordShow, setPasswordShow] = useState(false);
+
   const [newRegister, setNewRegister] = useState({
     first_name: "",
     last_name: "",
@@ -12,9 +15,9 @@ const UserRegister = () => {
     email: "",
     password: "",
     errors: {},
-  })
+  });
 
-  let history = useHistory()
+  let history = useHistory();
 
   const onChange = (e) => {
     let keyName = e.target.name;
@@ -25,7 +28,7 @@ const UserRegister = () => {
         [keyName]: value,
       };
     });
-  }
+  };
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -38,21 +41,47 @@ const UserRegister = () => {
       password: newRegister.password,
     };
 
-    register(queryString.stringify(newUser)).then((res) => {
-      alert('Yor are Registerd')
-      history.push(`/login`);
-    });
+    api
+      .registerUser(newUser)
+      .then(() => {
+        alert("Successfully registered");
+        history.push(`/login`);
+      })
+      .catch((err) =>
+        alert("Email already exist. Please try with another email")
+      );
   };
 
   return (
-    <>
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <Card style={{ flexGrow: "1", maxWidth: "30rem" }}>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        width: "100%",
+      }}
+    >
+      <div style={{ display: "flex", justifyContent: "center", width: "50%", marginTop: "10rem" }}>
+        <div style={{ marginBottom: "30px", color: "white" }}>
+          <h1 style={{ fontFamily: "cursive" }}>Lullify</h1>
+          <p>Register yourself to enjoy more functionaliy in lullify.</p>
+        </div>
+      </div>
+      <div style={{ display: "flex", justifyContent: "center", width: "50%" }}>
+        <Card
+          bg="light"
+          style={{ flexGrow: "1", maxWidth: "30rem", height: "fit-content", textAlign: "left" }}
+        >
           <Card.Body>
             <Form onSubmit={onSubmit}>
+              <Form.Label>
+                <span style={{ color: "red" }}>*</span> Fields are required
+              </Form.Label>
               <Form.Row>
                 <Form.Group as={Col} controlId="formGridEmail">
-                  <Form.Label>First name</Form.Label>
+                  <Form.Label>
+                    <b>First name:</b>
+                    <span style={{ color: "red" }}>*</span>
+                  </Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="Enter First name"
@@ -62,9 +91,14 @@ const UserRegister = () => {
                     required
                   />
                 </Form.Group>
+              </Form.Row>
 
+              <Form.Row>
                 <Form.Group as={Col} controlId="formGridPassword">
-                  <Form.Label>Last name</Form.Label>
+                  <Form.Label>
+                    <b>Last name:</b>
+                    <span style={{ color: "red" }}>*</span>
+                  </Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="Enter Last name"
@@ -74,9 +108,13 @@ const UserRegister = () => {
                     required
                   />
                 </Form.Group>
-
+              </Form.Row>
+              <Form.Row>
                 <Form.Group as={Col} controlId="formGridEmail">
-                  <Form.Label>User name</Form.Label>
+                  <Form.Label>
+                    <b>User name:</b>
+                    <span style={{ color: "red" }}>*</span>
+                  </Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="Enter User name"
@@ -90,7 +128,10 @@ const UserRegister = () => {
 
               <Form.Row>
                 <Form.Group as={Col} controlId="formGridEmail">
-                  <Form.Label>Email</Form.Label>
+                  <Form.Label>
+                    <b>Email Address:</b>
+                    <span style={{ color: "red" }}>*</span>
+                  </Form.Label>
                   <Form.Control
                     type="email"
                     placeholder="Enter email"
@@ -102,28 +143,67 @@ const UserRegister = () => {
                 </Form.Group>
 
                 <Form.Group as={Col} controlId="formGridPassword">
-                  <Form.Label>Password</Form.Label>
-                  <Form.Control
-                    type="password"
-                    placeholder="Password"
-                    name="password"
-                    value={newRegister.password}
-                    onChange={onChange}
-                    required
-                  />
+                  <Form.Label>
+                    <b>Password:</b>
+                    <span style={{ color: "red" }}>*</span>
+                  </Form.Label>
+                  <InputGroup className="mb-2">
+                    <Form.Control
+                      type={passwordShow ? "text" : "password"}
+                      placeholder="Password"
+                      name="password"
+                      value={newRegister.password}
+                      onChange={onChange}
+                      required
+                    />
+                    <InputGroup.Prepend>
+                      <InputGroup.Text>
+                        {!passwordShow ? (
+                          <span
+                            className="password-icon"
+                            onClick={() => setPasswordShow(!passwordShow)}
+                          >
+                            <BiShow />
+                          </span>
+                        ) : (
+                          <span
+                            className="password-icon"
+                            onClick={() => setPasswordShow(!passwordShow)}
+                          >
+                            <BiHide />
+                          </span>
+                        )}
+                      </InputGroup.Text>
+                    </InputGroup.Prepend>
+                  </InputGroup>
                 </Form.Group>
               </Form.Row>
 
-              <Form.Row>
-                <Button variant="primary" type="submit">
-                  Submit
+              <Form.Row
+                style={{
+                  display: "flex",
+                  justifyContent: "space-around",
+                  marginTop: "10px",
+                }}
+              >
+                <Button variant="outline-secondary" type="submit">
+                  <b>Submit</b>
+                </Button>
+                <Button
+                  variant="outline-secondary"
+                  type="button"
+                  onClick={() => {
+                    history.push("/");
+                  }}
+                >
+                  <b>Cancel</b>
                 </Button>
               </Form.Row>
             </Form>
           </Card.Body>
         </Card>
       </div>
-    </>
+    </div>
   );
 };
 

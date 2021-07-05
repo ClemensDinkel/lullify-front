@@ -1,53 +1,20 @@
-import Previews from './Previews'
-import Playlists from './Playlists'
-import { axiosConfig } from './AuthFunctions';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Container, Col, Row } from 'react-bootstrap'
-import '../App.css'
-const root = "https://tranquil-reaches-12289.herokuapp.com"
+import { useContext } from "react";
+import Previews from "./Previews";
+import Playlists from "./Playlists";
+import TemporaryPlaylist from "./TemporaryPlaylist";
+import { UserContext } from "../context/UserContext";
+import "../App.css";
 
-
-const Home = ({ user }) => {
-
-
-  const [loading, setLoading] = useState(true)
-
-  const [data, setData] = useState([])
-  const [videos, setVideos] = useState([])
-
-
-  useEffect(() => {
-    fetchVideos()
-  }, [])
-
-  const fetchVideos = async () => {
-    await axios.get(`https://tranquil-reaches-12289.herokuapp.com/videos`)
-      .then(res => {
-        setVideos(res.data)
-      })
-      .catch(err => console.log(err))
-    setLoading(false)
-  }
-
-  useEffect(() => {
-    getUser()
-  }, [data])
-
-  const getUser = () => {
-    return axios
-      .get(`${root}/users`, axiosConfig)
-      .then((response) => {
-        console.log(response.data);
-      });
-  };
+const Home = () => {
+  const { dTk } = useContext(UserContext);
+  const [decToken] = dTk;
 
   return (
-    <div className="main">
-      <Previews videos={videos} />
-      <Playlists user={user} />
+    <div className="main-container home-container">
+      <Previews />
+      {decToken && decToken.id ? <Playlists /> : <TemporaryPlaylist />}
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

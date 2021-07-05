@@ -1,54 +1,36 @@
-import { useParams } from 'react-router-dom'
-import { useState, useEffect } from 'react'
-import Playlists from './Playlists'
-import axios from 'axios'
-import Video from './Video'
-import '../App.css'
-import { Container, Col, Row } from 'react-bootstrap'
+import { useParams } from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
+import Playlists from "./Playlists";
+import TemporaryPlaylist from "./TemporaryPlaylist";
+import Video from "./Video";
+import "../App.css";
+import api from "../api";
+import { UserContext } from "../context/UserContext";
+import { PlaylistContext } from "../context/PlaylistContext";
 
-
-
-const Player = ({ user }) => {
-  const { id } = useParams()
-
-  const [loading, setLoading] = useState(true)
-
-  const [video, setVideo] = useState()
-
-  console.log(video)
+const Player = () => {
+  const { id } = useParams();
+  const [video, setVideo] = useState();
+  const { dTk } = useContext(UserContext);
+  const [decToken] = dTk;
+  const [autoPlaylist] = useContext(PlaylistContext);
 
   useEffect(() => {
-    fetchVideoById()
-  }, [])
+    api
+      .getVideoById(id)
+      .then((res) => setVideo(res.data)) //array!!!
+      .catch((err) => console.log(err));
+  }, [autoPlaylist]);
 
-  const fetchVideoById = async () => {
-    await axios.get(`https://tranquil-reaches-12289.herokuapp.com/videos/${id}`)
-      .then(res => {
-        setVideo(res.data)
-      })
-      .catch(err => console.log(err))
-    setLoading(false)
-  }
+  // in video on end -> playlist.shift() ?      n nn
+
   return (
-    <>
-      <Container>
-        <Row>
-          <Col sm={9}>
-            {
-              !loading ?
-                <Video video={video} /> :
-                <p>Loading..</p>
-            }
-          </Col>
+    <div className="player-container main-container">
+      {video ? <Video video={video} /> : <p>Loading..</p>}
 
-          <Col sm={3}>
-            <Playlists user={user} />
-          </Col>
-        </Row>
-      </Container>
+      {decToken && decToken.id ? <Playlists /> : <TemporaryPlaylist />}
+    </div>
+  );
+};
 
-    </>
-  )
-}
-
-export default Player
+export default Player;
