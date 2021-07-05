@@ -92,8 +92,11 @@ const api = {
     return await axios.put(`${root}/users/${user_id}/removefavorites`, videoId);
   },
 
-  getVideos: async () => {
-    return await axios.get(`${root}/videos`);
+  getVideos: async (lang, filter) => {
+    return await axios.get(`${root}/videos`, {params: {
+      lang: lang,
+      filter: filter
+    }});
   },
 
   getVideoById: async (video_id) => {

@@ -12,6 +12,8 @@ import logo_image from "../images/moon2.png";
 import { useContext } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { UserContext } from '../context/UserContext'
+import { QueryContext } from '../context/QueryContext'
+import { VideoContext } from "../context/VideoContext";
 import api from "../api";
 import "../App.css"
 
@@ -20,8 +22,13 @@ const Navigation = () => {
   const [decToken, setDecToken] = dTk
   const [token, setToken] = tk
   const [singleUserInfo] = sUI
-  let history = useHistory();
+  const { ft, lg } = useContext(QueryContext)
+  const [filter, setFilter] = ft
+  const [lang, setLang] = lg
+  const [videos, setVideos] = useContext(VideoContext)
   const [show, setShow] = useState(false)
+
+  let history = useHistory();
 
   //To change the color of navbar after scrolling
   const navbarControl = () => {
@@ -50,6 +57,15 @@ const Navigation = () => {
         .catch(err => console.log(err))
   };
 
+  const updateVideos = (e) => {
+    e.preventDefault();
+    api.getVideos(lang, filter)
+      .then(res => {
+        setVideos(res.data)
+      })
+      .catch(err => console.log(err))
+  }
+
   return (
     <>
       <Navbar className={`navbar ${show && "navbar-scroll"}`} expand="lg" sticky="top">
@@ -68,11 +84,13 @@ const Navigation = () => {
                     </span> */}
         </Navbar.Brand>
 
-        <Form className="d-flex justify-content-space-between">
+        <Form className="d-flex justify-content-space-between" onSubmit={updateVideos}>
           <Form.Control
             as="select"
             className="my-1 mr-sm-2"
             id="inlineFormCustomSelectPref"
+            value={lang}
+            onChange={(e) => setLang(e.target.value)}
             custom
           >
             <option value=""></option>
@@ -85,6 +103,9 @@ const Navigation = () => {
             placeholder="Search"
             className="mr-2"
             aria-label="Search"
+            name="filter"
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
           />
           <Button type="submit" variant={`dark ${show && "light"}`} >
             <b>Search</b>

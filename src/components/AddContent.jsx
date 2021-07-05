@@ -56,7 +56,7 @@ const AddContent = ({ setUploaderVideos }) => {
       short_description: addVideo.short_description,
       duration: addVideo.duration,
       uploader_id: decToken.id,
-      languages: addVideo.languages.replace(/ /g, '').split(","),
+      languages: addVideo.languages.toLowerCase().replace(/ /g, '').split(","),
       tags: addVideo.tags.replace(/ /g, '')
     };
     console.log(newVideo.languages)

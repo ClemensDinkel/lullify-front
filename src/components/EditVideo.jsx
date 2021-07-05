@@ -46,7 +46,7 @@ const EditVideo = () => {
   const updateVideo = (e) => {
     e.preventDefault();
     const sendVideo = { ...getVideo }
-    sendVideo.languages = sendVideo.languages.replace(/ /g, '').split(",")
+    sendVideo.languages = sendVideo.languages.toLowerCase().replace(/ /g, '').split(",")
     /* sendVideo.tags = sendVideo.tags.replace(/ /g,'').split(",") */
     window.confirm("Do you want to update video information?") &&
       api
