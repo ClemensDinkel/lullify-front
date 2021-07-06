@@ -33,9 +33,11 @@ const Home = () => {
   }
   const putFavoritesFirst = array => {
     // put favorites first
-    for (let i = 0; i < array.length; i++) {
-      if (singleUserInfo.favorites.some(favorite => favorite._id === array[i]._id)) {
-        array.unshift(array.splice(i, 1)[0])
+    if (singleUserInfo.favorites) {
+      for (let i = 0; i < array.length; i++) {
+        if (singleUserInfo.favorites.some(favorite => favorite._id === array[i]._id)) {
+          array.unshift(array.splice(i, 1)[0])
+        }
       }
     }
     return array
@@ -48,7 +50,7 @@ const Home = () => {
       api.getVideos()
         .then(res => {
           const shuffledArray = shuffle(res.data)
-          const favoriteFirstArray = putFavoritesFirst(shuffledArray)
+          const favoriteFirstArray = putFavoritesFirst(shuffledArray) // shuffledArray
           setVideos(favoriteFirstArray)
         })
         .catch(err => console.log(err))

@@ -1,6 +1,7 @@
 import { Button, Image } from "react-bootstrap"
 import api from "../api"
 import '../App.css'
+import { Link } from "react-router-dom"
 
 const AdminVideoInspector = ({ inspectData, inspectType, setInspecting }) => {
   const { _id, adding_date, artist, duration, languages, reportedBy, reports, tags, title, uploader_id, video_img_url, video_url } = inspectData
@@ -18,7 +19,7 @@ const AdminVideoInspector = ({ inspectData, inspectType, setInspecting }) => {
         <div className="img-container" style={{ float: "right", margin: "5px" }}>
           <Image src={video_img_url} style={{ maxWidth: "80px" }}></Image>
         </div>
-        <h2 style={{ textAlign: "center" }}>{title}</h2> {/* placeholder */}
+        <h2 style={{ textAlign: "center" }}><Link to={`/player/${_id}`}>{title}</Link></h2> {/* placeholder */}
         <span><b>Artist</b>: {artist}</span><br />
         <span><b>URL</b>: {video_url}</span><br />
         <span><b>Languages</b>: {languages.join(", ")}</span><br />
