@@ -1,9 +1,5 @@
 import axios from "axios";
-<<<<<<< HEAD
-//const root = "http://localhost:3001";
-=======
 // const root = "http://localhost:3001";
->>>>>>> 7af516d97847ad6aec95048716ef4fa0e7a441b3
 const root = "https://tranquil-reaches-12289.herokuapp.com";
 
 const api = {
