@@ -46,6 +46,12 @@ const TemporaryPlaylist = () => {
 
   const playSingleVideo = (id) => setAutoPlaylist([id])
 
+  const removeVideo = (id) => {
+    const newTP = temporaryPlaylist.filter(video => video._id !== id)
+    console.log(newTP)
+    setTemporaryPlaylist(newTP)
+  }
+
   return (
     <div className="playlists-container">
       <div className="playlists">
@@ -59,38 +65,71 @@ const TemporaryPlaylist = () => {
             {temporaryPlaylist.map(
               (listVideo, listVideoIndex) => {
                 return (
-                  <li key={listVideoIndex} style={{ color: "antiquewhite" }} onClick={() => playSingleVideo(listVideo._id)}>
-                    <Nav.Link to={`/player/${listVideo._id}`}>
-                      <h6 style={{ color: "antiquewhite" }}>{listVideo.title}</h6>
-                    </Nav.Link>
-                  </li>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      width: "100%"
+                    }}
+                  >
+                    <li
+                      key={listVideoIndex}
+                      style={{
+                        color: "antiquewhite",
+                        display: "flex",
+                        flexWrap: "wrap",
+                        width: "80%",
+                        textAlign: "left"
+                      }}
+                      onClick={() =>
+                        playSingleVideo(listVideo._id)
+                      }
+                    >
+                      <Nav.Link
+                        as={Link}
+                        to={`/player/${listVideo._id}`}
+                      >
+                        <h6 style={{ color: "antiquewhite" }}>
+                          {listVideo.title}
+                        </h6>
+                      </Nav.Link>
+                    </li>
+                    <Button
+                      type="button"
+                      style={{ maxHeight: "40px" }}
+                      variant="outline-light"
+                      onClick={() => { removeVideo(listVideo._id); }}
+                    >
+                      <MdDelete />
+                    </Button>
+                  </div>
                 );
               }
             )}
           </ul>
         </div>
         <div>
-        <Form className="d-flex">
-          <Form.Control
-            as="select"
-            className="my-1 mr-sm-2"
-            id="inlineFormCustomSelectPref"
-            name="video"
-            value={videos._id}
-            onChange={selectVideo}
-            custom
-          >
-            <option value="">-----Add Video-----</option>
-            {videos &&
-              videos.map((video, videoIndex) => {
-                return (
-                  <option value={video._id} key={videoIndex}>
-                    {video.title}
-                  </option>
-                );
-              })}
-          </Form.Control>
-          
+          <Form className="d-flex">
+            <Form.Control
+              as="select"
+              className="my-1 mr-sm-2"
+              id="inlineFormCustomSelectPref"
+              name="video"
+              value={videos._id}
+              onChange={selectVideo}
+              custom
+            >
+              <option value="">-----Add Video-----</option>
+              {videos &&
+                videos.map((video, videoIndex) => {
+                  return (
+                    <option value={video._id} key={videoIndex}>
+                      {video.title}
+                    </option>
+                  );
+                })}
+            </Form.Control>
+
             <Button
               type="button"
               variant="outline-light"

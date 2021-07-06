@@ -28,14 +28,14 @@ const About = () => {
                   <img variant="top" src={team1a} width="100%" height="90%" />
                 <Card.Body>
                   <Card.Title>Utsavi Kathiriya</Card.Title>
-                  <Card.Text>FullStack Developer</Card.Text>
+                  <Card.Text>FullStack Web Developer</Card.Text>
                 </Card.Body>
               </Card>
               <Card bg="light" style ={{width:"17rem", height: "fit-content", margin: "10px"}} >
                   <img variant="top" src={team2a} width="100%" height="90%" />
                 <Card.Body>
                   <Card.Title>Clemens Dinkel</Card.Title>
-                  <Card.Text>FullStack Developer</Card.Text>
+                  <Card.Text>FullStack Web Developer</Card.Text>
                 </Card.Body>
               </Card>
             </div>
