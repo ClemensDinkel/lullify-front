@@ -1,5 +1,6 @@
 import { Container, Row, Col, Card } from "react-bootstrap";
 import team1 from "../images/team1.png";
+import team2 from "../images/team2.jpg"
 
 const About = () => {
   return (
@@ -29,7 +30,7 @@ const About = () => {
                 </Card.Body>
               </Card>
               <Card bg="light" style ={{width:"17rem", height: "fit-content", margin: "10px"}} >
-                  <img variant="top" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" width="100%" height="90%" />
+                  <img variant="top" src={team2} width="100%" height="90%" />
                 <Card.Body>
                   <Card.Title>Clemens Dinkel</Card.Title>
                   <Card.Text>FullStack Developer</Card.Text>
