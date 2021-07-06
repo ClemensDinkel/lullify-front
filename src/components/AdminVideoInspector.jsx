@@ -22,7 +22,7 @@ const AdminVideoInspector = ({ inspectData, inspectType, setInspecting }) => {
         <span><b>Artist</b>: {artist}</span><br />
         <span><b>URL</b>: {video_url}</span><br />
         <span><b>Languages</b>: {languages.join(", ")}</span><br />
-        <span><b>Tags</b>: {tags.join(", ")}</span><br />
+        <span><b>Tags</b>: {tags}</span><br />
         <span><b>Duration</b>: {`${Math.floor(duration / 60)}${duration % 60 < 10 ? ":0" : ":"}${Math.floor(duration % 60)}`}</span><br />
         <span><b>Video ID</b>: {_id}</span><br />
         <span><b>Reports</b>: {reports}</span><br />
