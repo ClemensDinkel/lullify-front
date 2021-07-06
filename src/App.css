@@ -59,7 +59,7 @@ html {
   display: block;
   text-align: left;
   padding: 5px;
-  height: 100%;
+  height: fit-content;
 }
 
 .request-panel {
@@ -67,7 +67,7 @@ html {
   display: block;
   text-align: left;
   padding: 5px;
-  height: 100%;
+  height: fit-content;
 }
 
 .video-panel {
@@ -75,7 +75,7 @@ html {
   display: block;
   text-align: left;
   padding: 5px;
-  height: 100%;
+  height: fit-content;
 }
 
 .previews-container {
@@ -163,9 +163,8 @@ html {
 .content-list {
   flex-grow: 1;
   display: block;
-  margin-left: 2rem;
   overflow: auto;
-  height: 100vh;
+  height: auto;
 }
 
 .add-content {
