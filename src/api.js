@@ -131,6 +131,14 @@ const api = {
       videoData
     );
   },
+
+  getVideoFromYTApi: async (q) => {
+    return await axios.get(`${root}/ytapi`, {
+      params: {
+        q: q
+      }
+    })
+  },
 };
 
 export default api;

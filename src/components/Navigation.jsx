@@ -61,7 +61,8 @@ const Navigation = ({ handlePageScroll }) => {
 
   const update = (e) => {
     e.preventDefault();
-    if (history.location.pathname.split("/")[1] === "player") {
+    const path = history.location.pathname.split("/")[1];
+    if (path === "player" || path === "about") {
       console.log("coming")
       history.push("/")
       setEscapeUE(true)

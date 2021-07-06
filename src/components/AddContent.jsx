@@ -21,6 +21,7 @@ const AddContent = ({ setUploaderVideos }) => {
   const { dTk } = useContext(UserContext);
   const [decToken, setDecToken] = dTk;
   const [videos, setVideos] = useContext(VideoContext)
+  const [q, setQ] = useState("")
   const [addVideo, setAddVideo] = useState({
     title: "",
     artist: "",
@@ -33,6 +34,17 @@ const AddContent = ({ setUploaderVideos }) => {
     tags: "",
     errors: {},
   });
+
+  const handleQ = (e) => {
+    setQ(e.target.value)
+  }
+
+  const getFromYTApi = (e) => {
+    e.preventDefault()
+    api.getVideoFromYTApi(q)
+      .then(res => console.log(res.data)) // continue here
+      .catch(err => console.log(err))
+  }
 
   const onChange = (e) => {
     let keyName = e.target.name;
@@ -95,6 +107,21 @@ const AddContent = ({ setUploaderVideos }) => {
           }}
         >
           <Card.Body>
+            <p>Optional: Use Youtube API</p>
+            <Form onSubmit={getFromYTApi}>
+              <Form.Control
+                type="text"
+                placeholder="Get Data from Youtube API"
+                name="ytapi"
+                value={q}
+                onChange={handleQ}
+                required
+              />
+              <Button variant="outline-secondary" type="submit">
+                <b>Ask Youtube</b>
+              </Button>
+            </Form>
+            <br />
             <Form onSubmit={addNewVideo}>
               <Form.Label>
                 <span style={{ color: "red" }}>*</span> Fields are required
@@ -299,8 +326,8 @@ const AddContent = ({ setUploaderVideos }) => {
             </Form>
           </Card.Body>
         </Card>
-      </div>
-    </div>
+      </div >
+    </div >
   );
 };
 
