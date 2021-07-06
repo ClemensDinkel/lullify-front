@@ -26,7 +26,7 @@ const Player = () => {
 
   return (
     <div className="player-container main-container">
-      {video ? <Video video={video} /> : <p>Loading..</p>}
+      {video ? <Video video={video} setVideo={setVideo} /> : <p>Loading..</p>}
 
       {decToken && decToken.id ? <Playlists /> : <TemporaryPlaylist />}
     </div>
