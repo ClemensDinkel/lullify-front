@@ -70,7 +70,7 @@ const Navigation = ({handlePageScroll}) => {
     <>
       <Navbar className={`navbar ${show && "navbar-scroll"}`} expand="lg" sticky="top">
         <Navbar.Brand as={Link} to="/">
-          <Image
+          {/* <Image
             src={logo_image}
             style={{
               display: "inline-block",
@@ -78,10 +78,10 @@ const Navigation = ({handlePageScroll}) => {
               maxWidth: "100px",
               paddingLeft: "10px"
             }}
-          />
-          {/* <span style={{ fontSize: '40px', fontFamily: 'cursive', color:'#0C7C43' }} >
-                        Lullify
-                    </span> */}
+          /> */}
+          <h5 style={{ fontSize: "40px", fontFamily: "serif", color:"#404040", display: "block" }} >
+          🌚Lullifey
+          </h5>
         </Navbar.Brand>
 
         <Form className="d-flex justify-content-space-between" onSubmit={update}>

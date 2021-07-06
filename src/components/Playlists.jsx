@@ -172,7 +172,7 @@ const Playlists = () => {
                         >
                           <li
                             key={playlistIndex}
-                            style={{ cursor: "pointer", color: "antiquewhite", height: "10px", width: "80%", textAlign: "left" }}
+                            style={{ cursor: "pointer", color: "antiquewhite", width: "80%", textAlign: "left" }}
                             onClick={() => playPlaylist(playlistIndex)}
                           >
                             <Nav.Link
@@ -186,6 +186,7 @@ const Playlists = () => {
                                 style={{
                                   color: "antiquewhite",
                                   fontFamily: "cursive",
+                                  textDecoration: "underline"
                                 }}
                               >
                                 {playlist.name}
