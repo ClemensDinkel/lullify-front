@@ -6,6 +6,7 @@ import { VideoController } from "./context/VideoContext";
 import { UserController } from "./context/UserContext";
 import { PlaylistController } from "./context/PlaylistContext";
 import { QueryController } from "./context/QueryContext";
+import { EscapeController } from "./context/EscapeContext"
 
 const App = () => {
   const handlePageScroll = () => {
@@ -18,9 +19,11 @@ const App = () => {
         <UserController>
           <PlaylistController>
             <QueryController>
+              <EscapeController>
               <Navigation handlePageScroll={handlePageScroll} />
               <LullifyRouter />
               <Footer />
+              </EscapeController>
             </QueryController>
           </PlaylistController>
         </UserController>
