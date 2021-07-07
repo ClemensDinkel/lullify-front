@@ -82,8 +82,8 @@ html {
   display: flex;
   flex-wrap: wrap;
   width: 60%;
-  max-height: 130vh;
-  overflow: auto;
+  /* max-height: 130vh;
+  overflow: auto; */
   padding: 10px;
   justify-content: center;
   align-content: flex-start;
