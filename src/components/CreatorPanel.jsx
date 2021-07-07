@@ -10,14 +10,14 @@ const CreatorPanel = () => {
   const { dTk } = useContext(UserContext)
   const [decToken, setDecToken] = dTk;
   const [uploaderVideos, setUploaderVideos] = useState([]);
-  /* const { ft, lg } = useContext(QueryContext)
+  const { ft, lg } = useContext(QueryContext)
   const [filter, setFilter] = ft
   const [lang, setLang] = lg
 
   useEffect(() => {
     setFilter("")
     setLang("")
-  }, []) */
+  }, [])
 
   useEffect(() => {
     if (decToken && decToken.id) {

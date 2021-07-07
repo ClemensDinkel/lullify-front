@@ -31,6 +31,7 @@ const AdminPanel = () => {
       })
       .catch(err => console.log(err))
   }, [])
+
   return (
 
     <div className="admin-panel main-container" >

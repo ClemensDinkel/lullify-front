@@ -54,7 +54,9 @@ const AddContent = ({ setUploaderVideos }) => {
 
   const autoFill = (index) => {
     const selected = yTHits[index]
-    // run checks and change object and create alert if changes were made
+    if(selected.snippet.title.length>40 && selected.snippet.channelTitle.length> 20) {
+      alert("Video Title and Artist Name are too longer. Please make it shorter before submit video")
+    }
 
     setAddVideo({
       title: selected.snippet.title,
@@ -120,7 +122,7 @@ const AddContent = ({ setUploaderVideos }) => {
           tags: "",
           errors: {},
         });
-        if (!res.data.name === "ValidationError") {
+        if (res.data.name !== "ValidationError") {
           setVideos(prev => [...prev, res.data])
           setUploaderVideos(prev => [...prev, res.data])
           alert("Video has been added");
@@ -147,8 +149,18 @@ const AddContent = ({ setUploaderVideos }) => {
           }}
         >
           <Card.Body>
-            <p>Optional: Use Youtube API</p>
+            <p>Optional: Autofill form using Youtube API</p>
             <Form onSubmit={getFromYTApi}>
+            <OverlayTrigger
+                    key="top"
+                    placement="top"
+                    delay={{ show: 250, hide: 400 }}
+                    overlay={
+                      <Tooltip id="tooltip-top">
+                        Video Title should have maximum 40 characters.
+                      </Tooltip>
+                    }
+                  >
               <Form.Control
                 type="text"
                 placeholder="Get Data from Youtube API"
@@ -157,6 +169,7 @@ const AddContent = ({ setUploaderVideos }) => {
                 onChange={handleQ}
                 required
               />
+              </OverlayTrigger>
               <Button variant="outline-secondary" type="submit">
                 <b>Ask Youtube</b>
               </Button>
@@ -186,6 +199,16 @@ const AddContent = ({ setUploaderVideos }) => {
                     <b>Video Title</b>
                     <span style={{ color: "red" }}>*</span>
                   </Form.Label>
+                  <OverlayTrigger
+                    key="top"
+                    placement="top"
+                    delay={{ show: 250, hide: 400 }}
+                    overlay={
+                      <Tooltip id="tooltip-top">
+                        Video Title should have maximum 40 characters.
+                      </Tooltip>
+                    }
+                  >
                   <Form.Control
                     type="text"
                     placeholder="Enter Title"
@@ -195,6 +218,7 @@ const AddContent = ({ setUploaderVideos }) => {
                     maxlength="40"
                     required
                   />
+                  </OverlayTrigger>
                 </Form.Group>
               </Form.Row>
               <Form.Row>
@@ -203,14 +227,26 @@ const AddContent = ({ setUploaderVideos }) => {
                     <b>Artist</b>
                     <span style={{ color: "red" }}>*</span>
                   </Form.Label>
+                  <OverlayTrigger
+                    key="top"
+                    placement="top"
+                    delay={{ show: 250, hide: 400 }}
+                    overlay={
+                      <Tooltip id="tooltip-top">
+                        Artist name should have maximum 20 characters.
+                      </Tooltip>
+                    }
+                  >
                   <Form.Control
                     type="text"
                     placeholder="Enter Artist"
                     name="artist"
                     value={addVideo.artist}
                     onChange={onChange}
+                    maxlength="20"
                     required
                   />
+                  </OverlayTrigger>
                 </Form.Group>
               </Form.Row>
               <Form.Row>

@@ -59,9 +59,9 @@ const Navigation = ({ handlePageScroll }) => {
         .catch(err => console.log(err))
   };
 
-  useEffect(() => {
+  /* useEffect(() => {
     update()
-  },[lang])
+  },[lang]) */
 
   const update = (e) => {
     if (e) e.preventDefault();
@@ -99,7 +99,9 @@ const Navigation = ({ handlePageScroll }) => {
             className="my-1 mr-sm-2"
             id="inlineFormCustomSelectPref"
             value={lang}
-            onChange={(e) => setLang(e.target.value)}
+            onChange={(e) => {
+              setLang(e.target.value)
+            }}
             custom
           >
             <option value=""></option>
