@@ -36,7 +36,7 @@ html {
   display: flex;
   justify-content: center;
   width: 100%;
-  min-height: 90vh;
+  min-height: 100vh;
   margin-top: 15px;
   /* overflow: auto; */
 }
@@ -170,8 +170,8 @@ html {
 .add-content {
   display: block;
   flex-grow: 1;
-  overflow: auto;
-  height: 100vh;
+  /* overflow: auto; */
+  height: fit-content
 }
 
 .registration-container {
