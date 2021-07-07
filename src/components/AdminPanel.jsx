@@ -16,13 +16,15 @@ const AdminPanel = () => {
   const [inspecting, setInspecting] = useState(false);
   const [inspectData, setInspectData] = useState({})
   const [inspectType, setInspectType] = useState("")
-  const { ft } = useContext(QueryContext)
+  const { ft, lg } = useContext(QueryContext)
   const [filter, setFilter] = ft
+  const [lang, setLang] = lg
   const [videos, setVideos] = useContext(VideoContext)
 
   useEffect(() => {
     console.log("running new query on adminpanel")
     setFilter("")
+    setLang("")
     api.getVideos()
       .then(res => {
         setVideos(res.data)

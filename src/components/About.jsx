@@ -3,8 +3,19 @@ import team1 from "../images/team1.png";
 import team1a from "../images/team1a.JPG";
 import team2 from "../images/team2.jpg"
 import team2a from "../images/team2a.jpg"
+import { QueryContext } from '../context/QueryContext'
+import {useEffect, useContext} from "react"
 
 const About = () => {
+  const { ft, lg } = useContext(QueryContext)
+  const [filter, setFilter] = ft
+  const [lang, setLang] = lg
+
+  useEffect(() => {
+    setFilter("")
+    setLang("")
+  }, [])
+
   return (
     <div className="main-container">
       <Container>
