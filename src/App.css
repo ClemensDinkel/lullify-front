@@ -131,17 +131,23 @@ html {
   justify-content: center;
 }
 
-.video-description {
-  text-align: left;
-  color: white;
-}
-
 .video-container {
   display: flex;
   justify-content: center;
   flex-grow: 4;
   max-width: 70%;
   padding: 10px;
+  color: white;
+}
+
+@media only screen and (max-width: 375px) {
+  .react-player {
+    height: 200px;
+  }
+}
+
+.video-description {
+  text-align: left;
   color: white;
 }
 

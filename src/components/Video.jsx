@@ -100,7 +100,7 @@ const Video = ({ video, setVideo }) => {
                 muted={false}
                 playing={true}
                 width="100%"
-                height="600px"
+                height="200px"
                 onEnded={playNext}
               /* loop={true} */
               />

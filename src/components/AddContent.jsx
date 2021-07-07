@@ -157,7 +157,7 @@ const AddContent = ({ setUploaderVideos }) => {
                     delay={{ show: 250, hide: 400 }}
                     overlay={
                       <Tooltip id="tooltip-top">
-                        Video Title should have maximum 40 characters.
+                        Enter keywords to search video from youtube.
                       </Tooltip>
                     }
                   >

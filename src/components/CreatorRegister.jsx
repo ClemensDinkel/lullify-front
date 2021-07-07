@@ -69,13 +69,31 @@ const CreatorRegister = () => {
   };
 
   return (
-    <div className= "registration-container">
+    <div className="registration-container">
       <div className="registration-info">
         <div style={{ marginBottom: "30px", color: "white" }}>
-          <h1 style={{ fontFamily: "cursive" }}>Lullify</h1>
+          <h1 style={{ fontFamily: "cursive" }}>Lullifey</h1>
           <p>
-            Register yourself to enjoy more functionaliy in lullify.<br /> Admin will
-            contact you and promote you after checking all information
+            Sign up to enjoy more functionalities provided by Lullifey.
+          </p>
+          <p>
+            As a content creator you will be able to do everything a normal user can do.
+            You can create permanent playlists, mark videos as favorites and report inappropriate videos.
+          </p>
+          <p>
+            Additionally you will have access to the creator panel,
+            that will allow you to add new videos to Lullifey and also make changes to the ones you uploaded.
+            <b>
+              However you can only add videos,
+              if you possess the copyrights to the content you're adding
+              OR
+              if you have the explicit permission of the copyrights owners to do so.
+            </b><br/>
+            If you only want to want to watch videos on Lullifey, sign up as a normal user instead.
+          </p>
+          <p>
+            When you sign up as a content creator we will contact you and the copyright owner (company) to validate your request.
+            After a successful validation process we will promote you to a content creator. Before that you will be handled as a normal user.
           </p>
         </div>
       </div>

@@ -53,12 +53,19 @@ const UserRegister = () => {
   };
 
   return (
-    <div className= "registration-container"
+    <div className="registration-container"
     >
       <div className="registration-info">
         <div style={{ color: "white" }}>
-          <h1 style={{ fontFamily: "cursive" }}>Lullify</h1>
-          <p>Register yourself to enjoy more functionaliy in lullify.</p>
+          <h1 style={{ fontFamily: "cursive" }}>Lullifey</h1>
+          <p>
+            Sign up to enjoy more functionalities provided by Lullifey.
+          </p>
+          <p>
+            As a registered user you will be able to create permanent playlists and add videos to your favorites.
+            Your favorites will always be displayed on top of your search results and on the landing page.
+            You will also be able to report inappropriate content.
+          </p>
         </div>
       </div>
       <div className="registration-info">
