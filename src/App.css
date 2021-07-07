@@ -176,7 +176,6 @@ html {
 .add-content {
   display: block;
   flex-grow: 1;
-  /* overflow: auto; */
   height: fit-content
 }
 
@@ -192,12 +191,7 @@ html {
   display: block;
   margin: auto;
   flex-grow: 1;
+  align-content: center;
 }
 
-.registration-creator {
-  display: block;
-  margin: auto;
-  flex-grow: 1;
-  overflow: auto;
-  height: 100vh;
-}
+

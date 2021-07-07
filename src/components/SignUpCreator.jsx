@@ -5,7 +5,7 @@ import { BiShow } from "react-icons/bi";
 import { BiHide } from "react-icons/bi";
 import api from "../api";
 
-const CreatorRegister = () => {
+const SignUpCreator = () => {
   const [passwordShow, setPasswordShow] = useState(false);
 
   const [ccRegister, setCcRegister] = useState({
@@ -77,27 +77,27 @@ const CreatorRegister = () => {
             Sign up to enjoy more functionalities provided by Lullifey.
           </p>
           <p>
-            As a content creator you will be able to do everything a normal user can do.
+            As a content creator you will be able to do everything a normal user can do. <br/>
             You can create permanent playlists, mark videos as favorites and report inappropriate videos.
           </p>
           <p>
-            Additionally you will have access to the creator panel,
+            Additionally you will have access to the creator panel,<br/>
             that will allow you to add new videos to Lullifey and also make changes to the ones you uploaded.
-            <b>
-              However you can only add videos,
+            <br/><b>
+              However you can only add videos,<br/>
               if you possess the copyrights to the content you're adding
-              OR
+              <br/>OR
               if you have the explicit permission of the copyrights owners to do so.
-            </b><br/>
+            <br/></b>
             If you only want to want to watch videos on Lullifey, sign up as a normal user instead.
           </p>
           <p>
-            When you sign up as a content creator we will contact you and the copyright owner (company) to validate your request.
-            After a successful validation process we will promote you to a content creator. Before that you will be handled as a normal user.
+            When you sign up as a content creator we will contact you and the copyright owner <br/>(company) to validate your request.
+            After a successful validation process we will promote you to a <br/>content creator. Before that you will be handled as a normal user.
           </p>
         </div>
       </div>
-      <div className="registration-creator">
+      <div className="registration-info">
         <Card style={{ flexGrow: "1", maxWidth: "30rem", minWidth: "25rem", height: "fit-content", textAlign: "left" }}>
           <Card.Body>
             <Form onSubmit={onSubmit}>
@@ -351,4 +351,4 @@ const CreatorRegister = () => {
   );
 };
 
-export default CreatorRegister;
+export default SignUpCreator;

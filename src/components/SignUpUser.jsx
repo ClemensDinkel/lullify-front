@@ -53,8 +53,7 @@ const UserRegister = () => {
   };
 
   return (
-    <div className="registration-container"
-    >
+    <div className="registration-container">
       <div className="registration-info">
         <div style={{ color: "white" }}>
           <h1 style={{ fontFamily: "cursive" }}>Lullifey</h1>
@@ -62,16 +61,20 @@ const UserRegister = () => {
             Sign up to enjoy more functionalities provided by Lullifey.
           </p>
           <p>
-            As a registered user you will be able to create permanent playlists and add videos to your favorites.
-            Your favorites will always be displayed on top of your search results and on the landing page.
+            As a registered user you will be able to create permanent playlists and add videos to your favorites.<br />
+            Your favorites will always be displayed on top of your search results and on the landing page.<br />
             You will also be able to report inappropriate content.
+          </p>
+          <p>
+            You will not be able to add new videos to Lullifey.
+            If you want to do that, sign up as a content creator instead.
           </p>
         </div>
       </div>
       <div className="registration-info">
         <Card
           bg="light"
-          style={{ flexGrow: "1", maxWidth: "50rem", height: "fit-content", textAlign: "left" }}
+          style={{ flexGrow: "1", maxWidth: "30rem", minWidth: "25rem", height: "fit-content", textAlign: "left" }}
         >
           <Card.Body>
             <Form onSubmit={onSubmit}>

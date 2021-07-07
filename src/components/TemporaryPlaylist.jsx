@@ -15,8 +15,8 @@ const TemporaryPlaylist = () => {
 
   // load from local storage on first render
   useEffect(() => {
-    if (localStorage.getItem('lullifyPlaylist') !== null) {
-      setTemporaryPlaylist(JSON.parse(localStorage.getItem('lullifyPlaylist')))
+    if (sessionStorage.getItem('lullifyPlaylist') !== null) {
+      setTemporaryPlaylist(JSON.parse(sessionStorage.getItem('lullifyPlaylist')))
     }
   }, [])
   // add video to temporary playlist
@@ -28,7 +28,7 @@ const TemporaryPlaylist = () => {
   }
   // update local storage as well
   useEffect(() => {
-    localStorage.setItem("lullifyPlaylist", JSON.stringify(temporaryPlaylist))
+    sessionStorage.setItem("lullifyPlaylist", JSON.stringify(temporaryPlaylist))
   }, [temporaryPlaylist])
 
   const selectVideo = (e) => {

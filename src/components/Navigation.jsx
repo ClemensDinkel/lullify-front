@@ -140,14 +140,14 @@ const Navigation = ({ handlePageScroll }) => {
             {!decToken ? (
               <>
                 <NavDropdown
-                  title="Register"
+                  title="Sign up"
                   id="navbarScrollingDropdown"
                   style={{ fontWeight: "bold", padding: "2px", margin: "0", fontColor: "gray" }}
                 >
-                  <NavDropdown.Item as={Link} to="/register/userRegister" style={{ padding: "10px", margin: "auto" }} onClick={handlePageScroll}>
+                  <NavDropdown.Item as={Link} to="/signUp/user" style={{ padding: "10px", margin: "auto" }} onClick={handlePageScroll}>
                     User
                   </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="/register/creatorRegister" style={{ padding: "10px", margin: "auto" }} onClick={handlePageScroll}>
+                  <NavDropdown.Item as={Link} to="/signUp/creator" style={{ padding: "10px", margin: "auto" }} onClick={handlePageScroll}>
                     Content Creator
                   </NavDropdown.Item>
                 </NavDropdown>
