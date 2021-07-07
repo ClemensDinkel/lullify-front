@@ -25,6 +25,9 @@ const TemporaryPlaylist = () => {
     if (selected !== null && !temporaryPlaylist.includes(selected)) {
       setTemporaryPlaylist(prev => [...prev, selected])
     }
+    else {
+      alert("Video already in playlist")
+    }
   }
   // update local storage as well
   useEffect(() => {
@@ -48,7 +51,6 @@ const TemporaryPlaylist = () => {
 
   const removeVideo = (id) => {
     const newTP = temporaryPlaylist.filter(video => video._id !== id)
-    console.log(newTP)
     setTemporaryPlaylist(newTP)
   }
 

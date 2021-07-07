@@ -112,7 +112,7 @@ const Playlists = () => {
   return (
     <div className="playlists-container">
       <div className="playlists">
-        <h2 className="create-playlist">Playlists</h2>
+        <h2 style={{ fontFamily: "cursive", color: "yellow" }}>Playlists</h2>
         <Form style={{ display: "flex" }} onSubmit={addPlaylist}>
           <FormControl
             type="text"

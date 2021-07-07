@@ -8,9 +8,8 @@ const SignUp = () => {
             <Switch>
             <Route path='/signUp/user'><UserRegister/></Route>
             <Route path='/signUp/creator'><SignUpCreator/></Route>
-            </Switch>
-            
-        </div>
+            </Switch>  
+      </div>
     )
 }
 

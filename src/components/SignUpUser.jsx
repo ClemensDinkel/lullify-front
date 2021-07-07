@@ -55,7 +55,7 @@ const UserRegister = () => {
   return (
     <div className="registration-container">
       <div className="registration-info">
-        <div style={{ color: "white" }}>
+        <div style={{ color: "antiquewhite" }}>
           <h1 style={{ fontFamily: "cursive" }}>Lullifey</h1>
           <p>
             Sign up to enjoy more functionalities provided by Lullifey.
