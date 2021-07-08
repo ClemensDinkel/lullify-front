@@ -93,16 +93,18 @@ const Video = ({ video, setVideo }) => {
         <Container>
           <Row>
             <Col>
+              {video[0].video_url ? 
               <ReactPlayer
-                controls={true}
-                className="react-player"
-                url={video[0].video_url}
-                muted={false}
-                playing={true}
-                width="100%"
-                height="500px" 
-                onEnded={playNext}
-              />
+              controls={true}
+              className="react-player"
+              url={video[0].video_url}
+              muted={false}
+              playing={true}
+              width="100%"
+              height="500px" 
+              onEnded={playNext}
+            /> :
+            <h1>Loading....</h1>}
             </Col>
           </Row>
           <Row>
