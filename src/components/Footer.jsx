@@ -13,7 +13,7 @@ const Footer = () => {
         </div>
         <div>
           <Button
-            variant="outline-secondary"
+            variant="outline-light"
             type="button"
             onClick={() => window.scrollTo(0, 0)}
           >

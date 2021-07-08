@@ -44,7 +44,7 @@ html {
 .home-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 /* ADMIN PANEL */
@@ -138,6 +138,16 @@ html {
   max-width: 70%;
   padding: 10px;
   color: white;
+}
+
+.scroll-down { 
+  display: none;
+}
+
+@media only screen and (max-width: 961px) {
+  .scroll-down {
+    display: block;
+  }
 }
 
 @media only screen and (max-width: 375px) {

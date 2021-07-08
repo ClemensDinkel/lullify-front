@@ -100,9 +100,8 @@ const Video = ({ video, setVideo }) => {
                 muted={false}
                 playing={true}
                 width="100%"
-                height="600px"
+                height="500px" 
                 onEnded={playNext}
-              /* loop={true} */
               />
             </Col>
           </Row>
@@ -119,7 +118,7 @@ const Video = ({ video, setVideo }) => {
                   <div>
                     {decToken && singleUserInfo.favorites && !singleUserInfo.favorites.some(favorite => favorite._id === video[0]._id) && (
                       <Button variant="dark" onClick={() => addToFavorite()}>
-                        <AiOutlineHeart />{/* Favorite */}
+                        <AiOutlineHeart />
                       </Button>
                     )}
 
@@ -128,7 +127,7 @@ const Video = ({ video, setVideo }) => {
                         variant="dark"
                         onClick={() => removeFromFavorite()}
                       >
-                        <AiTwotoneHeart /> {/* UnFavorite */}
+                        <AiTwotoneHeart />
                       </Button>
                     )}
                   </div>
@@ -157,9 +156,9 @@ const Video = ({ video, setVideo }) => {
                 <div>
                   {readMore ? (
                     <div style={{ backgroundColor: "rgba(0,0,0,0.4)" }}>
-                      <h6 >
+                      {/* <h6 >
                         Duration: {secToMinConverter(video[0].duration)} mins
-                      </h6>
+                      </h6> */}
                       <h6 >Description:</h6>
                       <section  dangerouslySetInnerHTML={{ __html: marked(video[0].short_description) }} />
                     </div>

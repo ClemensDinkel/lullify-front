@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useRef } from "react";
 import Previews from "./Previews";
 import Playlists from "./Playlists";
 import TemporaryPlaylist from "./TemporaryPlaylist";
@@ -8,6 +8,8 @@ import { VideoContext } from "../context/VideoContext";
 import { EscapeContext } from "../context/EscapeContext";
 import "../App.css";
 import api from "../api";
+import { Button } from 'react-bootstrap'
+import { AiOutlineArrowDown } from 'react-icons/ai'
 
 const Home = () => {
   const { dTk, sUI } = useContext(UserContext);
@@ -19,6 +21,7 @@ const Home = () => {
   const [escapeUE, setEscapeUE] = useContext(EscapeContext)
 
   const shuffle = array => {
+    console.log("shuffling")
     let m = array.length, t, i;
     // While there remain elements to shuffle…
     while (m) {
@@ -31,14 +34,17 @@ const Home = () => {
       return array;
     }
   }
+
   const putFavoritesFirst = array => {
     // put favorites first
-    if (singleUserInfo.favorites) {
+    if (singleUserInfo.favorites && videos) {
+      console.log("favorites first")
       for (let i = 0; i < array.length; i++) {
         if (singleUserInfo.favorites.some(favorite => favorite._id === array[i]._id)) {
           array.unshift(array.splice(i, 1)[0])
         }
       }
+      console.log(array)
     }
     return array
   }
@@ -46,25 +52,39 @@ const Home = () => {
   useEffect(() => {
     // only execute if not being pushed here from player by making a search from there
     if (!escapeUE) {
-      setFilter("")
       api.getVideos()
         .then(res => {
           const shuffledArray = shuffle(res.data)
           const favoriteFirstArray = putFavoritesFirst(shuffledArray) // shuffledArray
-          setVideos(favoriteFirstArray)
+          setVideos(favoriteFirstArray.slice(0,24)) // limit to 24 hits
+          setFilter("")
         })
         .catch(err => console.log(err))
-    } else setEscapeUE(false)
-  }, [])
+    } else {
+      setEscapeUE(false)
+      setFilter("")
+    }
+  }, [singleUserInfo]) 
 
-  /* useEffect(() => {
-    setVideos(videos)
-  }, []) */
+
+  const scrollRef = useRef(null)
+
+  const handlePageScrollDown = () => {
+    scrollRef.current.scrollIntoView() 
+  };
 
   return (
     <div className="main-container home-container">
       <Previews />
+      <div className="scroll-down">
+      <Button type="button" variant="outline-light" onClick={handlePageScrollDown} style={{ maxHeight: "40px"}}>
+        <AiOutlineArrowDown />
+      </Button>
+      </div>
+      <div ref={scrollRef}>
       {decToken && decToken.id ? <Playlists /> : <TemporaryPlaylist />}
+        </div>
+
     </div>
   );
 };
