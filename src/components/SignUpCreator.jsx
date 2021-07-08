@@ -71,7 +71,7 @@ const SignUpCreator = () => {
   return (
     <div className="registration-container">
       <div className="registration-info">
-        <div style={{ marginBottom: "30px", color: "white" }}>
+        <div style={{ color: "antiquewhite" }}>
           <h1 style={{ fontFamily: "cursive" }}>Lullifey</h1>
           <p>
             Sign up to enjoy more functionalities provided by Lullifey.
@@ -89,7 +89,7 @@ const SignUpCreator = () => {
               <br/>OR
               if you have the explicit permission of the copyrights owners to do so.
             <br/></b>
-            If you only want to want to watch videos on Lullifey, sign up as a normal user instead.
+            If you only want to watch videos on Lullifey, sign up as a normal user instead.
           </p>
           <p>
             When you sign up as a content creator we will contact you and the copyright owner <br/>(company) to validate your request.
