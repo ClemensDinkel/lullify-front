@@ -188,13 +188,13 @@ html {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  width: 100%;
-  padding: 10px;
+  width: 95%;
+  padding: 10px; 
 }
 
 .registration-info {
-  display: block;
+  display: flex;
+  justify-content: center;
   margin: auto;
   flex-grow: 1;
-  align-content: center;
 }

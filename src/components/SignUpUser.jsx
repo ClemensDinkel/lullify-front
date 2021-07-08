@@ -61,12 +61,12 @@ const UserRegister = () => {
             Sign up to enjoy more functionalities provided by Lullifey.
           </p>
           <p>
-            As a registered user you will be able to create permanent playlists and add videos to your favorites.<br />
-            Your favorites will always be displayed on top of your search results and on the landing page.<br />
+            As a registered user you will be able to create permanent playlists <br />and add videos to your favorites.
+            Your favorites will always be displayed <br />on top of your search results and on the landing page.<br />
             You will also be able to report inappropriate content.
           </p>
           <p>
-            You will not be able to add new videos to Lullifey.
+            You will not be able to add new videos to Lullifey.<br />
             If you want to do that, sign up as a content creator instead.
           </p>
         </div>
