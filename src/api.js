@@ -93,6 +93,14 @@ const api = {
   },
 
   getVideos: async (lang, filter) => {
+    return await axios.get(`${root}/videos/collection`, {
+      params: {
+        lang: lang,
+        filter: filter,
+      },
+    });
+  },
+  getAllVideos: async (lang, filter) => {
     return await axios.get(`${root}/videos`, {
       params: {
         lang: lang,

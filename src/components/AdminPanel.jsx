@@ -25,7 +25,7 @@ const AdminPanel = () => {
     console.log("running new query on adminpanel")
     setFilter("")
     setLang("")
-    api.getVideos()
+    api.getAllVideos()
       .then(res => {
         setVideos(res.data)
       })

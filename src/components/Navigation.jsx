@@ -67,12 +67,18 @@ const Navigation = ({ handlePageScroll }) => {
     if (e) e.preventDefault();
     const path = history.location.pathname.split("/")[1];
     if (path === "player" || path === "about" || path === "creatorpanel") setEscapeUE(true)
-    api.getVideos(lang, filter)
-      .then(res => {
-        setVideos(res.data)
-        if (path === "player" || path === "about" || path === "creatorpanel") history.push("/")
+    if (path === "adminpanel") {
+      api.getAllVideos(lang, filter)
+        .then(res => setVideos(res.data))
+        .catch(err => console.log(err))
+    } else {
+      api.getVideos(lang, filter)
+        .then(res => {
+          setVideos(res.data)
+          if (path === "player" || path === "about" || path === "creatorpanel") history.push("/")
         })
-      .catch(err => console.log(err))
+        .catch(err => console.log(err))
+    }
   }
 
   return (
@@ -89,7 +95,7 @@ const Navigation = ({ handlePageScroll }) => {
             }}
           /> */}
           <h5 style={{ fontSize: "30px", fontFamily: "serif", color: "#404040", display: "block" }} >
-          🌚<b>Lullifey</b>
+            🌚<b>Lullifey</b>
           </h5>
         </Navbar.Brand>
 
