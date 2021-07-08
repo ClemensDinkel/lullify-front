@@ -54,7 +54,7 @@ const AddContent = ({ setUploaderVideos }) => {
 
   const autoFill = (index) => {
     const selected = yTHits[index]
-    if(selected.snippet.title.length>40 && selected.snippet.channelTitle.length> 20) {
+    if (selected.snippet.title.length > 40 && selected.snippet.channelTitle.length > 20) {
       alert("Video Title and Artist Name are too longer. Please make it shorter before submit video")
     }
 
@@ -73,14 +73,14 @@ const AddContent = ({ setUploaderVideos }) => {
     setQ("")
   }
 
-  useEffect(() => {
+  /* useEffect(() => {
     console.log(yTHits)
-    /* console.log(yTHits[0].snippet.title) */
+     console.log(yTHits[0].snippet.title)
   }, [yTHits])
 
-  useEffect(() => {
+    useEffect(() => {
     console.log(addVideo)
-  }, [addVideo])
+  }, [addVideo]) */
 
   const onChange = (e) => {
     let keyName = e.target.name;
@@ -95,7 +95,6 @@ const AddContent = ({ setUploaderVideos }) => {
 
   const addNewVideo = (e) => {
     e.preventDefault();
-    console.log(addVideo.languages)
     const newVideo = {
       title: addVideo.title,
       artist: addVideo.artist,
@@ -107,7 +106,6 @@ const AddContent = ({ setUploaderVideos }) => {
       languages: addVideo.languages.toLowerCase().replace(/ /g, '').split(","),
       tags: addVideo.tags.replace(/ /g, '')
     };
-    console.log(newVideo.languages)
     api.addVideos(newVideo)
       .then((res) => {
         setAddVideo({
@@ -151,24 +149,24 @@ const AddContent = ({ setUploaderVideos }) => {
           <Card.Body>
             <p>Optional: Autofill form using Youtube API</p>
             <Form onSubmit={getFromYTApi}>
-            <OverlayTrigger
-                    key="top"
-                    placement="top"
-                    delay={{ show: 250, hide: 400 }}
-                    overlay={
-                      <Tooltip id="tooltip-top">
-                        Enter keywords to search video from youtube.
-                      </Tooltip>
-                    }
-                  >
-              <Form.Control
-                type="text"
-                placeholder="Get Data from Youtube API"
-                name="ytapi"
-                value={q}
-                onChange={handleQ}
-                required
-              />
+              <OverlayTrigger
+                key="top"
+                placement="top"
+                delay={{ show: 250, hide: 400 }}
+                overlay={
+                  <Tooltip id="tooltip-top">
+                    Enter keywords to search video from youtube.
+                  </Tooltip>
+                }
+              >
+                <Form.Control
+                  type="text"
+                  placeholder="Get Data from Youtube API"
+                  name="ytapi"
+                  value={q}
+                  onChange={handleQ}
+                  required
+                />
               </OverlayTrigger>
               <Button variant="outline-secondary" type="submit">
                 <b>Ask Youtube</b>
@@ -209,15 +207,15 @@ const AddContent = ({ setUploaderVideos }) => {
                       </Tooltip>
                     }
                   >
-                  <Form.Control
-                    type="text"
-                    placeholder="Enter Title"
-                    name="title"
-                    value={addVideo.title}
-                    onChange={onChange}
-                    maxlength="40"
-                    required
-                  />
+                    <Form.Control
+                      type="text"
+                      placeholder="Enter Title"
+                      name="title"
+                      value={addVideo.title}
+                      onChange={onChange}
+                      maxlength="40"
+                      required
+                    />
                   </OverlayTrigger>
                 </Form.Group>
               </Form.Row>
@@ -237,15 +235,15 @@ const AddContent = ({ setUploaderVideos }) => {
                       </Tooltip>
                     }
                   >
-                  <Form.Control
-                    type="text"
-                    placeholder="Enter Artist"
-                    name="artist"
-                    value={addVideo.artist}
-                    onChange={onChange}
-                    maxlength="20"
-                    required
-                  />
+                    <Form.Control
+                      type="text"
+                      placeholder="Enter Artist"
+                      name="artist"
+                      value={addVideo.artist}
+                      onChange={onChange}
+                      maxlength="20"
+                      required
+                    />
                   </OverlayTrigger>
                 </Form.Group>
               </Form.Row>
@@ -355,7 +353,7 @@ const AddContent = ({ setUploaderVideos }) => {
                         <a
                           href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes"
                           target="_blank"
-                          style={{color: "black"}}
+                          style={{ color: "black" }}
                         >
                           <BsQuestionOctagonFill />
                         </a>

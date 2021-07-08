@@ -76,9 +76,9 @@ const Video = ({ video, setVideo }) => {
   };
 
   // for testing
-  useEffect(() => {
+  /* useEffect(() => {
     console.log(singleUserInfo)
-  }, [singleUserInfo])
+  }, [singleUserInfo]) */
 
   const playNext = () => {
     const slicedPlaylist = autoPlaylist.slice(1)

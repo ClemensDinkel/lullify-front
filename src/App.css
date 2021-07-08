@@ -82,9 +82,16 @@ html {
   display: flex;
   flex-wrap: wrap;
   width: 60%;
-  /* max-height: 130vh;
-  overflow: auto; */
+  justify-content: center;
+  align-content: flex-start;
+  flex-grow: 4;
+  margin: 0;
+}
+
+.previews-container-plus-button {
+  display: flex;
   padding: 10px;
+  width: 60%;
   justify-content: center;
   align-content: flex-start;
   flex-grow: 4;
@@ -139,17 +146,18 @@ html {
   display: none;
 }
 
-@media only screen and (max-width: 961px) {
+@media only screen and (max-width: 1180px) {
   .scroll-down {
     display: block;
   }
+  .home-container {
+    display: block;
+  }
+  .previews-container-plus-button {
+    width: 100%;
+  } 
 }
 
-@media only screen and (max-width: 375px) {
-  .react-player {
-    height: 200px;
-  }
-}
 
 .video-description {
   text-align: left;

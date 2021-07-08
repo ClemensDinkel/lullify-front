@@ -19,9 +19,7 @@ const Home = () => {
   const [filter, setFilter] = ft
   const [videos, setVideos] = useContext(VideoContext)
   const [escapeUE, setEscapeUE] = useContext(EscapeContext)
-
   const shuffle = array => {
-    console.log("shuffling")
     let m = array.length, t, i;
     // While there remain elements to shuffle…
     while (m) {
@@ -38,13 +36,11 @@ const Home = () => {
   const putFavoritesFirst = array => {
     // put favorites first
     if (singleUserInfo.favorites && videos) {
-      console.log("favorites first")
       for (let i = 0; i < array.length; i++) {
         if (singleUserInfo.favorites.some(favorite => favorite._id === array[i]._id)) {
           array.unshift(array.splice(i, 1)[0])
         }
       }
-      console.log(array)
     }
     return array
   }
@@ -65,22 +61,24 @@ const Home = () => {
       setEscapeUE(false)
       setFilter("")
     }
-  }, [singleUserInfo]) 
+  }, [singleUserInfo])
 
 
   const scrollRef = useRef(null)
 
   const handlePageScrollDown = () => {
-    scrollRef.current.scrollIntoView() 
+    scrollRef.current.scrollIntoView()
   };
 
   return (
     <div className="main-container home-container">
-      <Previews />
-      <div className="scroll-down">
-        <Button type="button" variant="outline-light" onClick={handlePageScrollDown} style={{ maxHeight: "40px"}}>
-          <AiOutlineArrowDown />
-        </Button>
+      <div className="previews-container-plus-button">
+        <Previews />
+        <div className="scroll-down">
+          <Button type="button" variant="outline-light" onClick={handlePageScrollDown} style={{ maxHeight: "40px" }}>
+            <AiOutlineArrowDown />
+          </Button>
+        </div>
       </div>
       <div ref={scrollRef}>
         {decToken && decToken.id ? <Playlists /> : <TemporaryPlaylist />}

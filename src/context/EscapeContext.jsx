@@ -6,9 +6,9 @@ export const EscapeContext = createContext()
 export const EscapeController = ({ children }) => {
   const [escapeUE, setEscapeUE] = useState(false)
 
-  useEffect(() => {
+  /* useEffect(() => {
     console.log(escapeUE)
-  },[escapeUE])
+  },[escapeUE]) */
 
   return (
     <EscapeContext.Provider value={[escapeUE, setEscapeUE]}>

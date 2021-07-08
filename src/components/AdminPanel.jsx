@@ -22,7 +22,6 @@ const AdminPanel = () => {
   const [videos, setVideos] = useContext(VideoContext)
 
   useEffect(() => {
-    console.log("running new query on adminpanel")
     setFilter("")
     setLang("")
     api.getAllVideos()

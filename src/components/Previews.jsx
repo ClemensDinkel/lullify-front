@@ -1,14 +1,22 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import '../App.css'
 import { VideoContext } from '../context/VideoContext'
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { PlaylistContext } from '../context/PlaylistContext';
+import useBreakpoint from '../customHooks/useBreakpoint';
+import { useEffect } from 'react';
 
 const Previews = () => {
   const [videos] = useContext(VideoContext)
   const [autoPlaylist, setAutoPlaylist] = useContext(PlaylistContext)
-  
+  const point = useBreakpoint();
+  const [margin, setMargin] = useState(1)
+
+  useEffect(() => {
+    const margin = point === "xl" ? 20 : point === "lg" ? 10 : point === "md" ? 5 : 0  
+    setMargin(margin)
+  },[point])
 
   const playPlaylist = () => {
     const autoPlay=[]
@@ -22,7 +30,7 @@ const Previews = () => {
         videos && videos.map((video, index) => {
           return (
             <div>
-              <Card key={index} style={{background: "rgba(0,0,0,0.1)"}} text="white" className="previews-card-container" onClick={()=> playPlaylist()}>
+              <Card key={index} style={{background: "rgba(0,0,0,0.1)", margin: `${margin}px`}} text="white" className="previews-card-container" onClick={()=> playPlaylist()}>
                 <Link to={`/player/${video._id}`}>
                   <img variant="top" src={video.video_img_url} height="140px" width="100%" />
                 </Link>
