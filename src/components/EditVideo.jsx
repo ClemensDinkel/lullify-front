@@ -165,7 +165,6 @@ const EditVideo = () => {
                       name="duration"
                       value={getVideo ? getVideo.duration : ""}
                       onChange={onChange}
-                      required
                     />
                   </OverlayTrigger>
                 </Form.Group>
@@ -192,6 +191,7 @@ const EditVideo = () => {
                       name="languages"
                       value={getVideo ? getVideo.languages : ""}
                       onChange={onChange}
+                      required
                     />
                   </OverlayTrigger>
                 </Form.Group>

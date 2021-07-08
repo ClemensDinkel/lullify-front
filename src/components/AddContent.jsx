@@ -55,7 +55,7 @@ const AddContent = ({ setUploaderVideos }) => {
   const autoFill = (index) => {
     const selected = yTHits[index]
     if (selected.snippet.title.length > 40 && selected.snippet.channelTitle.length > 20) {
-      alert("Video Title and Artist Name are too longer. Please make it shorter before submit video")
+      alert("Video Title, Artist or Name is too long. Please make it shorter before submitting video")
     }
 
     setAddVideo({
@@ -327,6 +327,7 @@ const AddContent = ({ setUploaderVideos }) => {
                 <Form.Group as={Col} controlId="formGridEmail">
                   <Form.Label>
                     <b>Languages</b>
+                    <span style={{ color: "red" }}>*</span>
                   </Form.Label>
                   <InputGroup className="mb-2">
                     <OverlayTrigger
@@ -346,6 +347,7 @@ const AddContent = ({ setUploaderVideos }) => {
                         name="languages"
                         value={addVideo.languages}
                         onChange={onChange}
+                        required
                       />
                     </OverlayTrigger>
                     <InputGroup.Prepend>
