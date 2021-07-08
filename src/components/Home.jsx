@@ -56,7 +56,8 @@ const Home = () => {
         .then(res => {
           const shuffledArray = shuffle(res.data)
           const favoriteFirstArray = putFavoritesFirst(shuffledArray) // shuffledArray
-          setVideos(favoriteFirstArray.slice(0,24)) // limit to 24 hits
+          setVideos(res.data)
+          // setVideos(favoriteFirstArray.slice(0,24)) // limit to 24 hits
           setFilter("")
         })
         .catch(err => console.log(err))
