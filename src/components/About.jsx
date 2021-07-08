@@ -26,7 +26,7 @@ const About = () => {
           <Col>
             <div style={{ display: "flex", justifyContent: "center" }}>
               <div
-                style={{ marginBottom: "30px", width: "70%", color: "white" }}
+                style={{ marginBottom: "30px", width: "70%", color: "white", fontSize: "20px" }}
               >
                 <h1 style={{ fontFamily: "cursive" }}>Our mission</h1>
                 <p>
@@ -79,7 +79,7 @@ const About = () => {
                         justifyContent: "center",
                       }}
                     >
-                      <h6>FullStack Web Developer</h6>
+                      <h6>Full Stack Developer</h6>
                       <div
                         style={{ display: "flex", justifyContent: "center" }}
                       >
@@ -134,13 +134,13 @@ const About = () => {
                         justifyContent: "center",
                       }}
                     >
-                      <h6>FullStack Web Developer</h6>
+                      <h6>Full Stack Developer</h6>
                       <div
                         style={{ display: "flex", justifyContent: "center" }}
                       >
                         <h2>
                           <a
-                            href="#"
+                            href="https://www.linkedin.com/in/clemens-dinkel"
                             target="_blank"
                             style={{ margin: "7px", color: "black" }}
                           >

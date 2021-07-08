@@ -30,7 +30,7 @@ const AdminUserList = ({ setInspecting, setInspectData, setInspectType }) => {
 
   return (
     <div className="user-list">
-      <h2 style={{ textAlign: "center", fontFamily: "cursive", color:"white"}}>User List</h2>
+      <h2 style={{ textAlign: "center", fontFamily: "cursive", color:"white"}}><b>User List</b></h2>
       <h3 style={{fontFamily: "cursive", color:"yellow"}}>Admins</h3>
       <div style={{ overflowY: "scroll", maxHeight: "26vh" }}>
         <Table striped bordered hover variant="dark" size="sm" responsive>

@@ -135,7 +135,7 @@ const AddContent = ({ setUploaderVideos }) => {
 
   return (
     <div className="add-content">
-      <h3 style={{ fontFamily: "cursive", color: "white" }}>Add new Video</h3>
+      <h3 style={{ fontFamily: "cursive", color: "white" }}><b>Add new Video</b></h3>
       <div
         style={{ display: "flex", justifyContent: "center", width: "100%", margin: ".4rem" }}
       >

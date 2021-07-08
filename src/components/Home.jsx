@@ -77,14 +77,13 @@ const Home = () => {
     <div className="main-container home-container">
       <Previews />
       <div className="scroll-down">
-      <Button type="button" variant="outline-light" onClick={handlePageScrollDown} style={{ maxHeight: "40px"}}>
-        <AiOutlineArrowDown />
-      </Button>
+        <Button type="button" variant="outline-light" onClick={handlePageScrollDown} style={{ maxHeight: "40px"}}>
+          <AiOutlineArrowDown />
+        </Button>
       </div>
       <div ref={scrollRef}>
-      {decToken && decToken.id ? <Playlists /> : <TemporaryPlaylist />}
-        </div>
-
+        {decToken && decToken.id ? <Playlists /> : <TemporaryPlaylist />}
+      </div>
     </div>
   );
 };

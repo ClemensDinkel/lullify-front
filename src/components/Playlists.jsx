@@ -112,7 +112,7 @@ const Playlists = () => {
   return (
     <div className="playlists-container">
       <div className="playlists">
-        <h2 style={{ fontFamily: "cursive", color: "yellow" }}>Playlists</h2>
+        <h2 style={{ fontSize: "30px", fontFamily: "serif", color: "yellow" }}><b>Playlists</b></h2>
         <Form style={{ display: "flex" }} onSubmit={addPlaylist}>
           <FormControl
             type="text"
@@ -130,7 +130,7 @@ const Playlists = () => {
         <h1> </h1>
         {displayedPlaylists.length !== 0 ? (
           <Form style={{ width: "70%" }}>
-            <h6 style={{ fontFamily: "cursive", color: "yellow" }}>
+            <h6 style={{ fontFamily: "cursive", color: "yellow", textAlign: "left" }}>
               Add Video
             </h6>
             <Form.Control

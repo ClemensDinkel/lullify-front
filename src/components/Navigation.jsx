@@ -89,7 +89,7 @@ const Navigation = ({ handlePageScroll }) => {
             }}
           /> */}
           <h5 style={{ fontSize: "30px", fontFamily: "serif", color: "#404040", display: "block" }} >
-            👥<b>Lullifey</b>
+          🌚<b>Lullifey</b>
           </h5>
         </Navbar.Brand>
 

@@ -59,7 +59,7 @@ const TemporaryPlaylist = () => {
       <div className="playlists">
         <h2 style={{ cursor: "pointer" }} onClick={playPlaylist}>
           <Nav.Link as={Link} to={`/player/${temporaryPlaylist.length > 0 ? temporaryPlaylist[0]._id : ""}`}>
-            <p style={{ fontFamily: "cursive", color: "yellow" }}>Temporary Playlist</p>
+            <p style={{ fontSize: "30px", fontFamily: "serif", color: "yellow" }}><b>Temporary Playlist</b></p>
           </Nav.Link>
         </h2>
         <div style={{ textAlign: "left" }}>
