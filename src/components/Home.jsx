@@ -50,9 +50,9 @@ const Home = () => {
     if (!escapeUE) {
       api.getVideos()
         .then(res => {
-          const shuffledArray = shuffle(res.data)
-          const favoriteFirstArray = putFavoritesFirst(shuffledArray) // shuffledArray
-          setVideos(res.data)
+          // const shuffledArray = shuffle(res.data)
+          const favoriteFirstArray = putFavoritesFirst(res.data) // shuffledArray
+          setVideos(favoriteFirstArray)
           // setVideos(favoriteFirstArray.slice(0,24)) // limit to 24 hits
           setFilter("")
         })

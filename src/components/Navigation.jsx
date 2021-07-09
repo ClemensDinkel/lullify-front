@@ -63,6 +63,18 @@ const Navigation = ({ handlePageScroll }) => {
     update()
   },[lang]) */
 
+  const putFavoritesFirst = array => {
+    // put favorites first
+    if (singleUserInfo.favorites && videos) {
+      for (let i = 0; i < array.length; i++) {
+        if (singleUserInfo.favorites.some(favorite => favorite._id === array[i]._id)) {
+          array.unshift(array.splice(i, 1)[0])
+        }
+      }
+    }
+    return array
+  }
+
   const update = (e) => {
     if (e) e.preventDefault();
     const path = history.location.pathname.split("/")[1];
@@ -74,7 +86,8 @@ const Navigation = ({ handlePageScroll }) => {
     } else {
       api.getVideos(lang, filter)
         .then(res => {
-          setVideos(res.data)
+          const favoriteFirstArray = putFavoritesFirst(res.data)
+          setVideos(favoriteFirstArray)
           if (path === "player" || path === "about" || path === "creatorpanel") history.push("/")
         })
         .catch(err => console.log(err))
