@@ -1,11 +1,10 @@
 import { Container, Row, Col, Card } from "react-bootstrap";
-import team1 from "../images/team1.png";
 import team1a from "../images/team1a.JPG";
-import team2 from "../images/team2.jpg";
 import team2a from "../images/team2a.jpg";
+import team3a from "../images/team3a.jpg";
 import { QueryContext } from "../context/QueryContext";
 import { useEffect, useContext } from "react";
-import { FaLinkedin } from "react-icons/fa";
+import { FaLinkedin, FaYoutube } from "react-icons/fa";
 import { AiOutlineGithub } from "react-icons/ai";
 import { FaXingSquare } from "react-icons/fa";
 
@@ -156,13 +155,41 @@ const About = () => {
                             <AiOutlineGithub />
                           </a>
                         </h2>
+                      </div>
+                    </div>
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+              <Card
+                bg="light"
+                style={{
+                  width: "17rem",
+                  height: "fit-content",
+                  margin: "10px",
+                }}
+              >
+                <img variant="top" src={team3a} width="100%" height="90%" />
+                <Card.Body>
+                  <Card.Title>Christopher Hopp</Card.Title>
+                  <Card.Text>
+                  <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <h6>Background & Moon Design</h6>
+                      <div
+                        style={{ display: "flex", justifyContent: "center" }}
+                      >
                         <h2>
                           <a
-                            href="#"
+                            href="https://www.youtube.com/channel/UC13nxc7uLXD32T1tsXGNP9g"
                             target="_blank"
                             style={{ margin: "7px", color: "black" }}
                           >
-                            <FaXingSquare />
+                            <FaYoutube />
                           </a>
                         </h2>
                       </div>
