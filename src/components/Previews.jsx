@@ -1,42 +1,50 @@
-import { Card } from 'react-bootstrap'
-import {Link} from 'react-router-dom'
+import { useContext, useState } from 'react'
 import '../App.css'
-import {Container, Col, Row} from 'react-bootstrap'
+import { VideoContext } from '../context/VideoContext'
+import { Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { PlaylistContext } from '../context/PlaylistContext';
+import useBreakpoint from '../customHooks/useBreakpoint';
+import { useEffect } from 'react';
 
+const Previews = () => {
+  const [videos] = useContext(VideoContext)
+  const [autoPlaylist, setAutoPlaylist] = useContext(PlaylistContext)
+  const point = useBreakpoint();
+  const [margin, setMargin] = useState(1)
 
-const Previews = ({videos}) => {
+  useEffect(() => {
+    const margin = point === "xl" ? 20 : point === "lg" ? 10 : point === "md" ? 5 : 0  
+    setMargin(margin)
+  },[point])
 
-    console.log(videos)
-    return (
-        <>
-          <Container>
-              <Row>
-            {
-                videos && videos.map((video, index) => {
-                    return <Col xs={12} sm={12} md={4} lg={4} >
-                        <Card key={index} bg='light'style={{ width: '18rem', height:'20rem' }} >
-                            <Link to={`/player/${video._id}`}>
-                                <Card.Img 
-                                    variant="top" 
-                                    src={video.video_img_url} 
-                                    height="180rem" />
-                            </Link>
-                            <Card.Body>
-                                <Card.Title>
-                                    {video.title}
-                                </Card.Title>
-                                <Card.Text> 
-                                    {video.artist}
-                                </Card.Text>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                })
-            }
-            </Row>
-            </Container>  
-        </>
-    )
+  const playPlaylist = () => {
+    const autoPlay=[]
+    videos.forEach(video => autoPlay.push(video._id))
+    setAutoPlaylist(autoPlay)
+  }
+
+  return (
+    <div className="previews-container">
+      {
+        videos && videos.map((video, index) => {
+          return (
+            <div>
+              <Card key={index} style={{background: "rgba(0,0,0,0.1)", margin: `${margin}px`}} text="white" className="previews-card-container" onClick={()=> playPlaylist()}>
+                <Link to={`/player/${video._id}`}>
+                  <img variant="top" src={video.video_img_url} height="140px" width="100%" />
+                </Link>
+                <Card.Body style={{textAlign: "left"}}>
+                  <Card.Title style={{fontFamily: "cursive"}}>{video.title}</Card.Title>
+                  <Card.Text >{video.artist}</Card.Text>
+                </Card.Body>
+              </Card>
+            </div>
+          )
+        })
+      }
+    </div >
+  )
 }
 
 export default Previews

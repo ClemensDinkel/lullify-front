@@ -1,54 +1,36 @@
-import { useParams } from 'react-router-dom'
-import { useState, useEffect } from 'react'
-import Playlists from './Playlists'
-import axios from 'axios'
-import Video from './Video'
-import '../App.css'
-import {Container, Col, Row} from 'react-bootstrap'
-
-
+import { useParams } from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
+import Playlists from "./Playlists";
+import TemporaryPlaylist from "./TemporaryPlaylist";
+import Video from "./Video";
+import "../App.css";
+import api from "../api";
+import { UserContext } from "../context/UserContext";
+import { PlaylistContext } from "../context/PlaylistContext";
 
 const Player = () => {
-    const {id} = useParams()
+  const { id } = useParams();
+  const [video, setVideo] = useState();
+  const { dTk } = useContext(UserContext);
+  const [decToken] = dTk;
+  const [autoPlaylist] = useContext(PlaylistContext);
 
-    const [loading, setLoading] = useState(true)
+  useEffect(() => {
+    api
+      .getVideoById(id)
+      .then((res) => setVideo(res.data)) //array!!!
+      .catch((err) => console.log(err));
+  }, [autoPlaylist]);
 
-    const [video, setVideo] = useState()
+  // in video on end -> playlist.shift() ?      n nn
 
-    console.log(video)
+  return (
+    <div className="player-container main-container">
+      {video ? <Video video={video} setVideo={setVideo} /> : <p>Loading..</p>}
 
-    useEffect(() => {
-        fetchVideoById()
-      },[])
+      {decToken && decToken.id ? <Playlists /> : <TemporaryPlaylist />}
+    </div>
+  );
+};
 
-    const fetchVideoById = async () => {
-        await axios.get(`https://tranquil-reaches-12289.herokuapp.com/videos/${id}`)
-            .then(res => {
-              setVideo(res.data)
-            })
-            .catch(err => console.log(err))
-            setLoading(false)
-    }
-    return (
-        <>
-            <Container>
-              <Row>
-                <Col sm={9}>
-                {
-            !loading ? 
-            <Video video={video}/> :
-            <p>Loading..</p>
-          }
-                </Col>
-
-                <Col sm={3}>
-                <Playlists/>
-                </Col>
-              </Row>
-            </Container>
-            
-        </>
-    )
-}
-
-export default Player
+export default Player;

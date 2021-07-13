@@ -1,104 +1,216 @@
-import { Navbar, Nav, NavDropdown, Form, FormControl, Button, Image } from 'react-bootstrap'
-/* import { Link } from 'react-router-dom'; */
-import logo_image from '../images/logo8.png'
-import { useState, useEffect } from 'react';
-import { useHistory } from "react-router-dom";
-import AdminPanel from './AdminPanel';
+import {
+  Navbar,
+  Nav,
+  NavDropdown,
+  Form,
+  FormControl,
+  Button,
+  Image,
+} from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import logo_image from "../images/moon2.png";
+import { useContext } from "react";
+import { useHistory, Link } from "react-router-dom";
+import { UserContext } from '../context/UserContext'
+import { QueryContext } from '../context/QueryContext'
+import { VideoContext } from "../context/VideoContext";
+import { EscapeContext } from "../context/EscapeContext";
+import api from "../api";
+import "../App.css"
 
-const Navigation = ({ user, setToken, setUser }) => {
-  const history = useHistory()
+const Navigation = ({ handlePageScroll }) => {
+  const { tk, dTk, sUI } = useContext(UserContext)
+  const [decToken, setDecToken] = dTk
+  const [token, setToken] = tk
+  const [singleUserInfo] = sUI
+  const { ft, lg } = useContext(QueryContext)
+  const [filter, setFilter] = ft
+  const [lang, setLang] = lg
+  const [videos, setVideos] = useContext(VideoContext)
+  const [show, setShow] = useState(false)
+  const [escapeUE, setEscapeUE] = useContext(EscapeContext)
+
+  let history = useHistory();
+
+  //To change the color of navbar after scrolling
+  const navbarControl = () => {
+    if (window.scrollY > 100) {
+      setShow(true)
+    } else {
+      setShow(false)
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener('scroll', navbarControl)
+    return () => { window.removeEventListener('scroll', navbarControl) }
+  }, [])
 
   const logOut = (e) => {
     e.preventDefault();
-    localStorage.clear();
-    setToken("");
-    setUser(null)
-    alert(`${user.user_name} logged out`)
-    history.push('/')
+    window.confirm(`${decToken.user_name}, Do you want to log out?`) &&
+      api.logoutUser()
+        .then(() => {
+          localStorage.clear();
+          setToken("");
+          setDecToken(null);
+          history.push("/");
+        })
+        .catch(err => console.log(err))
+  };
+
+  /* useEffect(() => {
+    update()
+  },[lang]) */
+
+  const putFavoritesFirst = array => {
+    // put favorites first
+    if (singleUserInfo.favorites && videos) {
+      for (let i = 0; i < array.length; i++) {
+        if (singleUserInfo.favorites.some(favorite => favorite._id === array[i]._id)) {
+          array.unshift(array.splice(i, 1)[0])
+        }
+      }
+    }
+    return array
+  }
+
+  const update = (e) => {
+    if (e) e.preventDefault();
+    const path = history.location.pathname.split("/")[1];
+    if (path === "player" || path === "about" || path === "creatorpanel") setEscapeUE(true)
+    if (path === "adminpanel") {
+      api.getAllVideos(lang, filter)
+        .then(res => setVideos(res.data))
+        .catch(err => console.log(err))
+    } else {
+      api.getVideos(lang, filter)
+        .then(res => {
+          const favoriteFirstArray = putFavoritesFirst(res.data)
+          setVideos(favoriteFirstArray)
+          if (path === "player" || path === "about" || path === "creatorpanel") history.push("/")
+        })
+        .catch(err => console.log(err))
+    }
   }
 
   return (
     <>
-
-      <Navbar bg="dark" variant="dark" expand="lg" fixed>
-
-        <Navbar.Brand href="/">
-          <Image src={logo_image} style={{ display: 'inline-block', maxHeight: '70px', width: '100px' }} />
-          {/* <span style={{ fontSize: '40px', fontFamily: 'cursive', color:'#0C7C43' }} >
-                        Lullify
-                    </span> */}
+      <Navbar className={`navbar ${show && "navbar-scroll"}`} expand="lg" sticky="top">
+        <Navbar.Brand as={Link} to="/">
+          {/* <Image
+            src={logo_image}
+            style={{
+              display: "inline-block",
+              maxHeight: "70px",
+              maxWidth: "100px",
+              paddingLeft: "10px"
+            }}
+          /> */}
+          <h5 style={{ fontSize: "30px", fontFamily: "serif", color: "#404040", display: "block" }} onClick={handlePageScroll} >
+            🌚<b>Lullifey</b>
+          </h5>
         </Navbar.Brand>
 
-
-
-
-        <Form className="d-flex justify-content-space-between">
+        <Form className="d-flex justify-content-space-between" onSubmit={update}>
           <Form.Control
             as="select"
             className="my-1 mr-sm-2"
             id="inlineFormCustomSelectPref"
+            value={lang}
+            onChange={(e) => {
+              setLang(e.target.value)
+            }}
             custom
           >
             <option value=""></option>
-            <option value="english">EN</option>
-            <option value="deutsch">DE</option>
-            <option value="hindi">IN</option>
+            <option value="en">EN</option>
+            <option value="de">DE</option>
+            <option value="hi">HI</option>
           </Form.Control>
           <FormControl
             type="search"
             placeholder="Search"
             className="mr-2"
             aria-label="Search"
+            name="filter"
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
           />
-          <Button type="submit" variant="outline-success">Search</Button>
+          <Button type="submit" variant={`dark ${show && "light"}`} >
+            <b>Search</b>
+          </Button>
         </Form>
 
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll" className="justify-content-end">
-
           <Nav
-            className="mr-auto my-2 my-lg-0"
-            style={{ maxHeight: '100px', marginRight: '15px' }}
+            className="mr-auto my-2 my-lg-0 flex-row"
+            style={{ maxHeight: "100px", marginRight: "15px", justifyContent: "space-around", flexWrap: "wrap" }}
             navbarScroll
           >
-            <Nav.Link href="/"><b>Home</b></Nav.Link>
-            <Nav.Link href="/about"><b>About Us</b></Nav.Link>
-            {
-              !user ?
-                <>
-                  <NavDropdown title="Register" id="navbarScrollingDropdown">
-                    <NavDropdown.Item href="/register/userRegister">User</NavDropdown.Item>
-                    <NavDropdown.Item href="/register/creatorRegister">Content Creator</NavDropdown.Item>
-                  </NavDropdown>
-                  <Nav.Link href="/login"><b>Login</b></Nav.Link>
-                </>
-                :
-                <>
-                  {(user.role === "admin" || user.role === "content_creator") &&
-                    <>
-                      <Nav.Link href="/creator">CreatorPanel</Nav.Link>
-                    </>
-                  }
-                  {user.role === "admin" &&
-                    <>
-                      <Nav.Link href="/adminpanel">AdminPanel</Nav.Link>
-                    </>
-                  }
-                  <Navbar.Brand>
-                    <Image src={user.user_image} roundedCircle />
-                  </Navbar.Brand>
-                  <NavDropdown title={user.user_name} id="navbarScrollingDropdown">
-                    <NavDropdown.Item href="/profile" >Profile</NavDropdown.Item>
-                    <NavDropdown.Item onClick={logOut}>LogOut</NavDropdown.Item>
-                  </NavDropdown>
-                </>
-            }
+            <Nav.Link as={Link} to="/" style={{ padding: "10px", margin: "auto" }} onClick={handlePageScroll}>
+              <b>Home</b>
+            </Nav.Link>
+            <Nav.Link as={Link} to="/about" style={{ padding: "10px", margin: "auto" }} onClick={handlePageScroll}>
+              <b>About Us</b>
+            </Nav.Link>
 
+            {!decToken ? (
+              <>
+                <NavDropdown
+                  title="Sign up"
+                  id="navbarScrollingDropdown"
+                  style={{ fontWeight: "bold", padding: "2px", margin: "0", fontColor: "gray" }}
+                >
+                  <NavDropdown.Item as={Link} to="/signUp/user" style={{ padding: "10px", margin: "auto" }} onClick={handlePageScroll}>
+                    User
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/signUp/creator" style={{ padding: "10px", margin: "auto" }} onClick={handlePageScroll}>
+                    Content Creator
+                  </NavDropdown.Item>
+                </NavDropdown>
+                <Nav.Link as={Link} to="/login" style={{ padding: "10px", margin: "auto" }} onClick={handlePageScroll}>
+                  <b>Login</b>
+                </Nav.Link>
+              </>
+            ) : (
+              <>
+                {(decToken.role === "admin" || decToken.role === "content_creator") && (
+                  <>
+                    <Nav.Link as={Link} to="/creatorpanel" style={{ padding: "10px", margin: "auto" }} onClick={handlePageScroll}><b>CreatorPanel</b></Nav.Link>
+                  </>
+                )}
+                {decToken.role === "admin" && (
+                  <>
+                    <Nav.Link as={Link} to="/adminpanel" style={{ padding: "10px", margin: "auto" }} onClick={handlePageScroll}><b>AdminPanel</b></Nav.Link>
+                  </>
+                )}
+                {(decToken.role === "admin" || decToken.role === "content_creator" || decToken.role === "user") && (
+
+                  <div style={{ padding: "10px", margin: "auto", display: "flex" }}>
+                    <Navbar.Brand style={{ paddingRight: 0, marginRight: 0 }}>
+                      <Image src={singleUserInfo.user_img_url} width="30px" height="30px" roundedCircle />
+                    </Navbar.Brand>
+
+                    <NavDropdown
+                      title={decToken.user_name}
+                      id="navbarScrollingDropdown"
+                      style={{ fontWeight: "bold", margin: "0" }}
+                    >
+                      <NavDropdown.Item as={Link} to="/profile" style={{ padding: "10px" }} onClick={handlePageScroll}>Profile</NavDropdown.Item>
+                      <NavDropdown.Item onClick={logOut} style={{ padding: "10px" }}>LogOut</NavDropdown.Item>
+                    </NavDropdown>
+                  </div>
+
+                )}
+              </>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Navbar>
     </>
-  )
-}
+  );
+};
 
-export default Navigation
+export default Navigation;
