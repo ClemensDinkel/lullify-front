@@ -10,6 +10,7 @@ import "../App.css";
 import api from "../api";
 import { Button } from 'react-bootstrap'
 import { AiOutlineArrowDown } from 'react-icons/ai'
+import { DragDropContext } from "react-beautiful-dnd";
 
 const Home = () => {
   const { dTk, sUI } = useContext(UserContext);
@@ -71,19 +72,21 @@ const Home = () => {
   };
 
   return (
-    <div className="main-container home-container">
-      <div className="previews-container-plus-button">
-        <Previews />
-        <div className="scroll-down">
-          <Button type="button" variant="outline-light" onClick={handlePageScrollDown} style={{ maxHeight: "40px" }}>
-            <AiOutlineArrowDown />
-          </Button>
+    <DragDropContext onDragEnd={console.log("drag ended")}>
+      <div className="main-container home-container">
+        <div className="previews-container-plus-button">
+          <Previews />
+          <div className="scroll-down">
+            <Button type="button" variant="outline-light" onClick={handlePageScrollDown} style={{ maxHeight: "40px" }}>
+              <AiOutlineArrowDown />
+            </Button>
+          </div>
+        </div>
+        <div ref={scrollRef}>
+          {decToken && decToken.id ? <Playlists /> : <TemporaryPlaylist />}
         </div>
       </div>
-      <div ref={scrollRef}>
-        {decToken && decToken.id ? <Playlists /> : <TemporaryPlaylist />}
-      </div>
-    </div>
+    </DragDropContext>
   );
 };
 
