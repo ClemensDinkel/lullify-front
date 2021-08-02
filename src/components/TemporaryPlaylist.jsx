@@ -18,7 +18,7 @@ const TemporaryPlaylist = () => {
   useEffect(() => {
     let videosCopy = videos.slice()
     setDropdownList([...videosCopy.sort((a, b) => a.title.localeCompare(b.title))])
-  },[videos])
+  }, [videos])
 
   // load from local storage on first render
   useEffect(() => {
@@ -52,6 +52,7 @@ const TemporaryPlaylist = () => {
 
   const playPlaylist = () => {
     let onlyIdPlaylist = []
+    console.log(temporaryPlaylist.length)
     temporaryPlaylist.forEach(video => onlyIdPlaylist.push(video._id))
     setAutoPlaylist(onlyIdPlaylist)
   }
@@ -66,12 +67,28 @@ const TemporaryPlaylist = () => {
   return (
     <div className="playlists-container">
       <div className="playlists">
-        <h2 style={{ cursor: "pointer" }} onClick={playPlaylist}>
-          <Nav.Link as={Link} to={`/player/${temporaryPlaylist.length > 0 ? temporaryPlaylist[0]._id : ""}`}>
+        <h2
+          style={{ cursor: "pointer" }}
+          onClick={playPlaylist}
+          onDragOver={e => {
+            e.preventDefault();
+          }}
+          onDrop={e => {
+            e.preventDefault();
+            console.log("dropping")
+            const data = e.dataTransfer.getData("video")
+            console.log(data.title)
+          }}
+        >
+          <Nav.Link as={Link} to={temporaryPlaylist.length > 0 ? `/player/${temporaryPlaylist[0]._id}` : `#`}>
             <p style={{ fontSize: "30px", fontFamily: "serif", color: "yellow" }}><b>Temporary Playlist</b></p>
           </Nav.Link>
         </h2>
-        <div style={{ textAlign: "left" }}>
+        <div
+          style={{ textAlign: "left" }}
+          onDragOver={e => {
+            e.preventDefault();
+          }}>
           <ul>
             {temporaryPlaylist.map(
               (listVideo, listVideoIndex) => {

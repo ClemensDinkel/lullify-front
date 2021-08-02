@@ -37,10 +37,15 @@ const Previews = () => {
                 text="white"
                 className="previews-card-container"
                 onClick={() => playPlaylist()}
-                /* draggable="true" */
+                draggable="true"
+                onDragStart={e => e.dataTransfer.setData("video", video)}
               >
-                <Link to={`/player/${video._id}`}>
-                  <img variant="top" src={video.video_img_url} height="140px" width="100%" />
+                <Link to={`/player/${video._id}`} draggable="false">
+                  <img
+                    variant="top"
+                    src={video.video_img_url} height="140px"
+                    width="100%"
+                  />
                 </Link>
                 <Card.Body style={{ textAlign: "left" }}>
                   <Card.Title style={{ fontFamily: "cursive" }}>{video.title}</Card.Title>
