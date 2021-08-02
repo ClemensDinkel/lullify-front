@@ -47,7 +47,7 @@ const Playlists = () => {
     setLoading(false);
   };
 
-  // keeps track of a newPlalist's name and user_id
+  // keeps track of a newPlaylist's name and user_id
   const onChangeNewPlaylist = (e) => {
     let keyName = e.target.name;
     let value = e.target.value;
@@ -106,7 +106,7 @@ const Playlists = () => {
       .catch(err => console.log(err))
   }
 
-  // run the player with the selected video
+  // run the player with the selected playlist
   const playPlaylist = (index) => {
     const autoPlay = displayedPlaylists[index].video_list
     let finalAutoPlay = []

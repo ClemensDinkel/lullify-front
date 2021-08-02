@@ -31,7 +31,14 @@ const Previews = () => {
         videos ? videos.map((video, index) => {
           return (
             <div>
-              <Card key={index} style={{ background: "rgba(0,0,0,0.1)", margin: `${margin}px` }} text="white" className="previews-card-container" onClick={() => playPlaylist()}>
+              <Card
+                key={index}
+                style={{ background: "rgba(0,0,0,0.1)", margin: `${margin}px` }}
+                text="white"
+                className="previews-card-container"
+                onClick={() => playPlaylist()}
+                /* draggable="true" */
+              >
                 <Link to={`/player/${video._id}`}>
                   <img variant="top" src={video.video_img_url} height="140px" width="100%" />
                 </Link>
