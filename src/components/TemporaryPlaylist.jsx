@@ -12,6 +12,13 @@ const TemporaryPlaylist = () => {
   const [temporaryPlaylist, setTemporaryPlaylist] = useState([])
   const [selected, setSelected] = useState(null)
   const [autoPlaylist, setAutoPlaylist] = useContext(PlaylistContext)
+  const [dropdownList, setDropdownList] = useState([])
+
+  // sort videos in dropdown without sorting videos in previews
+  useEffect(() => {
+    let videosCopy = videos.slice()
+    setDropdownList([...videosCopy.sort((a, b) => a.title.localeCompare(b.title))])
+  },[videos])
 
   // load from local storage on first render
   useEffect(() => {
@@ -19,6 +26,7 @@ const TemporaryPlaylist = () => {
       setTemporaryPlaylist(JSON.parse(sessionStorage.getItem('lullifyPlaylist')))
     }
   }, [])
+
   // add video to temporary playlist
   const addVideo = (e) => {
     e.preventDefault()
@@ -29,6 +37,7 @@ const TemporaryPlaylist = () => {
       alert("Video already in playlist")
     }
   }
+
   // update local storage as well
   useEffect(() => {
     sessionStorage.setItem("lullifyPlaylist", JSON.stringify(temporaryPlaylist))
@@ -122,14 +131,15 @@ const TemporaryPlaylist = () => {
               custom
             >
               <option value="">-----Add Video-----</option>
-              {videos &&
-                videos.map((video, videoIndex) => {
-                  return (
-                    <option value={video._id} key={videoIndex}>
-                      {video.title}
-                    </option>
-                  );
-                })}
+              {dropdownList &&
+                dropdownList
+                  .map((video, videoIndex) => {
+                    return (
+                      <option value={video._id} key={videoIndex}>
+                        {video.title}
+                      </option>
+                    );
+                  })}
             </Form.Control>
 
             <Button

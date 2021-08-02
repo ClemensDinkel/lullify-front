@@ -23,6 +23,13 @@ const Playlists = () => {
     name: "",
     user_id: null,
   });
+  const [dropdownList, setDropdownList] = useState([])
+
+  // sort videos in dropdown without sorting videos in previews
+  useEffect(() => {
+    let videosCopy = videos.slice()
+    setDropdownList([...videosCopy.sort((a, b) => a.title.localeCompare(b.title))])
+  },[videos])
 
   // get playlists on first mount
   useEffect(() => {
@@ -144,8 +151,8 @@ const Playlists = () => {
               required
             >
               <option value="">-----Select Video-----</option>
-              {videos &&
-                videos.map((video, videoIndex) => {
+              {dropdownList &&
+                dropdownList.map((video, videoIndex) => {
                   return (
                     <option value={video._id} key={videoIndex}>
                       {video.title}
