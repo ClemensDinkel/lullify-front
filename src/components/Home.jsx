@@ -19,7 +19,7 @@ const Home = () => {
   const [filter, setFilter] = ft
   const [videos, setVideos] = useContext(VideoContext)
   const [escapeUE, setEscapeUE] = useContext(EscapeContext)
-  const shuffle = array => {
+  /* const shuffle = array => {
     let m = array.length, t, i;
     // While there remain elements to shuffle…
     while (m) {
@@ -31,7 +31,7 @@ const Home = () => {
       array[i] = t;
       return array;
     }
-  }
+  } */ // replaced by backend randomization
 
   const putFavoritesFirst = array => {
     // put favorites first
