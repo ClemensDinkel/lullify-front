@@ -33,12 +33,10 @@ const TemporaryPlaylist = () => {
   // add video to temporary playlist
   const addVideo = (e) => {
     e.preventDefault()
-    if (selected !== null && !temporaryPlaylist.includes(selected)) {
+    if (selected !== null && !temporaryPlaylist.some(video => video.title === selected.title)) {
       setTemporaryPlaylist(prev => [...prev, selected])
     }
-    else {
-      alert("Video already in playlist")
-    }
+    else alert("Video already in playlist")
   }
 
   // update local storage as well
@@ -67,53 +65,57 @@ const TemporaryPlaylist = () => {
     setTemporaryPlaylist(newTP)
   }
 
+  // adding, moving and removing using drag n drop
+
   const onDrop = e => {
     e.preventDefault();
     console.log("dropping")
     console.log(draggedItem.title)
     console.log(e.target.id)
+    console.log(e.currentTarget.id)
+    const targetIndex = e.currentTarget.id
+    const newVideo = {
+      title: draggedItem.title,
+      _id: draggedItem._id
+    }
+    let playlistCopy = temporaryPlaylist.slice();
+    console.log(playlistCopy)
+    playlistCopy = playlistCopy.filter(video => video.title !== newVideo.title)
+    playlistCopy.splice(targetIndex, 0, newVideo)
+    console.log(playlistCopy)
+    setTemporaryPlaylist(playlistCopy)
   }
 
-  const append = e => {
-    e.preventDefault();
-    console.log("dropping")
-    console.log(draggedItem.title)
-    console.log(e.target.id)
-    console.log(temporaryPlaylist)
+  const append = () => {
     if (!temporaryPlaylist.some(video => video.title === draggedItem.title)) {
       const newVideo = {
         title: draggedItem.title,
         _id: draggedItem._id
       }
       setTemporaryPlaylist(prev => [...prev, newVideo])
-    } 
-    
+    } else alert("Video already in playlist")
   }
 
   return (
     <div className="playlists-container">
       <div className="playlists">
-        <div id="temp-playlist">
-          <h2
-            style={{ cursor: "pointer" }}
-            onClick={playPlaylist}
-            onDragOver={e => {
-              e.preventDefault();
-            }}
-            onDrop={append}
-          >
+        <div id="temp-playlist"
+        style={{ cursor: "pointer" }}
+        onClick={playPlaylist}
+        onDragOver={e => {
+          e.preventDefault();
+        }}
+        onDrop={append}
+        >
+          <h2>
             <Nav.Link as={Link} to={temporaryPlaylist.length > 0 ? `/player/${temporaryPlaylist[0]._id}` : `#`}>
               <p style={{ fontSize: "30px", fontFamily: "serif", color: "yellow" }}>
-                <b id= "temp-playlist">Temporary Playlist</b> {/* e.target seems to be the innermost node, so target is the <b> tag</b>*/}
+                <b>Temporary Playlist</b> {/* e.target seems to be the innermost node, so target is the <b> tag</b>*/}
               </p>
             </Nav.Link>
           </h2>
         </div>
-        <div
-          style={{ textAlign: "left" }}
-          onDragOver={e => {
-            e.preventDefault();
-          }}>
+        <div style={{ textAlign: "left" }}>
           <ul>
             {temporaryPlaylist.map(
               (listVideo, listVideoIndex) => {
@@ -126,6 +128,7 @@ const TemporaryPlaylist = () => {
                     }}
                   >
                     <li
+                      id={listVideoIndex}
                       key={listVideoIndex}
                       style={{
                         color: "antiquewhite",
@@ -137,6 +140,11 @@ const TemporaryPlaylist = () => {
                       onClick={() =>
                         playSingleVideo(listVideo._id)
                       }
+                      onDragOver={e => {
+                        e.preventDefault();
+                        console.log(e.currentTarget)
+                      }}
+                      onDrop={onDrop}
                     >
                       <Nav.Link
                         as={Link}

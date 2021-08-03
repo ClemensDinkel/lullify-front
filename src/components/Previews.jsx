@@ -46,6 +46,9 @@ const Previews = () => {
                   /* e.dataTransfer.setData("object", video)
                   console.log(e) */
                 }}
+                onDragEnd={(e) => {
+                  setDraggedItem(null)
+                }}
               >
                 <Link to={`/player/${video._id}`} draggable="false">
                   <img
