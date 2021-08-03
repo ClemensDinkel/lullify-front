@@ -15,7 +15,7 @@ const TemporaryPlaylist = () => {
   const [selected, setSelected] = useState(null)
   const [autoPlaylist, setAutoPlaylist] = useContext(PlaylistContext)
   const [dropdownList, setDropdownList] = useState([])
-  const [draggedItem, setDraggedItem] = useContext(DnDContext)
+  const [draggedItem, setDraggedItem] = useContext(DnDContext) || [] // It's an object later, but clicking on a preview to play the video seems to trigger this as well (with whatever is behing ||) and complains about it not being iterable - so setting this to an array by default is a workaround
 
   // sort videos in dropdown without sorting videos in previews
   useEffect(() => {
@@ -67,25 +67,48 @@ const TemporaryPlaylist = () => {
     setTemporaryPlaylist(newTP)
   }
 
+  const onDrop = e => {
+    e.preventDefault();
+    console.log("dropping")
+    console.log(draggedItem.title)
+    console.log(e.target.id)
+  }
+
+  const append = e => {
+    e.preventDefault();
+    console.log("dropping")
+    console.log(draggedItem.title)
+    console.log(e.target.id)
+    console.log(temporaryPlaylist)
+    if (!temporaryPlaylist.some(video => video.title === draggedItem.title)) {
+      const newVideo = {
+        title: draggedItem.title,
+        _id: draggedItem._id
+      }
+      setTemporaryPlaylist(prev => [...prev, newVideo])
+    } 
+    
+  }
+
   return (
     <div className="playlists-container">
       <div className="playlists">
-        <h2
-          style={{ cursor: "pointer" }}
-          onClick={playPlaylist}
-          onDragOver={e => {
-            e.preventDefault();
-          }}
-          onDrop={e => {
-            e.preventDefault();
-            console.log("dropping")
-            console.log(draggedItem.title)
-          }}
-        >
-          <Nav.Link as={Link} to={temporaryPlaylist.length > 0 ? `/player/${temporaryPlaylist[0]._id}` : `#`}>
-            <p style={{ fontSize: "30px", fontFamily: "serif", color: "yellow" }}><b>Temporary Playlist</b></p>
-          </Nav.Link>
-        </h2>
+        <div id="temp-playlist">
+          <h2
+            style={{ cursor: "pointer" }}
+            onClick={playPlaylist}
+            onDragOver={e => {
+              e.preventDefault();
+            }}
+            onDrop={append}
+          >
+            <Nav.Link as={Link} to={temporaryPlaylist.length > 0 ? `/player/${temporaryPlaylist[0]._id}` : `#`}>
+              <p style={{ fontSize: "30px", fontFamily: "serif", color: "yellow" }}>
+                <b id= "temp-playlist">Temporary Playlist</b> {/* e.target seems to be the innermost node, so target is the <b> tag</b>*/}
+              </p>
+            </Nav.Link>
+          </h2>
+        </div>
         <div
           style={{ textAlign: "left" }}
           onDragOver={e => {

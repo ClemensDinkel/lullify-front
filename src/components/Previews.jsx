@@ -40,8 +40,11 @@ const Previews = () => {
                 className="previews-card-container"
                 onClick={() => playPlaylist()}
                 draggable="true"
-                onDragStart={() => {
+                onDragStart={(e) => {
                   setDraggedItem(video)
+                  console.log(e)
+                  /* e.dataTransfer.setData("object", video)
+                  console.log(e) */
                 }}
               >
                 <Link to={`/player/${video._id}`} draggable="false">
