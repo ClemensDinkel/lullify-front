@@ -10,6 +10,7 @@ import "../App.css";
 import api from "../api";
 import { Button } from 'react-bootstrap'
 import { AiOutlineArrowDown } from 'react-icons/ai'
+import { DnDController } from "../context/DnDContext"
 
 const Home = () => {
   const { dTk, sUI } = useContext(UserContext);
@@ -72,6 +73,7 @@ const Home = () => {
 
   return (
     <div className="main-container home-container">
+      <DnDController>
       <div className="previews-container-plus-button">
         <Previews />
         <div className="scroll-down">
@@ -83,6 +85,7 @@ const Home = () => {
       <div ref={scrollRef}>
         {decToken && decToken.id ? <Playlists /> : <TemporaryPlaylist />}
       </div>
+      </DnDController>
     </div>
   );
 };

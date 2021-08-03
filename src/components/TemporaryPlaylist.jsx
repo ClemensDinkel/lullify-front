@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import { VideoContext } from "../context/VideoContext";
 import { PlaylistContext } from "../context/PlaylistContext";
 import moon_image from "../images/moon2.png"
+import { DnDContext } from "../context/DnDContext";
+
 
 const TemporaryPlaylist = () => {
   const [videos] = useContext(VideoContext);
@@ -13,6 +15,7 @@ const TemporaryPlaylist = () => {
   const [selected, setSelected] = useState(null)
   const [autoPlaylist, setAutoPlaylist] = useContext(PlaylistContext)
   const [dropdownList, setDropdownList] = useState([])
+  const [draggedItem, setDraggedItem] = useContext(DnDContext)
 
   // sort videos in dropdown without sorting videos in previews
   useEffect(() => {
@@ -76,8 +79,7 @@ const TemporaryPlaylist = () => {
           onDrop={e => {
             e.preventDefault();
             console.log("dropping")
-            const data = e.dataTransfer.getData("video")
-            console.log(data.title)
+            console.log(draggedItem.title)
           }}
         >
           <Nav.Link as={Link} to={temporaryPlaylist.length > 0 ? `/player/${temporaryPlaylist[0]._id}` : `#`}>

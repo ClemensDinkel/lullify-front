@@ -6,10 +6,12 @@ import { Link } from "react-router-dom";
 import { PlaylistContext } from '../context/PlaylistContext';
 import useBreakpoint from '../customHooks/useBreakpoint';
 import { useEffect } from 'react';
+import { DnDContext } from "../context/DnDContext";
 
 const Previews = () => {
   const [videos] = useContext(VideoContext)
   const [autoPlaylist, setAutoPlaylist] = useContext(PlaylistContext)
+  const [draggedItem, setDraggedItem] = useContext(DnDContext)
   const point = useBreakpoint();
   const [margin, setMargin] = useState(1)
   const [loadingVideos, setLoadingVideos] = useState(true)
@@ -38,7 +40,9 @@ const Previews = () => {
                 className="previews-card-container"
                 onClick={() => playPlaylist()}
                 draggable="true"
-                onDragStart={e => e.dataTransfer.setData("video", video)}
+                onDragStart={() => {
+                  setDraggedItem(video)
+                }}
               >
                 <Link to={`/player/${video._id}`} draggable="false">
                   <img
