@@ -8,13 +8,11 @@ import {
   Image,
 } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
-import logo_image from "../images/moon2.png";
 import { useContext } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { UserContext } from '../context/UserContext'
 import { QueryContext } from '../context/QueryContext'
 import { VideoContext } from "../context/VideoContext";
-import { EscapeContext } from "../context/EscapeContext";
 import api from "../api";
 import "../App.css"
 
@@ -22,13 +20,12 @@ const Navigation = ({ handlePageScroll }) => {
   const { tk, dTk, sUI } = useContext(UserContext)
   const [decToken, setDecToken] = dTk
   const [token, setToken] = tk
-  const [singleUserInfo] = sUI
+  const [singleUserInfo, setSingleUserInfo] = sUI
   const { ft, lg } = useContext(QueryContext)
   const [filter, setFilter] = ft
   const [lang, setLang] = lg
   const [videos, setVideos] = useContext(VideoContext)
   const [show, setShow] = useState(false)
-  const [escapeUE, setEscapeUE] = useContext(EscapeContext)
 
   let history = useHistory();
 
@@ -54,6 +51,7 @@ const Navigation = ({ handlePageScroll }) => {
           localStorage.clear();
           setToken("");
           setDecToken(null);
+          setSingleUserInfo([])
           history.push("/");
         })
         .catch(err => console.log(err))
@@ -78,7 +76,6 @@ const Navigation = ({ handlePageScroll }) => {
   const update = (e) => {
     if (e) e.preventDefault();
     const path = history.location.pathname.split("/")[1];
-    if (path === "player" || path === "about" || path === "creatorpanel") setEscapeUE(true)
     if (path === "adminpanel") {
       api.getAllVideos(lang, filter)
         .then(res => setVideos(res.data))
@@ -94,10 +91,24 @@ const Navigation = ({ handlePageScroll }) => {
     }
   }
 
+  const goHome = () => {
+    const path = history.location.pathname.split("/")[1];
+    if (path === "") return
+    setVideos([])
+    api.getVideos()
+      .then(res => {
+        const favoriteFirstArray = putFavoritesFirst(res.data)
+        setVideos(favoriteFirstArray)
+        setFilter("")
+      })
+      .catch(err => console.log(err))
+    handlePageScroll();
+  }
+
   return (
     <>
       <Navbar className={`navbar ${show && "navbar-scroll"}`} expand="lg" sticky="top">
-        <Navbar.Brand as={Link} to="/">
+        <Navbar.Brand as={Link} to="/" onClick={goHome}>
           {/* <Image
             src={logo_image}
             style={{
@@ -149,7 +160,7 @@ const Navigation = ({ handlePageScroll }) => {
             style={{ maxHeight: "100px", marginRight: "15px", justifyContent: "space-around", flexWrap: "wrap" }}
             navbarScroll
           >
-            <Nav.Link as={Link} to="/" style={{ padding: "10px", margin: "auto" }} onClick={handlePageScroll}>
+            <Nav.Link as={Link} to="/" style={{ padding: "10px", margin: "auto" }} onClick={goHome}>
               <b>Home</b>
             </Nav.Link>
             <Nav.Link as={Link} to="/about" style={{ padding: "10px", margin: "auto" }} onClick={handlePageScroll}>

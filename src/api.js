@@ -3,6 +3,8 @@ import axios from "axios";
 const root = "https://tranquil-reaches-12289.herokuapp.com";
 
 const api = {
+  //Auth Routes
+  
   loginUser: async (user) => {
     return await axios.post(`/login`, user, {
       /* withCredentials: true, */
@@ -11,140 +13,191 @@ const api = {
   },
 
   logoutUser: async () => {
-    return await axios.get(`${root}/logout`, {
+    return await axios.get(`/logout`, {
+      baseURL: root,
       /* withCredentials: true, */
     });
   },
 
   registerUser: async (newUser) => {
-    return await axios.post(`${root}/register`, newUser);
+    return await axios.post(`${root}/register`, newUser, {
+      baseURL: root,
+    });
   },
 
   refreshUserToken: async () => {
-    return await axios.post(
-      `${root}/refresh`,
-      {}
-      /* {withCredentials:true} */
-    );
+    return await axios.post(`/refresh`, {}, {
+      baseURL: root,
+      /* withCredentials:true */
+    });
   },
 
   fetchSingleUser: async (user_id) => {
-    return await axios.get(`${root}/users/${user_id}`);
+    return await axios.get(`/users/${user_id}`, {
+      baseURL: root
+    });
   },
+
+  // User-User
 
   updateUser: async (user_id, userData) => {
-    return await axios.put(`${root}/users/${user_id}`, userData);
+    return await axios.put(`/users/${user_id}`, userData, {
+      baseURL: root
+    });
   },
 
+  // Admin- User
+
   demoteUser: async (user_id) => {
-    return await axios.put(`${root}/users/${user_id}/demote`);
+    return await axios.put(`/users/${user_id}/demote`, {}, {
+      baseURL: root,
+    });
   },
 
   promoteUser: async (user_id) => {
-    return await axios.put(`${root}/users/${user_id}/promote`);
+    return await axios.put(`/users/${user_id}/promote`, {}, {
+      baseURL: root,
+    });
   },
 
   getAllUsers: async () => {
-    return await axios.get(`${root}/users`);
+    return await axios.get(`/users`, {
+      baseURL: root,
+    });
   },
 
   getAllRequests: async () => {
-    return await axios.get(`${root}/requests`);
+    return await axios.get(`/requests`, {
+      baseURL: root,
+    });
   },
 
   deleteRequest: async (request_id) => {
-    return await axios.delete(`${root}/requests/${request_id}`);
+    return await axios.delete(`/requests/${request_id}`, {
+      baseURL: root,
+    });
   },
 
+  // Playlist & Favorites management
+
   createPlaylist: async (newPlaylist) => {
-    return await axios.post(`${root}/playlists`, newPlaylist);
+    return await axios.post(`/playlists`, newPlaylist, {
+      baseURL: root,
+    });
   },
 
   getPlaylist: async (user_id) => {
-    return await axios.get(`${root}/users/${user_id}/playlists`);
+    return await axios.get(`/users/${user_id}/playlists`, {
+      baseURL: root,
+    });
   },
 
   addVideoToPlaylist: async (user_id, playlist_id, videoId) => {
     return await axios.put(
-      `${root}/users/${user_id}/playlists/${playlist_id}/addvideo`,
-      videoId
-    );
+      `/users/${user_id}/playlists/${playlist_id}/addvideo`, videoId, {
+      baseURL: root,
+    });
   },
 
   removeVideoFromPlaylist: async (user_id, playlist_id, videoId) => {
-    return await axios.put(
-      `${root}/users/${user_id}/playlists/${playlist_id}/removevideo`,
-      videoId
-    );
+    return await axios.put(`/users/${user_id}/playlists/${playlist_id}/removevideo`, videoId, {
+      baseURL: root,
+    });
   },
 
   deletePlaylist: async (user_id, playlist_id) => {
-    return await axios.delete(
-      `${root}/users/${user_id}/playlists/${playlist_id}`
-    );
+    return await axios.delete(`/users/${user_id}/playlists/${playlist_id}`, {
+      baseURL: root,
+    });
   },
 
   addVideoToFavorite: async (user_id, videoId) => {
-    return await axios.put(`${root}/users/${user_id}/favorites`, videoId);
+    return await axios.put(`/users/${user_id}/favorites`, videoId, {
+      baseURL: root,
+    });
   },
 
   removeVideoFromFavorite: async (user_id, videoId) => {
-    return await axios.put(`${root}/users/${user_id}/removefavorites`, videoId);
-  },
-
-  getVideos: async (lang, filter) => {
-    return await axios.get(`${root}/videos/collection`, {
-      params: {
-        lang: lang,
-        filter: filter,
-      },
+    return await axios.put(`/users/${user_id}/removefavorites`, videoId, {
+      baseURL: root,
     });
   },
+
+  // Video Routes
+
+  // Only for Admin
   getAllVideos: async (lang, filter) => {
-    return await axios.get(`${root}/videos`, {
+    return await axios.get(`/videos`, {
       params: {
         lang: lang,
         filter: filter,
       },
+      baseURL: root,
+    });
+  },
+  
+  // For Users
+  getVideos: async (lang, filter) => {
+    return await axios.get(`/videos/collection`, {
+      params: {
+        lang: lang,
+        filter: filter,
+      },
+      baseURL: root,
     });
   },
 
   getVideoById: async (video_id) => {
-    return await axios.get(`${root}/videos/${video_id}`);
+    return await axios.get(`/videos/${video_id}`, {
+      baseURL: root,
+    });
   },
 
   reportVideo: async (video_id, reportData) => {
-    return await axios.put(`${root}/videos/${video_id}/report`, reportData);
+    return await axios.put(`/videos/${video_id}/report`, reportData, {
+      baseURL: root,
+    });
   },
 
   unReportVideo: async (video_id, deReportData) => {
-    return await axios.put(`${root}/videos/${video_id}/unreport`, deReportData);
+    return await axios.put(`/videos/${video_id}/unreport`, deReportData, {
+      baseURL: root,
+    });
   },
 
   addVideos: async (newVideo) => {
-    return await axios.post(`${root}/videos`, newVideo);
+    return await axios.post(`/videos`, newVideo, {
+      baseURL: root,
+    });
   },
 
+  // Content_creator routes
+
   getUploaderAllVideos: async (user_id) => {
-    return await axios.get(`${root}/videos/byUploader/${user_id}`);
+    return await axios.get(`/videos/byUploader/${user_id}`, {
+      baseURL: root,
+    });
   },
 
   deleteUploaderVideo: async (user_id, video_id) => {
-    return await axios.delete(`${root}/users/${user_id}/videos/${video_id}`);
+    return await axios.delete(`/users/${user_id}/videos/${video_id}`, {
+      baseURL: root,
+    });
   },
 
   updateUploaderVideo: async (user_id, video_id, videoData) => {
-    return await axios.put(
-      `${root}/users/${user_id}/videos/${video_id}`,
-      videoData
+    return await axios.put(`/users/${user_id}/videos/${video_id}`, videoData, {
+      baseURL: root,
+    }
     );
   },
 
   getVideoFromYTApi: async (q) => {
-    return await axios.get(`${root}/ytapi`, {
+    return await axios.get(`/ytapi`, {
       params: {
         q: q
-      }
+      },
+      baseURL: root,
     })
   },
 };
