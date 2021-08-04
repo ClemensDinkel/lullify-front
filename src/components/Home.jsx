@@ -10,6 +10,7 @@ import "../App.css";
 import api from "../api";
 import { Button } from 'react-bootstrap'
 import { AiOutlineArrowDown } from 'react-icons/ai'
+import { useState } from "react";
 
 const Home = () => {
   const { dTk, sUI } = useContext(UserContext);
@@ -46,21 +47,25 @@ const Home = () => {
   }
 
   useEffect(() => {
-    // only execute if not being pushed here from player by making a search from there
+    // only execute on first render
     if (!escapeUE) {
+      console.log("first render")
       api.getVideos()
         .then(res => {
-          // const shuffledArray = shuffle(res.data)
-          const favoriteFirstArray = putFavoritesFirst(res.data) // shuffledArray
-          setVideos(favoriteFirstArray)
-          // setVideos(favoriteFirstArray.slice(0,24)) // limit to 24 hits
-          setFilter("")
+          console.log(singleUserInfo)
+          setVideos(res.data)
         })
         .catch(err => console.log(err))
-    } else {
-      setEscapeUE(false)
-      setFilter("")
     }
+  }, [])
+
+  useEffect(() => {
+    // fires as soon user data is available and reorders favorite videos on top
+    const favoriteFirstArray = putFavoritesFirst(videos.slice())
+    console.log("reordering")
+    console.log(singleUserInfo)
+    console.log(favoriteFirstArray)
+    setVideos(favoriteFirstArray)
   }, [singleUserInfo])
 
 

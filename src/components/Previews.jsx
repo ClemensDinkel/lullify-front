@@ -36,7 +36,7 @@ const Previews = () => {
                 style={{ background: "rgba(0,0,0,0.1)", margin: `${margin}px` }}
                 text="white"
                 className="previews-card-container"
-                onClick={() => playPlaylist()}
+                onClick={playPlaylist}
               >
                 <Link to={`/player/${video._id}`} draggable= "false">
                   <img variant="top" src={video.video_img_url} height="140px" width="100%" />

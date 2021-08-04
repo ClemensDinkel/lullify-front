@@ -5,11 +5,15 @@ import { BiShow, BiHide } from "react-icons/bi";
 import "../App.css";
 import api from "../api";
 import { UserContext } from '../context/UserContext'
+import { EscapeContext } from "../context/EscapeContext";
+import { VideoContext } from "../context/VideoContext";
 
 const Login = () => {
   const [passwordShow, setPasswordShow] = useState(false);
   const { tk } = useContext(UserContext)
   const [token, setToken] = tk
+  const [escapeUE, setEscapeUE] = useContext(EscapeContext)
+  const [videos, setVideos] = useContext(VideoContext)
   const [newLogin, setNewLogin] = useState({
     email: "",
     password: "",
@@ -41,6 +45,7 @@ const Login = () => {
         localStorage.setItem('auth-token', res.data.accessToken)
         setToken(res.data.accessToken)
         history.push(`/`)
+        setEscapeUE(true)
       })
       .catch(err => alert("Enter correct Email & Password."))
   };

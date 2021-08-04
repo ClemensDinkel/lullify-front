@@ -78,7 +78,8 @@ const Navigation = ({ handlePageScroll }) => {
   const update = (e) => {
     if (e) e.preventDefault();
     const path = history.location.pathname.split("/")[1];
-    if (path === "player" || path === "about" || path === "creatorpanel") setEscapeUE(true)
+    console.log(path)
+    /* if (path === "player" || path === "about" || path === "creatorpanel")  */setEscapeUE(true)
     if (path === "adminpanel") {
       api.getAllVideos(lang, filter)
         .then(res => setVideos(res.data))
@@ -94,10 +95,28 @@ const Navigation = ({ handlePageScroll }) => {
     }
   }
 
+  const goHome = () => {
+    const path = history.location.pathname.split("/")[1];
+    console.log(path)
+    if (path === "") return
+    console.log("going Home")
+    setEscapeUE(true)
+    setVideos([])
+    api.getVideos()
+      .then(res => {
+        console.log("setting videos")
+        const favoriteFirstArray = putFavoritesFirst(res.data)
+        setVideos(favoriteFirstArray)
+        setFilter("")
+      })
+      .catch(err => console.log(err))
+    handlePageScroll();
+  }
+
   return (
     <>
       <Navbar className={`navbar ${show && "navbar-scroll"}`} expand="lg" sticky="top">
-        <Navbar.Brand as={Link} to="/">
+        <Navbar.Brand as={Link} to="/" onClick={goHome}>
           {/* <Image
             src={logo_image}
             style={{
@@ -149,7 +168,7 @@ const Navigation = ({ handlePageScroll }) => {
             style={{ maxHeight: "100px", marginRight: "15px", justifyContent: "space-around", flexWrap: "wrap" }}
             navbarScroll
           >
-            <Nav.Link as={Link} to="/" style={{ padding: "10px", margin: "auto" }} onClick={handlePageScroll}>
+            <Nav.Link as={Link} to="/" style={{ padding: "10px", margin: "auto" }} onClick={goHome}>
               <b>Home</b>
             </Nav.Link>
             <Nav.Link as={Link} to="/about" style={{ padding: "10px", margin: "auto" }} onClick={handlePageScroll}>
