@@ -45,6 +45,8 @@ const Previews = () => {
       video_id: video._id
     }
     if (decToken && decToken.id) {
+      console.log(permanentPlaylists.length)
+      if (permanentPlaylists.length === 0) return
       const backupPP = [...permanentPlaylists]
       let newPP = [...permanentPlaylists]
       let playlistToAddTo = newPP[selectedListIndex]

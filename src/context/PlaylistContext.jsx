@@ -23,6 +23,7 @@ export const PlaylistController = ({ children }) => {
 
   useEffect(() => {
     console.log(permanentPlaylists)
+    if (permanentPlaylists.length <= selectedListIndex) setSelectedListIndex(0)
   }, [permanentPlaylists])
 
   return (
