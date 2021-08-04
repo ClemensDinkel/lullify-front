@@ -8,7 +8,7 @@ import useBreakpoint from '../customHooks/useBreakpoint';
 import { useEffect } from 'react';
 import { MdPlaylistAdd } from "react-icons/md"
 
-const Previews = ({addToPlaylist}) => {
+const Previews = ({ addToPlaylist }) => {
   const [videos] = useContext(VideoContext)
   const [autoPlaylist, setAutoPlaylist] = useContext(PlaylistContext)
   const point = useBreakpoint();
@@ -20,10 +20,14 @@ const Previews = ({addToPlaylist}) => {
     setMargin(margin)
   }, [point])
 
-  const playPlaylist = () => {
+  /* const playPlaylist = () => {
     const autoPlay = []
     videos.forEach(video => autoPlay.push(video._id))
     setAutoPlaylist(autoPlay)
+  } */
+
+  const playVideo = () => {
+    
   }
 
 
@@ -38,15 +42,23 @@ const Previews = ({addToPlaylist}) => {
                 style={{ background: "rgba(0,0,0,0.1)", margin: `${margin}px` }}
                 text="white"
                 className="previews-card-container"
-                onClick={playPlaylist}
               >
                 <Link to={`/player/${video._id}`} draggable="false">
-                  <img variant="top" src={video.video_img_url} height="140px" width="100%" draggable="false" />
+                  <img
+                    variant="top"
+                    src={video.video_img_url}
+                    height="140px"
+                    width="100%"
+                    draggable="false"
+                    onClick={playVideo}
+                  />
                 </Link>
                 <Card.Body style={{ textAlign: "left" }}>
-                  <Card.Title style={{ fontFamily: "cursive" }}>{video.title}</Card.Title>
-                  <Card.Text >{video.artist}</Card.Text>
-                  <Button variant="dark" onClick={()=> addToPlaylist(video)}>
+                  <div onClick={playVideo} style={{cursor: "pointer"}}>
+                    <Card.Title style={{ fontFamily: "cursive" }}>{video.title}</Card.Title>
+                    <Card.Text >{video.artist}</Card.Text>
+                  </div>
+                  <Button variant="dark" onClick={() => addToPlaylist(video)}>
                     <MdPlaylistAdd />
                   </Button>
                 </Card.Body>

@@ -68,7 +68,7 @@ const TemporaryPlaylist = ({temporaryPlaylist, setTemporaryPlaylist}) => {
     <div className="playlists-container">
       <div className="playlists">
         <h2 style={{ cursor: "pointer" }} onClick={playPlaylist}>
-          <Nav.Link as={Link} to={`/player/${temporaryPlaylist.length > 0 ? temporaryPlaylist[0]._id : ""}`}>
+        <Nav.Link as={Link} to={temporaryPlaylist.length > 0 ? `/player/${temporaryPlaylist[0]._id}` : `#`}>
             <p style={{ fontSize: "30px", fontFamily: "serif", color: "yellow" }}><b>Temporary Playlist</b></p>
           </Nav.Link>
         </h2>
