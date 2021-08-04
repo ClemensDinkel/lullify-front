@@ -10,10 +10,10 @@ import { MdPlaylistAdd } from "react-icons/md"
 import { UserContext } from '../context/UserContext';
 
 const Previews = () => {
-  const { dTk} = useContext(UserContext);
+  const { dTk } = useContext(UserContext);
   const [decToken] = dTk;
   const [videos] = useContext(VideoContext)
-  const {ppl, tl, perl} = useContext(PlaylistContext);
+  const { ppl, tl, perl } = useContext(PlaylistContext);
   const [playedList, setPlayedList] = ppl;
   const [temporaryPlaylist, setTemporaryPlaylist] = tl
   const [permanentPlaylists, setPermanentPlaylists] = perl
@@ -35,9 +35,8 @@ const Previews = () => {
   const addToPlaylist = video => {
     console.log(video)
     if (decToken) {
-      console.log("add to perm")
+      
     } else {
-      console.log("add to temp")
       const newVideo = {
         title: video.title,
         _id: video._id
@@ -47,11 +46,6 @@ const Previews = () => {
     }
   }
 
-  const playVideo = () => {
-    
-  }
-
-
   return (
     <div className="previews-container">
       {
@@ -60,7 +54,7 @@ const Previews = () => {
             <div>
               <Card
                 key={index}
-                style={{ background: "rgba(0,0,0,0.1)", margin: `${margin}px` }}
+                style={{ background: "rgba(0,0,0,0.1)", margin: `${margin}px`, height: "100%" }}
                 text="white"
                 className="previews-card-container"
               >
@@ -71,18 +65,21 @@ const Previews = () => {
                     height="140px"
                     width="100%"
                     draggable="false"
-                    onClick={playVideo}
                   />
                 </Link>
                 <Card.Body style={{ textAlign: "left" }}>
-                  <div onClick={playVideo} style={{cursor: "pointer"}}>
-                    <Card.Title style={{ fontFamily: "cursive" }}>{video.title}</Card.Title>
-                    <Card.Text >{video.artist}</Card.Text>
-                  </div>
-                  <Button variant="dark" onClick={() => addToPlaylist(video)}>
-                    <MdPlaylistAdd />
-                  </Button>
+                  <Card.Title style={{ fontFamily: "cursive" }}>{video.title}</Card.Title>
+                  <Card.Text >
+                    {video.artist}
+                  </Card.Text>
                 </Card.Body>
+                <Button
+                  variant="dark"
+                  onClick={() => addToPlaylist(video)}
+                  style={{ position: "absolute", right: "0", bottom: "10px", height: "50px", width: "50px", zIndex: "9999" }}
+                >
+                  <MdPlaylistAdd />
+                </Button>
               </Card>
             </div>
           )

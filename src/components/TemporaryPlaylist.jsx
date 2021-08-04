@@ -110,7 +110,7 @@ const TemporaryPlaylist = () => {
                     <Button
                       type="button"
                       style={{ maxHeight: "40px" }}
-                      variant="outline-light"
+                      variant="dark"
                       onClick={() => { removeVideo(listVideo._id); }}
                     >
                       <MdDelete />
@@ -146,7 +146,7 @@ const TemporaryPlaylist = () => {
 
             <Button
               type="button"
-              variant="outline-light"
+              variant="dark"
               onClick={addVideo}
             >
               <AiOutlinePlus />

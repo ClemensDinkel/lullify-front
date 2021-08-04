@@ -130,7 +130,7 @@ const Playlists = () => {
             onChange={onChangeNewPlaylist}
             required
           />
-          <Button type="submit" variant="outline-light">
+          <Button type="submit" variant="dark">
             <AiOutlinePlus />
           </Button>
         </Form>
@@ -203,7 +203,7 @@ const Playlists = () => {
                           <Button
                             type="button"
                             style={{ maxHeight: "40px" }}
-                            variant="outline-light"
+                            variant="dark"
                             onClick={(e) => {
                               window.confirm(
                                 `Do you really want to delete ${playlist.name}?`
@@ -251,7 +251,7 @@ const Playlists = () => {
                                       <Button
                                         type="button"
                                         style={{ maxHeight: "40px" }}
-                                        variant="outline-light"
+                                        variant="dark"
                                         onClick={() => { removeVideo(playlist._id, playlistIndex, listVideo._id); }}
                                       >
                                         <MdDelete />
@@ -266,7 +266,7 @@ const Playlists = () => {
                           <Form className="d-flex">
                             <Button
                               type="button"
-                              variant="outline-light"
+                              variant="dark"
                               onClick={(e) => {
                                 e.preventDefault();
                                 if (selectedVideo.video_id === null)
