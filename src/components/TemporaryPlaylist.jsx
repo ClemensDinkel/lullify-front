@@ -1,6 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { Form, FormControl, Button, Image, Nav } from "react-bootstrap";
-import { AiOutlinePlus } from "react-icons/ai";
+import { Button, Image, Nav } from "react-bootstrap";
 import { MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { VideoContext } from "../context/VideoContext";
@@ -120,38 +119,6 @@ const TemporaryPlaylist = () => {
               }
             )}
           </ul>
-        </div>
-        <div>
-          {/* <Form className="d-flex">
-            <Form.Control
-              as="select"
-              className="my-1 mr-sm-2"
-              id="inlineFormCustomSelectPref"
-              name="video"
-              value={videos._id}
-              onChange={selectVideo}
-              custom
-            >
-              <option value="">-----Add Video-----</option>
-              {dropdownList &&
-                dropdownList
-                  .map((video, videoIndex) => {
-                    return (
-                      <option value={video._id} key={videoIndex}>
-                        {video.title}
-                      </option>
-                    );
-                  })}
-            </Form.Control>
-
-            <Button
-              type="button"
-              variant="dark"
-              onClick={addVideo}
-            >
-              <AiOutlinePlus />
-            </Button>
-          </Form> */}
         </div>
       </div>
 
