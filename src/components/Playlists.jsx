@@ -1,4 +1,4 @@
-import { Form, FormControl, Button, Col, Image, Nav } from "react-bootstrap";
+import { Form, FormControl, Button, Image, Nav } from "react-bootstrap";
 import api from "../api";
 import { AiOutlinePlus } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
@@ -9,7 +9,6 @@ import { VideoContext } from "../context/VideoContext";
 import { PlaylistContext } from "../context/PlaylistContext";
 import { Link } from "react-router-dom";
 import moon_image from "../images/moon2.png"
-import { useHistory } from "react-router";
 
 const Playlists = () => {
   const { dTk } = useContext(UserContext);

@@ -7,9 +7,9 @@ import { VideoContext } from "../context/VideoContext";
 import { PlaylistContext } from "../context/PlaylistContext";
 import moon_image from "../images/moon2.png"
 
-const TemporaryPlaylist = () => {
+const TemporaryPlaylist = ({temporaryPlaylist, setTemporaryPlaylist}) => {
   const [videos] = useContext(VideoContext);
-  const [temporaryPlaylist, setTemporaryPlaylist] = useState([])
+  /* const [temporaryPlaylist, setTemporaryPlaylist] = useState([]) */
   const [selected, setSelected] = useState(null)
   const [autoPlaylist, setAutoPlaylist] = useContext(PlaylistContext)
   const [dropdownList, setDropdownList] = useState([])
@@ -51,6 +51,7 @@ const TemporaryPlaylist = () => {
   };
 
   const playPlaylist = () => {
+    console.log(temporaryPlaylist)
     let onlyIdPlaylist = []
     temporaryPlaylist.forEach(video => onlyIdPlaylist.push(video._id))
     setAutoPlaylist(onlyIdPlaylist)

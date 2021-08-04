@@ -3,20 +3,17 @@ import Previews from "./Previews";
 import Playlists from "./Playlists";
 import TemporaryPlaylist from "./TemporaryPlaylist";
 import { UserContext } from "../context/UserContext";
-import { QueryContext } from "../context/QueryContext";
 import { VideoContext } from "../context/VideoContext";
 import { EscapeContext } from "../context/EscapeContext";
 import "../App.css";
 import api from "../api";
 import { Button } from 'react-bootstrap'
-import { AiOutlineArrowDown, AiOutlineConsoleSql } from 'react-icons/ai'
+import { AiOutlineArrowDown } from 'react-icons/ai'
 
 const Home = () => {
   const { dTk, sUI } = useContext(UserContext);
   const [decToken] = dTk;
   const [singleUserInfo] = sUI
-  const { ft } = useContext(QueryContext)
-  const [filter, setFilter] = ft
   const [videos, setVideos] = useContext(VideoContext)
   const [escapeUE, setEscapeUE] = useContext(EscapeContext)
   const [temporaryPlaylist, setTemporaryPlaylist] = useState([])
@@ -61,6 +58,12 @@ const Home = () => {
       console.log("add to perm")
     } else {
       console.log("add to temp")
+      const newVideo = {
+        title: video.title,
+        _id: video._id
+      }
+      console.log(newVideo)
+      setTemporaryPlaylist(prev => [...prev, newVideo])
     }
   }
 
@@ -75,7 +78,10 @@ const Home = () => {
         </div>
       </div>
       <div ref={scrollRef}>
-        {decToken && decToken.id ? <Playlists /> : <TemporaryPlaylist />}
+        {decToken && decToken.id ?
+          <Playlists />
+          :
+          <TemporaryPlaylist temporaryPlaylist={temporaryPlaylist} setTemporaryPlaylist={setTemporaryPlaylist} />}
       </div>
     </div>
   );

@@ -8,13 +8,11 @@ import {
   Image,
 } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
-import logo_image from "../images/moon2.png";
 import { useContext } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { UserContext } from '../context/UserContext'
 import { QueryContext } from '../context/QueryContext'
 import { VideoContext } from "../context/VideoContext";
-import { EscapeContext } from "../context/EscapeContext";
 import api from "../api";
 import "../App.css"
 
@@ -28,7 +26,6 @@ const Navigation = ({ handlePageScroll }) => {
   const [lang, setLang] = lg
   const [videos, setVideos] = useContext(VideoContext)
   const [show, setShow] = useState(false)
-  const [escapeUE, setEscapeUE] = useContext(EscapeContext)
 
   let history = useHistory();
 
