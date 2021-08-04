@@ -45,7 +45,7 @@ const Login = () => {
         localStorage.setItem('auth-token', res.data.accessToken)
         setToken(res.data.accessToken)
         history.push(`/`)
-        setEscapeUE(true)
+        /* setEscapeUE(true) */
       })
       .catch(err => alert("Enter correct Email & Password."))
   };

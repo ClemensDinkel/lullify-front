@@ -28,7 +28,7 @@ const ContentList = ({ uploaderVideos, setUploaderVideos, decToken }) => {
                   <tr>
                     <td style={{ textAlign: "left" }}>{uploaderVideo.title}</td>
                     <td>
-                      <Link exact to={`/video/${uploaderVideo._id}`}>
+                      <Link to={`/video/${uploaderVideo._id}`}>
                         <Button type="submit" variant="light">
                           <AiTwotoneEdit />
                         </Button>

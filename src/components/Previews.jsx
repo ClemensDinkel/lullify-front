@@ -1,13 +1,14 @@
 import { useContext, useState } from 'react'
 import '../App.css'
 import { VideoContext } from '../context/VideoContext'
-import { Card, Spinner } from "react-bootstrap";
+import { Card, Spinner, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { PlaylistContext } from '../context/PlaylistContext';
 import useBreakpoint from '../customHooks/useBreakpoint';
 import { useEffect } from 'react';
+import { MdPlaylistAdd } from "react-icons/md"
 
-const Previews = () => {
+const Previews = ({addToPlaylist}) => {
   const [videos] = useContext(VideoContext)
   const [autoPlaylist, setAutoPlaylist] = useContext(PlaylistContext)
   const point = useBreakpoint();
@@ -25,6 +26,7 @@ const Previews = () => {
     setAutoPlaylist(autoPlay)
   }
 
+
   return (
     <div className="previews-container">
       {
@@ -38,12 +40,15 @@ const Previews = () => {
                 className="previews-card-container"
                 onClick={playPlaylist}
               >
-                <Link to={`/player/${video._id}`} draggable= "false">
-                  <img variant="top" src={video.video_img_url} height="140px" width="100%" />
+                <Link to={`/player/${video._id}`} draggable="false">
+                  <img variant="top" src={video.video_img_url} height="140px" width="100%" draggable="false" />
                 </Link>
                 <Card.Body style={{ textAlign: "left" }}>
                   <Card.Title style={{ fontFamily: "cursive" }}>{video.title}</Card.Title>
                   <Card.Text >{video.artist}</Card.Text>
+                  <Button variant="dark" onClick={()=> addToPlaylist(video)}>
+                    <MdPlaylistAdd />
+                  </Button>
                 </Card.Body>
               </Card>
             </div>

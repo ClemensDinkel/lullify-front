@@ -22,7 +22,7 @@ const Navigation = ({ handlePageScroll }) => {
   const { tk, dTk, sUI } = useContext(UserContext)
   const [decToken, setDecToken] = dTk
   const [token, setToken] = tk
-  const [singleUserInfo] = sUI
+  const [singleUserInfo, setSingleUserInfo] = sUI
   const { ft, lg } = useContext(QueryContext)
   const [filter, setFilter] = ft
   const [lang, setLang] = lg
@@ -54,6 +54,7 @@ const Navigation = ({ handlePageScroll }) => {
           localStorage.clear();
           setToken("");
           setDecToken(null);
+          setSingleUserInfo([])
           history.push("/");
         })
         .catch(err => console.log(err))
@@ -78,8 +79,6 @@ const Navigation = ({ handlePageScroll }) => {
   const update = (e) => {
     if (e) e.preventDefault();
     const path = history.location.pathname.split("/")[1];
-    console.log(path)
-    /* if (path === "player" || path === "about" || path === "creatorpanel")  */setEscapeUE(true)
     if (path === "adminpanel") {
       api.getAllVideos(lang, filter)
         .then(res => setVideos(res.data))
@@ -97,14 +96,10 @@ const Navigation = ({ handlePageScroll }) => {
 
   const goHome = () => {
     const path = history.location.pathname.split("/")[1];
-    console.log(path)
     if (path === "") return
-    console.log("going Home")
-    setEscapeUE(true)
     setVideos([])
     api.getVideos()
       .then(res => {
-        console.log("setting videos")
         const favoriteFirstArray = putFavoritesFirst(res.data)
         setVideos(favoriteFirstArray)
         setFilter("")
