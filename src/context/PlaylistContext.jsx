@@ -7,6 +7,7 @@ export const PlaylistController = ({ children }) => {
   const [playedList, setPlayedList] = useState([])
   const [temporaryPlaylist, setTemporaryPlaylist] = useState([])
   const [permanentPlaylists, setPermanentPlaylists] = useState([])
+  const [selectedListIndex, setSelectedListIndex] = useState(0)
 
   useEffect(() => {
     console.log(playedList)
@@ -16,11 +17,20 @@ export const PlaylistController = ({ children }) => {
     console.log(temporaryPlaylist)
   }, [temporaryPlaylist])
 
+  useEffect(() => {
+    console.log(selectedListIndex)
+  }, [selectedListIndex])
+
+  useEffect(() => {
+    console.log(permanentPlaylists)
+  }, [permanentPlaylists])
+
   return (
     <PlaylistContext.Provider value={{
       ppl: [playedList, setPlayedList],
       tl: [temporaryPlaylist, setTemporaryPlaylist],
-      perl: [permanentPlaylists, setPermanentPlaylists]
+      perl: [permanentPlaylists, setPermanentPlaylists],
+      sl: [selectedListIndex, setSelectedListIndex]
     }}>
       {children}
     </PlaylistContext.Provider>

@@ -8,15 +8,18 @@ import useBreakpoint from '../customHooks/useBreakpoint';
 import { useEffect } from 'react';
 import { MdPlaylistAdd } from "react-icons/md"
 import { UserContext } from '../context/UserContext';
+import api from "../api";
+import { ContactsOutlined } from '@material-ui/icons';
 
 const Previews = () => {
   const { dTk } = useContext(UserContext);
   const [decToken] = dTk;
   const [videos] = useContext(VideoContext)
-  const { ppl, tl, perl } = useContext(PlaylistContext);
+  const { ppl, tl, perl, sl } = useContext(PlaylistContext);
   const [playedList, setPlayedList] = ppl;
   const [temporaryPlaylist, setTemporaryPlaylist] = tl
   const [permanentPlaylists, setPermanentPlaylists] = perl
+  const [selectedListIndex, setSelectedListIndex] = sl
   const point = useBreakpoint();
   const [margin, setMargin] = useState(1)
   const [loadingVideos, setLoadingVideos] = useState(true)
@@ -33,16 +36,32 @@ const Previews = () => {
   } */
 
   const addToPlaylist = video => {
-    console.log(video)
-    if (decToken) {
-      
+    console.log(permanentPlaylists)
+    const newVideo = {
+      _id: video._id,
+      title: video.title
+    }
+    const dbEntry = {
+      video_id: video._id
+    }
+    if (decToken && decToken.id) {
+      const backupPP = [...permanentPlaylists]
+      let newPP = [...permanentPlaylists]
+      let playlistToAddTo = newPP[selectedListIndex]
+      if (playlistToAddTo.video_list.some(video => video.title === newVideo.title)) return
+      playlistToAddTo.video_list.push(newVideo)
+      newPP[selectedListIndex] = playlistToAddTo
+      setPermanentPlaylists(newPP)
+      api.addVideoToPlaylist(decToken.id, playlistToAddTo._id, dbEntry) 
+      // failsafe in case something goes wrong
+      .catch(err => {
+          console.log(err)
+          setPermanentPlaylists(backupPP)
+        }) 
     } else {
-      const newVideo = {
-        title: video.title,
-        _id: video._id
+      if (!temporaryPlaylist.some(video => video.title === newVideo.title)) {
+        setTemporaryPlaylist(prev => [...prev, newVideo])
       }
-      console.log(newVideo)
-      setTemporaryPlaylist(prev => [...prev, newVideo])
     }
   }
 
@@ -76,7 +95,7 @@ const Previews = () => {
                 <Button
                   variant="dark"
                   onClick={() => addToPlaylist(video)}
-                  style={{ position: "absolute", right: "0", bottom: "10px", height: "50px", width: "50px", zIndex: "9999" }}
+                  style={{ position: "absolute", right: "0", bottom: "10px", height: "50px", width: "50px" }}
                 >
                   <MdPlaylistAdd />
                 </Button>

@@ -9,7 +9,7 @@ import moon_image from "../images/moon2.png"
 
 const TemporaryPlaylist = () => {
   const [videos] = useContext(VideoContext);
-  const {ppl, tl} = useContext(PlaylistContext);
+  const { ppl, tl } = useContext(PlaylistContext);
   const [playedList, setPlayedList] = ppl;
   const [temporaryPlaylist, setTemporaryPlaylist] = tl
   const [selected, setSelected] = useState(null)
@@ -19,7 +19,7 @@ const TemporaryPlaylist = () => {
   useEffect(() => {
     let videosCopy = videos.slice()
     setDropdownList([...videosCopy.sort((a, b) => a.title.localeCompare(b.title))])
-  },[videos])
+  }, [videos])
 
   // load from local storage on first render
   useEffect(() => {
@@ -69,7 +69,7 @@ const TemporaryPlaylist = () => {
     <div className="playlists-container">
       <div className="playlists">
         <h2 style={{ cursor: "pointer" }} onClick={playPlaylist}>
-        <Nav.Link as={Link} to={temporaryPlaylist.length > 0 ? `/player/${temporaryPlaylist[0]._id}` : `#`}>
+          <Nav.Link as={Link} to={temporaryPlaylist.length > 0 ? `/player/${temporaryPlaylist[0]._id}` : `#`}>
             <p style={{ fontSize: "30px", fontFamily: "serif", color: "yellow" }}><b>Temporary Playlist</b></p>
           </Nav.Link>
         </h2>
@@ -122,7 +122,7 @@ const TemporaryPlaylist = () => {
           </ul>
         </div>
         <div>
-          <Form className="d-flex">
+          {/* <Form className="d-flex">
             <Form.Control
               as="select"
               className="my-1 mr-sm-2"
@@ -151,7 +151,7 @@ const TemporaryPlaylist = () => {
             >
               <AiOutlinePlus />
             </Button>
-          </Form>
+          </Form> */}
         </div>
       </div>
 

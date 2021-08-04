@@ -1,7 +1,7 @@
 import { Form, FormControl, Button, Image, Nav } from "react-bootstrap";
 import api from "../api";
 import { AiOutlinePlus } from "react-icons/ai";
-import { MdDelete } from "react-icons/md";
+import { MdDelete, MdPlaylistAdd } from "react-icons/md";
 import { useState, useEffect, useContext } from "react";
 import "../App.css";
 import { UserContext } from "../context/UserContext";
@@ -15,8 +15,9 @@ const Playlists = () => {
   const [decToken] = dTk;
   const [videos] = useContext(VideoContext);
   const [loading, setLoading] = useState(true);
-  const {ppl, perl} = useContext(PlaylistContext);
+  const { ppl, perl, sl } = useContext(PlaylistContext);
   const [playedList, setPlayedList] = ppl;
+  const [selectedListIndex, setSelectedListIndex] = sl
   const [selectedVideo, setSelectedVideo] = useState({ video_id: null });
   const [displayedPlaylists, setDisplayedPlaylists] = perl;
   const [newPlaylist, setNewPlaylist] = useState({
@@ -29,7 +30,7 @@ const Playlists = () => {
   useEffect(() => {
     let videosCopy = videos.slice()
     setDropdownList([...videosCopy.sort((a, b) => a.title.localeCompare(b.title))])
-  },[videos])
+  }, [videos])
 
   // get playlists on first mount
   useEffect(() => {
@@ -87,6 +88,7 @@ const Playlists = () => {
 
   // add video to a playlist
   const addVideo = (playlist_id, playlistIndex) => {
+    console.log(selectedVideo)
     api.addVideoToPlaylist(decToken.id, playlist_id, selectedVideo)
       .then((res) => {
         let newDP = [...displayedPlaylists]
@@ -115,6 +117,8 @@ const Playlists = () => {
   }
 
   const playSingleVideo = (id) => setPlayedList([id]);
+
+  const selectPlaylist = (playlistIndex) => setSelectedListIndex(playlistIndex)
 
   return (
     <div className="playlists-container">
@@ -200,18 +204,28 @@ const Playlists = () => {
                               </h5>
                             </Nav.Link>
                           </li>
-                          <Button
-                            type="button"
-                            style={{ maxHeight: "40px" }}
-                            variant="dark"
-                            onClick={(e) => {
-                              window.confirm(
-                                `Do you really want to delete ${playlist.name}?`
-                              ) && deletePlaylist(playlist._id);
-                            }}
-                          >
-                            <MdDelete />
-                          </Button>
+                          <div style={{display: "flex"}}>
+                            <Button
+                              type="button"
+                              variant="dark"
+                              onClick={() => selectPlaylist(playlistIndex)}
+                              style={{ maxHeight: "40px", marginLeft : "5px" }}
+                            >
+                              <MdPlaylistAdd />
+                            </Button>
+                            <Button
+                              type="button"
+                              style={{ maxHeight: "40px", marginLeft : "5px" }}
+                              variant="dark"
+                              onClick={(e) => {
+                                window.confirm(
+                                  `Do you really want to delete ${playlist.name}?`
+                                ) && deletePlaylist(playlist._id);
+                              }}
+                            >
+                              <MdDelete />
+                            </Button>
+                          </div>
                         </div>
                         <div>
                           <ul>
