@@ -16,7 +16,6 @@ const Home = () => {
   const [singleUserInfo] = sUI
   const [videos, setVideos] = useContext(VideoContext)
   const [escapeUE, setEscapeUE] = useContext(EscapeContext)
-  const [temporaryPlaylist, setTemporaryPlaylist] = useState([])
 
   const putFavoritesFirst = array => {
     // put users favorites first
@@ -52,25 +51,10 @@ const Home = () => {
     scrollRef.current.scrollIntoView()
   };
 
-  const addToPlaylist = video => {
-    console.log(video)
-    if (decToken) {
-      console.log("add to perm")
-    } else {
-      console.log("add to temp")
-      const newVideo = {
-        title: video.title,
-        _id: video._id
-      }
-      console.log(newVideo)
-      setTemporaryPlaylist(prev => [...prev, newVideo])
-    }
-  }
-
   return (
     <div className="main-container home-container">
       <div className="previews-container-plus-button">
-        <Previews addToPlaylist={addToPlaylist} />
+        <Previews  />
         <div className="scroll-down">
           <Button type="button" variant="outline-light" onClick={handlePageScrollDown} style={{ maxHeight: "40px" }}>
             <AiOutlineArrowDown />
@@ -81,7 +65,7 @@ const Home = () => {
         {decToken && decToken.id ?
           <Playlists />
           :
-          <TemporaryPlaylist temporaryPlaylist={temporaryPlaylist} setTemporaryPlaylist={setTemporaryPlaylist} />}
+          <TemporaryPlaylist />}
       </div>
     </div>
   );

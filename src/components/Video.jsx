@@ -14,7 +14,8 @@ const Video = ({ video, setVideo }) => {
 
   const [readMore, setReadMore] = useState(false);
   const { dTk, sUI } = useContext(UserContext);
-  const [autoPlaylist, setAutoPlaylist] = useContext(PlaylistContext)
+  const {ppl} = useContext(PlaylistContext);
+  const [playedList, setPlayedList] = ppl;
   const [decToken] = dTk;
   const [singleUserInfo, setSingleUserInfo] = sUI;
   let history = useHistory();
@@ -81,10 +82,10 @@ const Video = ({ video, setVideo }) => {
   }, [singleUserInfo]) */
 
   const playNext = () => {
-    const slicedPlaylist = autoPlaylist.slice(1)
+    const slicedPlaylist = playedList.slice(1)
     if (slicedPlaylist.length > 0) {
       history.push(`/player/${slicedPlaylist[0]}`)
-      setAutoPlaylist(slicedPlaylist)
+      setPlayedList(slicedPlaylist)
     }
   }
 

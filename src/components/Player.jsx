@@ -13,14 +13,15 @@ const Player = () => {
   const [video, setVideo] = useState();
   const { dTk } = useContext(UserContext);
   const [decToken] = dTk;
-  const [autoPlaylist] = useContext(PlaylistContext);
+  const {ppl} = useContext(PlaylistContext);
+  const [playedList] = ppl;
 
   useEffect(() => {
     api
       .getVideoById(id)
       .then((res) => setVideo(res.data)) //array!!!
       .catch((err) => console.log(err));
-  }, [autoPlaylist]);
+  }, [playedList]);
 
   // in video on end -> playlist.shift() ?      n nn
 

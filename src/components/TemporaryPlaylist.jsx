@@ -7,11 +7,12 @@ import { VideoContext } from "../context/VideoContext";
 import { PlaylistContext } from "../context/PlaylistContext";
 import moon_image from "../images/moon2.png"
 
-const TemporaryPlaylist = ({temporaryPlaylist, setTemporaryPlaylist}) => {
+const TemporaryPlaylist = () => {
   const [videos] = useContext(VideoContext);
-  /* const [temporaryPlaylist, setTemporaryPlaylist] = useState([]) */
+  const {ppl, tl} = useContext(PlaylistContext);
+  const [playedList, setPlayedList] = ppl;
+  const [temporaryPlaylist, setTemporaryPlaylist] = tl
   const [selected, setSelected] = useState(null)
-  const [autoPlaylist, setAutoPlaylist] = useContext(PlaylistContext)
   const [dropdownList, setDropdownList] = useState([])
 
   // sort videos in dropdown without sorting videos in previews
@@ -54,10 +55,10 @@ const TemporaryPlaylist = ({temporaryPlaylist, setTemporaryPlaylist}) => {
     console.log(temporaryPlaylist)
     let onlyIdPlaylist = []
     temporaryPlaylist.forEach(video => onlyIdPlaylist.push(video._id))
-    setAutoPlaylist(onlyIdPlaylist)
+    setPlayedList(onlyIdPlaylist)
   }
 
-  const playSingleVideo = (id) => setAutoPlaylist([id])
+  const playSingleVideo = (id) => setPlayedList([id])
 
   const removeVideo = (id) => {
     const newTP = temporaryPlaylist.filter(video => video._id !== id)

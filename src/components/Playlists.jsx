@@ -15,9 +15,10 @@ const Playlists = () => {
   const [decToken] = dTk;
   const [videos] = useContext(VideoContext);
   const [loading, setLoading] = useState(true);
-  const [autoPlaylist, setAutoPlaylist] = useContext(PlaylistContext);
+  const {ppl, perl} = useContext(PlaylistContext);
+  const [playedList, setPlayedList] = ppl;
   const [selectedVideo, setSelectedVideo] = useState({ video_id: null });
-  const [displayedPlaylists, setDisplayedPlaylists] = useState([]);
+  const [displayedPlaylists, setDisplayedPlaylists] = perl;
   const [newPlaylist, setNewPlaylist] = useState({
     name: "",
     user_id: null,
@@ -110,10 +111,10 @@ const Playlists = () => {
     const autoPlay = displayedPlaylists[index].video_list
     let finalAutoPlay = []
     autoPlay.forEach(playlist => finalAutoPlay.push(playlist._id))
-    setAutoPlaylist(finalAutoPlay)
+    setPlayedList(finalAutoPlay)
   }
 
-  const playSingleVideo = (id) => setAutoPlaylist([id]);
+  const playSingleVideo = (id) => setPlayedList([id]);
 
   return (
     <div className="playlists-container">

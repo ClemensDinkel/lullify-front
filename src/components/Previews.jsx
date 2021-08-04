@@ -7,10 +7,16 @@ import { PlaylistContext } from '../context/PlaylistContext';
 import useBreakpoint from '../customHooks/useBreakpoint';
 import { useEffect } from 'react';
 import { MdPlaylistAdd } from "react-icons/md"
+import { UserContext } from '../context/UserContext';
 
-const Previews = ({ addToPlaylist }) => {
+const Previews = () => {
+  const { dTk} = useContext(UserContext);
+  const [decToken] = dTk;
   const [videos] = useContext(VideoContext)
-  const [autoPlaylist, setAutoPlaylist] = useContext(PlaylistContext)
+  const {ppl, tl, perl} = useContext(PlaylistContext);
+  const [playedList, setPlayedList] = ppl;
+  const [temporaryPlaylist, setTemporaryPlaylist] = tl
+  const [permanentPlaylists, setPermanentPlaylists] = perl
   const point = useBreakpoint();
   const [margin, setMargin] = useState(1)
   const [loadingVideos, setLoadingVideos] = useState(true)
@@ -23,8 +29,23 @@ const Previews = ({ addToPlaylist }) => {
   /* const playPlaylist = () => {
     const autoPlay = []
     videos.forEach(video => autoPlay.push(video._id))
-    setAutoPlaylist(autoPlay)
+    setPlayedList(autoPlay)
   } */
+
+  const addToPlaylist = video => {
+    console.log(video)
+    if (decToken) {
+      console.log("add to perm")
+    } else {
+      console.log("add to temp")
+      const newVideo = {
+        title: video.title,
+        _id: video._id
+      }
+      console.log(newVideo)
+      setTemporaryPlaylist(prev => [...prev, newVideo])
+    }
+  }
 
   const playVideo = () => {
     
