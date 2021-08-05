@@ -4,7 +4,7 @@ const root = "https://tranquil-reaches-12289.herokuapp.com";
 
 const api = {
   //Auth Routes
-  
+
   loginUser: async (user) => {
     return await axios.post(`/login`, user, {
       /* withCredentials: true, */
@@ -99,6 +99,13 @@ const api = {
     });
   },
 
+  updatePlaylist: async (user_id, playlist_id, playlistData) => {
+    return await axios.put(
+      `/users/${user_id}/playlists/${playlist_id}`, playlistData, {
+      baseURL: root,
+    });
+  },
+
   removeVideoFromPlaylist: async (user_id, playlist_id, videoId) => {
     return await axios.put(`/users/${user_id}/playlists/${playlist_id}/removevideo`, videoId, {
       baseURL: root,
@@ -135,7 +142,7 @@ const api = {
       baseURL: root,
     });
   },
-  
+
   // For Users
   getVideos: async (lang, filter) => {
     return await axios.get(`/videos/collection`, {

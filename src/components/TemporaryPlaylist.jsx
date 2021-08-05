@@ -42,7 +42,7 @@ const TemporaryPlaylist = () => {
   // dnd operations
 
   const reorder = (list, startIndex, endIndex) => {
-    const result = list.slice();
+    const result = [...list]
     const [removed] = result.splice(startIndex, 1);
     result.splice(endIndex, 0, removed);
     return result;
@@ -56,7 +56,6 @@ const TemporaryPlaylist = () => {
       result.source.index,
       result.destination.index
     );
-
     setTemporaryPlaylist(videosNew);
   }
 

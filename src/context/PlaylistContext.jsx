@@ -9,7 +9,7 @@ export const PlaylistController = ({ children }) => {
   const [permanentPlaylists, setPermanentPlaylists] = useState([])
   const [selectedListIndex, setSelectedListIndex] = useState(0)
 
-  useEffect(() => {
+ /*  useEffect(() => {
     console.log(playedList)
   }, [playedList])
 
@@ -19,10 +19,10 @@ export const PlaylistController = ({ children }) => {
 
   useEffect(() => {
     console.log(selectedListIndex)
-  }, [selectedListIndex])
+  }, [selectedListIndex]) */
 
   useEffect(() => {
-    console.log(permanentPlaylists)
+    /* console.log(permanentPlaylists) */
     if (permanentPlaylists.length <= selectedListIndex) setSelectedListIndex(0)
   }, [permanentPlaylists])
 
