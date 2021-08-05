@@ -12,14 +12,6 @@ const TemporaryPlaylist = () => {
   const { ppl, tl } = useContext(PlaylistContext);
   const [playedList, setPlayedList] = ppl;
   const [temporaryPlaylist, setTemporaryPlaylist] = tl
-  const [selected, setSelected] = useState(null)
-  const [dropdownList, setDropdownList] = useState([])
-
-  // sort videos in dropdown without sorting videos in previews
-  useEffect(() => {
-    let videosCopy = videos.slice()
-    setDropdownList([...videosCopy.sort((a, b) => a.title.localeCompare(b.title))])
-  }, [videos])
 
   // load from local storage on first render
   useEffect(() => {
@@ -28,28 +20,10 @@ const TemporaryPlaylist = () => {
     }
   }, [])
 
-  // add video to temporary playlist
-  const addVideo = (e) => {
-    e.preventDefault()
-    if (selected !== null && !temporaryPlaylist.includes(selected)) {
-      setTemporaryPlaylist(prev => [...prev, selected])
-    }
-    else {
-      alert("Video already in playlist")
-    }
-  }
-
   // update local storage as well
   useEffect(() => {
     sessionStorage.setItem("lullifyPlaylist", JSON.stringify(temporaryPlaylist))
   }, [temporaryPlaylist])
-
-  const selectVideo = (e) => {
-    e.preventDefault()
-    const video = videos.find(video => video._id === e.target.value)
-    const onlyIdAndName = { _id: video._id, title: video.title }
-    setSelected(onlyIdAndName)
-  };
 
   const playPlaylist = () => {
     console.log(temporaryPlaylist)
@@ -65,6 +39,27 @@ const TemporaryPlaylist = () => {
     setTemporaryPlaylist(newTP)
   }
 
+  // dnd operations
+
+  const reorder = (list, startIndex, endIndex) => {
+    const result = list.slice();
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
+    return result;
+  };
+
+  const onDragEnd = result => {
+    if (!result.destination) return;
+    if (result.destination.index === result.source.index) return;
+    const videosNew = reorder(
+      temporaryPlaylist,
+      result.source.index,
+      result.destination.index
+    );
+
+    setTemporaryPlaylist(videosNew);
+  }
+
   return (
     <div className="playlists-container">
       <div className="playlists">
@@ -74,7 +69,7 @@ const TemporaryPlaylist = () => {
           </Nav.Link>
         </h2>
         <div style={{ textAlign: "left" }}>
-          <DragDropContext>
+          <DragDropContext onDragEnd={onDragEnd}>
             <Droppable droppableId="temp-playlist">
               {(provided) => (
                 <ul ref={provided.innerRef}>

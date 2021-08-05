@@ -29,12 +29,6 @@ const Previews = () => {
     setMargin(margin)
   }, [point])
 
-  /* const playPlaylist = () => {
-    const autoPlay = []
-    videos.forEach(video => autoPlay.push(video._id))
-    setPlayedList(autoPlay)
-  } */
-
   const addToPlaylist = video => {
     console.log(permanentPlaylists)
     const newVideo = {
