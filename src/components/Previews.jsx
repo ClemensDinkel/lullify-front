@@ -29,14 +29,7 @@ const Previews = () => {
     setMargin(margin)
   }, [point])
 
-  /* const playPlaylist = () => {
-    const autoPlay = []
-    videos.forEach(video => autoPlay.push(video._id))
-    setPlayedList(autoPlay)
-  } */
-
   const addToPlaylist = video => {
-    console.log(permanentPlaylists)
     const newVideo = {
       _id: video._id,
       title: video.title
@@ -45,7 +38,6 @@ const Previews = () => {
       video_id: video._id
     }
     if (decToken && decToken.id) {
-      console.log(permanentPlaylists.length)
       if (permanentPlaylists.length === 0) return
       const backupPP = [...permanentPlaylists]
       let newPP = [...permanentPlaylists]

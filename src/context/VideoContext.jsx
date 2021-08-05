@@ -1,5 +1,4 @@
 import { useState, useEffect, createContext } from "react";
-import api from "../api";
 
 export const VideoContext = createContext()
 
@@ -15,9 +14,9 @@ export const VideoController = ({ children }) => {
       .catch(err => console.log(err))
   }, []) */
 
-  useEffect(() => {
+  /* useEffect(() => {
     console.log(videos)
-  }, [videos])
+  }, [videos]) */
 
   return (
     <VideoContext.Provider value={[videos, setVideos]}>

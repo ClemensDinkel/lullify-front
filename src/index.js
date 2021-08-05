@@ -28,7 +28,7 @@ axios.interceptors.request.use(request => {
   // request.headers['Content-Type'] = 'application/x-www-form-urlencoded';
   request.headers['Content-Type'] = 'application/json';
   /* request.headers['Access-Control-Allow-Origin'] = '*'; */
-  /* console.log(request) */
+  /* console.log(request)  */
   return request;
 });
 
