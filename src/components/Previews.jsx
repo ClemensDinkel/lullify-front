@@ -95,7 +95,7 @@ const Previews = () => {
           )
         }) :
           <div>
-            <Spinner animation="border" role="status" variant="light" style={{height: "60px", width: "60px"}}>
+            <Spinner animation="border" role="status" variant="light" style={{height: "60px", width: "60px", display: "block", position: "absolute", margin: "0 auto"}}>
               <span className="visually-hidden">Loading...</span>
             </Spinner>
           </div>

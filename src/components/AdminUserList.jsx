@@ -1,5 +1,5 @@
 import '../App.css'
-import { Table} from "react-bootstrap"
+import {Table} from "react-bootstrap"
 
 const AdminUserList = ({admins, creators, users, seeSingleUser }) => {
 
