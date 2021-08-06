@@ -14,9 +14,9 @@ export const VideoController = ({ children }) => {
       .catch(err => console.log(err))
   }, []) */
 
-  useEffect(() => {
+  /* useEffect(() => {
     console.log(videosLoaded)
-  }, [videosLoaded])
+  }, [videosLoaded]) */
 
   return (
     <VideoContext.Provider value={[videos, setVideos, videosLoaded, setVideosLoaded]}>

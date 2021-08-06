@@ -1,31 +1,7 @@
-import { useContext, useEffect} from 'react'
 import '../App.css'
-import { VideoContext } from '../context/VideoContext'
 import Table from 'react-bootstrap/Table'
-import { QueryContext } from '../context/QueryContext'
-import api from '../api'
 
-const AdminVideoList = ({ setInspecting, setInspectData, setInspectType }) => {
-  const { ft, lg } = useContext(QueryContext)
-  const [filter, setFilter] = ft
-  const [lang, setLang] = lg
-  const [videos, setVideos] = useContext(VideoContext)
-  
-  const seeSingleVideo = (videoData) => {
-    setInspecting(true);
-    setInspectData(videoData);
-    setInspectType("Video")
-  }
-
-  useEffect(() => {
-    setFilter("")
-    setLang("")
-    api.getAllVideos()
-      .then(res => {
-        setVideos(res.data)
-      })
-      .catch(err => console.log(err))
-  }, [])
+const AdminVideoList = ({ videos, seeSingleVideo }) => {
 
   return (
     <div className="video-panel">

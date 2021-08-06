@@ -1,23 +1,7 @@
-import { useState, useEffect } from "react"
-import api from "../api"
 import '../App.css'
 import Table from 'react-bootstrap/Table'
 
-const AdminRequestList = ({ setInspecting, setInspectData, setInspectType }) => {
-  const [requests, setRequests] = useState([])
-
-  const sortByDate = (a, b) => b.req_date < a.req_date ? -1 : b.req_date > a.req_date ? 1 : 0;
-
-  const seeSingleRequest = (requestData) => {
-    setInspecting(true);
-    setInspectData(requestData);
-    setInspectType("Request")
-  }
-
-  useEffect(() => {
-    api.getAllRequests()
-      .then(res => setRequests(res.data));
-  }, [])
+const AdminRequestList = ({requests, sortByDate, seeSingleRequest}) => {
 
   return (
     <div className="request-panel">
