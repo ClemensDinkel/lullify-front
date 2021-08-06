@@ -24,7 +24,7 @@ const Navigation = ({ handlePageScroll }) => {
   const { ft, lg } = useContext(QueryContext)
   const [filter, setFilter] = ft
   const [lang, setLang] = lg
-  const [videos, setVideos] = useContext(VideoContext)
+  const [videos, setVideos, videosLoaded, setVideosLoaded] = useContext(VideoContext)
   const [show, setShow] = useState(false)
 
   let history = useHistory();
@@ -74,15 +74,20 @@ const Navigation = ({ handlePageScroll }) => {
   }
 
   const update = (e) => {
+    setVideosLoaded(false)
     if (e) e.preventDefault();
     const path = history.location.pathname.split("/")[1];
     if (path === "adminpanel") {
       api.getAllVideos(lang, filter)
-        .then(res => setVideos(res.data))
+        .then(res => {
+          setVideosLoaded(true)
+          setVideos(res.data)
+        })
         .catch(err => console.log(err))
     } else {
       api.getVideos(lang, filter)
         .then(res => {
+          setVideosLoaded(true)
           const favoriteFirstArray = putFavoritesFirst(res.data)
           setVideos(favoriteFirstArray)
           if (path === "player" || path === "about" || path === "creatorpanel") history.push("/")
@@ -95,8 +100,10 @@ const Navigation = ({ handlePageScroll }) => {
     const path = history.location.pathname.split("/")[1];
     if (path === "") return
     setVideos([])
+    setVideosLoaded(false)
     api.getVideos()
       .then(res => {
+        setVideosLoaded(true)
         const favoriteFirstArray = putFavoritesFirst(res.data)
         setVideos(favoriteFirstArray)
         setFilter("")

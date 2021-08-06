@@ -14,7 +14,7 @@ const Home = () => {
   const { dTk, sUI } = useContext(UserContext);
   const [decToken] = dTk;
   const [singleUserInfo] = sUI
-  const [videos, setVideos] = useContext(VideoContext)
+  const [videos, setVideos, videosLoaded, setVideosLoaded] = useContext(VideoContext)
   const [escapeUE, setEscapeUE] = useContext(EscapeContext)
 
   const putFavoritesFirst = array => {
@@ -33,14 +33,19 @@ const Home = () => {
     // only execute on first render
     if (!escapeUE) {
       setEscapeUE(true)
+      setVideosLoaded(false)
       api.getVideos()
-        .then(res => setVideos(res.data))
+        .then(res => {
+          const favoriteFirstArray = putFavoritesFirst(res.data)
+          setVideos(favoriteFirstArray)
+          setVideosLoaded(true)
+        })
         .catch(err => console.log(err))
     }
   }, [])
 
   useEffect(() => {
-    // fires as soon user data is available and reorders favorite videos on top
+    // if user logs in while videos are already loaded
     const favoriteFirstArray = putFavoritesFirst(videos.slice())
     setVideos(favoriteFirstArray)
   }, [singleUserInfo])
@@ -54,7 +59,7 @@ const Home = () => {
   return (
     <div className="main-container home-container">
       <div className="previews-container-plus-button">
-        <Previews  />
+        <Previews />
         <div className="scroll-down">
           <Button type="button" variant="outline-light" onClick={handlePageScrollDown} style={{ maxHeight: "40px" }}>
             <AiOutlineArrowDown />

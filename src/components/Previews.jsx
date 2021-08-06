@@ -13,7 +13,7 @@ import api from "../api";
 const Previews = () => {
   const { dTk } = useContext(UserContext);
   const [decToken] = dTk;
-  const [videos] = useContext(VideoContext)
+  const [videos, setVideos, videosLoaded] = useContext(VideoContext)
   const { tl, perl, sl } = useContext(PlaylistContext);
   const [temporaryPlaylist, setTemporaryPlaylist] = tl
   const [permanentPlaylists, setPermanentPlaylists] = perl
@@ -59,7 +59,7 @@ const Previews = () => {
   return (
     <div className="previews-container">
       {
-        videos.length > 0 ? videos.map((video, index) => {
+        videosLoaded ? videos.map((video, index) => {
           return (
             <div>
               <Card
