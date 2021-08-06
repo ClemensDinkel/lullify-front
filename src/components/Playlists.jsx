@@ -6,6 +6,7 @@ import { useState, useEffect, useContext } from "react";
 import "../App.css";
 import { UserContext } from "../context/UserContext";
 import { PlaylistContext } from "../context/PlaylistContext";
+import { EscapeContext } from "../context/EscapeContext";
 import { Link } from "react-router-dom";
 import moon_image from "../images/moon2.png"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
@@ -13,11 +14,11 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 const Playlists = () => {
   const { dTk } = useContext(UserContext);
   const [decToken] = dTk;
-  const [loading, setLoading] = useState(true);
-  const { ppl, perl, sl } = useContext(PlaylistContext);
+  const { ppl, perl, sl} = useContext(PlaylistContext);
   const [playedList, setPlayedList] = ppl;
-  const [selectedListIndex, setSelectedListIndex] = sl
+  const [selectedListIndex, setSelectedListIndex] = sl;
   const [permanentPlaylists, setPermanentPlaylists] = perl;
+  const [playlistsLoaded, setPlaylistsLoaded] = useState(false)
   const [newPlaylist, setNewPlaylist] = useState({
     name: "",
     user_id: null,
@@ -33,6 +34,7 @@ const Playlists = () => {
     api
       .getPlaylist(decToken.id)
       .then((res) => {
+        setPlaylistsLoaded(true)
         setPermanentPlaylists(res.data);
       })
       .catch((err) => console.log(err));
@@ -148,7 +150,7 @@ const Playlists = () => {
         </Form>
         <div>
           <ul style={{ listStyle: "none" }}>
-            {permanentPlaylists.length > 0 ?
+            {playlistsLoaded ?
               permanentPlaylists.map((playlist, playlistIndex) => {
                 return (
                   <div>
