@@ -8,8 +8,9 @@ import api from "../api";
 
 const CreatorPanel = () => {
   const { dTk } = useContext(UserContext)
-  const [decToken, setDecToken] = dTk;
+  const [decToken] = dTk;
   const [uploaderVideos, setUploaderVideos] = useState([]);
+  const [videosLoaded, setVideosLoaded] = useState(false)
   const { ft, lg } = useContext(QueryContext)
   const [filter, setFilter] = ft
   const [lang, setLang] = lg
@@ -17,18 +18,13 @@ const CreatorPanel = () => {
   useEffect(() => {
     setFilter("")
     setLang("")
+    api
+      .getUploaderAllVideos(decToken.id)
+      .then((res) => {
+        setUploaderVideos(res.data);
+      })
+      .catch((err) => console.log(err));
   }, [])
-
-  useEffect(() => {
-    if (decToken && decToken.id) {
-      api
-        .getUploaderAllVideos(decToken.id)
-        .then((res) => {
-          setUploaderVideos(res.data);
-        })
-        .catch((err) => console.log(err));
-    }
-  }, [decToken]);
 
   return (
     <>
