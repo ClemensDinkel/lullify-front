@@ -1,4 +1,4 @@
-import { Form, FormControl, Button, Image, Nav } from "react-bootstrap";
+import { Form, FormControl, Button, Image, Nav, Spinner } from "react-bootstrap";
 import api from "../api";
 import { AiOutlinePlus } from "react-icons/ai";
 import { MdDelete, MdPlaylistAdd } from "react-icons/md";
@@ -6,6 +6,7 @@ import { useState, useEffect, useContext } from "react";
 import "../App.css";
 import { UserContext } from "../context/UserContext";
 import { PlaylistContext } from "../context/PlaylistContext";
+import { EscapeContext } from "../context/EscapeContext";
 import { Link } from "react-router-dom";
 import moon_image from "../images/moon2.png"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
@@ -13,11 +14,11 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 const Playlists = () => {
   const { dTk } = useContext(UserContext);
   const [decToken] = dTk;
-  const [loading, setLoading] = useState(true);
   const { ppl, perl, sl } = useContext(PlaylistContext);
   const [playedList, setPlayedList] = ppl;
-  const [selectedListIndex, setSelectedListIndex] = sl
+  const [selectedListIndex, setSelectedListIndex] = sl;
   const [permanentPlaylists, setPermanentPlaylists] = perl;
+  const [playlistsLoaded, setPlaylistsLoaded] = useState(false)
   const [newPlaylist, setNewPlaylist] = useState({
     name: "",
     user_id: null,
@@ -33,10 +34,10 @@ const Playlists = () => {
     api
       .getPlaylist(decToken.id)
       .then((res) => {
+        setPlaylistsLoaded(true)
         setPermanentPlaylists(res.data);
       })
       .catch((err) => console.log(err));
-    setLoading(false);
   };
 
   // keeps track of a newPlaylist's name and user_id
@@ -132,7 +133,7 @@ const Playlists = () => {
   return (
     <div className="playlists-container">
       <div className="playlists">
-        <h2 style={{ fontSize: "30px", fontFamily: "serif", color: "yellow" }}><b>Playlists</b></h2>
+        <h2 style={{ fontSize: "30px", fontFamily: "cursive", color: "yellow" }}><b>Playlists</b></h2>
         <Form style={{ display: "flex", marginBottom: "10px" }} onSubmit={addPlaylist}>
           <FormControl
             type="text"
@@ -147,147 +148,147 @@ const Playlists = () => {
             <AiOutlinePlus />
           </Button>
         </Form>
-        <div>
-          <ul style={{ listStyle: "none" }}>
-            {permanentPlaylists &&
-              permanentPlaylists.map((playlist, playlistIndex) => {
+        {playlistsLoaded ?
+          <div>
+            <ul style={{ listStyle: "none" }}>
+              {permanentPlaylists.map((playlist, playlistIndex) => {
                 return (
-                  <>
-                    {!loading ? (
-                      <div>
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            width: "100%"
+                  <div>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        width: "100%"
+                      }}
+                    >
+                      <li
+                        key={playlistIndex}
+                        style={{ cursor: "pointer", color: "antiquewhite", width: "80%", textAlign: "left" }}
+                        onClick={() => playPlaylist(playlistIndex)}
+                      >
+                        <Nav.Link as={Link} to={
+                          playlist.video_list.length > 0
+                            ? `/player/${playlist.video_list[0]._id}`
+                            : "#"
+                        }
+                        >
+                          <h5
+                            style={{
+                              color: "antiquewhite",
+                              fontFamily: "cursive",
+                              textDecoration: "underline"
+                            }}
+                          >
+                            {playlist.name}
+                          </h5>
+                        </Nav.Link>
+                      </li>
+                      <div style={{ display: "flex" }}>
+                        {permanentPlaylists.length > 1 &&
+                          <Button
+                            type="button"
+                            variant={selectedListIndex === playlistIndex ? "success" : "dark"}
+                            onClick={() => selectPlaylist(playlistIndex)}
+                            style={{ maxHeight: "40px", marginLeft: "5px" }}
+                          >
+                            <MdPlaylistAdd />
+                          </Button>
+                        }
+                        <Button
+                          type="button"
+                          style={{ maxHeight: "40px", marginLeft: "5px" }}
+                          variant="dark"
+                          onClick={(e) => {
+                            window.confirm(
+                              `Do you really want to delete ${playlist.name}?`
+                            ) && deletePlaylist(playlist._id, playlistIndex);
                           }}
                         >
-                          <li
-                            key={playlistIndex}
-                            style={{ cursor: "pointer", color: "antiquewhite", width: "80%", textAlign: "left" }}
-                            onClick={() => playPlaylist(playlistIndex)}
-                          >
-                            <Nav.Link as={Link} to={
-                              playlist.video_list.length > 0
-                                ? `/player/${playlist.video_list[0]._id}`
-                                : "#"
-                            }
-                            >
-                              <h5
-                                style={{
-                                  color: "antiquewhite",
-                                  fontFamily: "cursive",
-                                  textDecoration: "underline"
-                                }}
-                              >
-                                {playlist.name}
-                              </h5>
-                            </Nav.Link>
-                          </li>
-                          <div style={{ display: "flex" }}>
-                            {permanentPlaylists.length > 1 &&
-                              <Button
-                                type="button"
-                                variant={selectedListIndex === playlistIndex ? "success" : "dark"}
-                                onClick={() => selectPlaylist(playlistIndex)}
-                                style={{ maxHeight: "40px", marginLeft: "5px" }}
-                              >
-                                <MdPlaylistAdd />
-                              </Button>
-                            }
-                            <Button
-                              type="button"
-                              style={{ maxHeight: "40px", marginLeft: "5px" }}
-                              variant="dark"
-                              onClick={(e) => {
-                                window.confirm(
-                                  `Do you really want to delete ${playlist.name}?`
-                                ) && deletePlaylist(playlist._id, playlistIndex);
-                              }}
-                            >
-                              <MdDelete />
-                            </Button>
-                          </div>
-                        </div>
-                        <div>
-                          <DragDropContext onDragEnd={onDragEnd}>
-                            <Droppable droppableId={`${playlistIndex}`}>
-                              {(provided) => (
-                                <ul ref={provided.innerRef}>
-                                  {playlist.video_list &&
-                                    playlist.video_list.map(
-                                      (listVideo, listVideoIndex) => {
-                                        return (
-                                          <Draggable draggableId={listVideo._id} key={listVideo._id} index={listVideoIndex}>
-                                            {(provided) => (
-                                              <div ref=
-                                                {provided.innerRef}
-                                                {...provided.dragHandleProps}
-                                                {...provided.draggableProps}>
-                                                <div
-                                                  style={{
-                                                    display: "flex",
-                                                    justifyContent: "space-between",
-                                                    width: "100%"
-                                                  }}
-                                                >
-                                                  <li
-                                                    key={listVideoIndex}
-                                                    style={{
-                                                      color: "antiquewhite",
-                                                      display: "flex",
-                                                      flexWrap: "wrap",
-                                                      width: "80%",
-                                                      textAlign: "left"
-                                                    }}
-                                                    onClick={() =>
-                                                      playSingleVideo(listVideo._id)
-                                                    }
-                                                  >
-                                                    <Nav.Link
-                                                      as={Link}
-                                                      to={`/player/${listVideo._id}`}
-                                                    >
-                                                      <h6 style={{ color: "antiquewhite" }}>
-                                                        {listVideo.title}
-                                                      </h6>
-                                                    </Nav.Link>
-                                                  </li>
-                                                  <Button
-                                                    type="button"
-                                                    style={{ maxHeight: "40px" }}
-                                                    variant="dark"
-                                                    onClick={() => { removeVideo(playlist._id, playlistIndex, listVideo._id, listVideoIndex); }}
-                                                  >
-                                                    <MdDelete />
-                                                  </Button>
-                                                </div>
-                                              </div>
-                                            )}
-                                          </Draggable>
-                                        );
-                                      }
-                                    )}
-                                  {provided.placeholder}
-                                </ul>
-                              )
-                              }
-                            </Droppable>
-                          </DragDropContext>
-                        </div>
+                          <MdDelete />
+                        </Button>
                       </div>
-                    ) : (
-                      <p>Loading..</p>
-                    )}
-                  </>
+                    </div>
+                    <div>
+                      <DragDropContext onDragEnd={onDragEnd}>
+                        <Droppable droppableId={`${playlistIndex}`}>
+                          {(provided) => (
+                            <ul ref={provided.innerRef}>
+                              {playlist.video_list &&
+                                playlist.video_list.map(
+                                  (listVideo, listVideoIndex) => {
+                                    return (
+                                      <Draggable draggableId={listVideo._id} key={listVideo._id} index={listVideoIndex}>
+                                        {(provided) => (
+                                          <div ref=
+                                            {provided.innerRef}
+                                            {...provided.dragHandleProps}
+                                            {...provided.draggableProps}>
+                                            <div
+                                              style={{
+                                                display: "flex",
+                                                justifyContent: "space-between",
+                                                width: "100%"
+                                              }}
+                                            >
+                                              <li
+                                                key={listVideoIndex}
+                                                style={{
+                                                  color: "antiquewhite",
+                                                  display: "flex",
+                                                  flexWrap: "wrap",
+                                                  width: "80%",
+                                                  textAlign: "left"
+                                                }}
+                                                onClick={() =>
+                                                  playSingleVideo(listVideo._id)
+                                                }
+                                              >
+                                                <Nav.Link
+                                                  as={Link}
+                                                  to={`/player/${listVideo._id}`}
+                                                >
+                                                  <h6 style={{ color: "antiquewhite" }}>
+                                                    {listVideo.title}
+                                                  </h6>
+                                                </Nav.Link>
+                                              </li>
+                                              <Button
+                                                type="button"
+                                                style={{ maxHeight: "40px" }}
+                                                variant="dark"
+                                                onClick={() => { removeVideo(playlist._id, playlistIndex, listVideo._id, listVideoIndex); }}
+                                              >
+                                                <MdDelete />
+                                              </Button>
+                                            </div>
+                                          </div>
+                                        )}
+                                      </Draggable>
+                                    );
+                                  }
+                                )}
+                              {provided.placeholder}
+                            </ul>
+                          )}
+                        </Droppable>
+                      </DragDropContext>
+                    </div>
+                  </div>
                 );
-              })}
-          </ul>
-        </div>
+              })
+              }
+            </ul>
+          </div> :
+          <div>
+            <Spinner animation="border" role="status" variant="light" style={{ height: "100px", width: "100px" }}>
+              <span className="visually-hidden">Loading...</span>
+            </Spinner>
+          </div>
+        }
       </div>
 
       <div className="moon-image">
-        <Image src={moon_image} alt="moon" width="50%"></Image>
+        <Image src={moon_image} alt="moon" width="50%" style={{ maxWidth: "200px" }}></Image>
       </div>
     </div>
   );

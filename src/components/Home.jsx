@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import Previews from "./Previews";
 import Playlists from "./Playlists";
 import TemporaryPlaylist from "./TemporaryPlaylist";
@@ -7,14 +7,14 @@ import { VideoContext } from "../context/VideoContext";
 import { EscapeContext } from "../context/EscapeContext";
 import "../App.css";
 import api from "../api";
-import { Button } from 'react-bootstrap'
+import { Button, Spinner } from 'react-bootstrap'
 import { AiOutlineArrowDown } from 'react-icons/ai'
 
 const Home = () => {
   const { dTk, sUI } = useContext(UserContext);
   const [decToken] = dTk;
   const [singleUserInfo] = sUI
-  const [videos, setVideos] = useContext(VideoContext)
+  const [videos, setVideos, videosLoaded, setVideosLoaded] = useContext(VideoContext)
   const [escapeUE, setEscapeUE] = useContext(EscapeContext)
 
   const putFavoritesFirst = array => {
@@ -33,14 +33,19 @@ const Home = () => {
     // only execute on first render
     if (!escapeUE) {
       setEscapeUE(true)
+      setVideosLoaded(false)
       api.getVideos()
-        .then(res => setVideos(res.data))
+        .then(res => {
+          const favoriteFirstArray = putFavoritesFirst(res.data)
+          setVideos(favoriteFirstArray)
+          setVideosLoaded(true)
+        })
         .catch(err => console.log(err))
     }
   }, [])
 
   useEffect(() => {
-    // fires as soon user data is available and reorders favorite videos on top
+    // if user logs in while videos are already loaded
     const favoriteFirstArray = putFavoritesFirst(videos.slice())
     setVideos(favoriteFirstArray)
   }, [singleUserInfo])
@@ -54,12 +59,21 @@ const Home = () => {
   return (
     <div className="main-container home-container">
       <div className="previews-container-plus-button">
-        <Previews  />
-        <div className="scroll-down">
-          <Button type="button" variant="outline-light" onClick={handlePageScrollDown} style={{ maxHeight: "40px" }}>
-            <AiOutlineArrowDown />
-          </Button>
-        </div>
+        {videosLoaded ?
+          <>
+            <Previews />
+            <div className="scroll-down">
+              <Button type="button" variant="outline-light" onClick={handlePageScrollDown} style={{ maxHeight: "40px" }}>
+                <AiOutlineArrowDown />
+              </Button>
+            </div>
+          </> :
+          <div>
+            <Spinner animation="border" role="status" variant="light" style={{ height: "100px", width: "100px" }}>
+              <span className="visually-hidden">Loading...</span>
+            </Spinner>
+          </div>
+        }
       </div>
       <div ref={scrollRef}>
         {decToken && decToken.id ?

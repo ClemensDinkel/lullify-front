@@ -64,7 +64,7 @@ const TemporaryPlaylist = () => {
       <div className="playlists">
         <h2 style={{ cursor: "pointer" }} onClick={playPlaylist}>
           <Nav.Link as={Link} to={temporaryPlaylist.length > 0 ? `/player/${temporaryPlaylist[0]._id}` : `#`}>
-            <p style={{ fontSize: "30px", fontFamily: "serif", color: "yellow" }}><b>Temporary Playlist</b></p>
+            <b style={{ fontSize: "30px", fontFamily: "cursive", color: "yellow" }}>Temporary Playlist</b>
           </Nav.Link>
         </h2>
         <div style={{ textAlign: "left" }}>
@@ -131,7 +131,7 @@ const TemporaryPlaylist = () => {
       </div>
 
       <div className="moon-image">
-        <Image src={moon_image} alt="moon"></Image>
+        <Image src={moon_image} alt="moon" style={{maxWidth: "200px"}}></Image>
       </div>
     </div>
   )

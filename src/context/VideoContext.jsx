@@ -4,7 +4,7 @@ export const VideoContext = createContext()
 
 export const VideoController = ({ children }) => {
   const [videos, setVideos] = useState([])
-
+  const [videosLoaded, setVideosLoaded] = useState(false)
   /* useEffect(() => {
     console.log("video context")
     api.getVideos()
@@ -15,11 +15,11 @@ export const VideoController = ({ children }) => {
   }, []) */
 
   /* useEffect(() => {
-    console.log(videos)
-  }, [videos]) */
+    console.log(videosLoaded)
+  }, [videosLoaded]) */
 
   return (
-    <VideoContext.Provider value={[videos, setVideos]}>
+    <VideoContext.Provider value={[videos, setVideos, videosLoaded, setVideosLoaded]}>
       {children}
     </VideoContext.Provider>
   )

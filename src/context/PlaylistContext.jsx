@@ -8,11 +8,10 @@ export const PlaylistController = ({ children }) => {
   const [temporaryPlaylist, setTemporaryPlaylist] = useState([])
   const [permanentPlaylists, setPermanentPlaylists] = useState([])
   const [selectedListIndex, setSelectedListIndex] = useState(0)
-
  /*  useEffect(() => {
     console.log(playedList)
-  }, [playedList])
-
+  }, [playedList]) */
+  /*
   useEffect(() => {
     console.log(temporaryPlaylist)
   }, [temporaryPlaylist])

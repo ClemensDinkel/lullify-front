@@ -1,16 +1,7 @@
-import { useContext } from 'react'
 import '../App.css'
-import { VideoContext } from '../context/VideoContext'
 import Table from 'react-bootstrap/Table'
 
-
-const AdminVideoList = ({ setInspecting, setInspectData, setInspectType }) => {
-  const [videos] = useContext(VideoContext)
-  const seeSingleVideo = (videoData) => {
-    setInspecting(true);
-    setInspectData(videoData);
-    setInspectType("Video")
-  }
+const AdminVideoList = ({ videos, seeSingleVideo }) => {
 
   return (
     <div className="video-panel">
