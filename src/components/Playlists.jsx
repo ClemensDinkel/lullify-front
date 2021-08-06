@@ -14,7 +14,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 const Playlists = () => {
   const { dTk } = useContext(UserContext);
   const [decToken] = dTk;
-  const { ppl, perl, sl} = useContext(PlaylistContext);
+  const { ppl, perl, sl } = useContext(PlaylistContext);
   const [playedList, setPlayedList] = ppl;
   const [selectedListIndex, setSelectedListIndex] = sl;
   const [permanentPlaylists, setPermanentPlaylists] = perl;
@@ -148,10 +148,10 @@ const Playlists = () => {
             <AiOutlinePlus />
           </Button>
         </Form>
-        <div>
-          <ul style={{ listStyle: "none" }}>
-            {playlistsLoaded ?
-              permanentPlaylists.map((playlist, playlistIndex) => {
+        {playlistsLoaded ?
+          <div>
+            <ul style={{ listStyle: "none" }}>
+              {permanentPlaylists.map((playlist, playlistIndex) => {
                 return (
                   <div>
                     <div
@@ -275,15 +275,16 @@ const Playlists = () => {
                     </div>
                   </div>
                 );
-              }) :
-              <div>
-                <Spinner animation="border" role="status" variant="light" style={{ height: "60px", width: "60px" }}>
-                  <span className="visually-hidden">Loading...</span>
-                </Spinner>
-              </div>
-            }
-          </ul>
-        </div>
+              })
+              }
+            </ul>
+          </div> :
+          <div>
+            <Spinner animation="border" role="status" variant="light" style={{ height: "60px", width: "60px" }}>
+              <span className="visually-hidden">Loading...</span>
+            </Spinner>
+          </div>
+        }
       </div>
 
       <div className="moon-image">

@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import Previews from "./Previews";
 import Playlists from "./Playlists";
 import TemporaryPlaylist from "./TemporaryPlaylist";
@@ -7,7 +7,7 @@ import { VideoContext } from "../context/VideoContext";
 import { EscapeContext } from "../context/EscapeContext";
 import "../App.css";
 import api from "../api";
-import { Button } from 'react-bootstrap'
+import { Button, Spinner } from 'react-bootstrap'
 import { AiOutlineArrowDown } from 'react-icons/ai'
 
 const Home = () => {
@@ -59,12 +59,21 @@ const Home = () => {
   return (
     <div className="main-container home-container">
       <div className="previews-container-plus-button">
-        <Previews />
-        <div className="scroll-down">
-          <Button type="button" variant="outline-light" onClick={handlePageScrollDown} style={{ maxHeight: "40px" }}>
-            <AiOutlineArrowDown />
-          </Button>
-        </div>
+        {videosLoaded ?
+          <>
+            <Previews />
+            <div className="scroll-down">
+              <Button type="button" variant="outline-light" onClick={handlePageScrollDown} style={{ maxHeight: "40px" }}>
+                <AiOutlineArrowDown />
+              </Button>
+            </div>
+          </> :
+          <div>
+            <Spinner animation="border" role="status" variant="light" style={{ height: "60px", width: "60px" }}>
+              <span className="visually-hidden">Loading...</span>
+            </Spinner>
+          </div>
+        }
       </div>
       <div ref={scrollRef}>
         {decToken && decToken.id ?
