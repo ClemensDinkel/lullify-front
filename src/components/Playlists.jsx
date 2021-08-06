@@ -132,7 +132,7 @@ const Playlists = () => {
   return (
     <div className="playlists-container">
       <div className="playlists">
-        <h2 style={{ fontSize: "30px", fontFamily: "serif", color: "yellow" }}><b>Playlists</b></h2>
+        <h2 style={{ fontSize: "30px", fontFamily: "cursive", color: "yellow" }}><b>Playlists</b></h2>
         <Form style={{ display: "flex", marginBottom: "10px" }} onSubmit={addPlaylist}>
           <FormControl
             type="text"
@@ -287,7 +287,7 @@ const Playlists = () => {
       </div>
 
       <div className="moon-image">
-        <Image src={moon_image} alt="moon" width="50%"></Image>
+        <Image src={moon_image} alt="moon" width="50%" style={{maxWidth: "200px"}}></Image>
       </div>
     </div>
   );

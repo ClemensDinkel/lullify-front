@@ -9,20 +9,17 @@ import { useEffect } from 'react';
 import { MdPlaylistAdd } from "react-icons/md"
 import { UserContext } from '../context/UserContext';
 import api from "../api";
-import { ContactsOutlined } from '@material-ui/icons';
 
 const Previews = () => {
   const { dTk } = useContext(UserContext);
   const [decToken] = dTk;
   const [videos] = useContext(VideoContext)
-  const { ppl, tl, perl, sl } = useContext(PlaylistContext);
-  const [playedList, setPlayedList] = ppl;
+  const { tl, perl, sl } = useContext(PlaylistContext);
   const [temporaryPlaylist, setTemporaryPlaylist] = tl
   const [permanentPlaylists, setPermanentPlaylists] = perl
-  const [selectedListIndex, setSelectedListIndex] = sl
+  const [selectedListIndex] = sl
   const point = useBreakpoint();
   const [margin, setMargin] = useState(1)
-  const [loadingVideos, setLoadingVideos] = useState(true)
 
   useEffect(() => {
     const margin = point === "xl" ? 20 : point === "lg" ? 10 : point === "md" ? 5 : 0
@@ -46,12 +43,12 @@ const Previews = () => {
       playlistToAddTo.video_list.push(newVideo)
       newPP[selectedListIndex] = playlistToAddTo
       setPermanentPlaylists(newPP)
-      api.addVideoToPlaylist(decToken.id, playlistToAddTo._id, dbEntry) 
-      // failsafe in case something goes wrong
-      .catch(err => {
+      api.addVideoToPlaylist(decToken.id, playlistToAddTo._id, dbEntry)
+        // failsafe in case something goes wrong
+        .catch(err => {
           console.log(err)
           setPermanentPlaylists(backupPP)
-        }) 
+        })
     } else {
       if (!temporaryPlaylist.some(video => video.title === newVideo.title)) {
         setTemporaryPlaylist(prev => [...prev, newVideo])
@@ -62,7 +59,7 @@ const Previews = () => {
   return (
     <div className="previews-container">
       {
-        videos ? videos.map((video, index) => {
+        videos.length > 0 ? videos.map((video, index) => {
           return (
             <div>
               <Card
@@ -98,8 +95,9 @@ const Previews = () => {
           )
         }) :
           <div>
-            <p>Loading....</p>
-            <Spinner animation="border" variant="light" />
+            <Spinner animation="border" role="status" variant="light" style={{height: "60px", width: "60px"}}>
+              <span className="visually-hidden">Loading...</span>
+            </Spinner>
           </div>
       }
     </div >
