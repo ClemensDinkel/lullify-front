@@ -1,7 +1,7 @@
 import '../App.css'
 import { Table, Spinner } from "react-bootstrap"
 
-const AdminUserList = ({ setInspecting, setInspectData, setInspectType, users, usersLoaeded}) => {
+const AdminUserList = ({ setInspecting, setInspectData, setInspectType, admins, creators, users, usersLoaded, seeSingleUser}) => {
   
   return (
     <div className="user-list">

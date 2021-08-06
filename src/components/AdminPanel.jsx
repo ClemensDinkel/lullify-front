@@ -53,8 +53,11 @@ const AdminPanel = () => {
               setInspecting={setInspecting}
               setInspectData={setInspectData}
               setInspectType={setInspectType}
+              admins={admins}
+              creators={creators}
               users={users}
               usersLoaded={usersLoaded}
+              seeSingleUser={seeSingleUser}
             />
             <AdminRequestList
               setInspecting={setInspecting}
