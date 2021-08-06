@@ -5,31 +5,43 @@ import AdminUserInspector from './AdminUserInspector'
 import AdminRequestInspector from './AdminRequestInspector'
 import AdminVideoInspector from './AdminVideoInspector'
 import '../App.css'
-import { useState, useEffect, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { UserContext } from '../context/UserContext'
-import { VideoContext } from '../context/VideoContext'
-import { QueryContext } from '../context/QueryContext'
-import api from '../api'
+import api from "../api"
 
 const AdminPanel = () => {
   const { dTk } = useContext(UserContext)
   const [inspecting, setInspecting] = useState(false);
   const [inspectData, setInspectData] = useState({})
   const [inspectType, setInspectType] = useState("")
-  const { ft, lg } = useContext(QueryContext)
-  const [filter, setFilter] = ft
-  const [lang, setLang] = lg
-  const [videos, setVideos] = useContext(VideoContext)
-
-  useEffect(() => {
-    setFilter("")
-    setLang("")
-    api.getAllVideos()
+  const [users, setUsers] = useState([])
+  const [creators, setCreators] = useState([])
+  const [admins, setAdmins] = useState([])
+  const [usersLoaded, setUsersLoaded] = useState(false)
+  
+  const fetchAndProcessUsers = () => {
+    setUsersLoaded(false)
+    api.getAllUsers()
       .then(res => {
-        setVideos(res.data)
+        const users = res.data
+        setUsersLoaded(true)
+        setAdmins(users.filter(user => user.role === "admin").sort())
+        setCreators(users.filter(user => user.role === "content_creator").sort())
+        setUsers(users.filter(user => user.role === "user").sort())
       })
       .catch(err => console.log(err))
+  }
+
+  const seeSingleUser = (userData) => {
+    setInspecting(true);
+    setInspectData(userData);
+    setInspectType("User")
+  }
+
+  useEffect(() => {
+    fetchAndProcessUsers();
   }, [])
+
 
   return (
 
@@ -41,6 +53,8 @@ const AdminPanel = () => {
               setInspecting={setInspecting}
               setInspectData={setInspectData}
               setInspectType={setInspectType}
+              users={users}
+              usersLoaded={usersLoaded}
             />
             <AdminRequestList
               setInspecting={setInspecting}
