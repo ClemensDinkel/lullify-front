@@ -69,7 +69,7 @@ const Home = () => {
             </div>
           </> :
           <div>
-            <Spinner animation="border" role="status" variant="light" style={{ height: "100px", width: "100px" }}>
+            <Spinner animation="border" role="status" variant="light" style={{ height: "60px", width: "60px" }}>
               <span className="visually-hidden">Loading...</span>
             </Spinner>
           </div>
