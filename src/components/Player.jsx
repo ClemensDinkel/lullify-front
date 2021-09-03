@@ -23,8 +23,6 @@ const Player = () => {
       .catch((err) => console.log(err));
   }, [playedList]);
 
-  // in video on end -> playlist.shift() ?      n nn
-
   return (
     <div className="player-container main-container">
       {video ? <Video video={video} setVideo={setVideo} /> : <p>Loading..</p>}

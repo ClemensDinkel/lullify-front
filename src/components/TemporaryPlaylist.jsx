@@ -1,14 +1,12 @@
-import { useState, useEffect, useContext } from "react";
+import { useEffect, useContext } from "react";
 import { Button, Image, Nav } from "react-bootstrap";
 import { MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { VideoContext } from "../context/VideoContext";
 import { PlaylistContext } from "../context/PlaylistContext";
 import moon_image from "../images/moon2.png"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 const TemporaryPlaylist = () => {
-  const [videos] = useContext(VideoContext);
   const { ppl, tl } = useContext(PlaylistContext);
   const [playedList, setPlayedList] = ppl;
   const [temporaryPlaylist, setTemporaryPlaylist] = tl
