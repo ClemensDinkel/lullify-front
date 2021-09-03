@@ -53,23 +53,28 @@ const UserRegister = () => {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        width: "100%",
-      }}
-    >
-      <div style={{ display: "flex", justifyContent: "center", width: "50%", marginTop: "10rem" }}>
-        <div style={{ marginBottom: "30px", color: "white" }}>
-          <h1 style={{ fontFamily: "cursive" }}>Lullify</h1>
-          <p>Register yourself to enjoy more functionaliy in lullify.</p>
+    <div className="registration-container">
+      <div className="registration-info">
+        <div style={{ color: "antiquewhite" }}>
+          <h1 style={{ fontFamily: "cursive" }}>Lullifey</h1>
+          <p>
+            Sign up to enjoy more functionalities provided by Lullifey.
+          </p>
+          <p>
+            As a registered user you will be able to create permanent playlists <br />and add videos to your favorites.
+            Your favorites will always be displayed <br />on top of your search results and on the landing page.<br />
+            You will also be able to report inappropriate content.
+          </p>
+          <p>
+            You will not be able to add new videos to Lullifey.<br />
+            If you want to do that, sign up as a content creator instead.
+          </p>
         </div>
       </div>
-      <div style={{ display: "flex", justifyContent: "center", width: "50%" }}>
+      <div className="registration-info">
         <Card
           bg="light"
-          style={{ flexGrow: "1", maxWidth: "30rem", height: "fit-content", textAlign: "left" }}
+          style={{ flexGrow: "1", maxWidth: "30rem", minWidth: "25rem", height: "fit-content", textAlign: "left" }}
         >
           <Card.Body>
             <Form onSubmit={onSubmit}>

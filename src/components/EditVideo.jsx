@@ -46,7 +46,7 @@ const EditVideo = () => {
   const updateVideo = (e) => {
     e.preventDefault();
     const sendVideo = { ...getVideo }
-    sendVideo.languages = sendVideo.languages.replace(/ /g, '').split(",")
+    sendVideo.languages = sendVideo.languages.toLowerCase().replace(/ /g, '').split(",")
     /* sendVideo.tags = sendVideo.tags.replace(/ /g,'').split(",") */
     window.confirm("Do you want to update video information?") &&
       api
@@ -165,7 +165,6 @@ const EditVideo = () => {
                       name="duration"
                       value={getVideo ? getVideo.duration : ""}
                       onChange={onChange}
-                      required
                     />
                   </OverlayTrigger>
                 </Form.Group>
@@ -192,6 +191,7 @@ const EditVideo = () => {
                       name="languages"
                       value={getVideo ? getVideo.languages : ""}
                       onChange={onChange}
+                      required
                     />
                   </OverlayTrigger>
                 </Form.Group>

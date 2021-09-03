@@ -13,20 +13,19 @@ const Player = () => {
   const [video, setVideo] = useState();
   const { dTk } = useContext(UserContext);
   const [decToken] = dTk;
-  const [autoPlaylist] = useContext(PlaylistContext);
+  const {ppl} = useContext(PlaylistContext);
+  const [playedList] = ppl;
 
   useEffect(() => {
     api
       .getVideoById(id)
       .then((res) => setVideo(res.data)) //array!!!
       .catch((err) => console.log(err));
-  }, [autoPlaylist]);
-
-  // in video on end -> playlist.shift() ?      n nn
+  }, [playedList]);
 
   return (
     <div className="player-container main-container">
-      {video ? <Video video={video} /> : <p>Loading..</p>}
+      {video ? <Video video={video} setVideo={setVideo} /> : <p>Loading..</p>}
 
       {decToken && decToken.id ? <Playlists /> : <TemporaryPlaylist />}
     </div>

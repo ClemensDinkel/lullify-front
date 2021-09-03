@@ -24,10 +24,15 @@ html {
   background-color: rgba(210, 215, 211, 1);
 }
 
+.navbar-item {
+  padding: 10px;
+  margin: auto
+}
+
 .footer {
   display: flex;
   justify-content: space-between;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.9);
   color: white;
   margin-top: 2rem;
 }
@@ -36,15 +41,14 @@ html {
   display: flex;
   justify-content: center;
   width: 100%;
-  height: 90vh;
-  margin-top: 15px;
-  overflow: auto;
+  min-height: 100vh;
+  padding: 10px;
 }
 
 .home-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 /* ADMIN PANEL */
@@ -59,7 +63,7 @@ html {
   display: block;
   text-align: left;
   padding: 5px;
-  height: 100%;
+  height: fit-content;
 }
 
 .request-panel {
@@ -67,7 +71,7 @@ html {
   display: block;
   text-align: left;
   padding: 5px;
-  height: 100%;
+  height: fit-content;
 }
 
 .video-panel {
@@ -75,17 +79,25 @@ html {
   display: block;
   text-align: left;
   padding: 5px;
-  height: 100%;
+  height: fit-content;
 }
 
 .previews-container {
   display: flex;
   flex-wrap: wrap;
   width: 60%;
-  height: 130vh;
-  overflow: auto;
-  padding: 10px;
   justify-content: center;
+  align-content: flex-start;
+  flex-grow: 4;
+  margin: 0;
+}
+
+.previews-container-plus-button {
+  display: flex;
+  padding: 10px;
+  width: 60%;
+  justify-content: center;
+  align-content: flex-start;
   flex-grow: 4;
   margin: 0;
 }
@@ -106,20 +118,17 @@ html {
   flex-direction: column;
   height: fit-content;
   flex-grow: 1;
-  /* margin-left: 3rem; */
+  margin-right: 2rem;
+  margin-left: 2rem;
 }
 
 .playlists {
   display: flex;
+  justify-content: center;
   flex-direction: column;
   flex-grow: 4;
-  width: 80%;
+  width: 100%;
   margin-right: 0rem;
-}
-
-.create-playlist {
-  font-family: cursive;
-  color: yellow;
 }
 
 .player-container {
@@ -128,17 +137,34 @@ html {
   justify-content: center;
 }
 
-.video-description {
-  text-align: left;
-  color: white;
-}
-
 .video-container {
   display: flex;
   justify-content: center;
   flex-grow: 4;
   max-width: 70%;
   padding: 10px;
+  color: white;
+}
+
+.scroll-down { 
+  display: none;
+}
+
+@media only screen and (max-width: 1180px) {
+  .scroll-down {
+    display: block;
+  }
+  .home-container {
+    display: block;
+  }
+  .previews-container-plus-button {
+    width: 100%;
+  } 
+}
+
+
+.video-description {
+  text-align: left;
   color: white;
 }
 
@@ -158,9 +184,29 @@ html {
 }
 
 .content-list {
-  max-width: 40%;
+  flex-grow: 1;
+  display: block;
+  overflow: auto;
+  height: auto;
 }
 
 .add-content {
-  max-width: 60%;
+  display: block;
+  flex-grow: 1;
+  height: fit-content;
+}
+
+.registration-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 95%;
+  padding: 10px; 
+}
+
+.registration-info {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  flex-grow: 1;
 }

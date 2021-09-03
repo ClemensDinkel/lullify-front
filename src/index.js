@@ -28,7 +28,7 @@ axios.interceptors.request.use(request => {
   // request.headers['Content-Type'] = 'application/x-www-form-urlencoded';
   request.headers['Content-Type'] = 'application/json';
   /* request.headers['Access-Control-Allow-Origin'] = '*'; */
-  console.log(request)
+  /* console.log(request)  */
   return request;
 });
 
@@ -39,10 +39,10 @@ axios.interceptors.request.use(config => {
   return config;
 });
 
-axios.interceptors.response.use(response => {
+/* axios.interceptors.response.use(response => {
   console.log(response)
   return response
-})
+}) */
 
 /* // Instantiate the interceptor (you can chain it as it returns the axios instance)
 createAuthRefreshInterceptor(axios, refreshAuthLogic, {

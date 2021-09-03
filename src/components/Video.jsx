@@ -14,7 +14,8 @@ const Video = ({ video, setVideo }) => {
 
   const [readMore, setReadMore] = useState(false);
   const { dTk, sUI } = useContext(UserContext);
-  const [autoPlaylist, setAutoPlaylist] = useContext(PlaylistContext)
+  const {ppl} = useContext(PlaylistContext);
+  const [playedList, setPlayedList] = ppl;
   const [decToken] = dTk;
   const [singleUserInfo, setSingleUserInfo] = sUI;
   let history = useHistory();
@@ -75,16 +76,11 @@ const Video = ({ video, setVideo }) => {
     }
   };
 
-  // for testing
-  useEffect(() => {
-    console.log(singleUserInfo)
-  }, [singleUserInfo])
-
   const playNext = () => {
-    const slicedPlaylist = autoPlaylist.slice(1)
+    const slicedPlaylist = playedList.slice(1)
     if (slicedPlaylist.length > 0) {
       history.push(`/player/${slicedPlaylist[0]}`)
-      setAutoPlaylist(slicedPlaylist)
+      setPlayedList(slicedPlaylist)
     }
   }
 
@@ -93,17 +89,18 @@ const Video = ({ video, setVideo }) => {
         <Container>
           <Row>
             <Col>
+              {video[0].video_url ? 
               <ReactPlayer
-                controls={true}
-                className="react-player"
-                url={video[0].video_url}
-                muted={false}
-                playing={true}
-                width="100%"
-                height="600px"
-                onEnded={playNext}
-              /* loop={true} */
-              />
+              controls={true}
+              className="react-player"
+              url={video[0].video_url}
+              muted={false}
+              playing={true}
+              width="100%"
+              height="500px" 
+              onEnded={playNext}
+            /> :
+            <h1>Loading....</h1>}
             </Col>
           </Row>
           <Row>
@@ -112,14 +109,14 @@ const Video = ({ video, setVideo }) => {
                 <div
                   style={{ display: "flex", justifyContent: "space-between" }}
                 >
-                  <div>
-                    <h3>{video[0].title}</h3>
+                  <div style={{ color: "antiquewhite" }}>
+                    <h3 style={{ fontFamily: "cursive" }}>{video[0].title}</h3>
                     <p>{video[0].artist}</p>
                   </div>
                   <div>
                     {decToken && singleUserInfo.favorites && !singleUserInfo.favorites.some(favorite => favorite._id === video[0]._id) && (
                       <Button variant="dark" onClick={() => addToFavorite()}>
-                        <AiOutlineHeart />{/* Favorite */}
+                        <AiOutlineHeart />
                       </Button>
                     )}
 
@@ -128,7 +125,7 @@ const Video = ({ video, setVideo }) => {
                         variant="dark"
                         onClick={() => removeFromFavorite()}
                       >
-                        <AiTwotoneHeart /> {/* UnFavorite */}
+                        <AiTwotoneHeart />
                       </Button>
                     )}
                   </div>
@@ -156,12 +153,12 @@ const Video = ({ video, setVideo }) => {
                 </div>
                 <div>
                   {readMore ? (
-                    <div style={{ backgroundColor: "rgba(0,0,0,0.2)" }}>
-                      <h6>
+                    <div style={{ backgroundColor: "rgba(0,0,0,0.4)" }}>
+                      {/* <h6 >
                         Duration: {secToMinConverter(video[0].duration)} mins
-                      </h6>
-                      <h6>Description:</h6>
-                      <section dangerouslySetInnerHTML={{ __html: marked(video[0].short_description) }} />
+                      </h6> */}
+                      <h6 >Description:</h6>
+                      <section  dangerouslySetInnerHTML={{ __html: marked(video[0].short_description) }} />
                     </div>
                   ) : null}
                 </div>

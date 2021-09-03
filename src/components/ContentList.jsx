@@ -11,7 +11,7 @@ const ContentList = ({ uploaderVideos, setUploaderVideos, decToken }) => {
 
   return (
     <div className="content-list">
-      <h3 style={{fontFamily: "cursive", color:"white"}}>Content List</h3>
+      <h3 style={{ fontFamily: "cursive", color: "white" }}><b>Added Videos</b></h3>
       <div style={{ margin: ".4rem" }}>
         <Table striped bordered hover variant="light" size="sm" responsive>
           <thead>
@@ -28,7 +28,7 @@ const ContentList = ({ uploaderVideos, setUploaderVideos, decToken }) => {
                   <tr>
                     <td style={{ textAlign: "left" }}>{uploaderVideo.title}</td>
                     <td>
-                      <Link exact to={`/video/${uploaderVideo._id}`}>
+                      <Link to={`/video/${uploaderVideo._id}`}>
                         <Button type="submit" variant="light">
                           <AiTwotoneEdit />
                         </Button>

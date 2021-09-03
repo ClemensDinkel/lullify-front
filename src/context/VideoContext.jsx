@@ -1,25 +1,25 @@
 import { useState, useEffect, createContext } from "react";
-import api from "../api";
 
 export const VideoContext = createContext()
 
 export const VideoController = ({ children }) => {
   const [videos, setVideos] = useState([])
-
-  useEffect(() => {
+  const [videosLoaded, setVideosLoaded] = useState(false)
+  /* useEffect(() => {
+    console.log("video context")
     api.getVideos()
       .then(res => {
         setVideos(res.data)
       })
       .catch(err => console.log(err))
-  },[])
+  }, []) */
 
-  useEffect(() => {
-    console.log(videos)
-  },[videos])
+  /* useEffect(() => {
+    console.log(videosLoaded)
+  }, [videosLoaded]) */
 
   return (
-    <VideoContext.Provider value={[videos, setVideos]}>
+    <VideoContext.Provider value={[videos, setVideos, videosLoaded, setVideosLoaded]}>
       {children}
     </VideoContext.Provider>
   )

@@ -1,20 +1,11 @@
-import { useContext } from 'react'
 import '../App.css'
-import { VideoContext } from '../context/VideoContext'
 import Table from 'react-bootstrap/Table'
 
-
-const AdminVideoList = ({ setInspecting, setInspectData, setInspectType }) => {
-  const [videos] = useContext(VideoContext)
-  const seeSingleVideo = (videoData) => {
-    setInspecting(true);
-    setInspectData(videoData);
-    setInspectType("Video")
-  }
+const AdminVideoList = ({ videos, seeSingleVideo }) => {
 
   return (
     <div className="video-panel">
-      <h2 style={{ textAlign: "center", fontFamily: "cursive", color:"white" }}>Videos</h2>
+      <h2 style={{ textAlign: "center", fontFamily: "cursive", color:"white" }}><b>Videos</b></h2>
       <h3 style={{fontFamily: "cursive", color:"yellow"}}>sorted by reports</h3>
       <div style={{ overflowY: "scroll", maxHeight: "78vh" }}>
         <Table striped bordered hover variant="dark" size="sm" responsive>
