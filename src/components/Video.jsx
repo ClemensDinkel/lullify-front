@@ -76,11 +76,6 @@ const Video = ({ video, setVideo }) => {
     }
   };
 
-  // for testing
-  /* useEffect(() => {
-    console.log(singleUserInfo)
-  }, [singleUserInfo]) */
-
   const playNext = () => {
     const slicedPlaylist = playedList.slice(1)
     if (slicedPlaylist.length > 0) {

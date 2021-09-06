@@ -1,7 +1,6 @@
 import {
   Form,
   Button,
-  Image,
   Card,
   Col,
   InputGroup,
@@ -15,9 +14,6 @@ import { VideoContext } from "../context/VideoContext";
 import api from "../api";
 import { BsQuestionOctagonFill } from "react-icons/bs";
 import "../App.css";
-/* import Popup from 'reactjs-popup';
-import 'reactjs-popup/dist/index.css'; */
-import { useEffect } from "react";
 
 const AddContent = ({ setUploaderVideos }) => {
   let history = useHistory();

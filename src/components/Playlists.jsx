@@ -6,7 +6,6 @@ import { useState, useEffect, useContext } from "react";
 import "../App.css";
 import { UserContext } from "../context/UserContext";
 import { PlaylistContext } from "../context/PlaylistContext";
-import { EscapeContext } from "../context/EscapeContext";
 import { Link } from "react-router-dom";
 import moon_image from "../images/moon2.png"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";

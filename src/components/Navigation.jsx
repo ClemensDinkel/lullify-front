@@ -62,7 +62,6 @@ const Navigation = ({ handlePageScroll }) => {
   },[lang]) */
 
   const putFavoritesFirst = array => {
-    // put favorites first
     if (singleUserInfo.favorites && videos) {
       for (let i = 0; i < array.length; i++) {
         if (singleUserInfo.favorites.some(favorite => favorite._id === array[i]._id)) {
@@ -167,10 +166,10 @@ const Navigation = ({ handlePageScroll }) => {
             style={{ maxHeight: "100px", marginRight: "15px", justifyContent: "space-around", flexWrap: "wrap" }}
             navbarScroll
           >
-            <Nav.Link as={Link} to="/" style={{ padding: "10px", margin: "auto" }} onClick={goHome}>
+            <Nav.Link as={Link} to="/" className="navbar-item" onClick={goHome}>
               <b>Home</b>
             </Nav.Link>
-            <Nav.Link as={Link} to="/about" style={{ padding: "10px", margin: "auto" }} onClick={handlePageScroll}>
+            <Nav.Link as={Link} to="/about" className="navbar-item" onClick={handlePageScroll}>
               <b>About Us</b>
             </Nav.Link>
 
@@ -181,14 +180,14 @@ const Navigation = ({ handlePageScroll }) => {
                   id="navbarScrollingDropdown"
                   style={{ fontWeight: "bold", padding: "2px", margin: "0", fontColor: "gray" }}
                 >
-                  <NavDropdown.Item as={Link} to="/signUp/user" style={{ padding: "10px", margin: "auto" }} onClick={handlePageScroll}>
+                  <NavDropdown.Item as={Link} to="/signUp/user" className="navbar-item" onClick={handlePageScroll}>
                     User
                   </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="/signUp/creator" style={{ padding: "10px", margin: "auto" }} onClick={handlePageScroll}>
+                  <NavDropdown.Item as={Link} to="/signUp/creator" className="navbar-item" onClick={handlePageScroll}>
                     Content Creator
                   </NavDropdown.Item>
                 </NavDropdown>
-                <Nav.Link as={Link} to="/login" style={{ padding: "10px", margin: "auto" }} onClick={handlePageScroll}>
+                <Nav.Link as={Link} to="/login" className="navbar-item" onClick={handlePageScroll}>
                   <b>Login</b>
                 </Nav.Link>
               </>
@@ -196,17 +195,21 @@ const Navigation = ({ handlePageScroll }) => {
               <>
                 {(decToken.role === "admin" || decToken.role === "content_creator") && (
                   <>
-                    <Nav.Link as={Link} to="/creatorpanel" style={{ padding: "10px", margin: "auto" }} onClick={handlePageScroll}><b>CreatorPanel</b></Nav.Link>
+                    <Nav.Link as={Link} to="/creatorpanel" className="navbar-item" onClick={handlePageScroll}><b>CreatorPanel</b></Nav.Link>
                   </>
                 )}
                 {decToken.role === "admin" && (
                   <>
-                    <Nav.Link as={Link} to="/adminpanel" style={{ padding: "10px", margin: "auto" }} onClick={handlePageScroll}><b>AdminPanel</b></Nav.Link>
+                    <Nav.Link as={Link} to="/adminpanel" className="navbar-item" onClick={handlePageScroll}><b>AdminPanel</b></Nav.Link>
                   </>
                 )}
                 {(decToken.role === "admin" || decToken.role === "content_creator" || decToken.role === "user") && (
+                  <>
+                    <Nav.Link as={Link} to="/profile" className="navbar-item" onClick={handlePageScroll}><b>Profile</b></Nav.Link>
+                    <Nav.Link onClick={logOut} style={{ padding: "10px" }}><b>LogOut</b></Nav.Link>
+                  </>
 
-                  <div style={{ padding: "10px", margin: "auto", display: "flex" }}>
+                  /* <div style={{ padding: "10px", margin: "auto", display: "flex" }}>
                     <Navbar.Brand style={{ paddingRight: 0, marginRight: 0 }}>
                       <Image src={singleUserInfo.user_img_url} width="30px" height="30px" roundedCircle />
                     </Navbar.Brand>
@@ -219,7 +222,7 @@ const Navigation = ({ handlePageScroll }) => {
                       <NavDropdown.Item as={Link} to="/profile" style={{ padding: "10px" }} onClick={handlePageScroll}>Profile</NavDropdown.Item>
                       <NavDropdown.Item onClick={logOut} style={{ padding: "10px" }}>LogOut</NavDropdown.Item>
                     </NavDropdown>
-                  </div>
+                  </div> */
 
                 )}
               </>

@@ -24,6 +24,11 @@ html {
   background-color: rgba(210, 215, 211, 1);
 }
 
+.navbar-item {
+  padding: 10px;
+  margin: auto
+}
+
 .footer {
   display: flex;
   justify-content: space-between;
@@ -38,7 +43,6 @@ html {
   width: 100%;
   min-height: 100vh;
   padding: 10px;
-  /* overflow: auto; */
 }
 
 .home-container {
