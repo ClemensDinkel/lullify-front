@@ -210,3 +210,7 @@ html {
   margin: auto;
   flex-grow: 1;
 }
+
+.btneffect:active {
+  transform: scaleY(1.3) scaleX(1.3);
+}
