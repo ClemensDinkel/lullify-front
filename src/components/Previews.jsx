@@ -83,6 +83,7 @@ const Previews = () => {
                 </Card.Text>
               </Card.Body>
               <Button
+                className="btneffect"
                 variant="dark"
                 onClick={() => addToPlaylist(video)}
                 style={{ position: "absolute", right: "0", bottom: "10px", height: "50px", width: "50px" }}
