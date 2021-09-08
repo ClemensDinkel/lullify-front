@@ -2,9 +2,14 @@ import { Card } from "react-bootstrap"
 import { FaLinkedin } from "react-icons/fa"
 import { AiOutlineGithub } from "react-icons/ai"
 import { FaXingSquare } from "react-icons/fa"
+import { MediaLink } from "./MediaLink"
 
-export const Member = ({ member }) => {
-  const {name, job, image, socialMedia} = member
+export const Member = ({ member, image }) => {
+  const { name, job, socialMedia } = member
+  const { linkedIn, gitHub, xing, youTube } = socialMedia ?? undefined
+
+  const socialMediaArray = Object.entries(socialMedia)
+  console.log(socialMediaArray)
   return (
     <Card
       bg="light"
@@ -18,47 +23,10 @@ export const Member = ({ member }) => {
       <Card.Body>
         <Card.Title>{name}</Card.Title>
         <Card.Text>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-            }}
-          >
+          <div style={{display: "flex", flexDirection: "column", justifyContent: "center",}}>
             <h6>{job}</h6>
-            <div
-              style={{ display: "flex", justifyContent: "center" }}
-            >
-              <h2>
-                <a
-                  href="https://www.linkedin.com/in/utsaviben-kathiriya/"
-                  target="_blank"
-                  rel="noreferrer"
-                  style={{ margin: "7px", color: "black" }}
-                >
-                  <FaLinkedin />
-                </a>
-              </h2>
-              <h2>
-                <a
-                  href="https://github.com/Utsavi009"
-                  target="_blank"
-                  rel="noreferrer"
-                  style={{ margin: "7px", color: "black" }}
-                >
-                  <AiOutlineGithub />
-                </a>
-              </h2>
-              <h2>
-                <a
-                  href="https://www.xing.com/profile/Utsaviben_Kathiriya/cv"
-                  target="_blank"
-                  rel="noreferrer"
-                  style={{ margin: "7px", color: "black" }}
-                >
-                  <FaXingSquare />
-                </a>
-              </h2>
+            <div style={{display: "flex",justifyContent: "center"}}>
+              {socialMediaArray.map(medium => <MediaLink medium={medium}/>)}
             </div>
           </div>
         </Card.Text>
