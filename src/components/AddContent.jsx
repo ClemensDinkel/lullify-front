@@ -351,6 +351,7 @@ const AddContent = ({ setUploaderVideos }) => {
                         <a
                           href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes"
                           target="_blank"
+                          rel="noreferrer"
                           style={{ color: "black" }}
                         >
                           <BsQuestionOctagonFill />

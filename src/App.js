@@ -20,9 +20,9 @@ const App = () => {
           <PlaylistController>
             <QueryController>
               <EscapeController>
-              <Navigation handlePageScroll={handlePageScroll} />
-              <LullifyRouter />
-              <Footer />
+                <Navigation handlePageScroll={handlePageScroll} />
+                <LullifyRouter />
+                <Footer />
               </EscapeController>
             </QueryController>
           </PlaylistController>
