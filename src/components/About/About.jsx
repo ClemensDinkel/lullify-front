@@ -16,8 +16,10 @@ const About = () => {
 
   return (
     <div className="main-container">
-      <Mission />
-      <Team />
+      <Container>
+        <Mission />
+        <Team />
+      </Container>
     </div>
   );
 };
