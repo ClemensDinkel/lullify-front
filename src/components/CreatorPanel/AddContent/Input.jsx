@@ -17,7 +17,7 @@ const Input = ({ name, type, required, value, maxlength, as, pattern, rows }) =>
           }
         >
           <Form.Control
-            as={as}
+            as={as}/* {...props} ??? */
             pattern={pattern}
             rows={rows}
             type={type}
