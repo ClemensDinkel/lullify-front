@@ -5,9 +5,9 @@ import Login from './Login'
 import SignUp from './SignUp'
 import Profile from './Profile'
 import AdminPanel from './AdminPanel'
-import CreatorPanel from './CreatorPanel'
+import CreatorPanel from './CreatorPanel/CreatorPanel'
 import About from './About/About'
-import EditVideo from './EditVideo'
+import EditVideo from './CreatorPanel/ContentManager/EditVideo'
 
 const LullifyRouter = () => {
 
@@ -20,8 +20,8 @@ const LullifyRouter = () => {
         <Route path='/signUp'><SignUp /></Route>
         <Route path='/profile'><Profile /></Route>
         <Route path='/adminpanel'><AdminPanel/></Route>
-        <Route path='/creatorpanel'><CreatorPanel /></Route>
-        <Route path='/video/:video_id?'><EditVideo /></Route>
+        <Route exact path='/creatorpanel'><CreatorPanel /></Route>
+        <Route path='/creatorpanel/:video_id?'><EditVideo /></Route>
         <Route path='/about'><About /></Route>
       </Switch>
     </div>
