@@ -1,13 +1,14 @@
 import { useContext, useEffect, useRef } from "react";
 import Previews from "./Previews";
 import Playlists from "./Playlists";
+import LoadingSpinner from "./LoadingSpinner";
 import TemporaryPlaylist from "./TemporaryPlaylist";
 import { UserContext } from "../context/UserContext";
 import { VideoContext } from "../context/VideoContext";
 import { EscapeContext } from "../context/EscapeContext";
 import "../App.css";
 import api from "../api";
-import { Button, Spinner } from 'react-bootstrap'
+import { Button} from 'react-bootstrap'
 import { AiOutlineArrowDown } from 'react-icons/ai'
 
 const Home = () => {
@@ -68,11 +69,7 @@ const Home = () => {
               </Button>
             </div>
           </> :
-          <div>
-            <Spinner animation="border" role="status" variant="light" style={{ height: "60px", width: "60px" }}>
-              <span className="visually-hidden">Loading...</span>
-            </Spinner>
-          </div>
+          <LoadingSpinner/>
         }
       </div>
       <div ref={scrollRef}>

@@ -71,7 +71,7 @@ const Previews = () => {
                 <img
                   variant="top"
                   src={video.video_img_url}
-                  alt={`${video.title} thumbnail`}
+                  alt={`play ${video.title}`}
                   height="140px"
                   width="100%"
                   draggable="false"

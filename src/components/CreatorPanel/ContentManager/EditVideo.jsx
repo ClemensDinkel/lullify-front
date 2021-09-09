@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
-import { UserContext } from "../context/UserContext";
+import { UserContext } from "../../../context/UserContext";
 import { useHistory } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
-import api from "../api";
+import api from "../../../api";
 import { Form, Button, Card, Col, OverlayTrigger, Tooltip } from "react-bootstrap";
 
 const EditVideo = () => {

@@ -9,18 +9,20 @@ import {
 } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { useState, useContext } from "react";
-import { UserContext } from "../context/UserContext";
-import { VideoContext } from "../context/VideoContext";
-import api from "../api";
+import { UserContext } from "../../../context/UserContext";
+import { VideoContext } from "../../../context/VideoContext";
+import api from "../../../api";
 import { BsQuestionOctagonFill } from "react-icons/bs";
-import "../App.css";
+import "../../../App.css";
+import YoutubeAutofill from "./YoutubeAutofill";
+import YoutubeHits from "./YoutubeHits";
 
 const AddContent = ({ setUploaderVideos }) => {
   let history = useHistory();
   const { dTk } = useContext(UserContext);
   const [decToken, setDecToken] = dTk;
   const [videos, setVideos] = useContext(VideoContext)
-  const [q, setQ] = useState("")
+  const [query, setQuery] = useState("")
   const [yTHits, setYTHits] = useState([])
   const [addVideo, setAddVideo] = useState({
     title: "",
@@ -35,13 +37,13 @@ const AddContent = ({ setUploaderVideos }) => {
     errors: {},
   });
 
-  const handleQ = (e) => {
-    setQ(e.target.value)
+  const handleQueryString = (e) => {
+    setQuery(e.target.value)
   }
 
   const getFromYTApi = (e) => {
     e.preventDefault()
-    api.getVideoFromYTApi(q)
+    api.getVideoFromYTApi(query)
       .then(res => {
         setYTHits(res.data)
       })
@@ -66,17 +68,8 @@ const AddContent = ({ setUploaderVideos }) => {
       errors: {},
     })
     setYTHits([])
-    setQ("")
+    setQuery("")
   }
-
-  /* useEffect(() => {
-    console.log(yTHits)
-     console.log(yTHits[0].snippet.title)
-  }, [yTHits])
-
-    useEffect(() => {
-    console.log(addVideo)
-  }, [addVideo]) */
 
   const onChange = (e) => {
     let keyName = e.target.name;
@@ -143,45 +136,15 @@ const AddContent = ({ setUploaderVideos }) => {
           }}
         >
           <Card.Body>
-            <p>Optional: Autofill form using Youtube API</p>
-            <Form onSubmit={getFromYTApi}>
-              <OverlayTrigger
-                key="top"
-                placement="top"
-                delay={{ show: 250, hide: 400 }}
-                overlay={
-                  <Tooltip id="tooltip-top">
-                    Enter keywords to search video from youtube.
-                  </Tooltip>
-                }
-              >
-                <Form.Control
-                  type="text"
-                  placeholder="Get Data from Youtube API"
-                  name="ytapi"
-                  value={q}
-                  onChange={handleQ}
-                  required
-                />
-              </OverlayTrigger>
-              <Button variant="outline-secondary" type="submit">
-                <b>Ask Youtube</b>
-              </Button>
-
-            </Form>
+            <YoutubeAutofill
+              getFromYTApi={getFromYTApi}
+              query={query}
+              handleQueryString={handleQueryString}
+            />
             <br />
             {yTHits[0] ?
-              <div>
-                <h5>Select a video</h5>
-                {yTHits.map((hit, hitIndex) => {
-                  return (
-                    <p onClick={() => autoFill(hitIndex)} style={{ cursor: "pointer" }}>
-                      {hit.snippet.title}
-                    </p>
-                  )
-                })}
-
-              </div> : null
+              <YoutubeHits yTHits={yTHits} autoFill={autoFill}/> :
+              null
             }
             <Form onSubmit={addNewVideo}>
               <Form.Label>

@@ -5,9 +5,9 @@ import Login from './Login'
 import SignUp from './SignUp'
 import Profile from './Profile'
 import AdminPanel from './AdminPanel'
-import CreatorPanel from './CreatorPanel'
+import CreatorPanel from './CreatorPanel/CreatorPanel'
 import About from './About/About'
-import EditVideo from './EditVideo'
+import EditVideo from './CreatorPanel/ContentManager/EditVideo'
 
 const LullifyRouter = () => {
 

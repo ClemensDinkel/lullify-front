@@ -10,7 +10,7 @@ import { UserContext } from '../context/UserContext'
 import { QueryContext } from '../context/QueryContext'
 import { VideoContext } from '../context/VideoContext'
 import api from "../api"
-import { Spinner } from 'react-bootstrap'
+import LoadingSpinner from './LoadingSpinner'
 
 const AdminPanel = () => {
   const { dTk } = useContext(UserContext)
@@ -27,6 +27,10 @@ const AdminPanel = () => {
   const [requestsLoaded, setRequestsLoaded] = useState(false)
   const [videosLoaded, setVideosLoaded] = useState(false)
   
+  const { ft, lg } = useContext(QueryContext)
+  const [filter, setFilter] = ft
+  const [lang, setLang] = lg
+  const [videos, setVideos] = useContext(VideoContext)
   // users
 
   useEffect(() => {
@@ -74,11 +78,6 @@ const AdminPanel = () => {
   }
 
   // videos
-
-  const { ft, lg } = useContext(QueryContext)
-  const [filter, setFilter] = ft
-  const [lang, setLang] = lg
-  const [videos, setVideos] = useContext(VideoContext)
   
   const seeSingleVideo = (videoData) => {
     setInspecting(true);
@@ -121,11 +120,7 @@ const AdminPanel = () => {
                 seeSingleVideo={seeSingleVideo}
               />
             </> :
-            <div>
-              <Spinner animation="border" role="status" variant="light" style={{ height: "60px", width: "60px" }}>
-                <span className="visually-hidden">Loading...</span>
-              </Spinner>
-            </div>
+            <LoadingSpinner/>
           : inspectType === "User" ?
             <AdminUserInspector
               inspectData={inspectData}
@@ -142,7 +137,7 @@ const AdminPanel = () => {
                 setInspecting={setInspecting}
                 setInspectData={setInspectData}
               />
-        : <p>Access denied</p>
+        : <p style={{color: "white"}}>Access denied</p>
       }
     </div >
 

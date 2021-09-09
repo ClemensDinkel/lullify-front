@@ -29,11 +29,8 @@ const AdminUserInspector = ({ inspectData, setInspecting, setInspectData }) => {
   return (
     <div>
       <div style={{ textAlign: "left", color: "rgba(218, 223, 225, 1)" }}>
-        {/* <div className="img-container" style={{ float: "center", margin: "5px"}}>
-          <Image src={user_img_url} style={{ maxWidth: "80px" }}></Image>
-        </div> */}
         <div style={{ textAlign: "center" }}>
-        <Image src={user_img_url} style={{ maxWidth: "80px" }}></Image>
+          <Image src={user_img_url} style={{ maxWidth: "80px" }}></Image>
         </div>
         <br />
         <h2 style={{ textAlign: "center", color: "white" }}>{user_name}</h2>
