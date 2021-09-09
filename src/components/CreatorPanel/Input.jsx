@@ -5,7 +5,7 @@ import {
   Tooltip,
   InputGroup
 } from "react-bootstrap";
-/* import BsQuestionOctagonFill */ /* from ???? */
+import { BsQuestionOctagonFill } from "react-icons/bs";
 
 const Input = props => {
 
@@ -37,7 +37,7 @@ const Input = props => {
             />
 
           }
-          <InputGroup.Prepend>
+          {props.hint && <InputGroup.Prepend>
             <InputGroup.Text>
               <a
                 href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes"
@@ -48,7 +48,7 @@ const Input = props => {
                 <BsQuestionOctagonFill />
               </a>
             </InputGroup.Text>
-          </InputGroup.Prepend>
+          </InputGroup.Prepend>}
         </InputGroup>
       </Form.Group>
     </Form.Row>

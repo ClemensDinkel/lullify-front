@@ -50,6 +50,12 @@ const formList = [
     required: true,
     tooltip: `Enter languages code by separating each of them with comma ',' . For code use the hint.`,
     hint: "https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes"
+  }, {
+    name: "tags",
+    description: "Video Tags",
+    type: "text",
+    placeholder: "Children, fun, lullaby etc...",
+    tooltip: `Enter tags by separating each of them with comma ',' or whitespace.`
   }
 ]
 
