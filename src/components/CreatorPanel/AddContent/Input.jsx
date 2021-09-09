@@ -1,14 +1,11 @@
 import {
   Form,
-  Button,
   Col,
-  InputGroup,
   OverlayTrigger,
   Tooltip,
 } from "react-bootstrap";
 
 const Input = (/* props */ { name, description, type, tooltip, placeholder, required, value, maxlength, as, pattern, rows, onChange }) => {
-  /* console.log(props) */
   return (
     <Form.Row>
        <Form.Group as={Col}>

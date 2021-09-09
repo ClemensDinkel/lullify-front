@@ -1,17 +1,10 @@
-import {
-  Form,
-  Button,
-  Col,
-  InputGroup,
-  OverlayTrigger,
-  Tooltip,
-} from "react-bootstrap";
-import { BsQuestionOctagonFill } from "react-icons/bs";
+import { Form, Button } from "react-bootstrap";
 import { useContext } from "react";
 import { UserContext } from "../../../context/UserContext";
 import { VideoContext } from "../../../context/VideoContext";
 import api from "../../../api";
 import Input from "./Input";
+import formList from "./formList";
 
 const AddForm = ({ videoToAdd, setVideoToAdd, setUploaderVideos }) => {
 
@@ -86,17 +79,17 @@ const AddForm = ({ videoToAdd, setVideoToAdd, setUploaderVideos }) => {
         <span style={{ color: "red" }}>*</span> Fields are required
       </Form.Label>
       <Input
-        name={"title"}
-        description={"Video Title"}
-        type=/* "text" */ {undefined}
-        required={true}
-        value={videoToAdd.title}
-        maxlength="40"
-        as=/* {undefined} */ "textarea"
-        tooltip="Video Title should have maximum 40 characters."
-        placeholder="Enter Title"
-        pattern={undefined}
-        rows={3} /* {undefined} */
+        name={formList[0].name ?? undefined}
+        description={formList[0].description ?? undefined}
+        type={formList[0].type ?? undefined}
+        required={formList[0].required ?? false}
+        value={videoToAdd[formList[0].name] ?? ""}
+        maxlength={formList[0].maxlength ?? undefined}
+        as={formList[0].as?? undefined}
+        tooltip={formList[0].tooltip ?? undefined}
+        placeholder={formList[0].placeholder ?? undefined}
+        rows={formList[0].rows ?? undefined}
+        pattern={formList[0].pattern ?? undefined}
         onChange={onChange}
       />
       {/* <Form.Row>
@@ -121,7 +114,7 @@ const AddForm = ({ videoToAdd, setVideoToAdd, setUploaderVideos }) => {
               name="title"
               value={videoToAdd.title}
               onChange={onChange}
-              maxlength="40"
+              maxLength="40"
               required
             />
           </OverlayTrigger>
@@ -149,7 +142,7 @@ const AddForm = ({ videoToAdd, setVideoToAdd, setUploaderVideos }) => {
               name="artist"
               value={videoToAdd.artist}
               onChange={onChange}
-              maxlength="20"
+              maxLength="20"
               required
             />
           </OverlayTrigger>
