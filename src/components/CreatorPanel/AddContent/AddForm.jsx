@@ -1,4 +1,84 @@
-const AddForm = () => {
+import {
+  Form,
+  Button,
+  Col,
+  InputGroup,
+  OverlayTrigger,
+  Tooltip,
+} from "react-bootstrap";
+import { BsQuestionOctagonFill } from "react-icons/bs";
+import { useContext } from "react";
+import { UserContext } from "../../../context/UserContext";
+import { VideoContext } from "../../../context/VideoContext";
+import api from "../../../api";
+
+const AddForm = ({videoToAdd, setVideoToAdd, setUploaderVideos}) => {
+
+  const emptyVideo = {
+    title: "",
+    artist: "",
+    video_url: "",
+    video_img_url: "",
+    short_description: "",
+    duration: 0,
+    uploader_id: null,
+    languages: "",
+    tags: "",
+    errors: {}
+  }
+  const { dTk } = useContext(UserContext);
+  const [decToken] = dTk;
+  const [videos, setVideos] = useContext(VideoContext)
+
+  const onChange = (e) => {
+    let keyName = e.target.name;
+    let value = e.target.value;
+    setVideoToAdd((previous) => {
+      return {
+        ...previous,
+        [keyName]: value,
+      };
+    });
+  };
+
+  const addNewVideo = (e) => {
+    e.preventDefault();
+    const newVideo = {
+      title: videoToAdd.title,
+      artist: videoToAdd.artist,
+      video_url: videoToAdd.video_url,
+      video_img_url: videoToAdd.video_img_url,
+      short_description: videoToAdd.short_description,
+      duration: videoToAdd.duration,
+      uploader_id: decToken.id,
+      languages: videoToAdd.languages.toLowerCase().replace(/ /g, '').split(","),
+      tags: videoToAdd.tags.replace(/ /g, '')
+    };
+    api.addVideos(newVideo)
+      .then((res) => {
+        setVideoToAdd({
+          title: "",
+          artist: "",
+          video_url: "",
+          video_img_url: "",
+          short_description: "",
+          duration: 0,
+          uploader_id: null,
+          languages: "",
+          tags: "",
+          errors: {},
+        });
+        if (res.data.name !== "ValidationError") {
+          setVideos(prev => [...prev, res.data])
+          setUploaderVideos(prev => [...prev, res.data])
+          alert("Video has been added");
+        } else {
+          alert("This video has already been uploaded to Lullifey")
+        }
+      })
+      .catch(err => console.log(err))
+  };
+
   return (
     <Form onSubmit={addNewVideo}>
       <Form.Label>
@@ -24,7 +104,7 @@ const AddForm = () => {
               type="text"
               placeholder="Enter Title"
               name="title"
-              value={addVideo.title}
+              value={videoToAdd.title}
               onChange={onChange}
               maxlength="40"
               required
@@ -52,7 +132,7 @@ const AddForm = () => {
               type="text"
               placeholder="Enter Artist"
               name="artist"
-              value={addVideo.artist}
+              value={videoToAdd.artist}
               onChange={onChange}
               maxlength="20"
               required
@@ -71,7 +151,7 @@ const AddForm = () => {
             pattern="https://.*"
             placeholder="Enter url"
             name="video_url"
-            value={addVideo.video_url}
+            value={videoToAdd.video_url}
             onChange={onChange}
             required
           />
@@ -88,7 +168,7 @@ const AddForm = () => {
             pattern="https://.*"
             placeholder="Enter url for video image"
             name="video_img_url"
-            value={addVideo.video_img_url}
+            value={videoToAdd.video_img_url}
             onChange={onChange}
             required
           />
@@ -105,7 +185,7 @@ const AddForm = () => {
             rows={3}
             placeholder="Enter Short Description"
             name="short_description"
-            value={addVideo.short_description}
+            value={videoToAdd.short_description}
             onChange={onChange}
             required
           />
@@ -130,7 +210,7 @@ const AddForm = () => {
               type="number"
               placeholder="Enter duration in secs"
               name="duration"
-              value={addVideo.duration}
+              value={videoToAdd.duration}
               onChange={onChange}
             />
           </OverlayTrigger>
@@ -158,7 +238,7 @@ const AddForm = () => {
                 type="text"
                 placeholder="EN, DE, HI etc.."
                 name="languages"
-                value={addVideo.languages}
+                value={videoToAdd.languages}
                 onChange={onChange}
                 required
               />
@@ -197,7 +277,7 @@ const AddForm = () => {
               type="text"
               placeholder="Kinder, Children, Fun etc.."
               name="tags"
-              value={addVideo.tags}
+              value={videoToAdd.tags}
               onChange={onChange}
               maxLength="40"
             />
@@ -217,15 +297,13 @@ const AddForm = () => {
         <Button
           variant="outline-secondary"
           type="button"
-          onClick={() => {
-            setAddVideo("");
-            window.location.reload();
-            history.push("/creator");
-          }}
+          onClick={() => {setVideoToAdd(emptyVideo)}}
         >
-          <b>Cancel</b>
+          <b>Clear</b>
         </Button>
       </Form.Row>
     </Form>
   )
 }
+
+export default AddForm
