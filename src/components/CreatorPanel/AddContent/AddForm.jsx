@@ -11,6 +11,7 @@ import { useContext } from "react";
 import { UserContext } from "../../../context/UserContext";
 import { VideoContext } from "../../../context/VideoContext";
 import api from "../../../api";
+import Input from "./Input";
 
 const AddForm = ({ videoToAdd, setVideoToAdd, setUploaderVideos }) => {
 
@@ -84,7 +85,21 @@ const AddForm = ({ videoToAdd, setVideoToAdd, setUploaderVideos }) => {
       <Form.Label>
         <span style={{ color: "red" }}>*</span> Fields are required
       </Form.Label>
-      <Form.Row>
+      <Input
+        name={"title"}
+        description={"Video Title"}
+        type=/* "text" */ {undefined}
+        required={true}
+        value={videoToAdd.title}
+        maxlength="40"
+        as=/* {undefined} */ "textarea"
+        tooltip="Video Title should have maximum 40 characters."
+        placeholder="Enter Title"
+        pattern={undefined}
+        rows={3} /* {undefined} */
+        onChange={onChange}
+      />
+      {/* <Form.Row>
         <Form.Group as={Col}>
           <Form.Label>
             <b>Video Title</b>
@@ -283,7 +298,7 @@ const AddForm = ({ videoToAdd, setVideoToAdd, setUploaderVideos }) => {
             />
           </OverlayTrigger>
         </Form.Group>
-      </Form.Row>
+      </Form.Row> */}
       <Form.Row
         style={{
           display: "flex",
