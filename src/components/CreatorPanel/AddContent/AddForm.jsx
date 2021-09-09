@@ -12,7 +12,7 @@ import { UserContext } from "../../../context/UserContext";
 import { VideoContext } from "../../../context/VideoContext";
 import api from "../../../api";
 
-const AddForm = ({videoToAdd, setVideoToAdd, setUploaderVideos}) => {
+const AddForm = ({ videoToAdd, setVideoToAdd, setUploaderVideos }) => {
 
   const emptyVideo = {
     title: "",
@@ -85,7 +85,7 @@ const AddForm = ({videoToAdd, setVideoToAdd, setUploaderVideos}) => {
         <span style={{ color: "red" }}>*</span> Fields are required
       </Form.Label>
       <Form.Row>
-        <Form.Group as={Col} controlId="formGridEmail">
+        <Form.Group as={Col}>
           <Form.Label>
             <b>Video Title</b>
             <span style={{ color: "red" }}>*</span>
@@ -113,7 +113,7 @@ const AddForm = ({videoToAdd, setVideoToAdd, setUploaderVideos}) => {
         </Form.Group>
       </Form.Row>
       <Form.Row>
-        <Form.Group as={Col} controlId="formGridEmail">
+        <Form.Group as={Col}>
           <Form.Label>
             <b>Artist</b>
             <span style={{ color: "red" }}>*</span>
@@ -141,7 +141,7 @@ const AddForm = ({videoToAdd, setVideoToAdd, setUploaderVideos}) => {
         </Form.Group>
       </Form.Row>
       <Form.Row>
-        <Form.Group as={Col} controlId="formGridEmail">
+        <Form.Group as={Col}>
           <Form.Label>
             <b>Video URL</b>
             <span style={{ color: "red" }}>*</span>
@@ -158,7 +158,7 @@ const AddForm = ({videoToAdd, setVideoToAdd, setUploaderVideos}) => {
         </Form.Group>
       </Form.Row>
       <Form.Row>
-        <Form.Group as={Col} controlId="formGridEmail">
+        <Form.Group as={Col}>
           <Form.Label>
             <b>Image URL</b>
             <span style={{ color: "red" }}>*</span>
@@ -175,7 +175,7 @@ const AddForm = ({videoToAdd, setVideoToAdd, setUploaderVideos}) => {
         </Form.Group>
       </Form.Row>
       <Form.Row>
-        <Form.Group as={Col} controlId="ControlTextarea1">
+        <Form.Group as={Col}>
           <Form.Label>
             <b>Video Description</b>
             <span style={{ color: "red" }}>*</span>
@@ -192,7 +192,7 @@ const AddForm = ({videoToAdd, setVideoToAdd, setUploaderVideos}) => {
         </Form.Group>
       </Form.Row>
       <Form.Row>
-        <Form.Group as={Col} controlId="formGridEmail">
+        <Form.Group as={Col}>
           <Form.Label>
             <b>Video Duration</b>
           </Form.Label>
@@ -217,7 +217,7 @@ const AddForm = ({videoToAdd, setVideoToAdd, setUploaderVideos}) => {
         </Form.Group>
       </Form.Row>
       <Form.Row>
-        <Form.Group as={Col} controlId="formGridEmail">
+        <Form.Group as={Col}>
           <Form.Label>
             <b>Languages</b>
             <span style={{ color: "red" }}>*</span>
@@ -259,7 +259,7 @@ const AddForm = ({videoToAdd, setVideoToAdd, setUploaderVideos}) => {
         </Form.Group>
       </Form.Row>
       <Form.Row>
-        <Form.Group as={Col} controlId="formGridEmail">
+        <Form.Group as={Col}>
           <Form.Label>
             <b>Videos Tags</b>
           </Form.Label>
@@ -297,7 +297,7 @@ const AddForm = ({videoToAdd, setVideoToAdd, setUploaderVideos}) => {
         <Button
           variant="outline-secondary"
           type="button"
-          onClick={() => {setVideoToAdd(emptyVideo)}}
+          onClick={() => { setVideoToAdd(emptyVideo) }}
         >
           <b>Clear</b>
         </Button>
