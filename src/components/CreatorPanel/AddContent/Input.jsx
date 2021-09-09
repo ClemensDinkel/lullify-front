@@ -3,54 +3,53 @@ import {
   Col,
   OverlayTrigger,
   Tooltip,
+  InputGroup
 } from "react-bootstrap";
+/* import BsQuestionOctagonFill */ /* from ???? */
 
-const Input = (/* props */ { name, description, type, tooltip, placeholder, required, value, maxlength, as, pattern, rows, onChange }) => {
+const Input = props => {
+
   return (
     <Form.Row>
-       <Form.Group as={Col}>
+      <Form.Group as={Col}>
         <Form.Label>
-          <b>{description}</b>
-          {required ? <span style={{ color: "red" }}>*</span> : null}
+          <b>{props.description}</b>
+          {props.required ? <span style={{ color: "red" }}>*</span> : null}
         </Form.Label>
-        {tooltip ?
-          <OverlayTrigger
-            key="top"
-            placement="top"
-            delay={{ show: 250, hide: 400 }}
-            overlay={
-              <Tooltip id="tooltip-top">
-                {tooltip}
-              </Tooltip>
-            }
-          >
+        <InputGroup className="mb-2">
+          {props.tooltip ?
+            <OverlayTrigger
+              key="top"
+              placement="top"
+              delay={{ show: 250, hide: 400 }}
+              overlay={
+                <Tooltip id="tooltip-top">
+                  {props.tooltip}
+                </Tooltip>
+              }
+            >
+              <Form.Control
+                {...props}
+              />
+            </OverlayTrigger> :
             <Form.Control
-              as={as}
-              pattern={pattern}
-              rows={rows}
-              type={type}
-              placeholder={placeholder}
-              name={name}
-              value={value}
-              onChange={onChange}
-              maxlength={maxlength}
-              required
+              {...props}
             />
-          </OverlayTrigger> :
-          <Form.Control
-            as={as}
-            pattern={pattern}
-            rows={rows}
-            type={type}
-            placeholder={placeholder}
-            description={description}
-            name={name}
-            value={value}
-            onChange={onChange}
-            maxlength={maxlength}
-            required
-          />
-        }
+
+          }
+          <InputGroup.Prepend>
+            <InputGroup.Text>
+              <a
+                href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes"
+                target="_blank"
+                rel="noreferrer"
+                style={{ color: "black" }}
+              >
+                <BsQuestionOctagonFill />
+              </a>
+            </InputGroup.Text>
+          </InputGroup.Prepend>
+        </InputGroup>
       </Form.Group>
     </Form.Row>
   )

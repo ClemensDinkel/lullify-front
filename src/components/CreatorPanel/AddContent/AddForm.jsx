@@ -78,20 +78,24 @@ const AddForm = ({ videoToAdd, setVideoToAdd, setUploaderVideos }) => {
       <Form.Label>
         <span style={{ color: "red" }}>*</span> Fields are required
       </Form.Label>
-      <Input
-        name={formList[0].name ?? undefined}
-        description={formList[0].description ?? undefined}
-        type={formList[0].type ?? undefined}
-        required={formList[0].required ?? false}
-        value={videoToAdd[formList[0].name] ?? ""}
-        maxlength={formList[0].maxlength ?? undefined}
-        as={formList[0].as?? undefined}
-        tooltip={formList[0].tooltip ?? undefined}
-        placeholder={formList[0].placeholder ?? undefined}
-        rows={formList[0].rows ?? undefined}
-        pattern={formList[0].pattern ?? undefined}
-        onChange={onChange}
-      />
+      {formList.map(inputField =>
+        <Input
+          {...inputField}
+          /*name={formList[0].name ?? undefined}
+          description={formList[0].description ?? undefined}
+          type={formList[0].type ?? undefined}
+          required={formList[0].required ?? false}
+          maxlength={formList[0].maxlength ?? undefined}
+          as={formList[0].as?? undefined}
+          tooltip={formList[0].tooltip ?? undefined}
+          placeholder={formList[0].placeholder ?? undefined}
+          rows={formList[0].rows ?? undefined}
+          pattern={formList[0].pattern ?? undefined} */
+          value={videoToAdd[inputField.name] ?? ""}
+          onChange={onChange}
+        />
+      )}
+
       {/* <Form.Row>
         <Form.Group as={Col}>
           <Form.Label>
