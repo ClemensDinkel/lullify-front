@@ -7,7 +7,7 @@ const VideoOptions = ({ uploaderVideo, handleDelete }) => (
   <tr>
     <td style={{ textAlign: "left" }}>{uploaderVideo.title}</td>
     <td>
-      <Link to={`/video/${uploaderVideo._id}`}>
+      <Link to={`/creatorpanel/${uploaderVideo._id}`}>
         <Button type="submit" variant="light">
           <AiTwotoneEdit />
         </Button>

@@ -46,7 +46,6 @@ export const UserController = ({children}) => {
   }, [decToken]);
 
   return( 
-    // <UserContext.Provider value={[singleUserInfo, decToken, setDecToken, setToken]}>
     <UserContext.Provider value={{tk: [token,setToken], dTk: [decToken, setDecToken], sUI: [singleUserInfo, setSingleUserInfo]}}>
       {children}
     </UserContext.Provider>

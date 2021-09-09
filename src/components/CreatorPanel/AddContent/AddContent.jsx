@@ -56,10 +56,6 @@ const AddContent = ({ setUploaderVideos }) => {
     setQuery("")
   }
 
-  useEffect(()=> {
-    console.log(videoToAdd)
-  },[videoToAdd])
-
   return (
     <div className="add-content">
       <h3 style={{ fontFamily: "cursive", color: "white" }}><b>Add new Video</b></h3>

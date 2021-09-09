@@ -20,8 +20,8 @@ const LullifyRouter = () => {
         <Route path='/signUp'><SignUp /></Route>
         <Route path='/profile'><Profile /></Route>
         <Route path='/adminpanel'><AdminPanel/></Route>
-        <Route path='/creatorpanel'><CreatorPanel /></Route>
-        <Route path='/video/:video_id?'><EditVideo /></Route>
+        <Route exact path='/creatorpanel'><CreatorPanel /></Route>
+        <Route path='/creatorpanel/:video_id?'><EditVideo /></Route>
         <Route path='/about'><About /></Route>
       </Switch>
     </div>

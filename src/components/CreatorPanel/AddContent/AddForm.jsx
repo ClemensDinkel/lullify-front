@@ -1,10 +1,11 @@
-import { Form, Button } from "react-bootstrap";
+import { Form} from "react-bootstrap";
 import { useContext } from "react";
 import { UserContext } from "../../../context/UserContext";
 import { VideoContext } from "../../../context/VideoContext";
 import api from "../../../api";
 import Input from "../Input";
 import formList from "../formList";
+import Buttons from "../Buttons";
 
 const AddForm = ({ videoToAdd, setVideoToAdd, setUploaderVideos }) => {
 
@@ -85,24 +86,7 @@ const AddForm = ({ videoToAdd, setVideoToAdd, setUploaderVideos }) => {
           onChange={onChange}
         />
       )}
-      <Form.Row
-        style={{
-          display: "flex",
-          justifyContent: "space-around",
-          marginTop: "10px",
-        }}
-      >
-        <Button variant="outline-secondary" type="submit">
-          <b>Submit</b>
-        </Button>
-        <Button
-          variant="outline-secondary"
-          type="button"
-          onClick={() => { setVideoToAdd(emptyVideo) }}
-        >
-          <b>Clear</b>
-        </Button>
-      </Form.Row>
+      <Buttons emptyVideo={emptyVideo} setVideoToAdd={setVideoToAdd}/>
     </Form>
   )
 }

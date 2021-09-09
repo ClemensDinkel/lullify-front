@@ -35,7 +35,7 @@ const CreatorPanel = () => {
     <div className="main-container">
       {(dTk && dTk[0]) && (dTk[0].role === "admin" || dTk[0].role === "content_creator") ?
         videosLoaded ?
-          <div className="creator-panel main-container">
+          <div className="main-container creator-panel">
             <ContentManager uploaderVideos={uploaderVideos} setUploaderVideos={setUploaderVideos} decToken={decToken} />
             <AddContent setUploaderVideos={setUploaderVideos} />
           </div> :

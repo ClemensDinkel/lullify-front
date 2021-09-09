@@ -6,7 +6,6 @@ import VideoOptions from "./VideoOptions";
 
 const ContentManager = ({ uploaderVideos, setUploaderVideos, decToken }) => {
   const [videos, setVideos] = useContext(VideoContext)
-
   const handleDelete = (uploaderVideo) => {
     window.confirm(`Do you want to delete ${uploaderVideo.title}?`) &&
       api
@@ -21,9 +20,11 @@ const ContentManager = ({ uploaderVideos, setUploaderVideos, decToken }) => {
   }
 
   return (
-    <div className="content-list">
+    <div className="add-content">
       <h3 style={{ fontFamily: "cursive", color: "white" }}><b>Added Videos</b></h3>
-      <div style={{ margin: ".4rem" }}>
+      <div
+        style={{ display: "flex", justifyContent: "center", width: "100%", margin: ".4rem" }}
+      >
         <Table striped bordered hover variant="light" size="sm" responsive>
           <thead>
             <tr>
@@ -34,12 +35,14 @@ const ContentManager = ({ uploaderVideos, setUploaderVideos, decToken }) => {
           </thead>
           <tbody>
             {uploaderVideos &&
-              uploaderVideos.map((uploaderVideo, index) =>
-                <VideoOptions 
-                uploaderVideo={uploaderVideo}
-                handleDelete={handleDelete} 
-                key={index} />
-              )}
+              uploaderVideos
+                .sort((a, b) => a.title < b.title ? -1 : a.title > b.title ? 1 : 0)
+                .map((uploaderVideo, index) =>
+                  <VideoOptions
+                    uploaderVideo={uploaderVideo}
+                    handleDelete={handleDelete}
+                    key={index} />
+                )}
           </tbody>
         </Table>
       </div>
