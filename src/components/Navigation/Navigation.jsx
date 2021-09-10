@@ -8,6 +8,7 @@ import { VideoContext } from "../../context/VideoContext";
 import api from "../../api";
 import "../../App.css"
 import SearchBar from "./SearchBar";
+import NaviLinks from "./NaviLinks";
 
 const Navigation = ({ handlePageScroll }) => {
   const { tk, dTk, sUI } = useContext(UserContext)
@@ -35,20 +36,6 @@ const Navigation = ({ handlePageScroll }) => {
     window.addEventListener('scroll', navbarControl)
     return () => { window.removeEventListener('scroll', navbarControl) }
   }, [])
-
-  const logOut = (e) => {
-    e.preventDefault();
-    window.confirm(`${decToken.user_name}, Do you want to log out?`) &&
-      api.logoutUser()
-        .then(() => {
-          localStorage.clear();
-          setToken("");
-          setDecToken(null);
-          setSingleUserInfo([])
-          history.push("/");
-        })
-        .catch(err => console.log(err))
-  };
 
   const putFavoritesFirst = array => {
     if (singleUserInfo.favorites && videos) {
@@ -84,6 +71,20 @@ const Navigation = ({ handlePageScroll }) => {
     }
   }
 
+  const logOut = (e) => {
+    e.preventDefault();
+    window.confirm(`${decToken.user_name}, Do you want to log out?`) &&
+      api.logoutUser()
+        .then(() => {
+          localStorage.clear();
+          setToken("");
+          setDecToken(null);
+          setSingleUserInfo([])
+          history.push("/");
+        })
+        .catch(err => console.log(err))
+  };
+
   const goHome = () => {
     const path = history.location.pathname.split("/")[1];
     if (path === "") return
@@ -108,44 +109,20 @@ const Navigation = ({ handlePageScroll }) => {
             🌚<b>Lullifey</b>
           </h5>
         </Navbar.Brand>
-        {/* <SearchBar
-          update={update}
-          lang={setLang}
+        <SearchBar
+          lang={lang}
           setLang={setLang}
-          filter={setFilter}
+          filter={filter}
           setFilter={setFilter}
           show={show}
+          update={update}
+        />
+        {/* <NavLinks
+          goHome={goHome}
+          handlePageScroll={handlePageScroll}
+          decToken={decToken}
+          logOut={logOut}
         /> */}
-        <Form className="d-flex justify-content-space-between" onSubmit={update}>
-          <Form.Control
-            as="select"
-            className="my-1 mr-sm-2"
-            id="inlineFormCustomSelectPref"
-            value={lang}
-            onChange={(e) => {
-              setLang(e.target.value)
-            }}
-            custom
-          >
-            <option value=""></option>
-            <option value="en">EN</option>
-            <option value="de">DE</option>
-            <option value="hi">HI</option>
-          </Form.Control>
-          <FormControl
-            type="search"
-            placeholder="Search"
-            className="mr-2"
-            aria-label="Search"
-            name="filter"
-            value={filter}
-            onChange={(e) => setFilter(e.target.value)}
-          />
-          <Button type="submit" variant={`dark ${show && "light"}`} >
-            <b>Search</b>
-          </Button>
-        </Form>
-
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll" className="justify-content-end">
           <Nav
