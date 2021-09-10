@@ -1,20 +1,13 @@
-import {
-  Navbar,
-  Nav,
-  NavDropdown,
-  Form,
-  FormControl,
-  Button,
-  Image,
-} from "react-bootstrap";
+import { Navbar, Nav, NavDropdown, Form, FormControl, Button } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 import { useContext } from "react";
 import { useHistory, Link } from "react-router-dom";
-import { UserContext } from '../context/UserContext'
-import { QueryContext } from '../context/QueryContext'
-import { VideoContext } from "../context/VideoContext";
-import api from "../api";
-import "../App.css"
+import { UserContext } from '../../context/UserContext'
+import { QueryContext } from '../../context/QueryContext'
+import { VideoContext } from "../../context/VideoContext";
+import api from "../../api";
+import "../../App.css"
+import SearchBar from "./SearchBar";
 
 const Navigation = ({ handlePageScroll }) => {
   const { tk, dTk, sUI } = useContext(UserContext)
@@ -56,10 +49,6 @@ const Navigation = ({ handlePageScroll }) => {
         })
         .catch(err => console.log(err))
   };
-
-  /* useEffect(() => {
-    update()
-  },[lang]) */
 
   const putFavoritesFirst = array => {
     if (singleUserInfo.favorites && videos) {
@@ -115,20 +104,18 @@ const Navigation = ({ handlePageScroll }) => {
     <>
       <Navbar className={`navbar ${show && "navbar-scroll"}`} expand="lg" sticky="top">
         <Navbar.Brand as={Link} to="/" onClick={goHome}>
-          {/* <Image
-            src={logo_image}
-            style={{
-              display: "inline-block",
-              maxHeight: "70px",
-              maxWidth: "100px",
-              paddingLeft: "10px"
-            }}
-          /> */}
           <h5 style={{ fontSize: "30px", fontFamily: "serif", color: "#404040", display: "block" }} onClick={handlePageScroll} >
             🌚<b>Lullifey</b>
           </h5>
         </Navbar.Brand>
-
+        {/* <SearchBar
+          update={update}
+          lang={setLang}
+          setLang={setLang}
+          filter={setFilter}
+          setFilter={setFilter}
+          show={show}
+        /> */}
         <Form className="d-flex justify-content-space-between" onSubmit={update}>
           <Form.Control
             as="select"
@@ -208,22 +195,6 @@ const Navigation = ({ handlePageScroll }) => {
                     <Nav.Link as={Link} to="/profile" className="navbar-item" onClick={handlePageScroll}><b>Profile</b></Nav.Link>
                     <Nav.Link onClick={logOut} style={{ padding: "10px" }}><b>LogOut</b></Nav.Link>
                   </>
-
-                  /* <div style={{ padding: "10px", margin: "auto", display: "flex" }}>
-                    <Navbar.Brand style={{ paddingRight: 0, marginRight: 0 }}>
-                      <Image src={singleUserInfo.user_img_url} width="30px" height="30px" roundedCircle />
-                    </Navbar.Brand>
-
-                    <NavDropdown
-                      title={decToken.user_name}
-                      id="navbarScrollingDropdown"
-                      style={{ fontWeight: "bold", margin: "0" }}
-                    >
-                      <NavDropdown.Item as={Link} to="/profile" style={{ padding: "10px" }} onClick={handlePageScroll}>Profile</NavDropdown.Item>
-                      <NavDropdown.Item onClick={logOut} style={{ padding: "10px" }}>LogOut</NavDropdown.Item>
-                    </NavDropdown>
-                  </div> */
-
                 )}
               </>
             )}

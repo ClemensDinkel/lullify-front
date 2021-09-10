@@ -1,7 +1,7 @@
 import { Switch, Route } from 'react-router-dom';
 import Home from './Home'
 import Player from './Player'
-import Login from './Login'
+import Login from './Login/Login'
 import SignUp from './SignUp'
 import Profile from './Profile'
 import AdminPanel from './AdminPanel/AdminPanel'

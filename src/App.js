@@ -1,5 +1,5 @@
 import "./App.css";
-import Navigation from "./components/Navigation";
+import Navigation from "./components/Navigation/Navigation";
 import Footer from "./components/Footer";
 import LullifyRouter from "./components/LullifyRouter";
 import { VideoController } from "./context/VideoContext";
