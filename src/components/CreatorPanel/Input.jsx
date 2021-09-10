@@ -32,6 +32,7 @@ const Input = props => {
                 {...props}
               />
             </OverlayTrigger> :
+            
             <Form.Control
               {...props}
             />
@@ -40,7 +41,7 @@ const Input = props => {
           {props.hint && <InputGroup.Prepend>
             <InputGroup.Text>
               <a
-                href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes"
+                href={props.hint}
                 target="_blank"
                 rel="noreferrer"
                 style={{ color: "black" }}

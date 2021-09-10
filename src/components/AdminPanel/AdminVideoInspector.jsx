@@ -1,6 +1,6 @@
 import { Button, Image, Nav } from "react-bootstrap"
-import api from "../api"
-import '../App.css'
+import api from "../../api"
+import '../../App.css'
 import { Link } from "react-router-dom"
 
 const AdminVideoInspector = ({ inspectData, inspectType, setInspecting }) => {
@@ -15,7 +15,7 @@ const AdminVideoInspector = ({ inspectData, inspectType, setInspecting }) => {
 
   return (
     <div>
-      <div style={{ textAlign: "left", color: "rgba(210, 215, 211, 1)"}}>
+      <div style={{ textAlign: "left", color: "rgba(210, 215, 211, 1)" }}>
         <div className="img-container" style={{ float: "right", margin: "5px" }}>
           <Image src={video_img_url} style={{ maxWidth: "80px" }}></Image>
         </div>
@@ -23,7 +23,7 @@ const AdminVideoInspector = ({ inspectData, inspectType, setInspecting }) => {
           <h2 style={{ textAlign: "center", color: "antiquewhite", fontFamily: "cursive", textDecoration: "underline" }}>
             {title}
           </h2>
-        </Nav.Link> {/* placeholder */}
+        </Nav.Link>
         <span><b>Artist</b>: {artist}</span><br />
         <span><b>URL</b>: {video_url}</span><br />
         <span><b>Languages</b>: {languages.join(", ")}</span><br />

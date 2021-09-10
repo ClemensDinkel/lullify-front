@@ -1,4 +1,4 @@
-import '../App.css'
+import '../../App.css'
 import Table from 'react-bootstrap/Table'
 
 const AdminRequestList = ({requests, sortByDate, seeSingleRequest}) => {

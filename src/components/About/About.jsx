@@ -1,4 +1,4 @@
-import { Container, Row, Col } from "react-bootstrap";
+import { Container} from "react-bootstrap";
 import { QueryContext } from "../../context/QueryContext";
 import { useEffect, useContext } from "react";
 import { Mission } from "./Mission";
