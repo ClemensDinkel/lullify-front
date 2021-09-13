@@ -14,9 +14,7 @@ const headers = auth_token ? {
 export const register = (newUser) => {
   return axios
     .post(`${root}/register`, newUser)
-    .then((response) => {
-      console.log("Registered");
-    });
+    .then(() => console.log("Registered"));
 };
 
 export const axiosConfig = {

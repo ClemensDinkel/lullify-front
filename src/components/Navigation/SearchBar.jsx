@@ -1,18 +1,15 @@
 import { Form, FormControl, Button } from "react-bootstrap"
 
-const SearchBar = ({lang, setLang, filter, update, setFilter, show}) => {
+const SearchBar = ({lang, setLang, filter, updateSearchBar, setFilter, show}) => {
 
   return (
-    <Form className="d-flex justify-content-space-between" onSubmit={update}>
+    <Form className="d-flex justify-content-space-between" onSubmit={updateSearchBar}>
       <Form.Control
         as="select"
         className="my-1 mr-sm-2"
         id="inlineFormCustomSelectPref"
         value={lang}
-        onChange={(e) => {
-          console.log(lang)
-          setLang(e.target.value)
-        }}
+        onChange={(e) => setLang(e.target.value)}
         custom
       >
         <option value=""></option>
