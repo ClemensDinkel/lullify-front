@@ -2,8 +2,8 @@ import { useEffect, useContext } from "react";
 import { Button, Image, Nav } from "react-bootstrap";
 import { MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { PlaylistContext } from "../context/PlaylistContext";
-import moon_image from "../images/moon2.png"
+import { PlaylistContext } from "../../context/PlaylistContext";
+import moon_image from "../../images/moon2.png"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 const TemporaryPlaylist = () => {

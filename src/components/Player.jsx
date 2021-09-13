@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
-import Playlists from "./Playlists";
-import TemporaryPlaylist from "./TemporaryPlaylist";
+import Playlists from "./Home/Playlists";
+import TemporaryPlaylist from "./Home/TemporaryPlaylist";
 import Video from "./Video";
 import "../App.css";
 import api from "../api";

@@ -1,13 +1,13 @@
 import { Form, FormControl, Button, Image, Nav, Spinner } from "react-bootstrap";
-import api from "../api";
+import api from "../../api";
+import "../../App.css";
 import { AiOutlinePlus } from "react-icons/ai";
 import { MdDelete, MdPlaylistAdd } from "react-icons/md";
 import { useState, useEffect, useContext } from "react";
-import "../App.css";
-import { UserContext } from "../context/UserContext";
-import { PlaylistContext } from "../context/PlaylistContext";
+import { UserContext } from "../../context/UserContext";
+import { PlaylistContext } from "../../context/PlaylistContext";
 import { Link } from "react-router-dom";
-import moon_image from "../images/moon2.png"
+import moon_image from "../../images/moon2.png"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 const Playlists = () => {

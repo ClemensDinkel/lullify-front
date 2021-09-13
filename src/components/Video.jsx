@@ -1,7 +1,7 @@
 import ReactPlayer from "react-player/lazy";
 import { Container, Col, Row, Button } from "react-bootstrap";
 import "../App.css";
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext} from "react";
 import { AiOutlineHeart } from "react-icons/ai";
 import { AiTwotoneHeart } from "react-icons/ai";
 import api from "../api";
@@ -14,7 +14,7 @@ const Video = ({ video, setVideo }) => {
 
   const [readMore, setReadMore] = useState(false);
   const { dTk, sUI } = useContext(UserContext);
-  const {ppl} = useContext(PlaylistContext);
+  const { ppl } = useContext(PlaylistContext);
   const [playedList, setPlayedList] = ppl;
   const [decToken] = dTk;
   const [singleUserInfo, setSingleUserInfo] = sUI;
@@ -85,88 +85,85 @@ const Video = ({ video, setVideo }) => {
   }
 
   return (
-      <div className="video-container">
-        <Container>
-          <Row>
-            <Col>
-              {video[0].video_url ? 
+    <div className="video-container">
+      <Container>
+        <Row>
+          <Col>
+            {video[0].video_url ?
               <ReactPlayer
-              controls={true}
-              className="react-player"
-              url={video[0].video_url}
-              muted={false}
-              playing={true}
-              width="100%"
-              height="500px" 
-              onEnded={playNext}
-            /> :
-            <h1>Loading....</h1>}
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <div className="video-description">
-                <div
-                  style={{ display: "flex", justifyContent: "space-between" }}
-                >
-                  <div style={{ color: "antiquewhite" }}>
-                    <h3 style={{ fontFamily: "cursive" }}>{video[0].title}</h3>
-                    <p>{video[0].artist}</p>
-                  </div>
-                  <div>
-                    {decToken && singleUserInfo.favorites && !singleUserInfo.favorites.some(favorite => favorite._id === video[0]._id) && (
-                      <Button variant="dark" onClick={() => addToFavorite()}>
-                        <AiOutlineHeart />
-                      </Button>
-                    )}
-
-                    {decToken && singleUserInfo.favorites && singleUserInfo.favorites.some(favorite => favorite._id === video[0]._id) && (
-                      <Button
-                        variant="dark"
-                        onClick={() => removeFromFavorite()}
-                      >
-                        <AiTwotoneHeart />
-                      </Button>
-                    )}
-                  </div>
-                </div>
-                <div
-                  style={{ display: "flex", justifyContent: "space-between" }}
-                >
-                  <Button
-                    variant="dark"
-                    onClick={() => setReadMore(!readMore)}
-                  >
-                    {!readMore ? <b>Show More</b> : <b>Show less</b>}
-                  </Button>
-
-                  {decToken && !video[0].reportedBy.includes(decToken.id) && (
-                    <Button variant="dark" onClick={() => reportButton()}>
-                      <b>Report</b>
-                    </Button>
-                  )}
-                  {decToken && video[0].reportedBy.includes(decToken.id) && (
-                    <Button variant="dark" onClick={() => unReportButton()}>
-                      <b>Unreport</b>
-                    </Button>
-                  )}
+                controls={true}
+                className="react-player"
+                url={video[0].video_url}
+                muted={false}
+                playing={true}
+                width="100%"
+                height="500px"
+                onEnded={playNext}
+              /> :
+              <h1>Loading....</h1>}
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <div className="video-description">
+              <div
+                style={{ display: "flex", justifyContent: "space-between" }}
+              >
+                <div style={{ color: "antiquewhite" }}>
+                  <h3 style={{ fontFamily: "cursive" }}>{video[0].title}</h3>
+                  <p>{video[0].artist}</p>
                 </div>
                 <div>
-                  {readMore ? (
-                    <div style={{ backgroundColor: "rgba(0,0,0,0.4)" }}>
-                      {/* <h6 >
-                        Duration: {secToMinConverter(video[0].duration)} mins
-                      </h6> */}
-                      <h6 >Description:</h6>
-                      <section  dangerouslySetInnerHTML={{ __html: marked(video[0].short_description) }} />
-                    </div>
-                  ) : null}
+                  {decToken && singleUserInfo.favorites && !singleUserInfo.favorites.some(favorite => favorite._id === video[0]._id) && (
+                    <Button variant="dark" onClick={() => addToFavorite()}>
+                      <AiOutlineHeart />
+                    </Button>
+                  )}
+
+                  {decToken && singleUserInfo.favorites && singleUserInfo.favorites.some(favorite => favorite._id === video[0]._id) && (
+                    <Button
+                      variant="dark"
+                      onClick={() => removeFromFavorite()}
+                    >
+                      <AiTwotoneHeart />
+                    </Button>
+                  )}
                 </div>
               </div>
-            </Col>
-          </Row>
-        </Container>
-      </div>
+              <div
+                style={{ display: "flex", justifyContent: "space-between" }}
+              >
+                <Button
+                  variant="dark"
+                  onClick={() => setReadMore(!readMore)}
+                >
+                  {!readMore ? <b>Show More</b> : <b>Show less</b>}
+                </Button>
+
+                {decToken && !video[0].reportedBy.includes(decToken.id) && (
+                  <Button variant="dark" onClick={() => reportButton()}>
+                    <b>Report</b>
+                  </Button>
+                )}
+                {decToken && video[0].reportedBy.includes(decToken.id) && (
+                  <Button variant="dark" onClick={() => unReportButton()}>
+                    <b>Unreport</b>
+                  </Button>
+                )}
+              </div>
+              <div>
+                {readMore ? (
+                  <div style={{ backgroundColor: "rgba(0,0,0,0.4)" }}>
+                    <h6 >Description:</h6>
+                    <section dangerouslySetInnerHTML={{ __html: marked(video[0].short_description) }} />
+                  </div>
+                ) : null}
+              </div>
+            </div>
+          </Col>
+        </Row>
+      </Container>
+    </div>
   );
 };
 
