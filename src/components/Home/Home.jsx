@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef } from "react";
 import Previews from "./Previews";
-import Playlists from "./Playlists";
-import TemporaryPlaylist from "./TemporaryPlaylist";
+import PermanentPlaylistsSection from "./PermanentPlaylistsSection";
+import TemporaryPlaylistSection from "./TemporaryPlaylistSection";
 import LoadingSpinner from "../LoadingSpinner";
 import { UserContext } from "../../context/UserContext";
 import { VideoContext } from "../../context/VideoContext";
@@ -74,9 +74,9 @@ const Home = () => {
       </div>
       <div ref={scrollRef}>
         {decToken && decToken.id ?
-          <Playlists />
+          <PermanentPlaylistsSection />
           :
-          <TemporaryPlaylist />}
+          <TemporaryPlaylistSection />}
       </div>
     </div>
   );
