@@ -1,12 +1,12 @@
 import ReactPlayer from "react-player/lazy";
 import { Container, Col, Row, Button } from "react-bootstrap";
-import "../App.css";
+import "../../App.css";
 import { useState, useContext} from "react";
 import { AiOutlineHeart } from "react-icons/ai";
 import { AiTwotoneHeart } from "react-icons/ai";
-import api from "../api";
-import { UserContext } from "../context/UserContext";
-import { PlaylistContext } from "../context/PlaylistContext";
+import api from "../../api";
+import { UserContext } from "../../context/UserContext";
+import { PlaylistContext } from "../../context/PlaylistContext";
 import { useHistory } from "react-router";
 import marked from 'marked';
 

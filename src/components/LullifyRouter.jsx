@@ -1,9 +1,9 @@
 import { Switch, Route } from 'react-router-dom';
 import Home from './Home/Home'
-import Player from './Player'
+import Player from './Player/Player'
 import Login from './Login/Login'
-import SignUp from './SignUp'
-import Profile from './Profile'
+import SignUp from './SignUp/SignUp'
+import Profile from './Profile/Profile'
 import AdminPanel from './AdminPanel/AdminPanel'
 import CreatorPanel from './CreatorPanel/CreatorPanel'
 import About from './About/About'
