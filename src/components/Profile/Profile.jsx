@@ -1,9 +1,9 @@
 import { useState, useEffect, useContext } from "react"
 import { Card, Form, Button, InputGroup } from "react-bootstrap"
-import api from "../api";
+import api from "../../api";
 import { useHistory } from "react-router-dom";
 import { BiShow, BiHide } from "react-icons/bi";
-import { UserContext } from '../context/UserContext'
+import { UserContext } from '../../context/UserContext'
 
 const Profile = () => {
   const [editMode, setEditMode] = useState(false)

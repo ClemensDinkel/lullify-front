@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { BiShow } from "react-icons/bi";
 import { BiHide } from "react-icons/bi";
-import api from "../api";
+import api from "../../api";
 
 const SignUpCreator = () => {
   const [passwordShow, setPasswordShow] = useState(false);

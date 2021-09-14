@@ -1,14 +1,13 @@
-import { useContext, useState } from 'react'
-import '../App.css'
-import { VideoContext } from '../context/VideoContext'
+import { useContext, useState, useEffect } from 'react'
+import '../../App.css'
+import api from "../../api";
 import { Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { PlaylistContext } from '../context/PlaylistContext';
-import useBreakpoint from '../customHooks/useBreakpoint';
-import { useEffect } from 'react';
 import { MdPlaylistAdd } from "react-icons/md"
-import { UserContext } from '../context/UserContext';
-import api from "../api";
+import { PlaylistContext } from '../../context/PlaylistContext';
+import { UserContext } from '../../context/UserContext';
+import { VideoContext } from '../../context/VideoContext'
+import useBreakpoint from '../../customHooks/useBreakpoint';
 
 const Previews = () => {
   const { dTk } = useContext(UserContext);

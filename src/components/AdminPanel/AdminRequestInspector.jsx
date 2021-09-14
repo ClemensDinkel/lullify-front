@@ -1,6 +1,6 @@
 import { Button, Image } from "react-bootstrap"
-import api from "../api"
-import '../App.css'
+import api from "../../api"
+import '../../App.css'
 
 const AdminRequestInspector = ({ inspectData, inspectType, setInspecting }) => {
   const { _id, req_date, user_id } = inspectData

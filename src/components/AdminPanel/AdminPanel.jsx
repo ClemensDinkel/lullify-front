@@ -4,13 +4,13 @@ import AdminVideoList from './AdminVideoList'
 import AdminUserInspector from './AdminUserInspector'
 import AdminRequestInspector from './AdminRequestInspector'
 import AdminVideoInspector from './AdminVideoInspector'
-import '../App.css'
+import '../../App.css'
 import { useState, useContext, useEffect } from 'react'
-import { UserContext } from '../context/UserContext'
-import { QueryContext } from '../context/QueryContext'
-import { VideoContext } from '../context/VideoContext'
-import api from "../api"
-import LoadingSpinner from './LoadingSpinner'
+import { UserContext } from '../../context/UserContext'
+import { QueryContext } from '../../context/QueryContext'
+import { VideoContext } from '../../context/VideoContext'
+import api from "../../api"
+import LoadingSpinner from '../LoadingSpinner'
 
 const AdminPanel = () => {
   const { dTk } = useContext(UserContext)

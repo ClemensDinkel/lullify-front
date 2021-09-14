@@ -1,13 +1,13 @@
 import { useContext, useEffect, useRef } from "react";
 import Previews from "./Previews";
-import Playlists from "./Playlists";
-import LoadingSpinner from "./LoadingSpinner";
-import TemporaryPlaylist from "./TemporaryPlaylist";
-import { UserContext } from "../context/UserContext";
-import { VideoContext } from "../context/VideoContext";
-import { EscapeContext } from "../context/EscapeContext";
-import "../App.css";
-import api from "../api";
+import PermanentPlaylistsSection from "./PermanentPlaylistsSection";
+import TemporaryPlaylistSection from "./TemporaryPlaylistSection";
+import LoadingSpinner from "../LoadingSpinner";
+import { UserContext } from "../../context/UserContext";
+import { VideoContext } from "../../context/VideoContext";
+import { EscapeContext } from "../../context/EscapeContext";
+import "../../App.css";
+import api from "../../api";
 import { Button} from 'react-bootstrap'
 import { AiOutlineArrowDown } from 'react-icons/ai'
 
@@ -74,9 +74,9 @@ const Home = () => {
       </div>
       <div ref={scrollRef}>
         {decToken && decToken.id ?
-          <Playlists />
+          <PermanentPlaylistsSection />
           :
-          <TemporaryPlaylist />}
+          <TemporaryPlaylistSection />}
       </div>
     </div>
   );
